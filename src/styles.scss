@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/custom-theme/custom-bootstrap";
+@import "assets/custom-theme/custom-prime";
+
+:root {
+    
+}
+
+html {
+    font-size: 10px;
+    font-family: "Montserrat";
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding-top: 120px;
+}
+
+.req {
+    color: #9f2241;
+}

@@ -1,0 +1,126 @@
+<div class="container mb-4">
+    <div class="flex align-items-center">
+        <app-btn-regresar routerLink="../.."></app-btn-regresar>
+        <app-separador class="flex-grow-1" texto="Detalle tarjeta electrónica de combustible"></app-separador>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-12 flex justify-content-end">
+            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-tarjeta-electronica-de-combustible',2]">Editar</button>
+        </div>
+    </div>
+    <p-card>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-2">
+                <label class="control-label" for="id">ID:</label>
+                <input class="form-control" id="id" placeholder="XXXXXXXXXXX" type="text" disabled>
+            </div>
+            <div class="col-md-5">
+                <label class="control-label" for="numeroConvenio">Número de convenio<span class="req">*</span>:</label>
+                <input class="form-control" id="numeroConvenio" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-5">
+                <label class="control-label" for="nombreEmpresa">Nombre de la empresa<span class="req">*</span>:</label>
+                <input class="form-control" id="nombreEmpresa" placeholder="Ingresar" type="text" disabled>
+            </div>
+        </div>
+
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-2">
+                <label class="control-label" for="importeMensual">Importe mensual<span class="req">*</span>:</label>
+                <input class="form-control" id="importeMensual" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label block" for="fechaInicioConvenio">Fecha inicio de convenio<span
+                        class="req">*</span>:</label>
+                <p-calendar id="fechaInicioConvenio" styleClass="form-control" [showIcon]="true" [disabled]="true"
+                    placeholder="dd/mm/aaaa"></p-calendar>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="fechaFinConvenio">Fecha fin de convenio<span
+                        class="req">*</span>:</label>
+                <p-calendar id="fechaFinConvenio" styleClass="form-control" [showIcon]="true" placeholder="dd/mm/aaaa" [disabled]="true">
+                </p-calendar>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="litrosLimite">Litros límite de combustible al mes<span
+                        class="req">*</span>:</label>
+                <input class="form-control" id="litrosLimite" placeholder="Ingresar" type="text" disabled>
+            </div>
+        </div>
+
+        <hr class="separador-small">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Otorgamiento y administración de tarjetas
+                </h3>
+            </div>
+        </div>
+
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-6">
+                <label class="control-label" for="ooad">OOAD<span class="req">*</span>:</label>
+                <p-dropdown id="ooad" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
+                </p-dropdown>
+            </div>
+        </div>
+        <hr class="separador-small">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Rango de folios asignados a una OOAD
+                </h3>
+            </div>
+        </div>
+
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-3">
+                <label class="control-label" for="folioInicial">Folio inicial<span class="req">*</span>:</label>
+                <input class="form-control" id="folioInicial" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="folioFinal">Folio final<span class="req">*</span>:</label>
+                <input class="form-control" id="folioFinal" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="km">Kilómetros aprox recorridos<span class="req">*</span>:</label>
+                <input class="form-control" id="km" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
+                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
+                </p-dropdown>
+            </div>
+        </div>
+
+        <hr class="separador-small">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Incidente de tarjeta
+                </h3>
+            </div>
+        </div>
+
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-3">
+                <label class="control-label" for="numeroFolio">Número de folio<span class="req">*</span>:</label>
+                <input class="form-control" id="numeroFolio" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-9">
+                <label class="control-label" for="descFalla">Descripción de falla<span class="req">*</span>:</label>
+                <input class="form-control" id="descFalla" placeholder="Ingresar" type="text" disabled>
+            </div>
+        </div>
+    </p-card>
+    <div class="flex justify-content-between mt-4">
+        <span class="campos-obligatorios">*Campos obligatorios</span>
+        <div>
+            <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
+            <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
+        </div>
+    </div>
+
+</div>

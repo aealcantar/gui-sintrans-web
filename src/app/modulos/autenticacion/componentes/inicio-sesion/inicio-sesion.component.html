@@ -1,0 +1,23 @@
+<div class="inicio-sesion">
+    <p-card>
+        <h1>Iniciar Sesion</h1>
+        <div class="form-group">
+            <label class="control-label" for="matricula-01">Matrícula<span class="req">*</span>:</label>
+            <input class="form-control" id="matricula-01" placeholder="Ingresar matrícula" type="text">
+        </div>
+        <div class="form-group mb-0">
+            <label class="control-label" for="password-01">Contraseña<span class="req">*</span>:</label>
+            <div class="form-icon">
+                <input #input class="form-control" id="password-01" placeholder="Ingresar contraseña" type="password">
+                <i class="cursor-pointer icon pi pi-eye" (click)="input.type = input.type==='password'?'text':'password'"></i>
+            </div>
+        </div>
+        <div class="mt-2">
+            <span class="req">* Campos obligatorios:</span>
+        </div>
+        <div class="flex justify-content-between align-items-center mt-8">
+            <a class="no-underline" routerLink="recuperar-contrasena">¿Olvidaste tu contraseña?</a>
+            <button class="btn btn-primary" (click)="iniciarSesion()">Ingresar</button>
+        </div>
+    </p-card>
+</div>

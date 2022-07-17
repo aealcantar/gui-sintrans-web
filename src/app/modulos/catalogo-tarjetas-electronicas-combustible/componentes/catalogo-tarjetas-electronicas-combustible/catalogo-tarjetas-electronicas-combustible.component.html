@@ -1,0 +1,88 @@
+<div class="container mb-4">
+    <app-separador texto="Catálogo de tarjetas electrónicas de combustible"></app-separador>
+    <div class="row flex align-items-end">
+        <div class="col-md-3">
+            <label class="control-label" for="numeroConvenio">Número de convenio<span class="req">*</span>:</label>
+            <input class="form-control" id="numeroConvenio" placeholder="Ingresar" type="text">
+        </div>
+        <div class="col-md-9">
+            <button class="btn btn-primary">Buscar</button>
+            <button class="ml-5 btn btn-default">Limpiar</button>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <span class="campos-obligatorios">*Campos obligatorios</span>
+        </div>
+        <div class="col-md-6 flex justify-content-end">
+            <button class="btn-icon btn btn-primary" routerLink="alta-de-tarjeta-electronica-de-combustible"><i class="icon-circulo-mas"></i>Alta de
+                tarjeta</button>
+        </div>
+    </div>
+    <div class="row -mx-6">
+        <div class="col-md-12">
+            <p-card>
+                <p-table [value]="unidades" [paginator]="true" [rows]="10">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="id">ID <p-sortIcon field="id">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="numeroConvenio">Número de convenio <p-sortIcon field="numeroConvenio">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="ooad">OOAD <p-sortIcon field="ooad"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="rangoFolioInicial">Rango de folios inicial <p-sortIcon
+                                    field="rangoFolioInicial"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="rangoFolioFinal">Rango de folios final <p-sortIcon
+                                    field="rangoFolioFinal">
+                                </p-sortIcon>
+                            </th>
+                            <th class="text-center">Acciones
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-catalogo>
+                        <tr>
+                            <td><a class="link" [routerLink]="['detalle-tarjeta-electronica-de-combustible',catalogo.id]">{{catalogo.id}}</a></td>
+                            <td>{{catalogo.numeroConvenio}}</td>
+                            <td>{{catalogo.ooad}}</td>
+                            <td>{{catalogo.rangoFolioInicial}}</td>
+                            <td>{{catalogo.rangoFolioFinal}}</td>
+                            <td class="flex justify-content-center">
+                                <i [routerLink]="['editar-tarjeta-electronica-de-combustible',catalogo.id]" class="icon-editar cursor-pointer"></i>
+                                <i class="icon-eliminar cursor-pointer" (click)="mostrarModal = true;"></i>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="paginatorright" let-state>
+                        <div class="paginator-template">
+                            <label>Página</label><input type="text" [value]="state.page + 1" disabled>
+                        </div>
+                    </ng-template>
+                </p-table>
+            </p-card>
+        </div>
+    </div>
+</div>
+
+<p-dialog styleClass="modal-eliminar" [(visible)]="mostrarModal" [modal]="true" [style]="{width: '480px'}"
+    [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="content">
+        <div class="flex flex-column align-items-center">
+            <i class="icon-alerta"></i>
+            <span>El registro de la tarjeta será eliminado.</span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="text-center">
+            <label>¿Deseas continuar?</label>
+        </div>
+        <div class="flex justify-content-center">
+            <button class="btn btn-default btn-lg" (click)="mostrarModal=false">Cancelar</button>
+            <button class="btn btn-primary ml-4 btn-lg" (click)="mostrarModal=false">Aceptar</button>
+        </div>
+    </ng-template>
+</p-dialog>

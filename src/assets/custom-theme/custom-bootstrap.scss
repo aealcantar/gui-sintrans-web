@@ -6,6 +6,67 @@
     color: #7f7f7f;
 }
 
+.campos-obligatorios {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 12px;
+    color: #9f2241;
+}
+
+.control-label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.form-control {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #7f7f7f;
+}
+
+.form-radio {
+    height: 39px;
+    display: flex;
+    align-items: center;
+    label {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #323433;
+        input {
+            margin: 0;
+            margin-right: 5px;
+        }
+        & + label {
+            margin-left: 20px;
+        }
+    }
+}
+
+.form-icon {
+    position: relative;
+    .form-control {
+        padding-right: 30px;
+    }
+    .icon {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(-25%, -50%);
+        font-size: 26px;
+    }
+}
+
 .btn {
     font-style: normal;
     font-weight: 400;
@@ -13,4 +74,27 @@
     line-height: 17px;
     padding-top: 9px;
     padding-bottom: 9px;
+}
+
+.btn-gold {
+    border: 2px solid #b38e5d;
+    box-shadow: 0 0 0 0 #b38e5d;
+    background-color: transparent;
+    color: #b38e5d;
+    &:hover {
+        color: #fff;
+        background-color: #b38e5d;
+        border-color: #b38e5d;
+    }
+}
+
+.btn-gold[disabled] {
+    color: #fff;
+    background-color: #b38e5d;
+    border-color: #b38e5d;
+}
+
+.btn-lg {
+    min-width: 170px;
+    padding: 9px 25px;
 }

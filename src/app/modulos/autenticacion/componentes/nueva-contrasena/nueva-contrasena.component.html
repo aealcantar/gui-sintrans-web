@@ -1,0 +1,25 @@
+<div class="nueva-contrasena">
+    <p-card>
+        <h1>Nueva contraseña</h1>
+        <div class="form-group">
+            <label class="control-label" for="nueva-contrasena-01">Nueva contraseña<span class="req">*</span>:</label>
+            <div class="form-icon">
+                <input #inputNueva class="form-control" id="nueva-contrasena-01" placeholder="Ingresar" type="password">
+                <i class="cursor-pointer icon pi pi-eye" (click)="inputNueva.type = inputNueva.type==='password'?'text':'password'"></i>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <label class="control-label" for="confirmar-contrasena-01">Confirmar contraseña<span class="req">*</span>:</label>
+            <div class="form-icon">
+                <input #inputConfirmar class="form-control" id="confirmar-contrasena-01" placeholder="Ingresar" type="password">
+                <i class="cursor-pointer icon pi pi-eye" (click)="inputConfirmar.type = inputConfirmar.type==='password'?'text':'password'"></i>
+            </div>
+        </div>
+        <div class="mt-2">
+            <span class="req">* Campos obligatorios:</span>
+        </div>
+        <div class="flex justify-content-end align-items-center mt-8">
+            <button class="btn btn-primary">Actualizar</button>
+        </div>
+    </p-card>
+</div>

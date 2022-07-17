@@ -1,0 +1,113 @@
+<div class="container mb-4">
+    <div class="flex align-items-center">
+        <app-btn-regresar  routerLink="../"></app-btn-regresar>
+        <app-separador class="flex-grow-1" texto="Alta de unidad"></app-separador>
+    </div>
+
+    <p-card>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Datos de la unidad
+                </h3>
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-6">
+                <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
+                <p-dropdown id="ooad" class="form-control" [options]="ooad" placeholder="Seleccionar"></p-dropdown>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
+                <input class="form-control" id="nombreUnidad" placeholder="Ingresar" type="text">
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-4">
+                <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
+                <p-dropdown id="tipoUnidad" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                </p-dropdown>
+            </div>
+            <div class="col-md-8">
+                <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span
+                        class="req">*</span>:</label>
+                <div class="form-radio">
+                    <label>
+                        <input type="radio" name="radio-01" value="opcion-02" checked="checked"> Sí
+                    </label>
+                    <label>
+                        <input type="radio" name="radio-01" value="opcion-03" checked="checked"> No
+                    </label>
+                </div>
+            </div>
+        </div>
+        <hr class="separador-small">
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-4">
+                <label class="control-label" for="unInf">UN INF<span class="req">*</span>:</label>
+                <input class="form-control" id="unInf" placeholder="Ingresar" type="text">
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="unOpe">UN OPE<span class="req">*</span>:</label>
+                <input class="form-control" id="unOpe" placeholder="Ingresar" type="text">
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="cc">CC<span class="req">*</span>:</label>
+                <input class="form-control" id="cc" placeholder="Ingresar" type="text">
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-4">
+                <label class="control-label" for="cu">CU<span class="req">*</span>:</label>
+                <input class="form-control" id="cu" placeholder="Ingresar" type="text">
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="div">DIV<span class="req">*</span>:</label>
+                <input class="form-control" id="div" placeholder="Ingresar" type="text">
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="SDIV">SDIV<span class="req">*</span>:</label>
+                <input class="form-control" id="SDIV" placeholder="Ingresar" type="text">
+            </div>
+        </div>
+        <hr class="separador-small">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Dirección
+                </h3>
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-4">
+                <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
+                <div class="flex">
+                    <input class="form-control" id="codigoPostal" placeholder="Ingresar CP" type="text">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-4">
+                <label class="control-label" for="entidad">Entidad:</label>
+                <input class="form-control" id="entidad" placeholder="XXXXXXXXXXX" type="text" disabled>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="municipio">Municipio:</label>
+                <input class="form-control" id="municipio" placeholder="XXXXXXXXXXX" type="text" disabled>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
+                <input class="form-control" id="colonia" placeholder="Ingresar" type="text">
+            </div>
+        </div>
+    </p-card>
+    <div class="flex justify-content-between mt-4">
+        <span class="campos-obligatorios">*Campos obligatorios</span>
+        <div>
+            <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
+            <button class="btn btn-primary btn-lg ml-4">Guardar</button>
+        </div>
+    </div>
+
+</div>

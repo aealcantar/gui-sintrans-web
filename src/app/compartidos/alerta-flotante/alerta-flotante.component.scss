@@ -1,0 +1,37 @@
+.alerta-flotante {
+    padding: 10px 90px;
+    &-mensaje {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        margin-bottom: 0;
+    }
+}
+
+:host-context(.p-toast-message-success) {
+    .alerta-flotante-mensaje {
+        color: #3C763D;
+    }
+}
+
+:host-context(.p-toast-message-info) {
+    .alerta-flotante-mensaje {
+        color: #31708F;
+    }
+}
+
+:host-context(.p-toast-message-warn) {
+    .alerta-flotante-mensaje {
+        color: #8B6C42;
+    }
+}
+
+:host-context(.p-toast-message-error) {
+    .alerta-flotante-mensaje {
+        color: #666666;
+    }
+}
+
+
+

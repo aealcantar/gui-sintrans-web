@@ -1,0 +1,55 @@
+.recuperar-contrasena {
+    height: 100%;
+    display: grid;
+    max-width: 530px;
+    align-items: center;
+    margin: auto;
+
+    &-header {
+        display: inline-flex;
+        margin-bottom: 29px;
+        align-items: center;
+        text-decoration: none;
+
+        a {
+            display: inline-block;
+            margin-left: 10px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            color: #8c9196;
+            text-decoration: none;
+        }
+    }
+
+    h1 {
+        margin: 0;
+        margin-bottom: 27px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 27px;
+    }
+
+    p {
+        margin-top: 27px;
+        margin-bottom: 30px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        color: #222222;
+    }
+
+    label {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    button {
+        width: 170px;
+    }
+}

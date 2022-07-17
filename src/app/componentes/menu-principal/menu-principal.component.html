@@ -1,0 +1,92 @@
+<nav class="menu" #menu>
+    <a class="menu-logo"><img src="assets/imagenes/sintrans-logo.png" alt="logo"></a>
+    <ul class="menu-items">
+        <ng-container *ngFor="let elemento of elementos; let first = first">
+            <li class="menu-item" [class.active]="elemento == opcionSeleccionada" *ngIf="first"
+                (click)="opcionSeleccionada = elemento;" [routerLink]="[elemento.ruta]" routerLinkActive="active">
+                <img class="menu-item-icon" src="assets/imagenes/{{elemento.icono}}.svg">
+                <a class="menu-item-text">{{elemento.etiqueta}}</a>
+                <span class="menu-item-border"></span>
+            </li>
+            <li class="menu-item" [class.active]="elemento == opcionSeleccionada"
+                (click)="abrirOverlay($event,elemento)" *ngIf="!first">
+                <img class="menu-item-icon" src="assets/imagenes/{{elemento.icono}}.svg">
+                <a class="menu-item-text">{{elemento.etiqueta}}</a>
+                <span class="menu-item-border"></span>
+            </li>
+        </ng-container>
+    </ul>
+    <div class="menu-user-info" #userInfo>
+        <div class="user-image">
+            <img src="/assets/imagenes/user.svg" alt="Imagen usuario">
+        </div>
+        <div class="user-info">
+            <span class="user-name">Gina Aguilar</span>
+            <span class="user-number">123456789</span>
+        </div>
+
+        <div class="user-action cursor-pointer" (click)="mostrarOverlayUsuario = !mostrarOverlayUsuario">
+            <span class="icon-chevron-down" ></span>
+        </div>
+        <div class="user-overlay" *ngIf="mostrarOverlayUsuario">
+            <div class="user-overlay-data">
+                <div class="user-overlay-role1">Jefe de Servicios Generales</div>
+                <div class="user-overlay-role2">UMAE</div>
+            </div>
+            <div class="user-overlay-logout">
+                <div class="icon">
+                    <i class="pi pi-power-off"></i>
+                </div>
+
+                <span>Cerrar Sesión</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<p-overlayPanel #op [appendTo]="menu">
+    <ng-template pTemplate>
+        <nav class="menu-options">
+            <ul class="menu-option-container">
+                <ng-container *ngIf="columna1.length > 0">
+                    <li class="menu-option-item" *ngFor="let elemento of columna1" (click)="navegar(elemento.ruta)"
+                        routerLinkActive="active">
+                        <a class="menu-option-link" [class.is-title]="elemento.esTitulo">
+                            {{elemento.etiqueta}}
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="menu-option-container">
+                <ng-container *ngIf="columna2.length > 0">
+                    <li class="menu-option-item" *ngFor="let elemento of columna2" (click)="navegar(elemento.ruta)"
+                        routerLinkActive="active">
+                        <a class="menu-option-link" [class.is-title]="elemento.esTitulo">
+                            {{elemento.etiqueta}}
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="menu-option-container">
+                <ng-container *ngIf="columna3.length > 0">
+                    <li class="menu-option-item" *ngFor="let elemento of columna3" (click)="navegar(elemento.ruta)"
+                        routerLinkActive="active">
+                        <a class="menu-option-link" [class.is-title]="elemento.esTitulo">
+                            {{elemento.etiqueta}}
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="menu-option-container">
+                <ng-container *ngIf="columna4.length > 0">
+                    <li class="menu-option-item" *ngFor="let elemento of columna4" (click)="navegar(elemento.ruta)"
+                        routerLinkActive="active">
+                        <a class="menu-option-link" [class.is-title]="elemento.esTitulo">
+                            {{elemento.etiqueta}}
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+        </nav>
+    </ng-template>
+</p-overlayPanel>

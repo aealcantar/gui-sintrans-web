@@ -1,0 +1,12 @@
+.inicio{
+    margin: 100px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+}
+.image-wrapper{
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+}

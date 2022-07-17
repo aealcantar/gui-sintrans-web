@@ -1,4 +1,11 @@
 <app-header-imss-publico></app-header-imss-publico>
-<div class="content">
+<app-menu-principal></app-menu-principal>
+<main>
     <router-outlet></router-outlet>
-</div>
+</main>
+<app-cargador [activarCargadorEnRutas]="true"></app-cargador>
+<p-toast>
+    <ng-template let-message pTemplate="message">
+        <app-alerta-flotante [mensaje]="message.detail"></app-alerta-flotante>
+    </ng-template>
+</p-toast>

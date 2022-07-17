@@ -1,0 +1,86 @@
+<div class="container mb-4">
+    <div class="flex align-items-center">
+        <app-btn-regresar  routerLink="../.."></app-btn-regresar>
+        <app-separador class="flex-grow-1" texto="Detalle del usuario SIT"></app-separador>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-12 flex justify-content-end">
+            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-usuario-sit',2]">Editar</button>
+        </div>
+    </div>
+
+    <p-card>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Datos personales
+                </h3>
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-6">
+                <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
+                <input class="form-control" id="matricula" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label" for="nombre">Nombre<span class="req">*</span>:</label>
+                <input class="form-control" id="nombre" placeholder="Ingresar" type="text" disabled>
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-6">
+                <label class="control-label" for="app">Apellido paterno<span class="req">*</span>:</label>
+                <input class="form-control" id="app" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label" for="apm">Apellido materno<span class="req">*</span>:</label>
+                <input class="form-control" id="apm" placeholder="Ingresar" type="text" disabled>
+            </div>
+        </div>
+        <hr class="separador-small">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="subtitulo">
+                    Datos administrativos
+                </h3>
+            </div>
+        </div>
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-6">
+                <label class="control-label" for="ooad">OOAD o Delegación<span class="req">*</span>:</label>
+                <input class="form-control" id="ooad" placeholder="Ingresar" type="text" disabled>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label" for="unidadAdscripcion">Unidad de adscripción<span class="req">*</span>:</label>
+                <p-dropdown id="unidadAdscripcion" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true"></p-dropdown>
+            </div>
+        </div>
+        
+        <div class="row flex align-items-end mb-4">
+            <div class="col-md-3">
+                <label class="control-label" for="rol">Rol<span class="req">*</span>:</label>
+                <p-dropdown id="rol" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true"></p-dropdown>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
+                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true"></p-dropdown>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
+                <p-dropdown id="motivo" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true"></p-dropdown>
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="password">Password<span class="req">*</span>:</label>
+                <input class="form-control" id="password" placeholder="Ingresar" type="password" disabled>
+            </div>
+        </div>
+    </p-card>
+    <div class="flex justify-content-between mt-4">
+        <span class="campos-obligatorios">*Campos obligatorios</span>
+        <div>
+            <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
+            <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
+        </div>
+    </div>
+
+</div>

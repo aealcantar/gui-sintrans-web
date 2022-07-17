@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng-lts/api';
 
 @Component({
@@ -7,10 +8,14 @@ import { PrimeNGConfig } from 'primeng-lts/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private primengConfig: PrimeNGConfig, private router: Router) { }
 
   ngOnInit() {
-      this.primengConfig.ripple = true;
+    this.primengConfig.ripple = true;
+  }
+
+  navegar(ruta: string) {
+    this.router.navigate([ruta]);
   }
 
 }

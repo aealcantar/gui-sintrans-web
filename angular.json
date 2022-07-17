@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -35,9 +38,12 @@
               "node_modules/primeng-lts/resources/primeng.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",
+              "src/assets/icons/iconos-transportes.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ]
           },
           "configurations": {
             "production": {

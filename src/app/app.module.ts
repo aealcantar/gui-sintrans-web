@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { ToastModule } from 'primeng-lts/toast';
 
@@ -16,7 +16,13 @@ import { MenuPrincipalComponent } from './componentes/menu-principal/menu-princi
 import { CargadorModule } from './compartidos/cargador/cargador.module';
 import { CargadorService } from './compartidos/cargador/cargador.service';
 import { OverlayPanelModule } from 'primeng-lts/overlaypanel';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json')
+}
 
 @NgModule({
   declarations: [
@@ -27,6 +33,14 @@ import { OverlayPanelModule } from 'primeng-lts/overlaypanel';
   ],
   imports: [
     BrowserModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'es',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

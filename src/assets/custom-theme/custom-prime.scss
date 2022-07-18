@@ -112,6 +112,10 @@
 .form-control.p-calendar {
     position: relative;
 
+    .p-datepicker table td > span.p-highlight{
+        background: #9d2449;
+    }
+
     .p-datepicker-calendar {
         th {
             text-align: center;

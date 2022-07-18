@@ -98,3 +98,20 @@
     min-width: 170px;
     padding: 9px 25px;
 }
+
+.btn-small{
+    padding:9px 8px;
+    width: 70px;
+}
+
+.btn-small.btn-primary{
+    border: 1px solid #9F2241;
+}
+
+.btn-small.btn-default{
+    border: 1px solid #6F7271;
+}
+
+.btn-small.btn-gold{
+    border: 1px solid #b38e5d;
+}

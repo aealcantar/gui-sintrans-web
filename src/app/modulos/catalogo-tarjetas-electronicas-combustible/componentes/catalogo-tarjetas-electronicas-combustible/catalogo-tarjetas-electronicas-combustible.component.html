@@ -6,8 +6,8 @@
             <input class="form-control" id="numeroConvenio" placeholder="Ingresar" type="text">
         </div>
         <div class="col-md-9">
-            <button class="btn btn-primary">Buscar</button>
-            <button class="ml-5 btn btn-default">Limpiar</button>
+            <button class="btn btn-primary btn-small">Buscar</button>
+            <button class="ml-7 btn btn-default btn-small">Limpiar</button>
         </div>
     </div>
     <div class="row mb-4">
@@ -15,7 +15,8 @@
             <span class="campos-obligatorios">*Campos obligatorios</span>
         </div>
         <div class="col-md-6 flex justify-content-end">
-            <button class="btn-icon btn btn-primary" routerLink="alta-de-tarjeta-electronica-de-combustible"><i class="icon-circulo-mas"></i>Alta de
+            <button class="btn-icon btn btn-primary" routerLink="alta-de-tarjeta-electronica-de-combustible"><i
+                    class="icon-circulo-mas"></i>Alta de
                 tarjeta</button>
         </div>
     </div>
@@ -46,13 +47,16 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-catalogo>
                         <tr>
-                            <td><a class="link" [routerLink]="['detalle-tarjeta-electronica-de-combustible',catalogo.id]">{{catalogo.id}}</a></td>
+                            <td><a class="link"
+                                    [routerLink]="['detalle-tarjeta-electronica-de-combustible',catalogo.id]">{{catalogo.id}}</a>
+                            </td>
                             <td>{{catalogo.numeroConvenio}}</td>
                             <td>{{catalogo.ooad}}</td>
                             <td>{{catalogo.rangoFolioInicial}}</td>
                             <td>{{catalogo.rangoFolioFinal}}</td>
                             <td class="flex justify-content-center">
-                                <i [routerLink]="['editar-tarjeta-electronica-de-combustible',catalogo.id]" class="icon-editar cursor-pointer"></i>
+                                <i [routerLink]="['editar-tarjeta-electronica-de-combustible',catalogo.id]"
+                                    class="icon-editar cursor-pointer"></i>
                                 <i class="icon-eliminar cursor-pointer" (click)="mostrarModal = true;"></i>
                             </td>
                         </tr>

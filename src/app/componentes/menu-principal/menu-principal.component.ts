@@ -266,8 +266,8 @@ export class MenuPrincipalComponent implements OnInit {
       ]
     },
     {
-      etiqueta: 'Reportes y estadísticas',
-      icono: 'icono-reportes-formatos',
+      etiqueta: 'CENTRACOM',
+      icono: 'icono-centracom',
       ruta:'',
       columna1: [
         {

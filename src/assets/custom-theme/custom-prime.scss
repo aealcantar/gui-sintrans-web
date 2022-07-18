@@ -278,12 +278,16 @@ p-dropdown.p-inputwrapper[ng-reflect-disabled="true"] {
 .p-paginator .p-paginator-last {
     display: none;
 }
+.p-paginator-pages {
+    display: flex;
+}
 
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     background: #9d2449;
     border-radius: 50%;
     border: none;
-    transform: scale(1.2);
+    transform: scale(1.4);
+    font-size: 12px;
 }
 
 .p-paginator-bottom.p-component {
@@ -305,7 +309,7 @@ p-dropdown.p-inputwrapper[ng-reflect-disabled="true"] {
     line-height: 22px;
     text-align: center;
     color: #545454;
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .p-paginator-prev.p-disabled,

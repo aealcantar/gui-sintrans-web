@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '', component: CatalogoUnidadesComponent,
     resolve: {
-      //catUnidades: ListaCatalogoUnidadesResolver Se descomentan cuando esten los servicios
+      respuesta: ListaCatalogoUnidadesResolver
     }
   },
   { path: 'alta-de-unidad', component: AltaUnidadComponent },

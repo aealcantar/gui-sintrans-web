@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CatalogoUnidad } from 'src/app/modelos/catalogo-unidad.interface';
+import { Unidad } from 'src/app/modelos/unidad.interface';
 
 @Component({
   selector: 'app-detalle-unidad',
@@ -8,7 +8,7 @@ import { CatalogoUnidad } from 'src/app/modelos/catalogo-unidad.interface';
   styleUrls: ['./detalle-unidad.component.scss']
 })
 export class DetalleUnidadComponent implements OnInit {
-  catUnidad!: CatalogoUnidad;
+  catUnidad!: Unidad;
   ooad: any = [
     {
       label: 'Valor 1', value: 1

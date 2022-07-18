@@ -1,6 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CatalogoUnidad } from 'src/app/modelos/catalogo-unidad.interface';
+import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { Unidad } from 'src/app/modelos/unidad.interface';
+import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
+import { CatalogoUnidadesService } from '../../servicios/catalogo-unidades.service';
 
 @Component({
   selector: 'app-catalogo-unidades',
@@ -9,156 +14,116 @@ import { CatalogoUnidad } from 'src/app/modelos/catalogo-unidad.interface';
 })
 export class CatalogoUnidadesComponent implements OnInit {
 
-  catUnidades: CatalogoUnidad[] = [];
+  inicioPagina: number = 0;
+  respuesta!: HttpRespuesta<any> | null;
+  catUnidades: Unidad[] = [];
+  ecco: string = "";
+  ooad: string = "";
 
   mostrarModal: boolean = false;
+  unidadSeleccionada: Unidad | null = null;
 
-  unidadesDummy: any[] = [
-    {
-      id: 1,
-      nombreUnidad: 'Nombre de Unidad 1',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 2,
-      nombreUnidad: 'Nombre de Unidad 2',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: false
-    },
-    {
-      id: 3,
-      nombreUnidad: 'Nombre de Unidad 3',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 4,
-      nombreUnidad: 'Nombre de Unidad 4',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 5,
-      nombreUnidad: 'Nombre de Unidad 5',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: false
-    },
-    {
-      id: 6,
-      nombreUnidad: 'Nombre de Unidad 6',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: false
-    },
-    {
-      id: 7,
-      nombreUnidad: 'Nombre de Unidad 7',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 8,
-      nombreUnidad: 'Nombre de Unidad 8',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 9,
-      nombreUnidad: 'Nombre de Unidad 9',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 10,
-      nombreUnidad: 'Nombre de Unidad 10',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 11,
-      nombreUnidad: 'Nombre de Unidad 11',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 12,
-      nombreUnidad: 'Nombre de Unidad 12',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 13,
-      nombreUnidad: 'Nombre de Unidad 13',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 14,
-      nombreUnidad: 'Nombre de Unidad 14',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 15,
-      nombreUnidad: 'Nombre de Unidad 15',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 16,
-      nombreUnidad: 'Nombre de Unidad 16',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 17,
-      nombreUnidad: 'Nombre de Unidad 17',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 18,
-      nombreUnidad: 'Nombre de Unidad 18',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 19,
-      nombreUnidad: 'Nombre de Unidad 19',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    },
-    {
-      id: 20,
-      nombreUnidad: 'Nombre de Unidad 20',
-      ooad: 'OOAD',
-      tipoUnidad: 'Tipo de unidad',
-      unidadPercnota: true
-    }
-  ];
-  constructor(private route:ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private unidadService: CatalogoUnidadesService,
+    private alertaService: AlertasFlotantesService
+  ) { }
 
   ngOnInit(): void {
-    this.catUnidades = this.route.snapshot.data["catUnidades"];
+    this.respuesta = this.route.snapshot.data["respuesta"];
+    this.catUnidades = this.respuesta!.datos.content;
+  }
+
+  limpiar(): void {
+    this.ecco = "";
+    this.ooad = "";
+    this.inicioPagina = 0;
+    this.unidadService.buscarPorPagina(0, 10).subscribe(
+      (respuesta) => {
+        this.catUnidades = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.catUnidades = this.respuesta!.datos.content;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.alertaService.mostrar('error', error.message);
+      }
+    );
+  }
+
+  buscar(): void {
+    this.unidadService.buscarPorFiltros(0, 10, this.ecco, this.ooad).subscribe(
+      (respuesta) => {
+        this.catUnidades = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.catUnidades = this.respuesta!.datos.content;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.alertaService.mostrar('error', error.message);
+      }
+    );
+  }
+
+  mostrarModalEliminar(unidad: Unidad): void {
+    this.unidadSeleccionada = unidad;
+    this.mostrarModal = true;
+  }
+
+  eliminar(): void {
+    this.unidadService.eliminar(this.unidadSeleccionada?.idUnidad).subscribe(
+      (respuesa) => {
+        if (respuesa.codigo === 200) {
+          let indiceUnidad = this.catUnidades.findIndex((u) => u.idUnidad === this.unidadSeleccionada?.idUnidad);
+          this.catUnidades.splice(indiceUnidad, 1);
+          this.unidadSeleccionada = null;
+          this.mostrarModal = false;
+          this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.alertaService.mostrar('error', error.message);
+        this.mostrarModal = false;
+      }
+    )
+  }
+
+  paginador(event: any): void {
+    let inicio = event.first;
+    let pagina = Math.floor(inicio / 10);
+    let tamanio = event.rows;
+    this.unidadService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.catUnidades = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.catUnidades = this.respuesta!.datos.content;
+        this.ordenar(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
+  ordenar(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+        return 1;
+      }
+      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+        return -1;
+      }
+      return 0;
+    };
+    if (event.sortOrder === 1) {
+      this.catUnidades = this.catUnidades.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.catUnidades = this.catUnidades.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
   }
 
 }

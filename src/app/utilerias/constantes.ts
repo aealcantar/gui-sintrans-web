@@ -1,0 +1,1 @@
+export const REGISTRO_ELIMINADO = "El registro ha sido eliminado exitosamente";

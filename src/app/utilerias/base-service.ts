@@ -25,6 +25,10 @@ export abstract class BaseService<T, ID> implements OperacionesComunes<T, ID> {
         return this._http.get<T[]>(this._base)
     }
 
+    buscarPorPagina(pagina: number, tamanio: number): Observable<T> {
+        return this._http.get<T>(this._base + `?pagina=${pagina}&tamanio=${tamanio}`)
+    }
+
     eliminar(id: ID): Observable<T> {
         return this._http.delete<T>(this._base + '/' + id);
     }

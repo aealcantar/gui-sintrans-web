@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: {
-    baseUrl: 'http://localhost:8080/api'
+    mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/v1/unidades'
   }
 };
 

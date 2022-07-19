@@ -1,5 +1,5 @@
 <div class="container mb-4">
-    <app-separador texto="Vehículos propios"></app-separador>
+    <app-separador texto="Vehículos arrendados"></app-separador>
     <div class="row flex align-items-end">
         <div class="col-md-3">
             <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
@@ -10,8 +10,8 @@
             <button class="ml-6 btn btn-default btn-small">Limpiar</button>
         </div>
         <div class="col-md-5 flex justify-content-end">
-            <button class="btn-icon btn btn-primary" routerLink="alta-de-vehiculo-propio"><i
-                    class="icon-circulo-mas"></i>Alta de vehículo propio</button>
+            <button class="btn-icon btn btn-primary" routerLink="alta-de-vehiculo-arrendado"><i
+                    class="icon-circulo-mas"></i>Alta de vehículo</button>
         </div>
     </div>
     <div class="row mb-4">
@@ -39,6 +39,9 @@
                             <th pSortableColumn="tipoServicio">Tipo de servicio <p-sortIcon field="tipoServicio">
                                 </p-sortIcon>
                             </th>
+                            <th pSortableColumn="arrendadora">Arrendadora <p-sortIcon field="arrendadora">
+                                </p-sortIcon>
+                            </th>
                             <th pSortableColumn="estatus">Estatus <p-sortIcon field="estatus">
                                 </p-sortIcon>
                             </th>
@@ -49,15 +52,16 @@
                     <ng-template pTemplate="body" let-vehiculo>
                         <tr>
                             <td><a class="link"
-                                    [routerLink]="['detalle-de-vehiculo-propio',vehiculo.id]">{{vehiculo.ecco}}</a>
+                                    [routerLink]="['detalle-de-vehiculo-arrendado',vehiculo.id]">{{vehiculo.ecco}}</a>
                             </td>
                             <td>{{vehiculo.noTarjeton}}</td>
                             <td>{{vehiculo.marca}}</td>
                             <td>{{vehiculo.modelo}}</td>
                             <td>{{vehiculo.tipoServicio}}</td>
+                            <td>{{vehiculo.arrendadora}}</td>
                             <td>{{vehiculo.estatus}}</td>
                             <td class="flex justify-content-center">
-                                <i [routerLink]="['editar-vehiculo-propio',vehiculo.id]"
+                                <i [routerLink]="['editar-vehiculo-arrendado',vehiculo.id]"
                                     class="icon-editar cursor-pointer"></i>
                                 <i class="icon-eliminar cursor-pointer" (click)="mostrarModal = true;"></i>
                             </td>
@@ -79,7 +83,7 @@
     <ng-template pTemplate="content">
         <div class="flex flex-column align-items-center">
             <i class="icon-alerta"></i>
-            <span>El registro del vehículo propio será eliminado.</span>
+            <span>El registro del vehículo arrendado será eliminado.</span>
         </div>
     </ng-template>
     <ng-template pTemplate="footer">

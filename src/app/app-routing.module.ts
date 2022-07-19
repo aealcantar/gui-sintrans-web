@@ -37,6 +37,10 @@ const routes: Routes = [
     loadChildren: () => import('./modulos/vehiculos-propios/vehiculos-propios.module').then(m => m.VehiculosPropiosModule)
   },
   {
+    path: 'vehiculos-arrendados',
+    loadChildren: () => import('./modulos/vehiculos-arrendados/vehiculos-arrendados.module').then(m => m.VehiculosArrendadosModule)
+  },
+  {
     path: 'pagina-no-encontrada',
     component: PaginaNoEncontradaComponent
   },

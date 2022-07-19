@@ -27,7 +27,6 @@ export class CargadorComponent implements OnInit {
             event instanceof NavigationStart ||
             event instanceof RouteConfigLoadStart
           ) {
-            console.log('entre');
             this.cargadorService.activar();
           } else if (
             event instanceof NavigationEnd ||

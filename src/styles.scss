@@ -42,12 +42,11 @@ hr.separador-small {
 }
 
 .modal-eliminar {
-
-    .p-dialog-header-icon{
+    .p-dialog-header-icon {
         transform: translate(-75%, 75%) scale(2);
     }
 
-    .pi{
+    .pi {
         font-family: "icomoon" !important;
         speak: never;
         font-style: normal;
@@ -66,7 +65,7 @@ hr.separador-small {
             color: #cccccc;
         }
     }
- 
+
     &[role="dialog"].p-dialog {
         border: none;
         box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.16);
@@ -74,13 +73,13 @@ hr.separador-small {
     }
     font-family: "Montserrat";
 
-    .p-dialog-header{
-        border:none;
-        padding:0;
+    .p-dialog-header {
+        border: none;
+        padding: 0;
     }
     .p-dialog-content {
-        [class^="icon-"]{
-            color: #FF4450;
+        [class^="icon-"] {
+            color: #ff4450;
             font-size: 26px;
             margin-bottom: 10px;
         }
@@ -104,6 +103,67 @@ hr.separador-small {
             font-weight: 500;
             font-size: 14px;
             line-height: 17px;
+        }
+    }
+}
+
+.archivos {
+    padding: 0;
+    margin: -12px 0px;
+    list-style: none;
+    .archivo {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding: 0 15px;
+        margin: 5px 0;
+        &-nombre {
+            font-family: "Montserrat";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #4d92df;
+            text-decoration: none;
+        }
+        &-descargar {
+            cursor: pointer;
+            margin-left: 30px;
+            background: #ffffff;
+            color: #9f2241;
+            border: 2px solid #9d2449;
+            border-radius: 4px;
+            text-decoration: none;
+            padding: 4px;
+            font-family: "Montserrat";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 23px;
+            display: flex;
+            align-items: center;
+            width: 154px;
+            margin-right: 15px;
+            i {
+                margin: 0 7px 0 4px;
+            }
+        }
+        &-eliminar {
+            cursor: pointer;
+            text-decoration: none;
+            background-color: transparent;
+            border: 2px solid #b38e5d;
+            color: #b38e5d;
+            padding: 0;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            line-height: 21px;
+            margin-left: auto;
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }

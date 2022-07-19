@@ -112,7 +112,7 @@
 .form-control.p-calendar {
     position: relative;
 
-    .p-datepicker table td > span.p-highlight{
+    .p-datepicker table td > span.p-highlight {
         background: #9d2449;
     }
 
@@ -125,7 +125,7 @@
         position: absolute;
         top: 50%;
         right: 0;
-        transform: translate(-25%,-50%);
+        transform: translate(-25%, -50%);
         background: transparent;
         border: none;
         .pi.pi-calendar {
@@ -134,7 +134,7 @@
         }
     }
 
-    .p-inputtext{
+    .p-inputtext {
         border-radius: 4px;
         padding-right: 30px;
         box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
@@ -148,28 +148,28 @@
     }
 }
 
-.p-datepicker:not(.p-datepicker-inline) .p-datepicker-header{
+.p-datepicker:not(.p-datepicker-inline) .p-datepicker-header {
     background-color: transparent;
     border-bottom: none;
 }
 
-.p-calendar.form-control.p-calendar-disabled{
-    input{
+.p-calendar.form-control.p-calendar-disabled {
+    input {
         background-color: #eee;
         cursor: not-allowed;
     }
 }
 
-.p-datepicker{
-    .p-datepicker-title{
-        font-family: 'Montserrat';
+.p-datepicker {
+    .p-datepicker-title {
+        font-family: "Montserrat";
         font-style: normal;
         font-weight: 500;
         font-size: 12px;
         line-height: 15px;
         color: #000000;
     }
-    .pi{
+    .pi {
         font-family: "icomoon" !important;
         speak: never;
         font-style: normal;
@@ -184,21 +184,25 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
-    .pi-chevron-left:before{
+    .pi-chevron-left:before {
         font-size: 20px;
-        color:#9d2449;
-        content:"\f0d9";
+        color: #9d2449;
+        content: "\f0d9";
     }
-    .pi-chevron-right:before{
+    .pi-chevron-right:before {
         font-size: 20px;
-        color:#9d2449;
-        content:"\f0da";
+        color: #9d2449;
+        content: "\f0da";
     }
 }
 
 .form-control .p-dropdown {
     width: 100%;
-    height: 39px;
+    height: 100%;
+}
+
+.p-dropdown {
+    border: none;
 }
 
 p-dropdown.form-control {
@@ -257,6 +261,147 @@ p-dropdown.p-inputwrapper[ng-reflect-disabled="true"] {
 
 .p-dropdown-items p-dropdownitem:nth-child(odd) .p-dropdown-item {
     background: #f8f8f8;
+}
+
+.p-fileupload.p-fileupload-advanced.p-component {
+    .p-fileupload-buttonbar {
+        position: relative;
+        padding: 0;
+        border: none;
+    }
+    .p-button.p-component.p-fileupload-choose {
+        &.p-disabled{
+            display: none;
+        }
+        position: absolute;
+        top: -26px;
+        right: 0;
+        background-color: transparent;
+        border: none;
+        color: #9f2241;
+        outline: none;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        margin-right: 0;
+        padding-right: 0;
+        .pi {
+            font-family: "icomoon" !important;
+            speak: never;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            letter-spacing: 0;
+            -ms-font-feature-settings: "liga" 1;
+            font-feature-settings: "liga", normal, "dlig";
+            font-variant-ligatures: discretionary-ligatures;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            &.pi-plus:before {
+                color: #9d2449;
+                font-size: 13px;
+                content: "\e917";
+            }
+        }
+    }
+
+    p-button {
+        display: none;
+    }
+    .p-button:focus {
+        box-shadow: none;
+    }
+}
+
+p-fileupload[ng-reflect-disabled="true"]{
+    .p-fileupload-content{
+        background: #F3F3F3;
+    }
+}
+
+.p-fileupload .p-fileupload-content {
+    border: 2px dashed #b0b0b0;
+    padding: 17.5px 0;
+    border-radius: 4px;
+    p-progressbar {
+        display: none;
+    }
+    .p-fileupload-files {
+        margin: -18px -6px;
+    }
+    p-messages {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        transform: translateY(105%);
+        .p-message.p-message-error {
+            background: transparent;
+            border: none;
+            color: #9f2241;
+            .p-message-icon.pi.pi-times-circle {
+                display: none;
+            }
+        }
+        .p-message-wrapper{
+            padding: 5px 0;
+        }
+        .p-message-detail {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 12px;
+            color: #9f2241;
+        }
+    }
+}
+
+.p-fileupload-row {
+    &.ng-star-inserted > div {
+        flex: none;
+        width: auto;
+    }
+    // div:nth-child(1),
+    // div:nth-child(3) {
+    //     display: none;
+    // }
+    div:last-child {
+        margin-left: auto;
+    }
+
+    div.p-fileupload-filename {
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 45px;
+        color: #4d92df;
+        padding: 0 12px;
+    }
+
+    .p-button-icon.pi.pi-times {
+        color: #b38e5d;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .p-button.p-button-icon-only {
+        background-color: transparent;
+        border: 2px solid #b38e5d;
+        padding: 0;
+        border-radius: 50%;
+        margin: 0;
+        width: 24px;
+        height: 24px;
+        transform: scale(0.8) translateX(-5px);
+    }
+}
+
+.p-fileupload-files {
+    display: none;
 }
 
 .p-paginator .p-paginator-first,

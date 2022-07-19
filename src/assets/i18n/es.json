@@ -27,7 +27,7 @@
       "removeRule": "Eliminar regla",
       "accept": "Si",
       "reject": "No",
-      "choose": "Seleccionar",
+      "choose": "Cargar archivos",
       "upload": "Subir",
       "cancel": "Cancelar",
       "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],

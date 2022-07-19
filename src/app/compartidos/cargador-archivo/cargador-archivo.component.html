@@ -1,0 +1,12 @@
+<p-fileUpload [disabled]="deshabilitar" [showUploadButton]="false" [showCancelButton]="false"
+    (onSelect)="seleccionar($event)" [multiple]="multiple" [accept]="patronAceptado">
+    <ng-template pTemplate="content">
+        <ul class="archivos" *ngIf="archivos.length > 0">
+            <li class="archivo" *ngFor="let archivo of archivos">
+                <a class="archivo-nombre"> {{archivo.name}}</a>
+                <a class="archivo-descargar" (click)="descargar(archivo)"><i class="icon-ver"></i>Descargar</a>
+                <a class="archivo-eliminar" (click)="eliminar(archivo)"><i class="icon-cerrar-modal"></i></a>
+            </li>
+        </ul>
+    </ng-template>
+</p-fileUpload>

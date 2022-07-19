@@ -29,10 +29,17 @@ const routes: Routes = [
     loadChildren: () => import('./modulos/catalogo-estatus-enajenacion-vehiculo/catalogo-estatus-enajenacion-vehiculo.module').then(m => m.CatalogoEstatusEnajenacionVehiculoModule)
   },
   {
+    path: 'catalogo-de-tarjetas-electronicas-de-combustible',
+    loadChildren: () => import('./modulos/catalogo-tarjetas-electronicas-combustible/catalogo-tarjetas-electronicas-combustible.module').then(m => m.CatalogoTarjetasElectronicasCombustibleModule)
+  },
+  {
+    path: 'vehiculos-propios',
+    loadChildren: () => import('./modulos/vehiculos-propios/vehiculos-propios.module').then(m => m.VehiculosPropiosModule)
+  },
+  {
     path: 'pagina-no-encontrada',
     component: PaginaNoEncontradaComponent
   },
-  { path: 'catalogo-de-tarjetas-electronicas-de-combustible', loadChildren: () => import('./modulos/catalogo-tarjetas-electronicas-combustible/catalogo-tarjetas-electronicas-combustible.module').then(m => m.CatalogoTarjetasElectronicasCombustibleModule) },
   {
     path: '**',
     component: PaginaNoEncontradaComponent

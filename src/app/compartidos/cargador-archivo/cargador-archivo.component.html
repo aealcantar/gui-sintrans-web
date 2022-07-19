@@ -1,4 +1,4 @@
-<p-fileUpload [disabled]="deshabilitar" [showUploadButton]="false" [showCancelButton]="false"
+<p-fileUpload [disabled]="disabled" [showUploadButton]="false" [showCancelButton]="false"
     (onSelect)="seleccionar($event)" [multiple]="multiple" [accept]="patronAceptado">
     <ng-template pTemplate="content">
         <ul class="archivos" *ngIf="archivos.length > 0">

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-alta-vehiculo-propio',
-  templateUrl: './alta-vehiculo-propio.component.html',
-  styleUrls: ['./alta-vehiculo-propio.component.scss']
+  selector: 'app-editar-vehiculo-propio',
+  templateUrl: './editar-vehiculo-propio.component.html',
+  styleUrls: ['./editar-vehiculo-propio.component.scss']
 })
-export class AltaVehiculoPropioComponent implements OnInit {
+export class EditarVehiculoPropioComponent implements OnInit {
 
   ooad: any = [
     {
@@ -21,7 +21,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
 
   //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
   archivos: any[] = [];
-
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -31,7 +31,4 @@ export class AltaVehiculoPropioComponent implements OnInit {
     console.log(event);
   }
 
-  guardar(){
-    console.log(this.archivos);
-  }
 }

@@ -31,7 +31,7 @@ export class CargadorArchivoComponent implements OnInit {
   /**
    * Deshabilita el componente.
    */
-  private _deshabilitar: boolean = false;
+  private _disabled: boolean = false;
 
   @Input()
   archivos: File[] = [];
@@ -83,13 +83,13 @@ export class CargadorArchivoComponent implements OnInit {
     return this._tamanioMaximo;
   }
 
-  set deshabilitar(deshabilitar: boolean) {
-    this._deshabilitar = deshabilitar;
+  set disabled(disabled: boolean) {
+    this._disabled = disabled;
   }
 
   @Input()
-  get deshabilitar() {
-    return this._deshabilitar;
+  get disabled() {
+    return this._disabled;
   }
 
   set extensionesAceptadas(extensionesAceptadas: string[]) {

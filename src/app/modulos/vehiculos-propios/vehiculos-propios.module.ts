@@ -14,12 +14,16 @@ import { CalendarModule } from 'primeng-lts/calendar';
 import {FileUploadModule} from 'primeng-lts/fileupload';
 import { AltaVehiculoPropioComponent } from './componentes/alta-vehiculo-propio/alta-vehiculo-propio.component';
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
+import { EditarVehiculoPropioComponent } from './componentes/editar-vehiculo-propio/editar-vehiculo-propio.component';
+import { DetalleVehiculoPropioComponent } from './componentes/detalle-vehiculo-propio/detalle-vehiculo-propio.component';
 
 
 @NgModule({
   declarations: [
     VehiculosPropiosComponent,
-    AltaVehiculoPropioComponent
+    AltaVehiculoPropioComponent,
+    EditarVehiculoPropioComponent,
+    DetalleVehiculoPropioComponent
   ],
   imports: [
     CommonModule,

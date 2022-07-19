@@ -1,7 +1,7 @@
 <div class="container mb-4">
     <div class="flex align-items-center">
-        <app-btn-regresar routerLink="../"></app-btn-regresar>
-        <app-separador class="flex-grow-1" texto="Alta de vehículo propio"></app-separador>
+        <app-btn-regresar routerLink="../.."></app-btn-regresar>
+        <app-separador class="flex-grow-1" texto="Detalle de vehículo propio"></app-separador>
     </div>
     <p-card>
         <div class="row">
@@ -14,42 +14,42 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
-                <input class="form-control" id="ecco" placeholder="Ingresar" type="text">
+                <input class="form-control" id="ecco" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="noInventario">No de inventario<span class="req">*</span>:</label>
-                <input class="form-control" id="noInventario" placeholder="Ingresar" type="text">
+                <input class="form-control" id="noInventario" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="noSerie">No de serie<span class="req">*</span>:</label>
-                <input class="form-control" id="noSerie" placeholder="Ingresar" type="text">
+                <input class="form-control" id="noSerie" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="noTarjeton">No de tarjetón<span class="req">*</span>:</label>
-                <input class="form-control" id="noTarjeton" placeholder="Ingresar" type="text">
+                <input class="form-control" id="noTarjeton" placeholder="Ingresar" type="text" disabled>
             </div>
         </div>
 
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
-                <p-dropdown id="tipoVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="tipoVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
                         class="req">*</span>:</label>
-                <p-dropdown id="clasifVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="clasifVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
-                <p-dropdown id="tipoServicio" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="tipoServicio" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="version">Versión<span class="req">*</span>:</label>
-                <p-dropdown id="version" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="version" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
         </div>
@@ -66,19 +66,19 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="marca">Marca<span class="req">*</span>:</label>
-                <input class="form-control" id="marca" placeholder="Ingresar" type="text">
+                <input class="form-control" id="marca" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="clase">Clase<span class="req">*</span>:</label>
-                <input class="form-control" id="clase" placeholder="Ingresar" type="text">
+                <input class="form-control" id="clase" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="submarca">Submarca<span class="req">*</span>:</label>
-                <input class="form-control" id="submarca" placeholder="Ingresar" type="text">
+                <input class="form-control" id="submarca" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="modelo">Modelo<span class="req">*</span>:</label>
-                <input class="form-control" id="modelo" placeholder="Ingresar" type="text">
+                <input class="form-control" id="modelo" placeholder="Ingresar" type="text" disabled>
             </div>
         </div>
 
@@ -94,22 +94,22 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
-                <p-dropdown id="combustible" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="combustible" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="cantCombus">Cantidad de combustible por litro<span
                         class="req">*</span>:</label>
-                <p-dropdown id="cantCombus" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="cantCombus" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
-                <input class="form-control" id="capPersonas" placeholder="Ingresar" type="text">
+                <input class="form-control" id="capPersonas" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
-                <p-dropdown id="capToneladas" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="capToneladas" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
         </div>
@@ -117,16 +117,16 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
-                <p-dropdown id="cilindros" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="cilindros" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="noMotor">No de motor<span class="req">*</span>:</label>
-                <input class="form-control" id="noMotor" placeholder="Ingresar" type="text">
+                <input class="form-control" id="noMotor" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="valorContable">Valor contable<span class="req">*</span>:</label>
-                <input class="form-control" id="valorContable" placeholder="Ingresar" type="text">
+                <input class="form-control" id="valorContable" placeholder="Ingresar" type="text" disabled>
             </div>
         </div>
 
@@ -142,21 +142,21 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="placas">Placas<span class="req">*</span>:</label>
-                <input class="form-control" id="placas" placeholder="Ingresar" type="text">
+                <input class="form-control" id="placas" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="licCofepris">Licencia COFEPRIS<span class="req">*</span>:</label>
-                <input class="form-control" id="licCofepris" placeholder="Ingresar" type="text">
+                <input class="form-control" id="licCofepris" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS<span
                         class="req">*</span>:</label>
-                <p-calendar id="venLicCofepris" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                <p-calendar id="venLicCofepris" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
                 </p-calendar>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
-                <p-dropdown id="tipoRegimen" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="tipoRegimen" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
         </div>
@@ -173,7 +173,7 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-6">
                 <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                <p-dropdown id="unidad" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="unidad" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
@@ -200,16 +200,16 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-4">
                 <label class="control-label" for="respBienes">Responsable de bienes<span class="req">*</span>:</label>
-                <input class="form-control" id="respBienes" placeholder="Ingresar" type="text">
+                <input class="form-control" id="respBienes" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-4">
                 <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
-                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
             <div class="col-md-4">
                 <label class="control-label" for="fechaBaja">Fecha de baja<span class="req">*</span>:</label>
-                <p-calendar id="fechaBaja" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                <p-calendar id="fechaBaja" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
                 </p-calendar>
             </div>
         </div>
@@ -217,7 +217,7 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-12">
                 <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                <input class="form-control" id="motivo" placeholder="Ingresar" type="text">
+                <input class="form-control" id="motivo" placeholder="Ingresar" type="text" disabled>
             </div>
         </div>
 
@@ -225,11 +225,11 @@
             <div class="col-md-6">
                 <label class="control-label" for="fechaEnajenacion">Estatus de enajenación<span
                         class="req">*</span>:</label>
-                <input class="form-control" id="fechaEnajenacion" placeholder="Ingresar" type="text">
+                <input class="form-control" id="fechaEnajenacion" placeholder="Ingresar" type="text" disabled>
             </div>
             <div class="col-md-6">
                 <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
-                <p-dropdown id="aseguradora" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="aseguradora" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
                 </p-dropdown>
             </div>
         </div>
@@ -246,12 +246,12 @@
                 <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
                         class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
             <div class="col-md-4">
                 <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
-                <p-calendar id="fechaVencimiento" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                <p-calendar id="fechaVencimiento" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
                 </p-calendar>
             </div>
         </div>
@@ -260,12 +260,12 @@
             <div class="col-md-8">
                 <label class="control-label">Verificación<span class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
             <div class="col-md-4">
                 <label class="control-label">Fecha próxima verificación<span class="req">*</span>:</label>
-                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
                 </p-calendar>
             </div>
         </div>
@@ -274,12 +274,12 @@
             <div class="col-md-8">
                 <label class="control-label">Póliza de seguro<span class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
             <div class="col-md-4">
                 <label class="control-label">Fecha vencimiento póliza<span class="req">*</span>:</label>
-                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
                 </p-calendar>
             </div>
         </div>
@@ -297,13 +297,13 @@
             <div class="col-md-6">
                 <label class="control-label">Fotografía de frente<span class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
             <div class="col-md-6">
                 <label class="control-label">Fotografía lateral derecho<span class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
         </div>
@@ -312,13 +312,13 @@
             <div class="col-md-6">
                 <label class="control-label">Fotografía lateral izquierdo<span class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
             <div class="col-md-6">
                 <label class="control-label">Fotografía trasera<span class="req">*</span>:</label>
                 <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
+                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
                 </app-cargador-archivo>
             </div>
         </div>
@@ -327,8 +327,8 @@
     <div class="flex justify-content-between mt-4">
         <span class="campos-obligatorios">*Campos obligatorios</span>
         <div>
-            <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4" (click)="guardar()">Guardar</button>
+            <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
+            <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
         </div>
     </div>
 

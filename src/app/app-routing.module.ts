@@ -44,6 +44,8 @@ const routes: Routes = [
     path: 'pagina-no-encontrada',
     component: PaginaNoEncontradaComponent
   },
+  { path: 'choferes', loadChildren: () => import('./modulos/choferes/choferes.module').then(m => m.ChoferesModule) },
+  { path: 'aseguradoras', loadChildren: () => import('./modulos/aseguradoras/aseguradoras.module').then(m => m.AseguradorasModule) },
   {
     path: '**',
     component: PaginaNoEncontradaComponent

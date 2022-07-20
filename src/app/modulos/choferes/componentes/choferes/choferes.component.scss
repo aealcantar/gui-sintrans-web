@@ -1,0 +1,37 @@
+.btn-icon {
+    display: flex;
+    align-items: center;
+    [class^="icon-"] {
+        color: inherit;
+        font-size: 17px;
+        transform: scale(1.2);
+        margin-right: 12px;
+    }
+    &:hover {
+        [class^="icon-"] {
+            color: white;
+        }
+    }
+    &:focus {
+        [class^="icon-"] {
+            color: white;
+        }
+    }
+}
+
+.icon-editar,
+.icon-eliminar {
+    color: #9f2241;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #4d92df;
+    text-decoration: none;
+    cursor: pointer;
+}

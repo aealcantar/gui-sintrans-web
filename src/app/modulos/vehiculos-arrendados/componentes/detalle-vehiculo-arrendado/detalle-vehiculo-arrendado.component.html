@@ -3,6 +3,11 @@
         <app-btn-regresar routerLink="../.."></app-btn-regresar>
         <app-separador class="flex-grow-1" texto="Detalle de vehículo arrendado"></app-separador>
     </div>
+    <div class="row mb-4">
+        <div class="col-md-12 flex justify-content-end">
+            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-vehiculo-arrendado',2]">Editar</button>
+        </div>
+    </div>
     <p-card>
         <div class="row">
             <div class="col-md-12">
@@ -239,8 +244,8 @@
     <div class="flex justify-content-between mt-4">
         <span class="campos-obligatorios">*Campos obligatorios</span>
         <div>
-            <button class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4">Guardar</button>
+            <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
+            <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
         </div>
     </div>
 

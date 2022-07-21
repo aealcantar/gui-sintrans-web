@@ -6,13 +6,15 @@ import { BloqueaUsuarioLogueadoGuard } from './servicios/seguridad/bloquea-usuar
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/inicio-sesion',
-    pathMatch: 'full'
-  },
-  {
     path: 'pagina-no-encontrada',
     component: PaginaNoEncontradaComponent
+  },
+  {
+    path: '',
+    loadChildren: () => import('./modulos/inicio/inicio.module').then(m => m.InicioModule),
+    canActivate: [PermiteUsuarioLogueadoGuard],
+    canActivateChild: [PermiteUsuarioLogueadoGuard],
+    pathMatch: 'full'
   },
   {
     path: 'inicio',

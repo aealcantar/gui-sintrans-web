@@ -4,6 +4,7 @@ import { AltaUnidadComponent } from './componentes/alta-unidad/alta-unidad.compo
 import { CatalogoUnidadesComponent } from './componentes/catalogo-unidades/catalogo-unidades.component';
 import { DetalleUnidadComponent } from './componentes/detalle-unidad/detalle-unidad.component';
 import { EditarUnidadComponent } from './componentes/editar-unidad/editar-unidad.component';
+import { AltaCatalogoUnidadResolver } from './servicios/alta-catalogo-unidad.resolver';
 import { DetalleCatalogoUnidadResolver } from './servicios/detalle-catalogo-unidad.resolver';
 import { EditarCatalogoUnidadResolver } from './servicios/editar-catalogo-unidad.resolver';
 import { ListaCatalogoUnidadesResolver } from './servicios/lista-catalogo-unidades.resolver';
@@ -15,17 +16,22 @@ const routes: Routes = [
       respuesta: ListaCatalogoUnidadesResolver
     }
   },
-  { path: 'alta-de-unidad', component: AltaUnidadComponent },
+  {
+    path: 'alta-de-unidad', component: AltaUnidadComponent,
+    resolve: {
+      respuesta: AltaCatalogoUnidadResolver
+    }
+  },
   {
     path: 'editar-unidad/:idUnidad', component: EditarUnidadComponent,
     resolve: {
-      //catUnidad: EditarCatalogoUnidadResolver Se descomentan cuando esten los servicios
+      respuesta: EditarCatalogoUnidadResolver
     }
   },
   {
     path: 'detalle-de-unidad/:idUnidad', component: DetalleUnidadComponent,
     resolve: {
-      //catUnidad: DetalleCatalogoUnidadResolver Se descomentan cuando esten los servicios
+      respuesta: DetalleCatalogoUnidadResolver
     }
   }
 ];
@@ -35,6 +41,7 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     ListaCatalogoUnidadesResolver,
+    AltaCatalogoUnidadResolver,
     EditarCatalogoUnidadResolver,
     DetalleCatalogoUnidadResolver
   ]

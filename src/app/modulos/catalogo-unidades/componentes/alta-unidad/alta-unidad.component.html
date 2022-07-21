@@ -1,113 +1,130 @@
 <div class="container mb-4">
-    <div class="flex align-items-center">
-        <app-btn-regresar  routerLink="../"></app-btn-regresar>
-        <app-separador class="flex-grow-1" texto="Alta de unidad"></app-separador>
-    </div>
+  <div class="flex align-items-center">
+    <app-btn-regresar routerLink="../"></app-btn-regresar>
+    <app-separador class="flex-grow-1" texto="Alta de unidad"></app-separador>
+  </div>
 
+  <form [formGroup]="form" (ngSubmit)="guardar()">
     <p-card>
         <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos de la unidad
-                </h3>
-            </div>
+        <div class="col-md-12">
+            <h3 class="subtitulo">
+            Datos de la unidad
+            </h3>
         </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
-                <p-dropdown id="ooad" class="form-control" [options]="ooad" placeholder="Seleccionar"></p-dropdown>
-            </div>
-            <div class="col-md-6">
-                <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
-                <input class="form-control" id="nombreUnidad" placeholder="Ingresar" type="text">
-            </div>
         </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
-                <p-dropdown id="tipoUnidad" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
+        <div class="row mb-4">
+        <div class="col-md-6">
+            <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
+            <p-dropdown id="ooad" class="form-control" formControlName="ooad" [options]="catOoad" placeholder="Seleccionar">
+            </p-dropdown>
+            <span class="campos-obligatorios" *ngIf="f.ooad?.errors?.required && (f.ooad?.dirty || f.ooad?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
+            <input class="form-control" id="nombreUnidad" formControlName="nombreUnidad" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios"
+            *ngIf="f.nombreUnidad?.errors?.required && (f.nombreUnidad?.dirty || f.nombreUnidad?.touched)">*Campo obligatorio</span>
+        </div>
+        </div>
+        <div class="row mb-4">
+        <div class="col-md-4">
+            <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
+            <p-dropdown id="tipoUnidad" class="form-control" formControlName="unidad" [options]="catUnidad"
+            placeholder="Seleccionar">
+            </p-dropdown>
+            <span class="campos-obligatorios" *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-8">
+            <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span class="req">*</span>:</label>
+            <div class="form-radio">
+            <label>
+                <input type="radio" name="pernocta" formControlName="pernocta" [value]="true"> Sí
+            </label>
+            <label>
+                <input type="radio" name="pernocta" formControlName="pernocta" [value]="false"> No
+            </label>
             </div>
-            <div class="col-md-8">
-                <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span
-                        class="req">*</span>:</label>
-                <div class="form-radio">
-                    <label>
-                        <input type="radio" name="radio-01" value="opcion-02" checked="checked"> Sí
-                    </label>
-                    <label>
-                        <input type="radio" name="radio-01" value="opcion-03" checked="checked"> No
-                    </label>
-                </div>
-            </div>
+            <span class="campos-obligatorios" *ngIf="f.pernocta?.errors?.required && (f.pernocta?.dirty || f.pernocta?.touched)">*Campo obligatorio</span>
+        </div>
         </div>
         <hr class="separador-small">
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="unInf">UN INF<span class="req">*</span>:</label>
-                <input class="form-control" id="unInf" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="unOpe">UN OPE<span class="req">*</span>:</label>
-                <input class="form-control" id="unOpe" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="cc">CC<span class="req">*</span>:</label>
-                <input class="form-control" id="cc" placeholder="Ingresar" type="text">
-            </div>
+        <div class="row mb-4">
+        <div class="col-md-4">
+            <label class="control-label" for="unInf">UN INF<span class="req">*</span>:</label>
+            <input class="form-control" id="unInf" formControlName="unInf" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.unInf?.errors?.required && (f.unInf?.dirty || f.unInf?.touched)">*Campo obligatorio</span>
         </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="cu">CU<span class="req">*</span>:</label>
-                <input class="form-control" id="cu" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="div">DIV<span class="req">*</span>:</label>
-                <input class="form-control" id="div" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="SDIV">SDIV<span class="req">*</span>:</label>
-                <input class="form-control" id="SDIV" placeholder="Ingresar" type="text">
-            </div>
+        <div class="col-md-4">
+            <label class="control-label" for="unOpe">UN OPE<span class="req">*</span>:</label>
+            <input class="form-control" id="unOpe" formControlName="unOpe" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.unOpe?.errors?.required && (f.unOpe?.dirty || f.unOpe?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label" for="cc">CC<span class="req">*</span>:</label>
+            <input class="form-control" id="cc" formControlName="cc" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.cc?.errors?.required && (f.cc?.dirty || f.cc?.touched)">*Campo obligatorio</span>
+        </div>
+        </div>
+        <div class="row mb-4">
+        <div class="col-md-4">
+            <label class="control-label" for="cu">CU<span class="req">*</span>:</label>
+            <input class="form-control" id="cu" formControlName="cu" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.cu?.errors?.required && (f.cu?.dirty || f.cu?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label" for="div">DIV<span class="req">*</span>:</label>
+            <input class="form-control" id="div" formControlName="div" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.div?.errors?.required && (f.div?.dirty || f.div?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label" for="SDIV">SDIV<span class="req">*</span>:</label>
+            <input class="form-control" id="SDIV" formControlName="sdiv" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.sdiv?.errors?.required && (f.sdiv?.dirty || f.sdiv?.touched)">*Campo obligatorio</span>
+        </div>
         </div>
         <hr class="separador-small">
         <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Dirección
-                </h3>
-            </div>
+        <div class="col-md-12">
+            <h3 class="subtitulo">
+            Dirección
+            </h3>
+        </div>
         </div>
         <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
-                <div class="flex">
-                    <input class="form-control" id="codigoPostal" placeholder="Ingresar CP" type="text">
-                    <button class="btn btn-primary">Buscar</button>
-                </div>
+        <div class="col-md-4">
+            <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
+            <div class="flex">
+            <input class="form-control" id="codigoPostal" #input placeholder="Ingresar CP" type="text">
+            <button type="button" class="btn btn-primary" (click)="buscarPorCP(input.value)">Buscar</button>
             </div>
         </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="entidad">Entidad:</label>
-                <input class="form-control" id="entidad" placeholder="XXXXXXXXXXX" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="municipio">Municipio:</label>
-                <input class="form-control" id="municipio" placeholder="XXXXXXXXXXX" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
-                <input class="form-control" id="colonia" placeholder="Ingresar" type="text">
-            </div>
+        </div>
+        <div class="row mb-4">
+        <div class="col-md-4">
+            <label class="control-label" for="entidad">Entidad:</label>
+            <input class="form-control" id="entidad" formControlName="entidad" placeholder="XXXXXXXXXXX" type="text" readonly>
+            <span class="campos-obligatorios" *ngIf="f.entidad?.errors?.required && (f.entidad?.dirty || f.entidad?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label" for="municipio">Municipio:</label>
+            <input class="form-control" id="municipio" formControlName="municipio" placeholder="XXXXXXXXXXX" type="text" readonly>
+            <span class="campos-obligatorios" *ngIf="f.municipio?.errors?.required && (f.municipio?.dirty || f.municipio?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
+            <input class="form-control" id="colonia" formControlName="colonia" placeholder="Ingresar" type="text">
+            <span class="campos-obligatorios" *ngIf="f.colonia?.errors?.required && (f.colonia?.dirty || f.colonia?.touched)">*Campo obligatorio</span>
+        </div>
         </div>
     </p-card>
     <div class="flex justify-content-between mt-4">
         <span class="campos-obligatorios">*Campos obligatorios</span>
         <div>
-            <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4">Guardar</button>
+        <button type="button" class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid">Guardar</button>
         </div>
     </div>
+</form>
 
 </div>

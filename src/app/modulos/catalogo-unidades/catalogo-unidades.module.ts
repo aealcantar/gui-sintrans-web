@@ -13,7 +13,7 @@ import { AltaUnidadComponent } from './componentes/alta-unidad/alta-unidad.compo
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { EditarUnidadComponent } from './componentes/editar-unidad/editar-unidad.component';
 import { DetalleUnidadComponent } from './componentes/detalle-unidad/detalle-unidad.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CatalogoUnidadesService } from './servicios/catalogo-unidades.service';
 
 
@@ -27,6 +27,7 @@ import { CatalogoUnidadesService } from './servicios/catalogo-unidades.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CatalogoUnidadesRoutingModule,
     CardModule,
     DropdownModule,

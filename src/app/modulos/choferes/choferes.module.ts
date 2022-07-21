@@ -15,6 +15,7 @@ import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/carg
 import { AltaChoferesComponent } from './componentes/alta-choferes/alta-choferes.component';
 import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer.component';
 import { DetalleChoferComponent } from './componentes/detalle-chofer/detalle-chofer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import { DetalleChoferComponent } from './componentes/detalle-chofer/detalle-cho
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     ChoferesRoutingModule,
     FileUploadModule,
     CardModule,

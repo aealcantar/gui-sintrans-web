@@ -3,120 +3,127 @@
         <app-btn-regresar routerLink="../"></app-btn-regresar>
         <app-separador class="flex-grow-1" texto="Alta de choferes"></app-separador>
     </div>
-    <p-card>
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos generales
-                </h3>
+    <form [formGroup]="form">
+        <p-card>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos generales
+                    </h3>
+                </div>
             </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="ecco">ID consecutivo:</label>
-                <input class="form-control" id="ecco" placeholder="xxxxxxxxxxx" type="text" disabled>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="ecco">ID consecutivo:</label>
+                    <input class="form-control" id="ecco" placeholder="xxxxxxxxxxx" type="text" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
+                    <input class="form-control" id="matricula" formControlName="matricula" placeholder="Ingresar" type="text">
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
-                <input class="form-control" id="matricula" placeholder="Ingresar" type="text">
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="nombre">Nombre:</label>
-                <input class="form-control" id="nombre" placeholder="xxxxxxxxxxx" type="text" disabled>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="nombre">Nombre:</label>
+                    <input class="form-control" id="nombre" placeholder="xxxxxxxxxxx" type="text" disabled>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" for="ooad">OOAD:</label>
+                    <input class="form-control" id="ooad" placeholder="Ingresar" type="text" disabled>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="control-label" for="ooad">OOAD:</label>
-                <input class="form-control" id="ooad" placeholder="Ingresar" type="text" disabled>
+
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="adscripcion">Adscripción:</label>
+                    <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="inicioContrato">Inicio de contrato<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="inicioContrato" formControlName="inicioContrato" styleClass="form-control" [showIcon]="true"
+                        placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
+                    <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
+            </div>
+
+
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="categoria">Categoría<span class="req">*</span>:</label>
+                    <p-dropdown id="categoria" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="estatusChofer">Estatus del chofer<span
+                            class="req">*</span>:</label>
+                    <p-dropdown id="estatusChofer" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
+                    <p-dropdown id="motivo" class="form-control" formControlName="motivo" [options]="ooad" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+            </div>
+
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Licencia
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="numeroLicencia">Número de licencia<span
+                            class="req">*</span>:</label>
+                    <p-dropdown id="numeroLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="vigLicencia">Vigencia de la licencia<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="expLicencia">Expedición de licencia<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
+            </div>
+
+            <div class="row flex mb-4">
+                <div class="col-md-6">
+                    <label class="control-label">Licencia<span class="req">*</span>:</label>
+                    <app-cargador-archivo [class.ng-invalid]="archivos.length === 0" patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="archivos">
+                    </app-cargador-archivo>
+                </div>
+            </div>
+        </p-card>
+
+        <div class="flex justify-content-between mt-4">
+            <span class="campos-obligatorios">*Campos obligatorios</span>
+            <div>
+                <button type="button" class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
+                <button type="submit" class="btn btn-primary btn-lg ml-4" (clic)="guardar()">Guardar</button>
             </div>
         </div>
-
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="adscripcion">Adscripción:</label>
-                <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="inicioContrato">Inicio de contrato<span class="req">*</span>:</label>
-                <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
-                <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-        </div>
-
-
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="categoria">Categoría<span class="req">*</span>:</label>
-                <p-dropdown id="categoria" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="estatusChofer">Estatus del chofer<span class="req">*</span>:</label>
-                <p-dropdown id="estatusChofer" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                <p-dropdown id="motivo" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-        </div>
-
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Licencia
-                </h3>
-            </div>
-        </div>
-
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="numeroLicencia">Número de licencia<span class="req">*</span>:</label>
-                <p-dropdown id="numeroLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="tipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
-                <p-dropdown id="tipoLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="vigLicencia">Vigencia de la licencia<span
-                        class="req">*</span>:</label>
-                <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="expLicencia">Expedición de licencia<span class="req">*</span>:</label>
-                <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-        </div>
-
-        <div class="row flex mb-4">
-            <div class="col-md-6">
-                <label class="control-label">Licencia<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos">
-                </app-cargador-archivo>
-            </div>
-        </div>
-    </p-card>
-    <div class="flex justify-content-between mt-4">
-        <span class="campos-obligatorios">*Campos obligatorios</span>
-        <div>
-            <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4">Guardar</button>
-        </div>
-    </div>
-
+    </form>
 </div>

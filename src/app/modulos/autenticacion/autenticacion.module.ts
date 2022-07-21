@@ -9,6 +9,7 @@ import { AutenticacionRoutingModule } from './autenticacion-routing.module';
 
 import {CardModule} from 'primeng-lts/card';
 import { BtnRegresarModule } from '../../compartidos/btn-regresar/btn-regresar.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,6 +21,8 @@ import { BtnRegresarModule } from '../../compartidos/btn-regresar/btn-regresar.m
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     CardModule,
     AutenticacionRoutingModule,
     BtnRegresarModule

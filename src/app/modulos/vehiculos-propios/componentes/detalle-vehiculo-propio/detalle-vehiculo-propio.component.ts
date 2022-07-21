@@ -28,6 +28,6 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   }
 
   validarArchivo(event:any){
-    console.log(event);
+
   }
 }

@@ -1,4 +1,9 @@
+import { OpcionMenu } from "./opcion-menu.interface";
+
 export interface Usuario {
-    id: string;
-    email: string;
+    nombreUsuario: string;
+    matricula: string;
+    rol: string;
+
+    menu: OpcionMenu[];
 }

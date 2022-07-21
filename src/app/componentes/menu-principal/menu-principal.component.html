@@ -1,16 +1,16 @@
 <nav class="menu" #menu>
     <a class="menu-logo"><img src="assets/imagenes/sintrans-logo.png" alt="logo"></a>
     <ul class="menu-items">
-        <ng-container *ngFor="let elemento of elementos; let first = first">
+        <ng-container *ngFor="let elemento of (aut.usuario$ | async)?.menu; let first = first">
             <li class="menu-item" [class.active]="elemento == opcionSeleccionada" *ngIf="first"
                 (click)="opcionSeleccionada = elemento;" [routerLink]="[elemento.ruta]" routerLinkActive="active">
-                <img class="menu-item-icon" src="assets/imagenes/{{elemento.icono}}.svg">
+                <img class="menu-item-icon" src="assets/imagenes/iconos-menu/{{elemento.icono}}.svg">
                 <a class="menu-item-text">{{elemento.etiqueta}}</a>
                 <span class="menu-item-border"></span>
             </li>
             <li class="menu-item" [class.active]="elemento == opcionSeleccionada"
                 (click)="abrirOverlay($event,elemento)" *ngIf="!first">
-                <img class="menu-item-icon" src="assets/imagenes/{{elemento.icono}}.svg">
+                <img class="menu-item-icon" src="assets/imagenes/iconos-menu/{{elemento.icono}}.svg">
                 <a class="menu-item-text">{{elemento.etiqueta}}</a>
                 <span class="menu-item-border"></span>
             </li>
@@ -21,16 +21,16 @@
             <img src="/assets/imagenes/user.svg" alt="Imagen usuario">
         </div>
         <div class="user-info">
-            <span class="user-name">Gina Aguilar</span>
-            <span class="user-number">123456789</span>
+            <span class="user-name">{{(aut.usuario$ | async)?.nombreUsuario}}</span>
+            <span class="user-number">{{(aut.usuario$ | async)?.matricula}}</span>
         </div>
 
         <div class="user-action cursor-pointer" (click)="mostrarOverlayUsuario = !mostrarOverlayUsuario">
-            <span class="icon-chevron-down" ></span>
+            <span class="icon-chevron-down"></span>
         </div>
         <div class="user-overlay" *ngIf="mostrarOverlayUsuario">
             <div class="user-overlay-data">
-                <div class="user-overlay-role1">Jefe de Servicios Generales</div>
+                <div class="user-overlay-role1">{{(aut.usuario$ | async)?.rol}}</div>
                 <div class="user-overlay-role2">UMAE</div>
             </div>
             <div class="user-overlay-logout">
@@ -38,7 +38,7 @@
                     <i class="pi pi-power-off"></i>
                 </div>
 
-                <span>Cerrar Sesión</span>
+                <span class="cursor-pointer" (click)="cerrarSesion()">Cerrar Sesión</span>
             </div>
         </div>
     </div>

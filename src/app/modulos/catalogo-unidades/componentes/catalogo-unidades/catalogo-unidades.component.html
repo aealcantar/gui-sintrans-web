@@ -2,8 +2,8 @@
   <app-separador texto="Catálogo de unidades"></app-separador>
   <div class="row flex align-items-end">
     <div class="col-md-3">
-      <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
-      <input class="form-control" [(ngModel)]="ecco" id="ecco" placeholder="Ingresar" type="text">
+      <label class="control-label" for="nombreUnidad">Nombre de unidad<span class="req">*</span>:</label>
+      <input class="form-control" [(ngModel)]="nombreUnidad" id="nombreUnidad" placeholder="Ingresar" type="text">
     </div>
     <div class="col-md-3">
       <label class="control-label" for="ooad">OOAD<span class="req">*</span>:</label>
@@ -26,8 +26,8 @@
   <div class="row -mx-6">
     <div class="col-md-12">
       <p-card>
-        <p-table [value]="catUnidades" [paginator]="true" [rows]="respuesta!.datos.numberOfElements" [lazy]="true"
-          [totalRecords]="respuesta!.datos.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
+        <p-table [value]="catUnidades" [paginator]="catUnidades.length > 0" [rows]="respuesta?.datos?.numberOfElements" [lazy]="true"
+          [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nombreUnidad">Nombre de Unidad <p-sortIcon field="nombreUnidad">
@@ -45,13 +45,13 @@
           </ng-template>
           <ng-template pTemplate="body" let-unidad>
             <tr>
-              <td><a class="link" [routerLink]="['detalle-de-unidad',unidad.id]">{{unidad.nombreUnidad}}</a></td>
+              <td><a class="link" [routerLink]="['detalle-de-unidad',unidad.idUnidad]">{{unidad.nombreUnidad}}</a></td>
               <td>{{unidad.ooad}}</td>
               <td>{{unidad.tipoUnidad}}</td>
               <td> <i class="icon-circulo-relleno" [class.active]="unidad.pernocta"></i>
                 {{unidad.pernocta ? 'Sí': 'No'}}</td>
               <td class="flex justify-content-center">
-                <i [routerLink]="['editar-unidad',unidad.id]" class="icon-editar cursor-pointer"></i>
+                <i [routerLink]="['editar-unidad',unidad.idUnidad]" class="icon-editar cursor-pointer"></i>
                 <i class="icon-eliminar cursor-pointer" (click)="mostrarModalEliminar(unidad)"></i>
               </td>
             </tr>

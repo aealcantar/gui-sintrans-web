@@ -5,10 +5,16 @@
 export const environment = {
   production: false,
   api: {
-    mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/v1/unidades',
+   // mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/v1/unidades',
     mssintetransVehiculos: 'http://locahost:8084/mssintetrans-vehiculos',
-    mssintetransUsuario:'http://localhost:8083/mssintetrans-usuarios/v1'
-  
+    mssintetransUsuario:'http://localhost:8083/mssintetrans-usuarios/v1',
+    mssintetransOauth: 'http://localhost:8080/mssintetrans-oauth/api',
+    mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/unidades',
+    mssintetransCodigoPostal: 'http://localhost:8082/mssintetrans-unidad/codigo-postal',
+    mssintetransCatalogoOoad: 'http://localhost:8082/mssintetrans-unidad/ooad',
+    mssintetransTarjetaElectronica: 'http://localhost:8085/mssintetrans-tarjetas-electronicas/tarjetas/',
+    mssintetransVehiculosPropios: 'http://localhost:8084/mssintetrans-vehiculos/propios/',
+    mssintetransChoferes: 'http://localhost:8087/mssintetrans-choferes/choferes'
   }
 };
 

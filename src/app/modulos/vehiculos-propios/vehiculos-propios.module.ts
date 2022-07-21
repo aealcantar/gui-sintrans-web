@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VehiculosPropiosRoutingModule } from './vehiculos-propios-routing.module';
 import { VehiculosPropiosComponent } from './componentes/vehiculos-propios/vehiculos-propios.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng-lts/card';
 import { DropdownModule } from 'primeng-lts/dropdown';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
@@ -16,6 +16,8 @@ import { AltaVehiculoPropioComponent } from './componentes/alta-vehiculo-propio/
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
 import { EditarVehiculoPropioComponent } from './componentes/editar-vehiculo-propio/editar-vehiculo-propio.component';
 import { DetalleVehiculoPropioComponent } from './componentes/detalle-vehiculo-propio/detalle-vehiculo-propio.component';
+import { CatalogoVehiculosPropiosService } from './servicios/catalogo-vehiculos-propios.service';
+import { CatalogoUnidadesService } from '../catalogo-unidades/servicios/catalogo-unidades.service';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { DetalleVehiculoPropioComponent } from './componentes/detalle-vehiculo-p
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     VehiculosPropiosRoutingModule,
     FileUploadModule,
     CardModule,
@@ -38,6 +41,10 @@ import { DetalleVehiculoPropioComponent } from './componentes/detalle-vehiculo-p
     DialogModule,
     CalendarModule,
     CargadorArchivoModule
+  ],
+  providers: [
+    CatalogoVehiculosPropiosService,
+    CatalogoUnidadesService
   ]
 })
 export class VehiculosPropiosModule { }

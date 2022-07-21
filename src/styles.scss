@@ -21,6 +21,25 @@ body {
     color: #9f2241;
 }
 
+input.ng-invalid:not(.ng-untouched){
+    border: 1px solid #9F2241;
+}
+
+p-calendar.ng-invalid:not(.ng-untouched) .p-inputtext{
+    border: 1px solid #9F2241;
+}
+
+p-dropdown.form-control.ng-invalid:not(.ng-untouched){
+    border: 1px solid #9F2241;
+}
+
+form.ng-invalid app-cargador-archivo.ng-invalid{
+    .p-fileupload .p-fileupload-content{
+        border-color: #9f2241;
+    }
+}
+
+
 h3.subtitulo {
     font-style: normal;
     font-weight: 600;

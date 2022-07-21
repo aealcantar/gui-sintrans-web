@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
@@ -17,7 +18,7 @@ export class CatalogoUnidadesComponent implements OnInit {
   inicioPagina: number = 0;
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
-  ecco: string = "";
+  nombreUnidad: string = "";
   ooad: string = "";
 
   mostrarModal: boolean = false;
@@ -26,7 +27,8 @@ export class CatalogoUnidadesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private unidadService: CatalogoUnidadesService,
-    private alertaService: AlertasFlotantesService
+    private alertaService: AlertasFlotantesService,
+    private cargadorService: CargadorService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,8 @@ export class CatalogoUnidadesComponent implements OnInit {
   }
 
   limpiar(): void {
-    this.ecco = "";
+    this.cargadorService.activar();
+    this.nombreUnidad = "";
     this.ooad = "";
     this.inicioPagina = 0;
     this.unidadService.buscarPorPagina(0, 10).subscribe(
@@ -44,24 +47,29 @@ export class CatalogoUnidadesComponent implements OnInit {
         this.respuesta = null;
         this.respuesta = respuesta;
         this.catUnidades = this.respuesta!.datos.content;
+        this.cargadorService.desactivar();
       },
       (error: HttpErrorResponse) => {
         console.error(error);
+        this.cargadorService.desactivar();
         this.alertaService.mostrar('error', error.message);
       }
     );
   }
 
   buscar(): void {
-    this.unidadService.buscarPorFiltros(0, 10, this.ecco, this.ooad).subscribe(
+    this.cargadorService.activar();
+    this.unidadService.buscarPorFiltros(0, 10, this.ooad, this.nombreUnidad).subscribe(
       (respuesta) => {
         this.catUnidades = [];
         this.respuesta = null;
         this.respuesta = respuesta;
         this.catUnidades = this.respuesta!.datos.content;
+        this.cargadorService.desactivar();
       },
       (error: HttpErrorResponse) => {
         console.error(error);
+        this.cargadorService.desactivar();
         this.alertaService.mostrar('error', error.message);
       }
     );
@@ -73,6 +81,7 @@ export class CatalogoUnidadesComponent implements OnInit {
   }
 
   eliminar(): void {
+    this.cargadorService.activar();
     this.unidadService.eliminar(this.unidadSeleccionada?.idUnidad).subscribe(
       (respuesa) => {
         if (respuesa.codigo === 200) {
@@ -80,11 +89,13 @@ export class CatalogoUnidadesComponent implements OnInit {
           this.catUnidades.splice(indiceUnidad, 1);
           this.unidadSeleccionada = null;
           this.mostrarModal = false;
+          this.cargadorService.desactivar();
           this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
         }
       },
       (error: HttpErrorResponse) => {
         console.error(error);
+        this.cargadorService.desactivar();
         this.alertaService.mostrar('error', error.message);
         this.mostrarModal = false;
       }

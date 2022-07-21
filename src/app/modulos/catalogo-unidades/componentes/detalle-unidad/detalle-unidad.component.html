@@ -5,115 +5,113 @@
     </div>
     <div class="row mb-4">
         <div class="col-md-12 flex justify-content-end">
-            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-unidad',2]">Editar</button>
+            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-unidad',idUnidad]">Editar</button>
         </div>
     </div>
 
-    <p-card>
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos de la unidad
-                </h3>
-            </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
-                <p-dropdown id="ooad" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-md-6">
-                <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
-                <input class="form-control" id="nombreUnidad" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
-                <p-dropdown id="tipoUnidad" class="form-control" [options]="ooad" placeholder="Seleccionar"
-                    [disabled]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-md-8">
-                <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span
-                        class="req">*</span>:</label>
-                <div class="form-radio">
-                    <label>
-                        <input type="radio" name="radio-01" value="opcion-02" checked="checked" disabled> Sí
-                    </label>
-                    <label>
-                        <input type="radio" name="radio-01" value="opcion-03" checked="checked" disabled> No
-                    </label>
+    <form [formGroup]="form">
+        <p-card>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos de la unidad
+                    </h3>
                 </div>
             </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="unInf">UN INF<span class="req">*</span>:</label>
-                <input class="form-control" id="unInf" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="unOpe">UN OPE<span class="req">*</span>:</label>
-                <input class="form-control" id="unOpe" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="cc">CC<span class="req">*</span>:</label>
-                <input class="form-control" id="cc" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="cu">CU<span class="req">*</span>:</label>
-                <input class="form-control" id="cu" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="div">DIV<span class="req">*</span>:</label>
-                <input class="form-control" id="div" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="SDIV">SDIV<span class="req">*</span>:</label>
-                <input class="form-control" id="SDIV" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Dirección
-                </h3>
-            </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
-                <div class="flex">
-                    <input class="form-control" id="codigoPostal" placeholder="Ingresar CP" type="text" disabled>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
+                    <input id="ooad" formControlName="ooad" class="form-control" [disabled]="true" />
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
+                    <input class="form-control" id="nombreUnidad" formControlName="nombreUnidad" type="text" [disabled]="true">
                 </div>
             </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="entidad">Entidad:</label>
-                <input class="form-control" id="entidad" placeholder="XXXXXXXXXXX" type="text" disabled>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
+                    <input id="tipoUnidad" class="form-control" formControlName="unidad" [disabled]="true">
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span
+                            class="req">*</span>:</label>
+                    <div class="form-radio">
+                        <label>
+                            <input type="radio" name="pernocta" formControlName="pernocta" [value]="true" [disabled]="true"> Sí
+                        </label>
+                        <label>
+                            <input type="radio" name="pernocta" formControlName="pernocta" [value]="false" [disabled]="true"> No
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="municipio">Municipio:</label>
-                <input class="form-control" id="municipio" placeholder="XXXXXXXXXXX" type="text" disabled>
+            <hr class="separador-small">
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="unInf">UN INF<span class="req">*</span>:</label>
+                    <input class="form-control" id="unInf" formControlName="unInf" type="text" [disabled]="true">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="unOpe">UN OPE<span class="req">*</span>:</label>
+                    <input class="form-control" id="unOpe" formControlName="unOpe" type="text" [disabled]="true">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="cc">CC<span class="req">*</span>:</label>
+                    <input class="form-control" id="cc" formControlName="cc" type="text" [disabled]="true">
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
-                <input class="form-control" id="colonia" placeholder="Ingresar" type="text" disabled>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="cu">CU<span class="req">*</span>:</label>
+                    <input class="form-control" id="cu" formControlName="cu" type="text" [disabled]="true">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="div">DIV<span class="req">*</span>:</label>
+                    <input class="form-control" id="div" formControlName="div" type="text" [disabled]="true">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="SDIV">SDIV<span class="req">*</span>:</label>
+                    <input class="form-control" id="SDIV" formControlName="sdiv" placeholder="Ingresar" type="text" [disabled]="true">
+                </div>
+            </div>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Dirección
+                    </h3>
+                </div>
+            </div>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
+                    <div class="flex">
+                        <input class="form-control" id="codigoPostal" formControlName="cp" type="text" [disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row flex align-items-end mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="entidad">Entidad:</label>
+                    <input class="form-control" id="entidad" formControlName="entidad" type="text" [disabled]="true">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="municipio">Municipio:</label>
+                    <input class="form-control" id="municipio" formControlName="municipio" type="text" [disabled]="true">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
+                    <input class="form-control" id="colonia" formControlName="colonia" type="text" [disabled]="true">
+                </div>
+            </div>
+        </p-card>
+        <div class="flex justify-content-between mt-4">
+            <span class="campos-obligatorios">*Campos obligatorios</span>
+            <div>
+                <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
+                <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
             </div>
         </div>
-    </p-card>
-    <div class="flex justify-content-between mt-4">
-        <span class="campos-obligatorios">*Campos obligatorios</span>
-        <div>
-            <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
-        </div>
-    </div>
-
+    </form>
 </div>

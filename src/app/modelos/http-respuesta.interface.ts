@@ -5,4 +5,5 @@ export interface HttpRespuesta<T> {
     mensaje: string;
     error: boolean;
     datos: T;
+    [x: string]: any;
 }

@@ -43,7 +43,7 @@ export class InicioSesionComponent implements OnInit {
         this.cargadorService.desactivar();
         if (respuesta.data) {
           this.router.navigateByUrl('/inicio');
-        } else if (respuesta.mensaje === 'usuario-password') {
+        } else if (respuesta.mensaje === 'usuario-pasword') {
           this.form.reset();
           this.alertaFlotante.mostrar('error', 'Credenciales incorrectas');
         } else if (respuesta.mensaje === 'bloqueado') {

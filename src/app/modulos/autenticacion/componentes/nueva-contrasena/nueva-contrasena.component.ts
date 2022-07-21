@@ -37,22 +37,27 @@ export class NuevaContrasenaComponent implements OnInit {
     let idUsuario: any = this.activatedRoute.snapshot.paramMap.get('idUsuario');
     let nuevaContrasena: string = this.form.get('nuevaContrasena')?.value;
     let confirmacionContrasena: string = this.form.get('confirmacionContrasena')?.value;
-    this.autService.actualizarContrasena(idUsuario, nuevaContrasena, confirmacionContrasena).subscribe(
-      (respuesta: any) => {
-        if (respuesta.mensaje === 'Exito') {
-          this.alertaService.mostrar('exito', 'La contraseña ha sido actualizada exitosamente.');
-          this.router.navigateByUrl('/inicio-sesion');
-        } else if (respuesta.error) {
-          this.alertaService.mostrar('error', 'Ocurrió un error al intentar actualizar la contraseña.');
+    if (nuevaContrasena === confirmacionContrasena) {
+      this.autService.actualizarContrasena(idUsuario, nuevaContrasena, confirmacionContrasena).subscribe(
+        (respuesta: any) => {
+          if (respuesta.mensaje === 'Exito') {
+            this.alertaService.mostrar('exito', 'La contraseña ha sido actualizada exitosamente.');
+            this.router.navigateByUrl('/inicio-sesion');
+          } else if (respuesta.error) {
+            this.alertaService.mostrar('error', 'Ocurrió un error al intentar actualizar la contraseña.');
+            this.form.reset();
+          }
+        },
+        (httpErrorResponse: HttpErrorResponse) => {
+          console.error(httpErrorResponse);
           this.form.reset();
+          this.alertaService.mostrar('error', 'Ocurrió un error al consultar la matrícula');
         }
-      },
-      (httpErrorResponse: HttpErrorResponse) => {
-        console.error(httpErrorResponse);
-        this.form.reset();
-        this.alertaService.mostrar('error', 'Ocurrió un error al consultar la matrícula');
-      }
-    )
+      )
+    } else {
+      this.alertaService.mostrar('error', 'Las contraseñas no coinciden.');
+    }
+
   }
 
   get f() {

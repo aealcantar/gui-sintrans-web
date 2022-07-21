@@ -54,7 +54,6 @@ export class AutenticacionService {
   }
 
   actualizarContrasena(idUsuario: string, nuevaContrasena: string, confirmacionContrasena: string): Observable<any> {
-    console.log(idUsuario);
     return this.http.put<any>(`${environment.api.mssintetransOauth}/`, {
       idUsuario,
       password: nuevaContrasena,

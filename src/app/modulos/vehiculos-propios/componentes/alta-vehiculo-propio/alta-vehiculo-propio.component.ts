@@ -28,10 +28,10 @@ export class AltaVehiculoPropioComponent implements OnInit {
   }
 
   validarArchivo(event:any){
-    console.log(event);
+
   }
 
   guardar(){
-    console.log(this.archivos);
+
   }
 }

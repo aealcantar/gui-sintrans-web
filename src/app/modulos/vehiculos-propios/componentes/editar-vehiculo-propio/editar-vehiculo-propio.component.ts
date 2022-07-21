@@ -28,7 +28,6 @@ export class EditarVehiculoPropioComponent implements OnInit {
   }
 
   validarArchivo(event:any){
-    console.log(event);
   }
 
 }

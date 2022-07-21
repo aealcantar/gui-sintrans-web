@@ -61,7 +61,6 @@ export class CatalogoUnidadesComponent implements OnInit {
     this.cargadorService.activar();
     this.unidadService.buscarPorFiltros(0, 10, this.ooad, this.nombreUnidad).subscribe(
       (respuesta) => {
-        console.log("RESPUES BUSQUEDA: ", respuesta);
         this.catUnidades = [];
         this.respuesta = null;
         this.respuesta = respuesta;

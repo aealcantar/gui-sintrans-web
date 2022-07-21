@@ -21,6 +21,10 @@ export abstract class BaseService<T, ID> implements OperacionesComunes<T, ID> {
         return this._http.get<T>(this._base + "/" + id);
     }
 
+    buscarElementoPorId(id: ID): Observable<T> {
+        return this._http.get<T>(this._base + id);
+    }
+
     buscarTodos(): Observable<T[]> {
         return this._http.get<T[]>(this._base)
     }

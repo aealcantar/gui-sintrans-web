@@ -17,15 +17,15 @@
                 <input class="form-control" id="ecco" placeholder="Ingresar" type="text">
             </div>
             <div class="col-md-3">
-                <label class="control-label" for="noInventario">No de inventario<span class="req">*</span>:</label>
+                <label class="control-label" for="noInventario">N° de inventario<span class="req">*</span>:</label>
                 <input class="form-control" id="noInventario" placeholder="Ingresar" type="text">
             </div>
             <div class="col-md-3">
-                <label class="control-label" for="noSerie">No de serie<span class="req">*</span>:</label>
+                <label class="control-label" for="noSerie">N° de serie<span class="req">*</span>:</label>
                 <input class="form-control" id="noSerie" placeholder="Ingresar" type="text">
             </div>
             <div class="col-md-3">
-                <label class="control-label" for="noTarjeton">No de tarjetón<span class="req">*</span>:</label>
+                <label class="control-label" for="noTarjeton">N° de tarjetón<span class="req">*</span>:</label>
                 <input class="form-control" id="noTarjeton" placeholder="Ingresar" type="text">
             </div>
         </div>
@@ -33,23 +33,23 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
-                <p-dropdown id="tipoVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="tipoVehiculo" class="form-control" [options]="catTipoVehiculo" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
                         class="req">*</span>:</label>
-                <p-dropdown id="clasifVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="clasifVehiculo" class="form-control" [options]="catCONUEE" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
-                <p-dropdown id="tipoServicio" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="tipoServicio" class="form-control" [options]="catTipoServicio" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="version">Versión<span class="req">*</span>:</label>
-                <p-dropdown id="version" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="version" class="form-control" [options]="catVersion" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
         </div>
@@ -94,13 +94,13 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
-                <p-dropdown id="combustible" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="combustible" class="form-control" [options]="catCombustible" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="cantCombus">Cantidad de combustible por litro<span
                         class="req">*</span>:</label>
-                <p-dropdown id="cantCombus" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="cantCombus" class="form-control" [options]="catCombustible" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
-                <p-dropdown id="capToneladas" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="capToneladas" class="form-control" [options]="catToneladas" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
         </div>
@@ -117,11 +117,11 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
-                <p-dropdown id="cilindros" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="cilindros" class="form-control" [options]="catCilindros" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
-                <label class="control-label" for="noMotor">No de motor<span class="req">*</span>:</label>
+                <label class="control-label" for="noMotor">N° de motor<span class="req">*</span>:</label>
                 <input class="form-control" id="noMotor" placeholder="Ingresar" type="text">
             </div>
             <div class="col-md-3">
@@ -156,7 +156,7 @@
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
-                <p-dropdown id="tipoRegimen" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="tipoRegimen" class="form-control" [options]="catTipoRegimen" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
         </div>
@@ -173,7 +173,7 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-6">
                 <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                <p-dropdown id="unidad" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="unidad" class="form-control" [options]="catUnidades" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
@@ -204,7 +204,7 @@
             </div>
             <div class="col-md-4">
                 <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
-                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="estatus" class="form-control" [options]="catEstatus" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
             <div class="col-md-4">
@@ -229,7 +229,7 @@
             </div>
             <div class="col-md-6">
                 <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
-                <p-dropdown id="aseguradora" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                <p-dropdown id="aseguradora" class="form-control" [options]="catUnidades" placeholder="Seleccionar">
                 </p-dropdown>
             </div>
         </div>

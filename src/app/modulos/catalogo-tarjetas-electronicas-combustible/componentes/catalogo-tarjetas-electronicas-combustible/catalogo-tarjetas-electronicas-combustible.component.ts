@@ -1,4 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
+import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { TarjetaElectronica } from 'src/app/modelos/tarjeta-electronica.interface';
+import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
+import { CatalogoTarjetasElectronicasService } from '../../servicios/catalogo-tarjetas-eletronicas.service';
 
 @Component({
   selector: 'app-catalogo-tarjetas-electronicas-combustible',
@@ -7,153 +15,101 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit {
 
+  inicioPagina: number = 0;
   mostrarModal: boolean = false;
-  
-  unidades: any[] = [
-    {
-      id: 1,
-      numeroConvenio: '00000000000 1',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 2,
-      numeroConvenio: '00000000000 2',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 3,
-      numeroConvenio: '00000000000 3',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 4,
-      numeroConvenio: '00000000000 4',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 5,
-      numeroConvenio: '00000000000 5',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 6,
-      numeroConvenio: '00000000000 6',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 7,
-      numeroConvenio: '00000000000 7',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 8,
-      numeroConvenio: '00000000000 8',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 9,
-      numeroConvenio: '00000000000 9',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 10,
-      numeroConvenio: '00000000000 10',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 11,
-      numeroConvenio: '00000000000 11',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 12,
-      numeroConvenio: '00000000000 12',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 13,
-      numeroConvenio: '00000000000 13',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 14,
-      numeroConvenio: '00000000000 14',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 15,
-      numeroConvenio: '00000000000 15',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 16,
-      numeroConvenio: '00000000000 16',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 17,
-      numeroConvenio: '00000000000 17',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 18,
-      numeroConvenio: '00000000000 18',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 19,
-      numeroConvenio: '00000000000 19',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    },
-    {
-      id: 20,
-      numeroConvenio: '00000000000 20',
-      ooad: 'OOAD',
-      rangoFolioInicial: 'Folio',
-      rangoFolioFinal: 'Folio'
-    }
-  ];
-  constructor() { }
+  respuesta!: HttpRespuesta<any> | null;
+  tarjetasElectronicas: TarjetaElectronica[] = [];
+  tarjetaElectronicaSeleccionada: TarjetaElectronica | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private alertaService: AlertasFlotantesService,
+    private cargadorService: CargadorService,
+    private tarjetaElectronicaService: CatalogoTarjetasElectronicasService
+  ) { }
 
   ngOnInit(): void {
+    this.respuesta = this.route.snapshot.data["respuesta"];
+    this.tarjetasElectronicas = this.respuesta!.datos;
+  }
+
+  mostrarModalEliminar(tarjetaElectronica: TarjetaElectronica): void {
+    this.tarjetaElectronicaSeleccionada = tarjetaElectronica;
+    this.mostrarModal = true;
+  }
+
+  eliminar(): void {
+    this.cargadorService.activar();
+    this.tarjetaElectronicaService.eliminar(this.tarjetaElectronicaSeleccionada?.idTarjetaElectronica).subscribe(
+      (respuesa) => {
+        let indiceUnidad = this.tarjetasElectronicas.findIndex((t) => t.idTarjetaElectronica === this.tarjetaElectronicaSeleccionada?.idTarjetaElectronica);
+        this.tarjetasElectronicas.splice(indiceUnidad, 1);
+        this.tarjetaElectronicaSeleccionada = null;
+        this.mostrarModal = false;
+        this.cargadorService.desactivar();
+        this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.cargadorService.desactivar();
+        this.alertaService.mostrar('error', error.message);
+        this.mostrarModal = false;
+      }
+    )
+  }
+
+  paginador(event: any): void {
+    let inicio = event.first;
+    let pagina = Math.floor(inicio / 10);
+    let tamanio = event.rows;
+    if(tamanio !== undefined) {
+      this.tarjetaElectronicaService.buscarPorPagina(pagina, tamanio).subscribe(
+        (respuesta) => {
+          this.tarjetasElectronicas = [];
+          this.respuesta = null;
+          this.respuesta = respuesta;
+          this.tarjetasElectronicas = this.respuesta!.datos;
+          this.ordenar(event);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        }
+      );
+    }
+  }
+
+  ordenar(event: any): void {
+    if(event.sortField !== 'idOoad') {
+      this.ordenarNumericos(event);
+    } else {
+      this.ordenarCadenas(event);
+    }
+  }
+
+  ordenarCadenas(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+        return 1;
+      }
+      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+        return -1;
+      }
+      return 0;
+    };
+    if (event.sortOrder === 1) {
+      this.tarjetasElectronicas = this.tarjetasElectronicas.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.tarjetasElectronicas = this.tarjetasElectronicas.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
+  }
+
+  ordenarNumericos(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => a[campoOrdenamiento] - b[campoOrdenamiento];
+    if (event.sortOrder === 1) {
+      this.tarjetasElectronicas = this.tarjetasElectronicas.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.tarjetasElectronicas = this.tarjetasElectronicas.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
   }
 
 }

@@ -1,36 +1,71 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { Ooad } from 'src/app/modelos/ooad.interface';
+import { TarjetaElectronica } from 'src/app/modelos/tarjeta-electronica.interface';
 
 @Component({
   selector: 'app-detalle-tarjeta-electronica-combustible',
   templateUrl: './detalle-tarjeta-electronica-combustible.component.html',
-  styleUrls: ['./detalle-tarjeta-electronica-combustible.component.scss']
+  styleUrls: ['./detalle-tarjeta-electronica-combustible.component.scss'],
+  providers: [DatePipe]
 })
 export class DetalleTarjetaElectronicaCombustibleComponent implements OnInit {
 
-  ooad: any = [
-    {
-      label: 'Valor 1', value: 1
-    },
-    {
-      label: 'Valor 2', value: 2
-    },
-    {
-      label: 'Valor 3', value: 3
-    }
-  ];
-  es = {
-    firstDayOfWeek: 1,
-    dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-    dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-    dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-    monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-    monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
-    today: 'Hoy',
-    clear: 'Borrar'
-  }
-  constructor() { }
+  readonly POSICION_TARJETA_ELECTRONICA = 0;
+  readonly POSICION_CATALOGO_OOAD = 1;
+  readonly POSICION_CATALOGO_ESTATUS = 2;
+  respuesta!: HttpRespuesta<any> | null;
+  idTarjetaElectronica: any;
+  catOoad: Ooad[] = [];
+  catEstatus: any[] = [];
+
+  form!: FormGroup;
+
+  constructor(
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
+    let respuesta = this.route.snapshot.data["respuesta"];
+    let tarjetaElectronica: TarjetaElectronica = respuesta[this.POSICION_TARJETA_ELECTRONICA].datos[0];
+    this.idTarjetaElectronica = tarjetaElectronica.idTarjetaElectronica;
+    this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].datos.map(
+      (ooad: Ooad) => ({
+        label: ooad.nomOoad,
+        value: ooad.idOoad
+      })
+    );
+    this.catEstatus = respuesta[this.POSICION_CATALOGO_ESTATUS].map(
+      (estatus: any) => (
+        {
+          label: estatus.descripcionEstatus,
+          value: estatus.idEstatus
+        }
+      )
+    );
+    this.inicializarForm(tarjetaElectronica);
+  }
+
+  inicializarForm(tarjetaElectronica: TarjetaElectronica): void {
+    this.form = this.formBuilder.group({
+      idTarjetaElectronica: new FormControl({ value: tarjetaElectronica.idTarjetaElectronica, disabled: true}),
+      numeroConvenio: new FormControl({ value: tarjetaElectronica.cveNumeroConvenio, disabled: true}),
+      nombreEmpresa: new FormControl({ value: tarjetaElectronica.nomEmpresa, disabled: true}),
+      importeMensual: new FormControl({ value: tarjetaElectronica.impMensual, disabled: true}),
+      fechaInicioConvenio: new FormControl({ value: this.datePipe.transform(tarjetaElectronica.fecIniConvenio, 'dd/MM/YYYY'), disabled: true}),
+      fechaFinConvenio: new FormControl({ value: this.datePipe.transform(tarjetaElectronica.fecFinConvenio, 'dd/MM/YYYY'), disabled: true}),
+      litrosLimite: new FormControl({ value: tarjetaElectronica.canLitrosLimiteMes, disabled: true}),
+      ooad: new FormControl({ value: tarjetaElectronica.idOoad, disabled: true}),
+      folioInicial: new FormControl({ value: tarjetaElectronica.numFolioInicial, disabled: true}),
+      folioFinal: new FormControl({ value: tarjetaElectronica.numFolioFinal, disabled: true}),
+      km: new FormControl({ value: tarjetaElectronica.canKmsRecorridos, disabled: true}),
+      estatus: new FormControl({ value: tarjetaElectronica.desEstatusTarjeta, disabled: true})
+    });
   }
 
 }

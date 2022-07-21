@@ -5,18 +5,22 @@ import { map } from "rxjs/operators";
 import { AutenticacionService } from "./autenticacion.service";
 
 @Injectable()
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class PermiteUsuarioLogueadoGuard implements CanActivate, CanActivateChild {
+
     constructor(private aut: AutenticacionService, private router: Router) {
 
     }
+
     canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
-        return this.checkIfAuthenticated();
-    }
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
-        return this.checkIfAuthenticated();
+        return this.validarSiEstaAutenticado();
     }
 
-    private checkIfAuthenticated() {
-        return this.aut.isLoggedIn$.pipe(map(loggedIn => loggedIn ? true : this.router.parseUrl('/login')));
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+        return this.validarSiEstaAutenticado();
     }
+
+    private validarSiEstaAutenticado() {
+        return this.aut.estaLogueado$.pipe(map(estaLogueado => estaLogueado ? true : this.router.parseUrl('/inicio-sesion')));
+    }
+    
 }

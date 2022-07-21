@@ -1,5 +1,5 @@
 <app-header-imss-publico></app-header-imss-publico>
-<app-menu-principal></app-menu-principal>
+<app-menu-principal *ngIf="(aut.estaLogueado$ | async)"></app-menu-principal>
 <main>
     <router-outlet></router-outlet>
 </main>

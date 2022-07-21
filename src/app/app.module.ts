@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ToastModule } from 'primeng-lts/toast';
 
@@ -18,6 +18,10 @@ import { CargadorService } from './compartidos/cargador/cargador.service';
 import { OverlayPanelModule } from 'primeng-lts/overlaypanel';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AutenticacionInterceptor } from './servicios/seguridad/autenticacion.interceptor';
+import { AutenticacionService } from './servicios/seguridad/autenticacion.service';
+import { PermiteUsuarioLogueadoGuard } from './servicios/seguridad/permite-usuario-logueado.guard';
+import { BloqueaUsuarioLogueadoGuard } from './servicios/seguridad/bloquea-usuario-logueado.guard';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -50,6 +54,14 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CargadorModule
   ],
   providers: [
+    AutenticacionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutenticacionInterceptor,
+      multi: true
+    },
+    PermiteUsuarioLogueadoGuard,
+    BloqueaUsuarioLogueadoGuard,
     MessageService,
     AlertasFlotantesService,
     CargadorService

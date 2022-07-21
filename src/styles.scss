@@ -21,6 +21,10 @@ body {
     color: #9f2241;
 }
 
+input.ng-invalid:not(.ng-untouched){
+    border: 1px solid #9F2241;
+}
+
 h3.subtitulo {
     font-style: normal;
     font-weight: 600;

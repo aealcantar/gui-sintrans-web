@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng-lts/api';
+import { AutenticacionService } from './servicios/seguridad/autenticacion.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements AfterViewInit {
   constructor(
     private primengConfig: PrimeNGConfig,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public aut: AutenticacionService
   ) { }
 
 

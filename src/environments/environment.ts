@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   api: {
-    mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/v1/unidades'
+    mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/v1/unidades',
+    mssintetransVehiculos: 'http://locahost:8084/mssintetrans-vehiculos',
+    mssintetransUsuario:'http://localhost:8083/mssintetrans-usuarios/v1'
+  
   }
 };
 

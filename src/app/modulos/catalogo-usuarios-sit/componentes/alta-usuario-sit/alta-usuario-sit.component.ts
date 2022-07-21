@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-alta-usuario-sit',
@@ -17,7 +18,7 @@ export class AltaUsuarioSitComponent implements OnInit {
       label: 'Valor 3', value: 3
     }
   ];
-  constructor() { }
+  constructor(private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
   }

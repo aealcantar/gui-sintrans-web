@@ -54,6 +54,16 @@
                     color: #006455;
                     font-weight: 500;
                 }
+
+                .menu-item-border {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background: #158b70;
+                    border-radius: 2px 2px 0px 0px;
+                }
             }
             &-icon {
                 display: inline-block;
@@ -69,27 +79,8 @@
                 color: #666666;
                 position: relative;
                 text-align: center;
-                // &::after {
-                //     content: "";
-                //     position: absolute;
-                //     bottom: 0;
-                //     left: 0;
-                //     width: 100%;
-                //     height: 3px;
-                //     transform: translateY(8px);
-                //     background: #158b70;
-                //     border-radius: 2px 2px 0px 0px;
-                // }
             }
-            &-border {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 3px;
-                background: #158b70;
-                border-radius: 2px 2px 0px 0px;
-            }
+          
         }
     }
 

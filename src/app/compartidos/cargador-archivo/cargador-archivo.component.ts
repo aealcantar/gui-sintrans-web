@@ -7,9 +7,6 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 
 })
 export class CargadorArchivoComponent implements OnInit {
 
-  @HostBinding('class.ng-invalid')
-  invalid: boolean = false;
-
   /**
    * Especifica un arreglo de string con las extensiones aceptadas.
    * Ejemplo: ['png','jpg','jpeg'] o ['pdf','docx','csv','xlsx']
@@ -35,6 +32,9 @@ export class CargadorArchivoComponent implements OnInit {
 
   @Input()
   archivos: File[] = [];
+
+  @HostBinding('class.ng-invalid')
+  invalid: boolean = this.archivos.length === 0;
 
   @Input()
   multiple: boolean = false;
@@ -108,7 +108,6 @@ export class CargadorArchivoComponent implements OnInit {
           mensaje: 'Tamaño máximo excedido.',
           archivo: archivo
         });
-        this.invalid = true;
         this.archivos = [];
         return;
       } else if (this.esExtensionInvalida(archivo)) {
@@ -116,7 +115,6 @@ export class CargadorArchivoComponent implements OnInit {
           mensaje: 'El tipo de archivo es incorrecto.',
           archivo: archivo
         });
-        this.invalid = true;
         this.archivos = [];
         return;
       }
@@ -125,7 +123,6 @@ export class CargadorArchivoComponent implements OnInit {
       }
       this.archivos.push(archivo);
       this.archivosChange.emit(this.archivos);
-      this.invalid = false;
     }
   }
 

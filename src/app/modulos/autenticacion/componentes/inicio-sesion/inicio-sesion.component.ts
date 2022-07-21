@@ -40,13 +40,15 @@ export class InicioSesionComponent implements OnInit {
     this.cargadorService.activar();
     this.autenticacionService.iniciarSesion(usuario, password).subscribe(
       (respuesta) => {
+        this.cargadorService.desactivar();
         if (respuesta.data) {
-          this.cargadorService.desactivar();
           this.router.navigateByUrl('/inicio');
-        } else {
-          this.cargadorService.desactivar();
+        } else if (respuesta.mensaje === 'usuario-password') {
           this.form.reset();
           this.alertaFlotante.mostrar('error', 'Credenciales incorrectas');
+        } else if (respuesta.mensaje === 'bloqueado') {
+          this.form.reset();
+          this.alertaFlotante.mostrar('error', 'Excediste el número de intentos permitidos, el usuario fue bloqueado.');
         }
       },
       (error: HttpErrorResponse) => {

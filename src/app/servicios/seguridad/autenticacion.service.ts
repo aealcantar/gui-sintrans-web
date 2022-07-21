@@ -47,6 +47,22 @@ export class AutenticacionService {
       );
   }
 
+  validarMatricula(matricula: string): Observable<any> {
+    return this.http.post<any>(`${environment.api.mssintetransOauth}/`, {
+      usuario: matricula
+    });
+  }
+
+  actualizarContrasena(idUsuario: string, nuevaContrasena: string, confirmacionContrasena: string): Observable<any> {
+    console.log(idUsuario);
+    return this.http.put<any>(`${environment.api.mssintetransOauth}/`, {
+      idUsuario,
+      password: nuevaContrasena,
+      verificarPassword: confirmacionContrasena
+    });
+
+  }
+
   cerrarSesion() {
     this.usuarioSubject.next(null);
     localStorage.removeItem(TRANSPORTES_USUARIO);

@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'recuperar-contrasena', component: RecuperarContrasenaComponent
       },
       {
-        path: 'nueva-contrasena', component: NuevaContrasenaComponent
+        path: 'nueva-contrasena/:idUsuario', component: NuevaContrasenaComponent
       }
     ]
   }

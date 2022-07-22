@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { VehiculosPropiosRoutingModule } from './vehiculos-propios-routing.module';
 import { VehiculosPropiosComponent } from './componentes/vehiculos-propios/vehiculos-propios.component';
@@ -18,6 +18,7 @@ import { EditarVehiculoPropioComponent } from './componentes/editar-vehiculo-pro
 import { DetalleVehiculoPropioComponent } from './componentes/detalle-vehiculo-propio/detalle-vehiculo-propio.component';
 import { CatalogoVehiculosPropiosService } from './servicios/catalogo-vehiculos-propios.service';
 import { CatalogoUnidadesService } from '../catalogo-unidades/servicios/catalogo-unidades.service';
+import { InputNumberModule } from 'primeng-lts/inputnumber';
 
 
 @NgModule({
@@ -40,11 +41,13 @@ import { CatalogoUnidadesService } from '../catalogo-unidades/servicios/catalogo
     BtnRegresarModule,
     DialogModule,
     CalendarModule,
-    CargadorArchivoModule
+    CargadorArchivoModule,
+    InputNumberModule
   ],
   providers: [
     CatalogoVehiculosPropiosService,
-    CatalogoUnidadesService
+    CatalogoUnidadesService,
+    DatePipe
   ]
 })
 export class VehiculosPropiosModule { }

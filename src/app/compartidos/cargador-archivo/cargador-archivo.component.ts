@@ -30,6 +30,11 @@ export class CargadorArchivoComponent implements OnInit {
    */
   private _disabled: boolean = false;
 
+  /**
+   * Muestra el boton de descarga.
+   */
+  private _mostrarBtnDescargar: boolean = false;
+
   @Input()
   archivos: File[] = [];
 
@@ -90,6 +95,15 @@ export class CargadorArchivoComponent implements OnInit {
   @Input()
   get disabled() {
     return this._disabled;
+  }
+
+  set mostrarBtnDescargar(mostrarBtnDescargar: boolean) {
+    this._mostrarBtnDescargar = mostrarBtnDescargar;
+  }
+
+  @Input()
+  get mostrarBtnDescargar() {
+    return this._mostrarBtnDescargar;
   }
 
   set extensionesAceptadas(extensionesAceptadas: string[]) {

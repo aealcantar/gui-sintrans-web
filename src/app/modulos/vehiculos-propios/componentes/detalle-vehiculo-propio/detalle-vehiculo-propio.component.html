@@ -3,331 +3,333 @@
         <app-btn-regresar routerLink="../.."></app-btn-regresar>
         <app-separador class="flex-grow-1" texto="Detalle de vehículo propio"></app-separador>
     </div>
-    <p-card>
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos administrativos particulares
-                </h3>
+    <form [formGroup]="form">
+        <p-card>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos administrativos particulares
+                    </h3>
+                </div>
             </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="ecco">ECCO:</label>
-                <input class="form-control" id="ecco" placeholder="Ingresar" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
+                    <input class="form-control" id="ecco" formControlName="ecco" maxlength="10" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noInventario">N° de inventario<span class="req">*</span>:</label>
+                    <input class="form-control" id="noInventario" formControlName="noInventario" maxlength="12" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noSerie">N° de serie<span class="req">*</span>:</label>
+                    <input class="form-control" id="noSerie" formControlName="noSerie" maxlength="14" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noTarjeton">N° de tarjetón<span class="req">*</span>:</label>
+                    <input class="form-control" id="noTarjeton" formControlName="noTarjeton" maxlength="10" placeholder="Ingresar" type="text">
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noInventario">N° de inventario:</label>
-                <input class="form-control" id="noInventario" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noSerie">N° de serie:</label>
-                <input class="form-control" id="noSerie" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noTarjeton">N° de tarjetón:</label>
-                <input class="form-control" id="noTarjeton" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="tipoVehiculo">Tipo de vehículo:</label>
-                <p-dropdown id="tipoVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoVehiculo" class="form-control" formControlName="tipoVehiculo" [options]="catTipoVehiculo" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
+                            class="req">*</span>:</label>
+                    <p-dropdown id="clasifVehiculo" class="form-control" formControlName="clasifVehiculo" [options]="catCONUEE" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoServicio" class="form-control" formControlName="tipoServicio" [options]="catTipoServicio" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="version">Versión<span class="req">*</span>:</label>
+                    <p-dropdown id="version" class="form-control" formControlName="version" [options]="catVersion" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
-                        class="req">*</span>:</label>
-                <p-dropdown id="clasifVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="tipoServicio">Tipo de servicio:</label>
-                <p-dropdown id="tipoServicio" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="version">Versión:</label>
-                <p-dropdown id="version" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos generales
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos generales
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="marca">Marca:</label>
-                <input class="form-control" id="marca" placeholder="Ingresar" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="marca">Marca<span class="req">*</span>:</label>
+                    <input class="form-control" id="marca" formControlName="marca" maxlength="30" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="clase">Clase<span class="req">*</span>:</label>
+                    <input class="form-control" id="clase" formControlName="clase" maxlength="30" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="submarca">Submarca<span class="req">*</span>:</label>
+                    <input class="form-control" id="submarca" formControlName="submarca" maxlength="20" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="modelo">Modelo<span class="req">*</span>:</label>
+                    <p-inputNumber class="form-control" id="modelo" formControlName="modelo" [min]="0" [maxlength]="4" placeholder="Ingresar"></p-inputNumber>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="clase">Clase:</label>
-                <input class="form-control" id="clase" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="submarca">Submarca:</label>
-                <input class="form-control" id="submarca" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="modelo">Modelo:</label>
-                <input class="form-control" id="modelo" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Rendimiento y capacidad
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Rendimiento y capacidad
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="combustible">Combustible:</label>
-                <p-dropdown id="combustible" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
+                    <p-dropdown id="combustible" class="form-control" formControlName="combustible" [options]="catCombustible" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="cantCombus">Cantidad de combustible por litro<span
+                            class="req">*</span>:</label>
+                    <input class="form-control" id="cantCombus" formControlName="cantCombus" maxlength="10" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
+                    <p-inputNumber class="form-control" id="capPersonas" formControlName="capPersonas" [min]="0" [maxlength]="3" placeholder="Ingresar"></p-inputNumber>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
+                    <p-dropdown id="capToneladas" class="form-control" formControlName="capToneladas" [options]="catToneladas" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="cantCombus">Cantidad de combustible por litro:</label>
-                <p-dropdown id="cantCombus" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="capPersonas">Cap. de personas:</label>
-                <input class="form-control" id="capPersonas" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="capToneladas">Cap. en toneladas:</label>
-                <p-dropdown id="capToneladas" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="cilindros">Cilindros:</label>
-                <p-dropdown id="cilindros" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
+                    <p-dropdown id="cilindros" class="form-control" formControlName="cilindros" [options]="catCilindros" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noMotor">N° de motor<span class="req">*</span>:</label>
+                    <input class="form-control" id="noMotor" formControlName="noMotor" maxlength="20" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="valorContable">Valor contable<span class="req">*</span>:</label>
+                    <input class="form-control" id="valorContable" formControlName="valorContable" maxlength="10" placeholder="Ingresar" type="text">
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noMotor">N° de motor:</label>
-                <input class="form-control" id="noMotor" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="valorContable">Valor contable:</label>
-                <input class="form-control" id="valorContable" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Reglamentación
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Reglamentación
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="placas">Placas:</label>
-                <input class="form-control" id="placas" placeholder="Ingresar" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="placas">Placas<span class="req">*</span>:</label>
+                    <input class="form-control" id="placas" formControlName="placas" maxlength="8" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="licCofepris">Licencia COFEPRIS<span class="req">*</span>:</label>
+                    <input class="form-control" id="licCofepris" formControlName="licCofepris" maxlength="10" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="venLicCofepris" formControlName="venLicCofepris" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoRegimen" class="form-control" formControlName="tipoRegimen" [options]="catTipoRegimen" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="licCofepris">Licencia COFEPRIS:</label>
-                <input class="form-control" id="licCofepris" placeholder="Ingresar" type="text" disabled>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS:</label>
-                <p-calendar id="venLicCofepris" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
-                </p-calendar>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="tipoRegimen">Tipo de regimen:</label>
-                <p-dropdown id="tipoRegimen" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos de unidad
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos de unidad
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="unidad">Unidad:</label>
-                <p-dropdown id="unidad" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
+                    <p-dropdown id="unidad" class="form-control" formControlName="unidad" [options]="catUnidades" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="cp">CP:</label>
+                    <input class="form-control" id="cp" formControlName="cp" maxlength="5" placeholder="Ingresar" type="text">
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="cp">CP:</label>
-                <input class="form-control" id="cp" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="entidad">Entidad:</label>
-                <input class="form-control" id="entidad" placeholder="XXXXXXXXX" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="entidad">Entidad<span class="req">*</span>:</label>
+                    <input class="form-control" id="entidad" formControlName="entidad" maxlength="150" placeholder="XXXXXXXXX" type="text">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="municipio">Municipio<span class="req">*</span>:</label>
+                    <input class="form-control" id="municipio" formControlName="municipio" maxlength="150" placeholder="XXXXXXXXX" type="text">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
+                    <input class="form-control" id="colonia" formControlName="colonia" maxlength="150" placeholder="XXXXXXXXX" type="text">
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="municipio">Municipio:</label>
-                <input class="form-control" id="municipio" placeholder="XXXXXXXXX" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="colonia">Colonia:</label>
-                <input class="form-control" id="colonia" placeholder="XXXXXXXXX" type="text" disabled>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="respBienes">Responsable de bienes:</label>
-                <input class="form-control" id="respBienes" placeholder="Ingresar" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="respBienes">Responsable de bienes<span class="req">*</span>:</label>
+                    <input class="form-control" id="respBienes" formControlName="respBienes" maxlength="20" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
+                    <p-dropdown id="estatus" class="form-control" formControlName="estatus" [options]="catEstatus" placeholder="Seleccionar">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaBaja">Fecha de baja<span class="req">*</span>:</label>
+                    <p-calendar id="fechaBaja" styleClass="form-control" formControlName="fechaBaja" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="estatus">Estatus:</label>
-                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="fechaBaja">Fecha de baja:</label>
-                <p-calendar id="fechaBaja" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
-                </p-calendar>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-12">
-                <label class="control-label" for="motivo">Motivo:</label>
-                <input class="form-control" id="motivo" placeholder="Ingresar" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
+                    <input class="form-control" id="motivo" formControlName="motivo" placeholder="Ingresar" type="text">
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="fechaEnajenacion">Estatus de enajenación<span
-                        class="req">*</span>:</label>
-                <input class="form-control" id="fechaEnajenacion" placeholder="Ingresar" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="estatusEnajenacion">Estatus de enajenación<span class="req">*</span>:</label>
+                    <input class="form-control" id="estatusEnajenacion" formControlName="estatusEnajenacion" maxlength="30" placeholder="Ingresar" type="text">
+                </div>
+                <div class="col-md-6">
+                    <!-- ESTE CATALOGO ESTA QUEMADO -->
+                    <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
+                    <p-dropdown id="aseguradora" class="form-control" formControlName="aseguradora" [options]="catUnidades" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <!-- ESTE CATALOGO ESTA QUEMADO -->
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="control-label" for="aseguradora">Aseguradora:</label>
-                <p-dropdown id="aseguradora" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true">
-                </p-dropdown>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Expediente de vehículo
+                    </h3>
+                </div>
             </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Expediente de vehículo
-                </h3>
+            <div class="row flex mb-4">
+                <div class="col-md-8">
+                    <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
+                            class="req">*</span>:</label>
+                    <app-cargador-archivo [mostrarBtnDescargar]="true" patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="tarjetaCirculacion" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
+                    <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
             </div>
-        </div>
-        <div class="row flex mb-4">
-            <div class="col-md-8">
-                <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
-                        class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
+            <hr class="separador-small">
+            <div class="row flex mb-4">
+                <div class="col-md-8">
+                    <label class="control-label" for="verificacion">Verificación<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="verificacion" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaProximaVerificacion">Fecha próxima verificación<span class="req">*</span>:</label>
+                    <p-calendar styleClass="form-control" formControlName="fechaProximaVerificacion" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="fechaVencimiento">Fecha vencimiento:</label>
-                <p-calendar id="fechaVencimiento" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
-                </p-calendar>
+            <hr class="separador-small">
+            <div class="row flex mb-4">
+                <div class="col-md-8">
+                    <label class="control-label" for="polizaSeguro">Póliza de seguro<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="polizaSeguro" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaVencimientoPoliza">Fecha vencimiento póliza<span class="req">*</span>:</label>
+                    <p-calendar styleClass="form-control" formControlName="fechaVencimientoPoliza" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                </div>
             </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row flex mb-4">
-            <div class="col-md-8">
-                <label class="control-label">Verificación:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label">Fecha próxima verificación:</label>
-                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
-                </p-calendar>
-            </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row flex mb-4">
-            <div class="col-md-8">
-                <label class="control-label">Póliza de seguro:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label">Fecha vencimiento póliza:</label>
-                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" [disabled]="true">
-                </p-calendar>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Fotografías del vehículo
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Fotografías del vehículo
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row flex mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaFrente">Fotografía de frente<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaFrente" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaLateralDerecho">Fotografía lateral derecho<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaLateralDerecho" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+            </div>
+
+            <div class="row flex mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaLateralIzquierdo">Fotografía lateral izquierdo<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaLateralIzquierdo" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaTrasera">Fotografía trasera<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaTrasera" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                </div>
+            </div>
+        </p-card>
+        <div class="flex justify-content-between mt-4">
+            <span class="campos-obligatorios">*Campos obligatorios</span>
+            <div>
+                <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
+                <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
             </div>
         </div>
-
-        <div class="row flex mb-4">
-            <div class="col-md-6">
-                <label class="control-label">Fotografía de frente:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
-            </div>
-            <div class="col-md-6">
-                <label class="control-label">Fotografía lateral derecho:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
-            </div>
-        </div>
-
-        <div class="row flex mb-4">
-            <div class="col-md-6">
-                <label class="control-label">Fotografía lateral izquierdo:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
-            </div>
-            <div class="col-md-6">
-                <label class="control-label">Fotografía trasera:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)" [disabled]="true">
-                </app-cargador-archivo>
-            </div>
-        </div>
-
-    </p-card>
-    <div class="flex justify-content-between mt-4">
-        <span class="campos-obligatorios">*Campos obligatorios</span>
-        <div>
-            <button class="btn btn-gold btn-lg" routerLink="../.." disabled>Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4" disabled>Guardar</button>
-        </div>
-    </div>
-
+    </form>
 </div>

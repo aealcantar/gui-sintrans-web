@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VehiculosArrendadosRoutingModule } from './vehiculos-arrendados-routing.module';
 import { VehiculosArrendadosComponent } from './componentes/vehiculos-arrendados/vehiculos-arrendados.component';
 import { FileUploadModule } from 'primeng-lts/fileupload';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng-lts/card';
 import { DropdownModule } from 'primeng-lts/dropdown';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
@@ -16,6 +16,7 @@ import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/carg
 import { AltaVehiculoArrendadoComponent } from './componentes/alta-vehiculo-arrendado/alta-vehiculo-arrendado.component';
 import { EditarVehiculoArrendadoComponent } from './componentes/editar-vehiculo-arrendado/editar-vehiculo-arrendado.component';
 import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehiculo-arrendado/detalle-vehiculo-arrendado.component';
+import { VehiculosArrendadosService } from './servicios/vehiculos-arrendados.service';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehicul
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     VehiculosArrendadosRoutingModule,
     FileUploadModule,
     CardModule,
@@ -38,6 +40,9 @@ import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehicul
     DialogModule,
     CalendarModule,
     CargadorArchivoModule
+  ],
+  providers:[
+    VehiculosArrendadosService
   ]
 })
 export class VehiculosArrendadosModule { }

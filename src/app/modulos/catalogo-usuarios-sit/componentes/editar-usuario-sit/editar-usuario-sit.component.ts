@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AlertaFlotanteComponent } from 'src/app/compartidos/alerta-flotante/alerta-flotante.component';
+import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { UsuarioSitUnidadService } from '../../service/usuario-sit-unidad.service';
 import { UsuarioService } from '../../service/usuario.service';
 
@@ -29,6 +31,7 @@ export class EditarUsuarioSitComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private usuarioService: UsuarioService,
+    private alertService : AlertasFlotantesService,
     private unidadService: UsuarioSitUnidadService,
     private fb: FormBuilder
   ) {
@@ -103,7 +106,7 @@ export class EditarUsuarioSitComponent implements OnInit {
       console.log(usuario)
       this.usuarioService.actualizar(this.usuario.idUsuario,usuario).subscribe(response=>{
       
-          console.log('se guardo con exito',response)
+        this.alertService.mostrar('exito','Se Guardaron Los Cambios Correctamente')
         
       });
     } else {

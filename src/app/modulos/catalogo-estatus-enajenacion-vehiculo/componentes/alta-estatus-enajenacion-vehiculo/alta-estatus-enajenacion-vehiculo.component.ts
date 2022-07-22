@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VehiculoEnajenacionService } from '../../service/vehiculo-enajenacion.service';
 
 @Component({
@@ -11,6 +12,8 @@ export class AltaEstatusEnajenacionVehiculoComponent implements OnInit {
   form;
   constructor(
     private fb: FormBuilder,
+    private route : Router,
+    private router:ActivatedRoute,
     private estatusService: VehiculoEnajenacionService
   ) {
     this.form = fb.group({
@@ -25,6 +28,7 @@ export class AltaEstatusEnajenacionVehiculoComponent implements OnInit {
       const body = this.form.getRawValue();
       this.estatusService.guardar(body).subscribe((response) => {
         console.log(response);
+        this.route.navigate(["../"], { relativeTo: this.router });
       });
     }
   }

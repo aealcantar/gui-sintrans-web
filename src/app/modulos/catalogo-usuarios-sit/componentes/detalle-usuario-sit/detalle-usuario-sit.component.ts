@@ -9,7 +9,7 @@ import { UsuarioSitRolService } from '../../service/usuario-sit-rol.service';
 })
 export class DetalleUsuarioSitComponent implements OnInit {
   usuaurio: any;
-  rol: any;
+  rol: any={descripcion : ""}
   constructor(
     private router: ActivatedRoute,
     private rolService: UsuarioSitRolService

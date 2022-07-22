@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VehiculosArrendadosRoutingModule } from './vehiculos-arrendados-routing.module';
 import { VehiculosArrendadosComponent } from './componentes/vehiculos-arrendados/vehiculos-arrendados.component';
 import { FileUploadModule } from 'primeng-lts/fileupload';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng-lts/card';
 import { DropdownModule } from 'primeng-lts/dropdown';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
@@ -28,6 +28,7 @@ import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehicul
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     VehiculosArrendadosRoutingModule,
     FileUploadModule,
     CardModule,

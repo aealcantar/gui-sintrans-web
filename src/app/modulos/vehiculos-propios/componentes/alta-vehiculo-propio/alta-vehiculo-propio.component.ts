@@ -7,6 +7,7 @@ import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
 import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehiculos-propios.service';
 
 @Component({
@@ -18,7 +19,13 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
 export class AltaVehiculoPropioComponent implements OnInit {
 
   //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  archivos: any[] = [];
+  tarjetaCirculacion: File[] = [];
+  verificacion: File[] = [];
+  polizaSeguro: File[] = [];
+  fotografiaFrente: File[] = [];
+  fotografiaLateralDerecho: File[] = [];
+  fotografiaLateralIzquierdo: File[] = [];
+  fotografiaTrasera: File[] = [];
 
   readonly POSICION_CATALOGO_UNIDADES = 0;
   readonly POSICION_CATALOGO_TIPO_VEHICULO = 1;
@@ -52,8 +59,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
-    private vehiculoPropioService: CatalogoVehiculosPropiosService,
-    private datePipe: DatePipe
+    private vehiculoPropioService: CatalogoVehiculosPropiosService
   ) { }
 
   ngOnInit(): void {
@@ -81,14 +87,6 @@ export class AltaVehiculoPropioComponent implements OnInit {
       )
     );
     this.catTipoServicioCONUEE = respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO];
-    this.catTipoServicio = respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO].map(
-      (tipoServicio: any) => (
-        {
-          label: tipoServicio.descripcion,
-          value: tipoServicio.idTipoServicio
-        }
-      )
-    );
     this.catVersion = respuesta[this.POSICION_CATALOGO_VERSION].map(
       (version: any) => (
         {
@@ -142,17 +140,43 @@ export class AltaVehiculoPropioComponent implements OnInit {
 
   inicializarForm(): void {
     this.form = this.formBuilder.group({
-      numeroConvenio: new FormControl('', Validators.required),
-      nombreEmpresa: new FormControl('', Validators.required),
-      importeMensual: new FormControl('', Validators.required),
-      fechaInicioConvenio: new FormControl(null, Validators.required),
-      fechaFinConvenio: new FormControl(null, Validators.required),
-      litrosLimite: new FormControl('', Validators.required),
-      ooad: new FormControl('', Validators.required),
-      folioInicial: new FormControl('', Validators.required),
-      folioFinal: new FormControl('', Validators.required),
-      km: new FormControl('', Validators.required),
-      estatus: new FormControl('', Validators.required)
+      ecco: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+      noInventario: new FormControl(null, [Validators.required, Validators.maxLength(12)]),
+      noSerie: new FormControl(null, [Validators.required, Validators.maxLength(14)]),
+      noTarjeton: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+      tipoVehiculo: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
+      clasifVehiculo: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
+      tipoServicio: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      version: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+      marca: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      clase: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      submarca: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+      modelo: new FormControl(null, [Validators.required, Validators.maxLength(4)]),
+      combustible: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
+      cantCombus: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+      capPersonas: new FormControl(null, [Validators.required, Validators.maxLength(3)]),
+      capToneladas: new FormControl(null, [Validators.required, Validators.maxLength(3)]),
+      cilindros: new FormControl(null, [Validators.required, Validators.maxLength(1)]),
+      noMotor: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+      valorContable: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+      placas: new FormControl(null, [Validators.required, Validators.maxLength(8)]),
+      licCofepris: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+      venLicCofepris: new FormControl(null, Validators.required),
+      tipoRegimen: new FormControl(null, Validators.required),
+      unidad: new FormControl(null, Validators.required),
+      cp: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(5)]),
+      entidad: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
+      municipio: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
+      colonia: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
+      respBienes: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+      estatus: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      fechaBaja: new FormControl(null, Validators.required),
+      motivo: new FormControl(null, Validators.required),
+      estatusEnajenacion: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      aseguradora: new FormControl(null, Validators.required),
+      fechaVencimiento: new FormControl(null, Validators.required),
+      fechaProximaVerificacion: new FormControl(null, Validators.required),
+      fechaVencimientoPoliza: new FormControl(null, Validators.required)
     });
   }
 
@@ -160,24 +184,31 @@ export class AltaVehiculoPropioComponent implements OnInit {
     console.log(event);
   }
 
-  guardar(): void {
-    console.log(this.archivos);
+  llenarCatalogoTipoServicio(event: any): void {
+    this.catTipoServicio = this.catTipoServicioCONUEE.filter((c) => c.idClasificacionCONUEE === event.value).map(
+      (tipoServicio: any) => (
+        {
+          label: tipoServicio.descripcion,
+          value: tipoServicio.idTipoServicio
+        }
+      )
+    );
+  }
+
+  guardar() {
+    console.log("DATOS: ", this.form.value);
+    let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
+    let archivos = {
+      tarjetaCirculacion: this.tarjetaCirculacion[0],
+      verificacion: this.verificacion[0],
+      polizaSeguro: this.polizaSeguro[0],
+      fotografiaFrente: this.fotografiaFrente[0],
+      fotografiaLateralDerecho: this.fotografiaLateralDerecho[0],
+      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo[0],
+      fotografiaTrasera: this.fotografiaTrasera[0]
+    }
     this.cargadorService.activar();
-    let tarjetaElectronica: any = {
-      numeroConvenio: this.form.get("numeroConvenio")?.value,
-      nombreEmpresa: this.form.get("nombreEmpresa")?.value,
-      importeMensual: this.form.get("importeMensual")?.value,
-      fechaInicioConvenio: this.datePipe.transform(this.form.get("fechaInicioConvenio")?.value, 'YYYY-MM-dd'),
-      fechaFinConvenio: this.datePipe.transform(this.form.get("fechaFinConvenio")?.value, 'YYYY-MM-dd'),
-      litrosLimite: this.form.get("litrosLimite")?.value,
-      ooad: this.form.get("ooad")?.value,
-      folioInicial: this.form.get("folioInicial")?.value,
-      folioFinal: this.form.get("folioFinal")?.value,
-      km: this.form.get("km")?.value,
-      estatus: this.form.get("estatus")?.value,
-      matricula: "0123456789" //Matricula del Usuario Logueado
-    };
-    this.vehiculoPropioService.guardar(tarjetaElectronica).subscribe(
+    this.vehiculoPropioService.guardarRegistro(this.form.value, usuarioAutenticado?.matricula, archivos).subscribe(
       (respuesta) => {
         this.alertaService.mostrar("exito", this.ALTA_VEHICULO_PROPIO);
         this.cargadorService.desactivar();

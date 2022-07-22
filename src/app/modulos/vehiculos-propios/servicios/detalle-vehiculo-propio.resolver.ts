@@ -15,7 +15,7 @@ export class DetalleVehiculoPropioResolver implements Resolve<HttpRespuesta<any>
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         const idVehiculoPropio = route.paramMap.get('idVehiculo');
-        const vehiculoPropio$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio);
+        const vehiculoPropio$ = this.catalogoVehiculosPropiosService.buscarElementoPorId(idVehiculoPropio);
         let pagina = 0;
         let tamanio = 100;
         const catUnidades$ = this.catalogoUnidadesService.buscarPorPagina(pagina, tamanio);

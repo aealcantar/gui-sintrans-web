@@ -9,7 +9,6 @@ import { CatalogoVehiculosPropiosService } from "./catalogo-vehiculos-propios.se
 export class AltaVehiculoPropioResolver implements Resolve<any>{
 
     constructor(
-        private catalogosService: CatalogosService,
         private catalogoVehiculosPropiosService: CatalogoVehiculosPropiosService,
         private catalogoUnidadesService: CatalogoUnidadesService
     ) { }

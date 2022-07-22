@@ -36,6 +36,7 @@ export class AutenticacionService {
             let usuario: Usuario = {
               matricula: respuesta.data.datosUsuario.matricula,
               nombreUsuario: respuesta.data.datosUsuario.nombreUsuario,
+              ooad: respuesta.data.datosUsuario.ooad,
               rol: respuesta.data.datosUsuario.rol,
               menu: respuesta.data.menu
             };

@@ -64,7 +64,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.map(
+    this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.content.map(
       (unidad: any) => ({
         label: unidad.nomUnidadAdscripcion,
         value: unidad.idUnidad

@@ -25,11 +25,11 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-estatus>
                         <tr>
-                            <td>{{estatus.idVehiculo}}</td>
+                            <td>{{estatus.idEstatusEnajenacion}}</td>
                             <td>{{estatus.desEstatusEnajenacion}}</td>
                             <td class="flex justify-content-center">
-                                <i [routerLink]="['editar-estatus-de-enajenacion-de-vehiculo',estatus.idVehiculo]" class="icon-editar cursor-pointer"></i>
-                                <i class="icon-eliminar cursor-pointer" (click)="mostrarModal = true;"></i>
+                                <i [routerLink]="['editar-estatus-de-enajenacion-de-vehiculo',estatus.idEstatusEnajenacion]" class="icon-editar cursor-pointer"></i>
+                                <i class="icon-eliminar cursor-pointer" (click)="mostrarModalEliminar(estatus)"></i>
                             </td>
                         </tr>
                     </ng-template>

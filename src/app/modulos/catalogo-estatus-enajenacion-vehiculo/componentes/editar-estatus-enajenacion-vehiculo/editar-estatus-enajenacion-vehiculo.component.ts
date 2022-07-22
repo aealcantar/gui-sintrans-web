@@ -17,22 +17,22 @@ export class EditarEstatusEnajenacionVehiculoComponent implements OnInit {
     public formBuilder: FormBuilder
   ) {
     this.form = formBuilder.group({
-      idVehiculo: new FormControl('', Validators.required),
+      idEstatusEnajenacion: new FormControl('', Validators.required),
       desEstatusEnajenacion: new FormControl('', Validators.required),
     });
   }
   form;
   respuesta!: HttpRespuesta<any> | null;
-  vehiculo: any;
+  estatus: any;
   ngOnInit(): void {
     const respuesta = this.router.snapshot.data['respuesta'];
     console.log(respuesta);
-    this.vehiculo = respuesta.data[0];
-    this.form.controls['idVehiculo'].setValue(this.vehiculo.idVehiculo);
+    this.estatus = respuesta.datos;
+    this.form.controls['idEstatusEnajenacion'].setValue(this.estatus.idEstatusEnajenacion);
     this.form.controls['desEstatusEnajenacion'].setValue(
-      this.vehiculo.desEstatusEnajenacion
+      this.estatus.desEstatusEnajenacion
     );
-    this.form.controls['idVehiculo'].disable();
+    this.form.controls['idEstatusEnajenacion'].disable();
   }
 
   cancelar() {}
@@ -40,7 +40,7 @@ export class EditarEstatusEnajenacionVehiculoComponent implements OnInit {
   guardar() {
     this.vehiculosService
       .update(
-        this.vehiculo.idVehiculo,
+        this.estatus.idEstatusEnajenacion,
         this.form.controls['desEstatusEnajenacion'].value
       )
       .subscribe((response) => {

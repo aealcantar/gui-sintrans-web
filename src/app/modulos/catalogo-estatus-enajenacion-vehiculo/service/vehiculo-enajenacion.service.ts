@@ -15,12 +15,16 @@ export class VehiculoEnajenacionService extends BaseService<
     super(_http, `${environment.api.mssintetransVehiculosEnajenacion}`);
   }
 
-  update(idVehiculo: any, desEstatusEnajenacion: string) {
+  update(idEstatusEnajenacion: any, desEstatusEnajenacion: string) {
     const opt = {
       params: {
         desEstatusEnajenacion,
       },
     };
-   return this._http.put(this._base + idVehiculo, null, opt);
+    const body = {
+      idEstatusEnajenacion,
+      desEstatusEnajenacion,
+    };
+    return this._http.put(this._base, body, opt);
   }
 }

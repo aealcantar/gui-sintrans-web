@@ -9,37 +9,43 @@ import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-
 @Component({
   selector: 'app-catalogo-estatus-enajenacion-vehiculo',
   templateUrl: './catalogo-estatus-enajenacion-vehiculo.component.html',
-  styleUrls: ['./catalogo-estatus-enajenacion-vehiculo.component.scss']
+  styleUrls: ['./catalogo-estatus-enajenacion-vehiculo.component.scss'],
 })
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
-
   mostrarModal: boolean = false;
-respuseta!: HttpRespuesta<any>| null;
+  respuseta!: HttpRespuesta<any> | null;
   unidades: any[] = [];
-  unidad:any
+  unidad: any;
 
   constructor(
     private route: ActivatedRoute,
     private alertaService: AlertasFlotantesService,
-    private servicioVehiculosPropios : VehiculoPropioEnajenacionServiceService,
-    private servicioVehiculosEnajenacion: VehiculoEnajenacionService) { }
+    private estatusEnajenacionService: VehiculoEnajenacionService
+  ) {}
 
   ngOnInit(): void {
-    this.respuseta = this.route.snapshot.data["respuesta"]
-    this.unidades = this.respuseta!.data
-
+    this.respuseta = this.route.snapshot.data['respuesta'];
+    console.log(this.respuseta);
+    this.unidades = this.respuseta!.datos.content;
   }
 
-  mostrarModalEliminar(unidad:any){
-    this.unidad = unidad
-    this.mostrarModal = true 
+  mostrarModalEliminar(unidad: any) {
+    this.unidad = unidad;
+    this.mostrarModal = true;
   }
-eliminar(){
-  this.servicioVehiculosPropios.eliminar(this.unidad).subscribe(response=>{
-    if(response.codigo ===200){
-
-    }
-  })
-
-}
+  eliminar() {
+    this.estatusEnajenacionService
+      .eliminar(this.unidad.idEstatusEnajenacion)
+      .subscribe((response) => {
+        if (response.codigo === 200) {
+          this.alertaService.mostrar('exito', 'Se Elimino El Registro');
+          const index = this.unidades.findIndex(
+            (u) => u.idEstatusEnajenacion === this.unidad.idEstatusEnajenacion
+          );
+          this.unidades.splice(index, 1);
+          this.mostrarModal = false 
+          this.alertaService.limpiar();
+        }
+      });
+  }
 }

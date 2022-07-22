@@ -45,11 +45,11 @@
           </ng-template>
           <ng-template pTemplate="body" let-unidad>
             <tr>
-              <td><a class="link" [routerLink]="['detalle-de-unidad',unidad.idUnidad]">{{unidad.nombreUnidad}}</a></td>
-              <td>{{unidad.ooad}}</td>
-              <td>{{unidad.tipoUnidad}}</td>
-              <td> <i class="icon-circulo-relleno" [class.active]="unidad.pernocta"></i>
-                {{unidad.pernocta ? 'Sí': 'No'}}</td>
+              <td><a class="link" [routerLink]="['detalle-de-unidad',unidad.idUnidad]">{{unidad.nomUnidadAdscripcion}}</a></td>
+              <td>{{unidad.ooad.nomOoad}}</td>
+              <td>{{unidad.desTipoUnidad}}</td>
+              <td> <i class="icon-circulo-relleno" [class.active]="unidad.indUnidadPernocta"></i>
+                {{unidad.indUnidadPernocta === 1 ? 'Sí': 'No'}}</td>
               <td class="flex justify-content-center">
                 <i [routerLink]="['editar-unidad',unidad.idUnidad]" class="icon-editar cursor-pointer"></i>
                 <i class="icon-eliminar cursor-pointer" (click)="mostrarModalEliminar(unidad)"></i>

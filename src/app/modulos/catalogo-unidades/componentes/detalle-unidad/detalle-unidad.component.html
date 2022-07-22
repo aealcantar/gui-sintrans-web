@@ -21,27 +21,29 @@
             <div class="row flex align-items-end mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
-                    <input id="ooad" formControlName="ooad" class="form-control" [disabled]="true" />
+                    <p-dropdown id="ooad" class="form-control" formControlName="ooad" [options]="catOoad" placeholder="Seleccionar">
+                    </p-dropdown>
                 </div>
                 <div class="col-md-6">
                     <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
-                    <input class="form-control" id="nombreUnidad" formControlName="nombreUnidad" type="text" [disabled]="true">
+                    <input class="form-control" id="nombreUnidad" formControlName="nombreUnidad" type="text">
                 </div>
             </div>
             <div class="row flex align-items-end mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
-                    <input id="tipoUnidad" class="form-control" formControlName="unidad" [disabled]="true">
+                    <p-dropdown id="tipoUnidad" class="form-control" formControlName="unidad" [options]="catUnidad" placeholder="Seleccionar">
+                    </p-dropdown>
                 </div>
                 <div class="col-md-8">
                     <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span
                             class="req">*</span>:</label>
                     <div class="form-radio">
                         <label>
-                            <input type="radio" name="pernocta" formControlName="pernocta" [value]="true" [disabled]="true"> Sí
+                            <input type="radio" name="pernocta" formControlName="pernocta" [value]="true"> Sí
                         </label>
                         <label>
-                            <input type="radio" name="pernocta" formControlName="pernocta" [value]="false" [disabled]="true"> No
+                            <input type="radio" name="pernocta" formControlName="pernocta" [value]="false"> No
                         </label>
                     </div>
                 </div>
@@ -50,29 +52,29 @@
             <div class="row flex align-items-end mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="unInf">UN INF<span class="req">*</span>:</label>
-                    <input class="form-control" id="unInf" formControlName="unInf" type="text" [disabled]="true">
+                    <input class="form-control" id="unInf" formControlName="unInf" type="text">
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="unOpe">UN OPE<span class="req">*</span>:</label>
-                    <input class="form-control" id="unOpe" formControlName="unOpe" type="text" [disabled]="true">
+                    <input class="form-control" id="unOpe" formControlName="unOpe" type="text">
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="cc">CC<span class="req">*</span>:</label>
-                    <input class="form-control" id="cc" formControlName="cc" type="text" [disabled]="true">
+                    <input class="form-control" id="cc" formControlName="cc" type="text">
                 </div>
             </div>
             <div class="row flex align-items-end mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="cu">CU<span class="req">*</span>:</label>
-                    <input class="form-control" id="cu" formControlName="cu" type="text" [disabled]="true">
+                    <input class="form-control" id="cu" formControlName="cu" type="text">
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="div">DIV<span class="req">*</span>:</label>
-                    <input class="form-control" id="div" formControlName="div" type="text" [disabled]="true">
+                    <input class="form-control" id="div" formControlName="div" type="text">
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="SDIV">SDIV<span class="req">*</span>:</label>
-                    <input class="form-control" id="SDIV" formControlName="sdiv" placeholder="Ingresar" type="text" [disabled]="true">
+                    <input class="form-control" id="SDIV" formControlName="sdiv" placeholder="Ingresar" type="text">
                 </div>
             </div>
             <hr class="separador-small">

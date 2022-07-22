@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { CatalogoUnidadesService } from '../../servicios/catalogo-unidades.service';
@@ -29,10 +29,10 @@ export class DetalleUnidadComponent implements OnInit {
     let respuesta = this.route.snapshot.data['respuesta'];
     let unidad = respuesta[this.POSICION_UNIDAD].datos;
     this.idUnidad = unidad.idUnidad;
-    this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].map(
+    this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].datos.map(
       (ooad: any) => (
         {
-          label: ooad.nombreOoad,
+          label: ooad.nomOoad,
           value: ooad.idOoad
         }
       )
@@ -46,13 +46,13 @@ export class DetalleUnidadComponent implements OnInit {
       )
     );
     this.inicializarForm(unidad);
-    this.obtenerInformacionPorCP(unidad.codigoPostal);
+    this.obtenerInformacionPorCP(unidad.codigoPostal.cveCodigoPostal);
   }
 
   obtenerInformacionPorCP(cp: any): void {
     this.unidadService.buscarPorCP(cp).subscribe(
       (respuesta) => {
-        this.form.get('entidad')?.setValue(respuesta.datos[0].nomEntidad);
+        this.form.get('entidad')?.setValue(respuesta.datos[0].nomEstado);
         this.form.get('municipio')?.setValue(respuesta.datos[0].nomMunicipio);
       }
     );
@@ -60,20 +60,20 @@ export class DetalleUnidadComponent implements OnInit {
 
   inicializarForm(unidad: any): void {
     this.form = this.formBuilder.group({
-      ooad: [unidad.ooad.nombreOoad, Validators.required],
-      nombreUnidad: [unidad.nombreUnidad, Validators.required],
-      unidad: [unidad.descripcionTipoUnidad, Validators.required],
-      pernocta: [!!unidad.pernocta, Validators.required],
-      unInf: [unidad.unInf, Validators.required],
-      unOpe: [unidad.unOpe, Validators.required],
-      cp: [unidad.codigoPostal, Validators.required],
-      cc: [unidad.nomCc, Validators.required],
-      cu: [unidad.nomCu, Validators.required],
-      div: [unidad.nomDiv, Validators.required],
-      sdiv: [unidad.nomSdiv, Validators.required],
-      entidad: ['', Validators.required],
-      municipio: ['', Validators.required],
-      colonia: [unidad.nombreColonia, Validators.required]
+      ooad: new FormControl({ value: unidad.ooad.idOoad, disabled: true }, Validators.required),
+      nombreUnidad: new FormControl({ value: unidad.nomUnidadAdscripcion, disabled: true }, Validators.required),
+      unidad: new FormControl({ value: unidad.desTipoUnidad, disabled: true }, Validators.required),
+      pernocta: new FormControl({ value: !!unidad.indUnidadPernocta, disabled: true }, Validators.required),
+      unInf: new FormControl({ value: unidad.numUnInf, disabled: true }, Validators.required),
+      unOpe: new FormControl({ value: unidad.numUnOpe, disabled: true }, Validators.required),
+      cp: new FormControl({ value: unidad.codigoPostal.cveCodigoPostal, disabled: true }, Validators.required),
+      cc: new FormControl({ value: unidad.numCc, disabled: true }, Validators.required),
+      cu: new FormControl({ value: unidad.numCu, disabled: true }, Validators.required),
+      div: new FormControl({ value: unidad.numDiv, disabled: true }, Validators.required),
+      sdiv: new FormControl({ value: unidad.numSdiv, disabled: true }, Validators.required),
+      entidad: new FormControl({ value: '', disabled: true }, Validators.required),
+      municipio: new FormControl({ value: '', disabled: true }, Validators.required),
+      colonia: new FormControl({ value: unidad.nomColonia, disabled: true }, Validators.required)
     });
   }
 

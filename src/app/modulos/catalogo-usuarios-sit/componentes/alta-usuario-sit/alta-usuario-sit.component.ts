@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
 import { UsuarioSitUnidadService } from '../../service/usuario-sit-unidad.service';
 import { UsuarioService } from '../../service/usuario.service';
 
@@ -11,6 +12,8 @@ import { UsuarioService } from '../../service/usuario.service';
   styleUrls: ['./alta-usuario-sit.component.scss'],
 })
 export class AltaUsuarioSitComponent implements OnInit {
+  
+  readonly ALTA_USUARIO = "El usuario ha sido de alta exitosamente.";
   form;
   ooads: Array<any> = [];
   roles: Array<any> = [];
@@ -62,14 +65,20 @@ export class AltaUsuarioSitComponent implements OnInit {
     });
   }
   guardar() {
+    let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
+    this.form.get('matriculaAudita')?.setValue(usuarioAutenticado.matricula);
     if (this.form.valid) {
       const datos = this.form.getRawValue();
       this.usuarioSitService.guardar(datos).subscribe((response) => {
         console.log(response);
-        this.alertService.mostrar("exito","El Usuario Fue Dado de alta")
+        this.alertService.mostrar("exito",this.ALTA_USUARIO)
         this.route.navigate(["../"], { relativeTo: this.router });
-
       });
     }
   }
+
+  get f() {
+    return this.form.controls;
+  }
+
 }

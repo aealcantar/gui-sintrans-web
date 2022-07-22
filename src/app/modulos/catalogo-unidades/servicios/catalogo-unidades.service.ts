@@ -17,19 +17,7 @@ export class CatalogoUnidadesService extends BaseService<HttpRespuesta<any>, any
     }
 
     buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {
-        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransUnidad + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ooad=${ooad}&ecco=${ecco}`)
-    }
-
-    obtenerCatalogoOoad() {
-        return of([
-            {
-                idOoad: 1,
-                nombreOoad: "Aguascalientes"
-            }, {
-                idOoad: 2,
-                nombreOoad: "Otro"
-            }
-        ])
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransUnidad + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ecco=${ecco}&ooad=${ooad}`);
     }
 
     obtenerCatalogoUnidad() {

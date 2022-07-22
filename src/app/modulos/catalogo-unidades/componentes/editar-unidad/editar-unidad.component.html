@@ -16,8 +16,8 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="OOAD">OOAD<span class="req">*</span>:</label>
-                    <!-- <p-dropdown id="ooad" class="form-control" formControlName="ooad" [options]="catOoad" placeholder="Seleccionar"></p-dropdown>
-                    <span class="campos-obligatorios" *ngIf="f.ooad?.errors?.required && (f.ooad?.dirty || f.ooad?.touched)">*Campo obligatorio</span> -->
+                    <p-dropdown id="ooad" class="form-control" formControlName="ooad" [options]="catOoad" placeholder="Seleccionar"></p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.ooad?.errors?.required && (f.ooad?.dirty || f.ooad?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-6">
                     <label class="control-label" for="nombreUnidad">Nombre de la unidad<span class="req">*</span>:</label>
@@ -28,9 +28,9 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
-                    <!-- <p-dropdown id="tipoUnidad" class="form-control" formControlName="unidad" [options]="catUnidad" placeholder="Seleccionar">
+                    <p-dropdown id="tipoUnidad" class="form-control" formControlName="unidad" [options]="catUnidad" placeholder="Seleccionar">
                     </p-dropdown>
-                    <span class="campos-obligatorios" *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span> -->
+                    <span class="campos-obligatorios" *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-8">
                     <label class="control-label" for="esUnidadPernocta">¿Es unidad de pernocta?<span
@@ -93,7 +93,7 @@
                 <div class="col-md-4">
                     <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
                     <div class="flex">
-                        <input class="form-control" id="codigoPostal" #input placeholder="Ingresar CP" type="text">
+                        <input class="form-control" id="codigoPostal" #input formControlName="cp" placeholder="Ingresar CP" type="text">
                         <button type="button" class="btn btn-primary" (click)="buscarPorCP(input.value)">Buscar</button>
                     </div>
                 </div>

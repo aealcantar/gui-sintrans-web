@@ -11,7 +11,7 @@ import { environment } from "src/environments/environment";
 export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<any>, any> {
 
     constructor(private datePipe: DatePipe, protected _http: HttpClient) {
-        super(_http, `${environment.api.mssintetransTarjetaElectronica}`);
+        super(_http, `${environment.api.mssintetransVehiculosPropios}`);
     }
 
     guardarRegistro(vehiculoPropio: any, matricula: any, archivos: any): Observable<HttpRespuesta<any>> {

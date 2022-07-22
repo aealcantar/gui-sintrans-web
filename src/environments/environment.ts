@@ -10,6 +10,7 @@ export const environment = {
     mssintetransCodigoPostal: 'http://localhost:8082/mssintetrans-unidad/codigo-postal',
     mssintetransCatalogoOoad: 'http://localhost:8082/mssintetrans-unidad/ooad',
     mssintetransTarjetaElectronica: 'http://localhost:8085/mssintetrans-tarjetas-electronicas/tarjetas/',
+    mssintetransVehiculosArrendados:'http://localhost:8084/mssintetrans-vehiculos/arrendados/',
     mssintetransVehiculosPropios: 'http://localhost:8084/mssintetrans-vehiculos/propios/',
     mssintetransChoferes: 'http://localhost:8087/mssintetrans-choferes/choferes'
   }

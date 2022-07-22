@@ -16,6 +16,7 @@ import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/carg
 import { AltaVehiculoArrendadoComponent } from './componentes/alta-vehiculo-arrendado/alta-vehiculo-arrendado.component';
 import { EditarVehiculoArrendadoComponent } from './componentes/editar-vehiculo-arrendado/editar-vehiculo-arrendado.component';
 import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehiculo-arrendado/detalle-vehiculo-arrendado.component';
+import { VehiculosArrendadosService } from './servicios/vehiculos-arrendados.service';
 
 
 @NgModule({
@@ -39,6 +40,9 @@ import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehicul
     DialogModule,
     CalendarModule,
     CargadorArchivoModule
+  ],
+  providers:[
+    VehiculosArrendadosService
   ]
 })
 export class VehiculosArrendadosModule { }

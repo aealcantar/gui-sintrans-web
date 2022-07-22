@@ -37,14 +37,12 @@ const routes: Routes = [
   {
     path: 'catalogo-de-usuarios-sit',
     loadChildren: () => import('./modulos/catalogo-usuarios-sit/catalogo-usuarios-sit.module').then(m => m.CatalogoUsuariosSitModule),
-    canActivate: [PermiteUsuarioLogueadoGuard],
-    canActivateChild: [PermiteUsuarioLogueadoGuard]
+    
   },
   {
     path: 'catalogo-de-estatus-de-enajenacion-de-vehiculo',
     loadChildren: () => import('./modulos/catalogo-estatus-enajenacion-vehiculo/catalogo-estatus-enajenacion-vehiculo.module').then(m => m.CatalogoEstatusEnajenacionVehiculoModule),
-    canActivate: [PermiteUsuarioLogueadoGuard],
-    canActivateChild: [PermiteUsuarioLogueadoGuard]
+    
   },
   {
     path: 'catalogo-de-tarjetas-electronicas-de-combustible',

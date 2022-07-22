@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CatalogoEstatusEnajenacionVehiculoRoutingModule } from './catalogo-estatus-enajenacion-vehiculo-routing.module';
 import { CatalogoEstatusEnajenacionVehiculoComponent } from './componentes/catalogo-estatus-enajenacion-vehiculo/catalogo-estatus-enajenacion-vehiculo.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng-lts/card';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
 import { TableModule } from 'primeng-lts/table';
@@ -22,6 +22,7 @@ import { EditarEstatusEnajenacionVehiculoComponent } from './componentes/editar-
     CommonModule,
     CatalogoEstatusEnajenacionVehiculoRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     CardModule,
     SeparadorModule,
     TableModule,

@@ -5,6 +5,7 @@
     </div>
 
     <p-card>
+      <form [formGroup]="form" (submit)="guardar()">
         <div class="row">
             <div class="col-md-12">
                 <h3 class="subtitulo">
@@ -15,21 +16,21 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-6">
                 <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
-                <input class="form-control" id="matricula" placeholder="Ingresar" type="text">
+                <input class="form-control" id="matricula" placeholder="Ingresar" type="text"  formControlName="matricula"  >
             </div>
             <div class="col-md-6">
                 <label class="control-label" for="nombre">Nombre<span class="req">*</span>:</label>
-                <input class="form-control" id="nombre" placeholder="Ingresar" type="text">
+                <input class="form-control" id="nombre" placeholder="Ingresar" type="text" formControlName="nombreUsuario"  >
             </div>
         </div>
         <div class="row flex align-items-end mb-4">
             <div class="col-md-6">
                 <label class="control-label" for="app">Apellido paterno<span class="req">*</span>:</label>
-                <input class="form-control" id="app" placeholder="Ingresar" type="text">
+                <input class="form-control" id="app" placeholder="Ingresar" type="text" formControlName="apellidoPaterno"  >
             </div>
             <div class="col-md-6">
                 <label class="control-label" for="apm">Apellido materno<span class="req">*</span>:</label>
-                <input class="form-control" id="apm" placeholder="Ingresar" type="text">
+                <input class="form-control" id="apm" placeholder="Ingresar" type="text" formControlName="apellidoMaterno"  >
             </div>
         </div>
         <hr class="separador-small">
@@ -43,39 +44,41 @@
         <div class="row flex align-items-end mb-4">
             <div class="col-md-6">
                 <label class="control-label" for="ooad">OOAD o Delegación<span class="req">*</span>:</label>
-                <input class="form-control" id="ooad" placeholder="Ingresar" type="text">
+                <p-dropdown id="unidadAdscripcion" class="form-control" (onChange)="onOoadChange()" formControlName="ooad" optionLabel="nombreOoad" optionValue="idOoad" [options]="ooads" placeholder="Seleccionar"></p-dropdown>
             </div>
             <div class="col-md-6">
                 <label class="control-label" for="unidadAdscripcion">Unidad de adscripción<span class="req">*</span>:</label>
-                <p-dropdown id="unidadAdscripcion" class="form-control" [options]="ooad" placeholder="Seleccionar"></p-dropdown>
+                <p-dropdown id="unidadAdscripcion" class="form-control" [options]="unidades" formControlName="unidad" optionLabel="nombreUnidad" optionValue="idUnidad" placeholder="Seleccionar"></p-dropdown>
             </div>
         </div>
         
         <div class="row flex align-items-end mb-4">
             <div class="col-md-3">
                 <label class="control-label" for="rol">Rol<span class="req">*</span>:</label>
-                <p-dropdown id="rol" class="form-control" [options]="ooad" placeholder="Seleccionar"></p-dropdown>
+                <p-dropdown id="rol" class="form-control" [options]="roles" formControlName="idRol" optionLabel="descripcion" optionValue="idRol" placeholder="Seleccionar"></p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
-                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar"></p-dropdown>
+                <p-dropdown id="estatus" class="form-control" [options]="estatus" formControlName="estatusUsuario" optionLabel="label"  optionValue="label" placeholder="Seleccionar"></p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                <p-dropdown id="motivo" class="form-control" [options]="ooad" placeholder="Seleccionar"></p-dropdown>
+                <p-dropdown id="motivo" class="form-control" [options]="motivos" formControlName="motivo" optionLabel="label" optionValue="label" placeholder="Seleccionar"></p-dropdown>
             </div>
             <div class="col-md-3">
                 <label class="control-label" for="password">Password<span class="req">*</span>:</label>
-                <input class="form-control" id="password" placeholder="Ingresar" type="password">
+                <input class="form-control" id="password" placeholder="Ingresar" type="password" formControlName="password"  >
             </div>
         </div>
-    </p-card>
-    <div class="flex justify-content-between mt-4">
-        <span class="campos-obligatorios">*Campos obligatorios</span>
-        <div>
-            <button class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4">Guardar</button>
+        <div class="flex justify-content-between mt-4">
+            <span class="campos-obligatorios">*Campos obligatorios</span>
+            <div>
+                <button type="button" class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
+                <button type="submit" [disabled]="validarDatos && form.invalid" class="btn btn-primary btn-lg ml-4">Guardar</button>
+            </div>
         </div>
-    </div>
+      </form>
+    </p-card>
+   
 
 </div>

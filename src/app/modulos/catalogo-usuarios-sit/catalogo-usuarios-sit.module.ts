@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CatalogoUsuariosSitRoutingModule } from './catalogo-usuarios-sit-routing.module';
 import { CatalogoUsuariosSitComponent } from './componentes/catalogo-usuarios-sit/catalogo-usuarios-sit.component';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng-lts/dialog';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { TableModule } from 'primeng-lts/table';
@@ -13,6 +13,7 @@ import { CardModule } from 'primeng-lts/card';
 import { AltaUsuarioSitComponent } from './componentes/alta-usuario-sit/alta-usuario-sit.component';
 import { EditarUsuarioSitComponent } from './componentes/editar-usuario-sit/editar-usuario-sit.component';
 import { DetalleUsuarioSitComponent } from './componentes/detalle-usuario-sit/detalle-usuario-sit.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -25,6 +26,8 @@ import { DetalleUsuarioSitComponent } from './componentes/detalle-usuario-sit/de
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
+  
     CatalogoUsuariosSitRoutingModule,
     SeparadorModule,
     CardModule,
@@ -32,7 +35,8 @@ import { DetalleUsuarioSitComponent } from './componentes/detalle-usuario-sit/de
     SeparadorModule,
     TableModule,
     BtnRegresarModule,
-    DialogModule
+    DialogModule,
+    
   ]
 })
 export class CatalogoUsuariosSitModule { }

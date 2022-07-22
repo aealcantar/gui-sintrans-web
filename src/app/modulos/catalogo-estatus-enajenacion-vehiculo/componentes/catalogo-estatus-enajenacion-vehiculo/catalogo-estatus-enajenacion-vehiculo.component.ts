@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
+import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { VehiculoEnajenacionService } from '../../service/vehiculo-enajenacion.service';
+import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-propio-enajenacion-service.service';
 
 @Component({
   selector: 'app-catalogo-estatus-enajenacion-vehiculo',
@@ -8,113 +14,32 @@ import { Component, OnInit } from '@angular/core';
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
 
   mostrarModal: boolean = false;
+respuseta!: HttpRespuesta<any>| null;
+  unidades: any[] = [];
+  unidad:any
 
-  unidades: any[] = [
-    {
-      id: 1,
-      estatus: 'Estatus de enajenación de vehículo 1',
-
-    },
-    {
-      id: 2,
-      estatus: 'Estatus de enajenación de vehículo 2',
-
-    },
-    {
-      id: 3,
-      estatus: 'Estatus de enajenación de vehículo 3',
-
-    },
-    {
-      id: 4,
-      estatus: 'Estatus de enajenación de vehículo 4',
-
-    },
-    {
-      id: 5,
-      estatus: 'Estatus de enajenación de vehículo 5',
-
-    },
-    {
-      id: 6,
-      estatus: 'Estatus de enajenación de vehículo 6',
-
-    },
-    {
-      id: 7,
-      estatus: 'Estatus de enajenación de vehículo 7',
-
-    },
-    {
-      id: 8,
-      estatus: 'Estatus de enajenación de vehículo 8',
-
-    },
-    {
-      id: 9,
-      estatus: 'Estatus de enajenación de vehículo 9',
-
-    },
-    {
-      id: 10,
-      estatus: 'Estatus de enajenación de vehículo 10',
-
-    },
-    {
-      id: 11,
-      estatus: 'Estatus de enajenación de vehículo 11',
-
-    },
-    {
-      id: 12,
-      estatus: 'Estatus de enajenación de vehículo 12',
-
-    },
-    {
-      id: 13,
-      estatus: 'Estatus de enajenación de vehículo 13',
-
-    },
-    {
-      id: 14,
-      estatus: 'Estatus de enajenación de vehículo 14',
-
-    },
-    {
-      id: 15,
-      estatus: 'Estatus de enajenación de vehículo 15',
-
-    },
-    {
-      id: 16,
-      estatus: 'Estatus de enajenación de vehículo 16',
-
-    },
-    {
-      id: 17,
-      estatus: 'Estatus de enajenación de vehículo 17',
-
-    },
-    {
-      id: 18,
-      estatus: 'Estatus de enajenación de vehículo 18',
-
-    },
-    {
-      id: 19,
-      estatus: 'Estatus de enajenación de vehículo 19',
-
-    },
-    {
-      id: 20,
-      estatus: 'Estatus de enajenación de vehículo 20',
-
-    }
-  ];
-
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private alertaService: AlertasFlotantesService,
+    private servicioVehiculosPropios : VehiculoPropioEnajenacionServiceService,
+    private servicioVehiculosEnajenacion: VehiculoEnajenacionService) { }
 
   ngOnInit(): void {
+    this.respuseta = this.route.snapshot.data["respuesta"]
+    this.unidades = this.respuseta!.data
+
   }
 
+  mostrarModalEliminar(unidad:any){
+    this.unidad = unidad
+    this.mostrarModal = true 
+  }
+eliminar(){
+  this.servicioVehiculosPropios.eliminar(this.unidad).subscribe(response=>{
+    if(response.codigo ===200){
+
+    }
+  })
+
+}
 }

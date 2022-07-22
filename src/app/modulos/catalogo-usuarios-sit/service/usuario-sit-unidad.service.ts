@@ -7,20 +7,15 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class VehiculoEnajenacionService extends BaseService<
+export class UsuarioSitUnidadService extends BaseService<
   HttpRespuesta<any>,
   any
 > {
   constructor(protected _http: HttpClient) {
-    super(_http, `${environment.api.mssintetransVehiculosEnajenacion}`);
+    super(_http, `${environment.api.mssintetransUsuarioUnidad}`);
   }
 
-  update(idVehiculo: any, desEstatusEnajenacion: string) {
-    const opt = {
-      params: {
-        desEstatusEnajenacion,
-      },
-    };
-   return this._http.put(this._base + idVehiculo, null, opt);
+  consultarPorOoad(ooad: any) {
+    return this._http.get<any>(this._base + `/${ooad}`);
   }
 }

@@ -60,7 +60,7 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios, formData)
     }
 
-    actualizarRegistro(vehiculoPropio: any, matricula: any, archivos: any): Observable<HttpRespuesta<any>> {
+    actualizarRegistro(idVehiculo: number, vehiculoPropio: any, matricula: any, archivos: any): Observable<HttpRespuesta<any>> {
         const formData = new FormData();
         formData.append('archivoTjetaCirc', archivos.tarjetaCirculacion);
         formData.append('archivoVerificacion', archivos.verificacion);
@@ -103,7 +103,7 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         formData.append('fecVencPoliza', this.datePipe.transform(vehiculoPropio.fechaVencimientoPoliza, 'YYYY-MM-dd') as string);
         // formData.append('fechaBaja', this.datePipe.transform(vehiculoPropio.fechaBaja, 'YYYY-MM-dd'));
         formData.append('cveMatricula', matricula);
-        return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios, formData)
+        return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/" + idVehiculo, formData)
     }
 
     buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {

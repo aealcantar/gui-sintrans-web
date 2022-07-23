@@ -3,6 +3,11 @@
         <app-btn-regresar routerLink="../.."></app-btn-regresar>
         <app-separador class="flex-grow-1" texto="Detalle de vehículo propio"></app-separador>
     </div>
+    <div class="row mb-4">
+        <div class="col-md-12 flex justify-content-end">
+            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-vehiculo-propio',idVehiculo]">Editar</button>
+        </div>
+    </div>
     <form [formGroup]="form">
         <p-card>
             <div class="row">

@@ -15,7 +15,7 @@ export class AltaVehiculoPropioResolver implements Resolve<any>{
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         let pagina = 0;
-        let tamanio = 100;
+        let tamanio = 1000;
         const catUnidades$ = this.catalogoUnidadesService.buscarPorPagina(pagina, tamanio);
         const catTipoVehiculo$ = this.catalogoVehiculosPropiosService.obtenerCatalogoTipoVehiculo();
         const catCONUEE$ = this.catalogoVehiculosPropiosService.obtenerCatalogoCONUEE();

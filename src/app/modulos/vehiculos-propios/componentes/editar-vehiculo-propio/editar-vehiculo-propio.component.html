@@ -3,333 +3,378 @@
         <app-btn-regresar routerLink="../.."></app-btn-regresar>
         <app-separador class="flex-grow-1" texto="Editar vehículo propio"></app-separador>
     </div>
-    <p-card>
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos administrativos particulares
-                </h3>
+    <form [formGroup]="form" (ngSubmit)="editar()">
+        <p-card>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos administrativos particulares
+                    </h3>
+                </div>
             </div>
-        </div>
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
-                <input class="form-control" id="ecco" placeholder="Ingresar" type="text">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
+                    <input class="form-control" id="ecco" formControlName="ecco" maxlength="10" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.ecco?.errors?.required && (f.ecco?.dirty || f.ecco?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noInventario">N° de inventario<span class="req">*</span>:</label>
+                    <input class="form-control" id="noInventario" formControlName="noInventario" maxlength="12" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.noInventario?.errors?.required && (f.noInventario?.dirty || f.noInventario?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noSerie">N° de serie<span class="req">*</span>:</label>
+                    <input class="form-control" id="noSerie" formControlName="noSerie" maxlength="14" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.noSerie?.errors?.required && (f.noSerie?.dirty || f.noSerie?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noTarjeton">N° de tarjetón<span class="req">*</span>:</label>
+                    <input class="form-control" id="noTarjeton" formControlName="noTarjeton" maxlength="10" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.noTarjeton?.errors?.required && (f.noTarjeton?.dirty || f.noTarjeton?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noInventario">N° de inventario<span class="req">*</span>:</label>
-                <input class="form-control" id="noInventario" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noSerie">N° de serie<span class="req">*</span>:</label>
-                <input class="form-control" id="noSerie" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noTarjeton">N° de tarjetón<span class="req">*</span>:</label>
-                <input class="form-control" id="noTarjeton" placeholder="Ingresar" type="text">
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
-                <p-dropdown id="tipoVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoVehiculo" class="form-control" formControlName="tipoVehiculo" [options]="catTipoVehiculo" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.tipoVehiculo?.errors?.required && (f.tipoVehiculo?.dirty || f.tipoVehiculo?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
+                            class="req">*</span>:</label>
+                    <p-dropdown id="clasifVehiculo" class="form-control" formControlName="clasifVehiculo" (onChange)="llenarCatalogoTipoServicio($event)" [options]="catCONUEE" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.clasifVehiculo?.errors?.required && (f.clasifVehiculo?.dirty || f.clasifVehiculo?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoServicio" class="form-control" formControlName="tipoServicio" [options]="catTipoServicio" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.tipoServicio?.errors?.required && (f.tipoServicio?.dirty || f.tipoServicio?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="version">Versión<span class="req">*</span>:</label>
+                    <p-dropdown id="version" class="form-control" formControlName="version" [options]="catVersion" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.version?.errors?.required && (f.version?.dirty || f.version?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
-                        class="req">*</span>:</label>
-                <p-dropdown id="clasifVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
-                <p-dropdown id="tipoServicio" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="version">Versión<span class="req">*</span>:</label>
-                <p-dropdown id="version" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos generales
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos generales
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="marca">Marca<span class="req">*</span>:</label>
-                <input class="form-control" id="marca" placeholder="Ingresar" type="text">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="marca">Marca<span class="req">*</span>:</label>
+                    <input class="form-control" id="marca" formControlName="marca" maxlength="30" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.marca?.errors?.required && (f.marca?.dirty || f.marca?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="clase">Clase<span class="req">*</span>:</label>
+                    <input class="form-control" id="clase" formControlName="clase" maxlength="30" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.clase?.errors?.required && (f.clase?.dirty || f.clase?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="submarca">Submarca<span class="req">*</span>:</label>
+                    <input class="form-control" id="submarca" formControlName="submarca" maxlength="20" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.submarca?.errors?.required && (f.submarca?.dirty || f.submarca?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="modelo">Modelo<span class="req">*</span>:</label>
+                    <p-inputNumber class="form-control" id="modelo" formControlName="modelo" [min]="0" [maxlength]="4" placeholder="Ingresar"></p-inputNumber>
+                    <span class="campos-obligatorios" *ngIf="f.modelo?.errors?.required && (f.modelo?.dirty || f.modelo?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="clase">Clase<span class="req">*</span>:</label>
-                <input class="form-control" id="clase" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="submarca">Submarca<span class="req">*</span>:</label>
-                <input class="form-control" id="submarca" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="modelo">Modelo<span class="req">*</span>:</label>
-                <input class="form-control" id="modelo" placeholder="Ingresar" type="text">
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Rendimiento y capacidad
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Rendimiento y capacidad
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
-                <p-dropdown id="combustible" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
+                    <p-dropdown id="combustible" class="form-control" formControlName="combustible" [options]="catCombustible" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.combustible?.errors?.required && (f.combustible?.dirty || f.combustible?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="cantCombus">Cantidad de combustible por litro<span
+                            class="req">*</span>:</label>
+                    <input class="form-control" id="cantCombus" formControlName="cantCombus" maxlength="10" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.cantCombus?.errors?.required && (f.cantCombus?.dirty || f.cantCombus?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
+                    <p-inputNumber class="form-control" id="capPersonas" formControlName="capPersonas" [min]="0" [maxlength]="3" placeholder="Ingresar"></p-inputNumber>
+                    <span class="campos-obligatorios" *ngIf="f.capPersonas?.errors?.required && (f.capPersonas?.dirty || f.capPersonas?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
+                    <p-dropdown id="capToneladas" class="form-control" formControlName="capToneladas" [options]="catToneladas" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.capToneladas?.errors?.required && (f.capToneladas?.dirty || f.capToneladas?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="cantCombus">Cantidad de combustible por litro<span
-                        class="req">*</span>:</label>
-                <p-dropdown id="cantCombus" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
-                <input class="form-control" id="capPersonas" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
-                <p-dropdown id="capToneladas" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
-                <p-dropdown id="cilindros" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
+                    <p-dropdown id="cilindros" class="form-control" formControlName="cilindros" [options]="catCilindros" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.cilindros?.errors?.required && (f.cilindros?.dirty || f.cilindros?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="noMotor">N° de motor<span class="req">*</span>:</label>
+                    <input class="form-control" id="noMotor" formControlName="noMotor" maxlength="20" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.noMotor?.errors?.required && (f.noMotor?.dirty || f.noMotor?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="valorContable">Valor contable<span class="req">*</span>:</label>
+                    <input class="form-control" id="valorContable" formControlName="valorContable" maxlength="10" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.valorContable?.errors?.required && (f.valorContable?.dirty || f.valorContable?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="noMotor">N° de motor<span class="req">*</span>:</label>
-                <input class="form-control" id="noMotor" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="valorContable">Valor contable<span class="req">*</span>:</label>
-                <input class="form-control" id="valorContable" placeholder="Ingresar" type="text">
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Reglamentación
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Reglamentación
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-3">
-                <label class="control-label" for="placas">Placas<span class="req">*</span>:</label>
-                <input class="form-control" id="placas" placeholder="Ingresar" type="text">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label class="control-label" for="placas">Placas<span class="req">*</span>:</label>
+                    <input class="form-control" id="placas" formControlName="placas" maxlength="8" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.placas?.errors?.required && (f.placas?.dirty || f.placas?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="licCofepris">Licencia COFEPRIS<span class="req">*</span>:</label>
+                    <input class="form-control" id="licCofepris" formControlName="licCofepris" maxlength="10" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.licCofepris?.errors?.required && (f.licCofepris?.dirty || f.licCofepris?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="venLicCofepris" formControlName="venLicCofepris" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.venLicCofepris?.errors?.required && (f.venLicCofepris?.dirty || f.venLicCofepris?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
+                    <p-dropdown id="tipoRegimen" class="form-control" formControlName="tipoRegimen" [options]="catTipoRegimen" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.tipoRegimen?.errors?.required && (f.tipoRegimen?.dirty || f.tipoRegimen?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="licCofepris">Licencia COFEPRIS<span class="req">*</span>:</label>
-                <input class="form-control" id="licCofepris" placeholder="Ingresar" type="text">
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS<span
-                        class="req">*</span>:</label>
-                <p-calendar id="venLicCofepris" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
-                <p-dropdown id="tipoRegimen" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Datos de unidad
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Datos de unidad
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                <p-dropdown id="unidad" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
+                    <p-dropdown id="unidad" class="form-control" formControlName="unidad" [options]="catUnidades" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="cp">CP:</label>
+                    <input class="form-control" id="cp" formControlName="cp" maxlength="5" placeholder="Ingresar" type="text">
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="control-label" for="cp">CP:</label>
-                <input class="form-control" id="cp" placeholder="Ingresar" type="text" disabled>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="entidad">Entidad<span class="req">*</span>:</label>
-                <input class="form-control" id="entidad" placeholder="XXXXXXXXX" type="text" disabled>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="entidad">Entidad<span class="req">*</span>:</label>
+                    <input class="form-control" id="entidad" formControlName="entidad" maxlength="150" placeholder="XXXXXXXXX" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.entidad?.errors?.required && (f.entidad?.dirty || f.entidad?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="municipio">Municipio<span class="req">*</span>:</label>
+                    <input class="form-control" id="municipio" formControlName="municipio" maxlength="150" placeholder="XXXXXXXXX" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.municipio?.errors?.required && (f.municipio?.dirty || f.municipio?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
+                    <input class="form-control" id="colonia" formControlName="colonia" maxlength="150" placeholder="XXXXXXXXX" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.colonia?.errors?.required && (f.colonia?.dirty || f.colonia?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="municipio">Municipio<span class="req">*</span>:</label>
-                <input class="form-control" id="municipio" placeholder="XXXXXXXXX" type="text" disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
-                <input class="form-control" id="colonia" placeholder="XXXXXXXXX" type="text" disabled>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-4">
-                <label class="control-label" for="respBienes">Responsable de bienes<span class="req">*</span>:</label>
-                <input class="form-control" id="respBienes" placeholder="Ingresar" type="text">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="control-label" for="respBienes">Responsable de bienes<span class="req">*</span>:</label>
+                    <input class="form-control" id="respBienes" formControlName="respBienes" maxlength="20" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.respBienes?.errors?.required && (f.respBienes?.dirty || f.respBienes?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
+                    <p-dropdown id="estatus" class="form-control" formControlName="estatus" [options]="catEstatus" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.estatus?.errors?.required && (f.estatus?.dirty || f.estatus?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaBaja">Fecha de baja<span class="req">*</span>:</label>
+                    <p-calendar id="fechaBaja" styleClass="form-control" formControlName="fechaBaja" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.fechaBaja?.errors?.required && (f.fechaBaja?.dirty || f.fechaBaja?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
-                <p-dropdown id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="fechaBaja">Fecha de baja<span class="req">*</span>:</label>
-                <p-calendar id="fechaBaja" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-12">
-                <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                <input class="form-control" id="motivo" placeholder="Ingresar" type="text">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
+                    <input class="form-control" id="motivo" formControlName="motivo" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.motivo?.errors?.required && (f.motivo?.dirty || f.motivo?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex align-items-end mb-4">
-            <div class="col-md-6">
-                <label class="control-label" for="fechaEnajenacion">Estatus de enajenación<span
-                        class="req">*</span>:</label>
-                <input class="form-control" id="fechaEnajenacion" placeholder="Ingresar" type="text">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="estatusEnajenacion">Estatus de enajenación<span class="req">*</span>:</label>
+                    <input class="form-control" id="estatusEnajenacion" formControlName="estatusEnajenacion" maxlength="30" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.estatusEnajenacion?.errors?.required && (f.estatusEnajenacion?.dirty || f.estatusEnajenacion?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-6">
+                    <!-- ESTE CATALOGO ESTA QUEMADO -->
+                    <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
+                    <p-dropdown id="aseguradora" class="form-control" formControlName="aseguradora" [options]="catUnidades" placeholder="Seleccionar">
+                    </p-dropdown>
+                    <!-- ESTE CATALOGO ESTA QUEMADO -->
+                    <span class="campos-obligatorios" *ngIf="f.aseguradora?.errors?.required && (f.aseguradora?.dirty || f.aseguradora?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
-                <p-dropdown id="aseguradora" class="form-control" [options]="ooad" placeholder="Seleccionar">
-                </p-dropdown>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Expediente de vehículo
+                    </h3>
+                </div>
             </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Expediente de vehículo
-                </h3>
+            <div class="row flex mb-4">
+                <div class="col-md-8">
+                    <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
+                            class="req">*</span>:</label>
+                    <app-cargador-archivo [mostrarBtnDescargar]="true" patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="tarjetaCirculacion" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
+                    <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.fechaVencimiento?.errors?.required && (f.fechaVencimiento?.dirty || f.fechaVencimiento?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-        </div>
-        <div class="row flex mb-4">
-            <div class="col-md-8">
-                <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
-                        class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
+            <hr class="separador-small">
+            <div class="row flex mb-4">
+                <div class="col-md-8">
+                    <label class="control-label" for="verificacion">Verificación<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="verificacion" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaProximaVerificacion">Fecha próxima verificación<span class="req">*</span>:</label>
+                    <p-calendar styleClass="form-control" formControlName="fechaProximaVerificacion" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.fechaProximaVerificacion?.errors?.required && (f.fechaProximaVerificacion?.dirty || f.fechaProximaVerificacion?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
-                <p-calendar id="fechaVencimiento" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
+            <hr class="separador-small">
+            <div class="row flex mb-4">
+                <div class="col-md-8">
+                    <label class="control-label" for="polizaSeguro">Póliza de seguro<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="polizaSeguro" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="fechaVencimientoPoliza">Fecha vencimiento póliza<span class="req">*</span>:</label>
+                    <p-calendar styleClass="form-control" formControlName="fechaVencimientoPoliza" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.fechaVencimientoPoliza?.errors?.required && (f.fechaVencimientoPoliza?.dirty || f.fechaVencimientoPoliza?.touched)">*Campo obligatorio</span>
+                </div>
             </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row flex mb-4">
-            <div class="col-md-8">
-                <label class="control-label">Verificación<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label">Fecha próxima verificación<span class="req">*</span>:</label>
-                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-        </div>
-        <hr class="separador-small">
-        <div class="row flex mb-4">
-            <div class="col-md-8">
-                <label class="control-label">Póliza de seguro<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
-            </div>
-            <div class="col-md-4">
-                <label class="control-label">Fecha vencimiento póliza<span class="req">*</span>:</label>
-                <p-calendar styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
-                </p-calendar>
-            </div>
-        </div>
 
-        <hr class="separador-small">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="subtitulo">
-                    Fotografías del vehículo
-                </h3>
+            <hr class="separador-small">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="subtitulo">
+                        Fotografías del vehículo
+                    </h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row flex mb-4">
-            <div class="col-md-6">
-                <label class="control-label">Fotografía de frente<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
+            <div class="row flex mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaFrente">Fotografía de frente<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaFrente" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaLateralDerecho">Fotografía lateral derecho<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaLateralDerecho" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="control-label">Fotografía lateral derecho<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
-            </div>
-        </div>
 
-        <div class="row flex mb-4">
-            <div class="col-md-6">
-                <label class="control-label">Fotografía lateral izquierdo<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
+            <div class="row flex mb-4">
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaLateralIzquierdo">Fotografía lateral izquierdo<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaLateralIzquierdo" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" for="fotografiaTrasera">Fotografía trasera<span class="req">*</span>:</label>
+                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivos)]="fotografiaTrasera" (errorEmitter)="validarArchivo($event)">
+                    </app-cargador-archivo>
+                    <!-- <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span> -->
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="control-label">Fotografía trasera<span class="req">*</span>:</label>
-                <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
-                    [(archivos)]="archivos" (errorEmitter)="validarArchivo($event)">
-                </app-cargador-archivo>
-            </div>
-        </div>
 
-    </p-card>
-    <div class="flex justify-content-between mt-4">
-        <span class="campos-obligatorios">*Campos obligatorios</span>
-        <div>
-            <button class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
-            <button class="btn btn-primary btn-lg ml-4">Guardar</button>
+        </p-card>
+        <div class="flex justify-content-between mt-4">
+            <span class="campos-obligatorios">*Campos obligatorios</span>
+            <div>
+                <button type="button" class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
+                <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid">Guardar</button>
+            </div>
         </div>
-    </div>
+    </form>
 
 </div>

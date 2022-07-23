@@ -43,6 +43,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   catToneladas: any[] = [];
   catCilindros: any[] = [];
   catEstatus: any[] = [];
+  idVehiculo!: number;
 
   form!: FormGroup;
 
@@ -54,9 +55,8 @@ export class DetalleVehiculoPropioComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    console.log("RESPUESTA: ", respuesta);
     let vehiculoPropio = respuesta[this.POSICION_VEHICULO_PROPIO].datos[0];
-    console.log("VP: ", vehiculoPropio);
+    this.idVehiculo = vehiculoPropio.idVehiculo;
     this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.content.map(
       (unidad: any) => ({
         label: unidad.nomUnidadAdscripcion,
@@ -86,7 +86,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
           value: tipoServicio.idTipoServicio
         }
       )
-    );;
+    );
     this.catVersion = respuesta[this.POSICION_CATALOGO_VERSION].map(
       (version: any) => (
         {

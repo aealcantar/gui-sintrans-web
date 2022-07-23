@@ -421,6 +421,10 @@ p-inputnumber.form-control {
         .p-inputtext {
             padding: 6px 12px;
             border: none;
+            &[disabled]{
+                background-color: #eee;
+                opacity: 1;
+            }
             &:focus {
                 border-color: #66afe9;
                 outline: 0;

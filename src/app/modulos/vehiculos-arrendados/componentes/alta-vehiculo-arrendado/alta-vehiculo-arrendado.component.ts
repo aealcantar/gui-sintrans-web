@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -27,7 +28,7 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
   readonly POSICION_CATALOGO_TONELADAS = 7;
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
-  readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dada de alta exitosamente.";
+  readonly ALTA_VEHICULO_ARRENDADO = "La vehículo arrendado ha sido dado de alta exitosamente.";
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -49,7 +50,8 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
-    private vehiculoArrendadosService: VehiculosArrendadosService
+    private vehiculoArrendadosService: VehiculosArrendadosService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -181,29 +183,60 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
   }
 
   guardar() {
-    console.log("DATOS: ", this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
-    // let archivos = {
-    //   tarjetaCirculacion: this.tarjetaCirculacion[0],
-    //   verificacion: this.verificacion[0],
-    //   polizaSeguro: this.polizaSeguro[0],
-    //   fotografiaFrente: this.fotografiaFrente[0],
-    //   fotografiaLateralDerecho: this.fotografiaLateralDerecho[0],
-    //   fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo[0],
-    //   fotografiaTrasera: this.fotografiaTrasera[0]
-    // }
     this.cargadorService.activar();
-    // this.vehiculoArrendadosService.guardarRegistro(this.form.value, usuarioAutenticado?.matricula, archivos).subscribe(
-    //   (respuesta) => {
-    //     this.alertaService.mostrar("exito", this.ALTA_VEHICULO_PROPIO);
-    //     this.cargadorService.desactivar();
-    //     this.router.navigate(["../"], { relativeTo: this.route });
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     this.cargadorService.desactivar();
-    //     console.error("ERROR: ", error)
-    //   }
-    // );
+    let vehiculoArrendado: any = {
+      cveEcco: this.form.get("ecco")?.value,
+      numTarjeton: this.form.get("noTarjeton")?.value,
+      desTipoVehiculo: this.form.get("idTipoVehiculo")?.value,
+      desModelo: this.form.get("modelo")?.value,
+      desClasifConuee: this.form.get("idClasifConuee")?.value,
+      desTipoServicio: this.form.get("idTipoServicio")?.value,
+      desSubmarca: this.form.get("submarca")?.value,
+      canCilindros: this.form.get("idCilindro")?.value,
+      desCombustible: this.form.get("idCombustible")?.value,
+      desCombustibleXLitro: this.form.get("idCantCombustiblePorLitro")?.value,
+      canCapacidadPersonas: this.form.get("capPersonas")?.value,
+      canToneladas: this.form.get("idCapToneladas")?.value,
+      numPlacas: this.form.get("placas")?.value,
+      numLicenciaCofepris: this.form.get("licCofepris")?.value,
+      fecVencimientoCofepris: this.datePipe.transform(this.form.get("vencLicCofepris")?.value, 'YYYY-MM-dd'),
+      desTipoRegimen: this.form.get("idTipoRegimen")?.value,
+      idUnidadAdscripcion: this.form.get("idUnidad")?.value,
+      numAuxiliar: this.form.get("auxiliarContable")?.value,
+      indSustituto: this.form.get("vehiculoSustituto")?.value === true ? 1 : 2,
+      cveMatricula: usuarioAutenticado.matricula,
+      desEstatusVehiculo: this.form.get("idEstatus")?.value,
+      desClase: this.form.get("numeroConvenio")?.value,
+      desRutaArchivoTjetaCirc: this.form.get("numeroConvenio")?.value,
+      desRutaFotoFrente: this.form.get("numeroConvenio")?.value,
+      desRutaFotoLateralDer: this.form.get("numeroConvenio")?.value,
+      desRutaFotoLateralIzq: this.form.get("numeroConvenio")?.value,
+      desRutaFotoTrasera: this.form.get("numeroConvenio")?.value,
+      desRutaPolizaSeguro: this.form.get("numeroConvenio")?.value,
+      desRutaVerificacion: this.form.get("numeroConvenio")?.value,
+      idAseguradora: this.form.get("nombreAseguradora")?.value,
+      numPoliza: this.form.get("poliza")?.value,
+      arrendatarios: {
+        nomArrendadora: this.form.get("nombreArrendadora")?.value,
+        numContrato: this.form.get("idNoContrato")?.value,
+        fecIniContrato: this.datePipe.transform(this.form.get("fechaInicioContrato")?.value, 'YYYY-MM-dd'),
+        fecFinContrato: this.datePipe.transform(this.form.get("fechaFinContrato")?.value, 'YYYY-MM-dd'),
+        impCostoDiario: this.form.get("costoDiario")?.value,
+        impCostoMensual: this.form.get("costoMensual")?.value
+      }
+    }
+    this.vehiculoArrendadosService.guardarRegistro(vehiculoArrendado).subscribe(
+      (respuesta) => {
+        this.alertaService.mostrar("exito", this.ALTA_VEHICULO_ARRENDADO);
+        this.cargadorService.desactivar();
+        this.router.navigate(["../"], { relativeTo: this.route });
+      },
+      (error: HttpErrorResponse) => {
+        this.cargadorService.desactivar();
+        console.error("ERROR: ", error)
+      }
+    );
   }
 
   get f() {

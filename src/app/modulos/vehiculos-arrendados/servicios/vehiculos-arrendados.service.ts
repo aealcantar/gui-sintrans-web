@@ -13,6 +13,40 @@ export class VehiculosArrendadosService extends BaseService<HttpRespuesta<any>, 
         super(_http, `${environment.api.mssintetransVehiculosArrendados}`);
     }
 
+    guardarRegistro(vehiculoArrendado: any): Observable<HttpRespuesta<any>> {
+        const formData = new FormData();
+        formData.append('cveEcco', vehiculoArrendado.cveEcco);
+        formData.append('numTarjeton', vehiculoArrendado.numTarjeton);
+        formData.append('desTipoVehiculo', vehiculoArrendado.desTipoVehiculo);
+        formData.append('desModelo', vehiculoArrendado.desModelo);
+        formData.append('desClasifConuee', vehiculoArrendado.desClasifConuee);
+        formData.append('desTipoServicio', vehiculoArrendado.desTipoServicio);
+        formData.append('desSubmarca', vehiculoArrendado.desSubmarca);
+        formData.append('canCilindros', vehiculoArrendado.canCilindros);
+        formData.append('desCombustible', vehiculoArrendado.desCombustible);
+        formData.append('desCombustibleXLitro', vehiculoArrendado.desCombustibleXLitro);
+        formData.append('canCapacidadPersonas', vehiculoArrendado.canCapacidadPersonas);
+        formData.append('canToneladas', vehiculoArrendado.canToneladas);
+        formData.append('numPlacas', vehiculoArrendado.numPlacas);
+        formData.append('numLicenciaCofepris', vehiculoArrendado.numLicenciaCofepris);
+        formData.append('fecVencimientoCofepris', vehiculoArrendado.fecVencimientoCofepris);
+        formData.append('desTipoRegimen', vehiculoArrendado.desTipoRegimen);
+        formData.append('idUnidadAdscripcion', vehiculoArrendado.idUnidadAdscripcion);
+        formData.append('numAuxiliar', vehiculoArrendado.numAuxiliar);
+        formData.append('indSustituto', vehiculoArrendado.indSustituto);
+        formData.append('cveMatricula', vehiculoArrendado.cveMatricula);
+        formData.append('desEstatusVehiculo', vehiculoArrendado.desEstatusVehiculo);
+        formData.append('idAseguradora', vehiculoArrendado.idAseguradora);
+        formData.append('numPoliza', vehiculoArrendado.numPoliza);
+        formData.append('nomArrendadora', vehiculoArrendado.arrendatarios.nomArrendadora);
+        formData.append('numContrato', vehiculoArrendado.arrendatarios.numContrato);
+        formData.append('fecIniContrato', vehiculoArrendado.arrendatarios.fecIniContrato);
+        formData.append('fecFinContrato', vehiculoArrendado.arrendatarios.fecFinContrato);
+        formData.append('impCostoDiario', vehiculoArrendado.arrendatarios.impCostoDiario);
+        formData.append('impCostoMensual', vehiculoArrendado.arrendatarios.impCostoMensual);
+        return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransVehiculosArrendados, formData)
+    }
+
     buscarPorFiltroEcco(pagina: number, tamanio: number, ecco: string): Observable<HttpRespuesta<any>> {
         return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosArrendados + "/ecco/" + ecco + `?pagina=${pagina}&tamanio=${tamanio}`)
     }

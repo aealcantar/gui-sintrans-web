@@ -19,6 +19,6 @@ export class AseguradoraCatalogoResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<any> {
     const filtro = {};
-    return this.aseguradoraService.obtenerAseguradoras(0, 50, '');
+    return this.aseguradoraService.obtenerAseguradoras(0, 10, '');
   }
 }

@@ -17,6 +17,6 @@ export class AseguradoraDetalleResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const aseguradoraId = route.paramMap.get('idAseguradora');
 
-    return this.aseguradoraService.findById(aseguradoraId)
+    return this.aseguradoraService.buscarPorId(aseguradoraId)
   }
 }

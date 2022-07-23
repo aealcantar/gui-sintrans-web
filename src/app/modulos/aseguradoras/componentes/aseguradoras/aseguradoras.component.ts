@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { AseguradoraService } from '../service/aseguradora.service';
 
 @Component({
@@ -9,22 +11,83 @@ import { AseguradoraService } from '../service/aseguradora.service';
 })
 export class AseguradorasComponent implements OnInit {
   mostrarModal: boolean = false;
-
+  inicioPagina:number = 0;
+  respuesta: any;
   aseguradoras: any[] = [];
   aseguradora: any;
-  nombreAseguradora: string='';
+  form;
+  MENSAJE = 'El registro ah sido eliminado exitosamente.'
+  constructor(
+    private aseguradoraService: AseguradoraService,
+    private alertService : AlertasFlotantesService,
+    private router: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      aseguradora: new FormControl('', Validators.required),
+    });
+  }
+  buscar() {
+    this.aseguradoraService.obtenerAseguradoras(0,10,this.form.controls['aseguradora'].value).subscribe(res=>{
+      console.log(res)
+      this.aseguradoras =[]
+      this.aseguradoras = res.datos.content
+    })
+  }
+  limpiar() {
+    this.form.controls['aseguradora'].setValue('');
+    this.aseguradoras = [];
 
-  constructor(private aseguradoraService : AseguradoraService, private router :ActivatedRoute) {}
-
-  ngOnInit(): void {
-    const respuesta = this.router.snapshot.data['respuesta']
-    console.log(respuesta)
-    this.aseguradoras = respuesta.datos.content
   }
 
+  ngOnInit(): void {
+    this.respuesta = this.router.snapshot.data['respuesta'];
+    console.log(this.respuesta);
+    this.aseguradoras = this.respuesta.datos.content;
+  }
 
-  mostrarModalEliminar(aseguradora:any){
-    this.aseguradora = aseguradora
-    this.mostrarModal = true
+  mostrarModalEliminar(aseguradora: any) {
+    this.aseguradora = aseguradora;
+    this.mostrarModal = true;
+  }
+  get f() {
+    return this.form.controls;
+  }
+  paginador(event:any){
+    const inicio = event.first;
+    const pagina = Math.floor(inicio/10);
+    const tamanio = event.rows;
+    const aseguradora = this.form.controls['aseguradora'].value
+    this.aseguradoraService.obtenerAseguradoras(pagina,tamanio,aseguradora).subscribe(res=>{
+      this.aseguradoras = [];
+      this.respuesta = null;
+      this.respuesta = res;
+      this.aseguradoras = this.respuesta.datos.content;
+      this.ordenar(event)
+    })
+  }
+  ordenar(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+        return 1;
+      }
+      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+        return -1;
+      }
+      return 0;
+    };
+    if (event.sortOrder === 1) {
+      this.aseguradoras = this.aseguradoras.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.aseguradoras = this.aseguradoras.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
+  }
+  eliminar(){
+    this.aseguradoraService.eliminar(this.aseguradora.idAseguradora).subscribe(response=>{
+      this.alertService.mostrar('exito' ,this.MENSAJE)
+      const index = this.aseguradoras.findIndex((u)=>u.idAseguradora === this.aseguradora.idAseguradora);
+      this.aseguradoras.splice(index,1)
+      this.mostrarModal = false
+    })
   }
 }

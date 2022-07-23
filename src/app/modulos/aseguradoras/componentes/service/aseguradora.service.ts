@@ -42,10 +42,13 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
   delete(aseguradoraId: any) {
     return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
   }
-  update(aseguradoraId: any, aseguradora: any) {
+  update(aseguradoraId: any, aseguradora: any , archivo:any) {
+    const formData = new FormData()
+    formData.append('archivo' , archivo)
+    formData.append('aseguradora' , JSON.stringify(aseguradora))
     return this._http.put<any>(
-      `${this._base}/update/${aseguradoraId}`,
-      aseguradora
+      `${this._base}/${aseguradoraId}`,
+      formData
     );
   }
 }

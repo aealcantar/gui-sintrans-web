@@ -10,9 +10,11 @@ import { AseguradoraService } from './aseguradora.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AseguradoraEditResolver implements Resolve<boolean> {
+export class AseguradoraEditResolver implements Resolve<any> {
   constructor(private aseguradoraService : AseguradoraService){}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    const aseguradoraId = route.paramMap.get('idAseguradora');
+
+    return this.aseguradoraService.buscarPorId(aseguradoraId)
   }
 }

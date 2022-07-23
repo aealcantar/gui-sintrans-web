@@ -17,6 +17,10 @@ body {
     padding-top: 120px;
 }
 
+button[disabled].btn {
+    cursor: pointer;
+}
+
 .req {
     color: #9f2241;
 }

@@ -10,7 +10,7 @@
       <input class="form-control" [(ngModel)]="ooad" id="ooad" placeholder="Ingresar" type="text">
     </div>
     <div class="col-md-6">
-      <button class="btn btn-primary btn-small" (click)="buscar()">Buscar</button>
+      <button class="btn btn-primary btn-small" (click)="buscar()" [disabled]="!nombreUnidad && !ooad">Buscar</button>
       <button class="ml-7 btn btn-default btn-small" (click)="limpiar()">Limpiar</button>
     </div>
   </div>
@@ -26,7 +26,7 @@
   <div class="row -mx-6">
     <div class="col-md-12">
       <p-card>
-        <p-table [value]="catUnidades" [paginator]="catUnidades.length > 0" [rows]="respuesta?.datos?.numberOfElements" [lazy]="true"
+        <p-table [value]="catUnidades" [paginator]="catUnidades.length > 0" [rows]="10" [lazy]="true"
           [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
           <ng-template pTemplate="header">
             <tr>

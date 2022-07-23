@@ -20,6 +20,7 @@ export class VehiculosPropiosComponent implements OnInit {
   mostrarModal: boolean = false;
   vehiculosPropios: any[] = [];
   vehiculoPropio: any;
+  ecco: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,44 @@ export class VehiculosPropiosComponent implements OnInit {
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data["respuesta"];
     this.vehiculosPropios = this.respuesta?.datos?.content;
+  }
+
+  limpiar(): void {
+    this.cargadorService.activar();
+    this.ecco = "";
+    this.inicioPagina = 0;
+    this.vehiculoPropioService.buscarPorPagina(0, 10).subscribe(
+      (respuesta) => {
+        this.vehiculosPropios = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.vehiculosPropios = this.respuesta!.datos?.content;
+        this.cargadorService.desactivar();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.cargadorService.desactivar();
+        this.alertaService.mostrar('error', error.message);
+      }
+    );
+  }
+
+  buscar(): void {
+    this.cargadorService.activar();
+    this.vehiculoPropioService.buscarPorFiltroEcco(0, 10, this.ecco).subscribe(
+      (respuesta) => {
+        this.vehiculosPropios = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.vehiculosPropios = this.respuesta!.datos?.content;
+        this.cargadorService.desactivar();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.cargadorService.desactivar();
+        this.alertaService.mostrar('error', error.message);
+      }
+    );
   }
 
   mostrarModalEliminar(vehiculoPropio: any): void {
@@ -60,6 +99,7 @@ export class VehiculosPropiosComponent implements OnInit {
   }
 
   paginador(event: any): void {
+    console.log("EVENT: ", event);
     let inicio = event.first;
     let pagina = Math.floor(inicio / 10);
     let tamanio = event.rows;

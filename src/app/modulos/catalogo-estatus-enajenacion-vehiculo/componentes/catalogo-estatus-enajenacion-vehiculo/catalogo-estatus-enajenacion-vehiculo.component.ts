@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
 import { VehiculoEnajenacionService } from '../../service/vehiculo-enajenacion.service';
 import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-propio-enajenacion-service.service';
 
@@ -13,7 +15,8 @@ import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-
 })
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   mostrarModal: boolean = false;
-  respuseta!: HttpRespuesta<any> | null;
+  inicioPagina: number = 0;
+  respuesta!: HttpRespuesta<any> | null;
   unidades: any[] = [];
   unidad: any;
 
@@ -24,21 +27,22 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.respuseta = this.route.snapshot.data['respuesta'];
-    console.log(this.respuseta);
-    this.unidades = this.respuseta!.datos.content;
+    this.respuesta = this.route.snapshot.data['respuesta'];
+    console.log(this.respuesta);
+    this.unidades = this.respuesta!.datos?.content;
   }
 
   mostrarModalEliminar(unidad: any) {
     this.unidad = unidad;
     this.mostrarModal = true;
   }
+
   eliminar() {
     this.estatusEnajenacionService
       .eliminar(this.unidad.idEstatusEnajenacion)
       .subscribe((response) => {
         if (response.codigo === 200) {
-          this.alertaService.mostrar('exito', 'Se Elimino El Registro');
+          this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
           const index = this.unidades.findIndex(
             (u) => u.idEstatusEnajenacion === this.unidad.idEstatusEnajenacion
           );
@@ -48,4 +52,40 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
         }
       });
   }
+
+  paginador(event: any): void {
+    let inicio = event.first;
+    let pagina = Math.floor(inicio / 10);
+    let tamanio = event.rows;
+    this.estatusEnajenacionService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.unidades = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.unidades = this.respuesta!.datos.content;
+        this.ordenar(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
+  ordenar(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+        return 1;
+      }
+      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+        return -1;
+      }
+      return 0;
+    };
+    if (event.sortOrder === 1) {
+      this.unidades = this.unidades.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.unidades = this.unidades.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
+  }
+
 }

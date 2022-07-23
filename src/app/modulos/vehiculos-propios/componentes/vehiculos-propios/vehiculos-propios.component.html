@@ -3,11 +3,11 @@
     <div class="row flex align-items-end">
         <div class="col-md-3">
             <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
-            <input class="form-control" id="ecco" placeholder="Ingresar" type="text">
+            <input class="form-control" [(ngModel)]="ecco" id="ecco" placeholder="Ingresar" type="text">
         </div>
         <div class="col-md-4">
-            <button class="btn btn-primary btn-small">Buscar</button>
-            <button class="ml-6 btn btn-default btn-small">Limpiar</button>
+            <button class="btn btn-primary btn-small" (click)="buscar()" [disabled]="!ecco">Buscar</button>
+            <button class="ml-6 btn btn-default btn-small" (click)="limpiar()">Limpiar</button>
         </div>
         <div class="col-md-5 flex justify-content-end">
             <button class="btn-icon btn btn-primary" routerLink="alta-de-vehiculo-propio"><i
@@ -23,7 +23,7 @@
     <div class="row -mx-6">
         <div class="col-md-12">
             <p-card>
-                <p-table [value]="vehiculosPropios" [paginator]="vehiculosPropios.length > 0" [rows]="respuesta?.datos?.numberOfElements" [lazy]="true"
+                <p-table [value]="vehiculosPropios" [paginator]="vehiculosPropios.length > 0" [rows]="10" [lazy]="true"
                     [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
                     <ng-template pTemplate="header">
                         <tr>

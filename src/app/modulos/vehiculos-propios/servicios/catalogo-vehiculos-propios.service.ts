@@ -106,8 +106,9 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/" + idVehiculo, formData)
     }
 
-    buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {
-        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ooad=${ooad}&ecco=${ecco}`)
+    buscarPorFiltroEcco(pagina: number, tamanio: number, ecco: string): Observable<HttpRespuesta<any>> {
+        console.log("ECCO: ", ecco);
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/ecco/" + ecco + `?pagina=${pagina}&tamanio=${tamanio}`)
     }
 
     obtenerCatalogoTipoVehiculo() {

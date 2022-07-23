@@ -2,6 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
+import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+
 import { AseguradoraService } from '../service/aseguradora.service';
 
 @Component({
@@ -17,7 +19,8 @@ export class AltaAseguradoraComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private aseguradoraService: AseguradoraService
+    private aseguradoraService: AseguradoraService,
+    private alertService: AlertasFlotantesService
   ) {
     this.form = this.fb.group({
       nombreAseguradora: new FormControl('', Validators.required),
@@ -51,4 +54,11 @@ export class AltaAseguradoraComponent implements OnInit {
       console.log(res);
     });
   }
+
+
+  
+  get f() {
+    return this.form.controls;
+  }
+
 }

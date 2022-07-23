@@ -35,23 +35,25 @@
             placeholder="Ingresar"
             type="text"
           />
+          <span class="campos-obligatorios" *ngIf="f?.desEstatusEnajenacion?.errors?.required && (f?.desEstatusEnajenacion?.dirty || f?.desEstatusEnajenacion?.touched)">*Campo obligatorio</span>
         </div>
       </div>
     </form>
-  </p-card>
-  <div class="flex justify-content-between mt-4">
-    <span class="campos-obligatorios">*Campos obligatorios</span>
-    <div>
-      <button
-        class="btn btn-gold btn-lg"
-        routerLink="../.."
-        (click)="cancelar()"
-      >
-        Cancelar
-      </button>
-      <button class="btn btn-primary btn-lg ml-4" (click)="guardar()">
-        Guardar
-      </button>
+    <div class="flex justify-content-between mt-4">
+      <span class="campos-obligatorios">*Campos obligatorios</span>
+      <div>
+        <button
+          class="btn btn-gold btn-lg"
+          routerLink="../.."
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+        <button class="btn btn-primary btn-lg ml-4" (click)="guardar()">
+          Guardar
+        </button>
+      </div>
     </div>
-  </div>
+  </p-card>
+
 </div>

@@ -67,7 +67,7 @@ export class AltaUsuarioSitComponent implements OnInit {
   }
   guardar() {
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
-    this.form.get('matriculaAudita')?.setValue(usuarioAutenticado.matricula);
+    this.form.get('matriculaAudita')?.setValue(usuarioAutenticado?.matricula);
     if (this.form.valid) {
       const datos = this.form.getRawValue();
       this.usuarioSitService.guardar(datos).subscribe((response) => {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { VehiculosArrendadosRoutingModule } from './vehiculos-arrendados-routing.module';
 import { VehiculosArrendadosComponent } from './componentes/vehiculos-arrendados/vehiculos-arrendados.component';
@@ -17,7 +17,8 @@ import { AltaVehiculoArrendadoComponent } from './componentes/alta-vehiculo-arre
 import { EditarVehiculoArrendadoComponent } from './componentes/editar-vehiculo-arrendado/editar-vehiculo-arrendado.component';
 import { DetalleVehiculoArrendadoComponent } from './componentes/detalle-vehiculo-arrendado/detalle-vehiculo-arrendado.component';
 import { VehiculosArrendadosService } from './servicios/vehiculos-arrendados.service';
-
+import { InputNumberModule } from 'primeng-lts/inputnumber';
+import { CatalogoUnidadesService } from '../catalogo-unidades/servicios/catalogo-unidades.service';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,13 @@ import { VehiculosArrendadosService } from './servicios/vehiculos-arrendados.ser
     BtnRegresarModule,
     DialogModule,
     CalendarModule,
-    CargadorArchivoModule
+    CargadorArchivoModule,
+    InputNumberModule
   ],
   providers:[
-    VehiculosArrendadosService
+    VehiculosArrendadosService,
+    CatalogoUnidadesService,
+    DatePipe
   ]
 })
 export class VehiculosArrendadosModule { }

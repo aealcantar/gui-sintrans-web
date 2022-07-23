@@ -17,8 +17,8 @@ export const environment = {
     mssintetransCatalogoOoad: 'http://localhost:8082/mssintetrans-unidad/ooad',
     mssintetransTarjetaElectronica: 'http://localhost:8085/mssintetrans-tarjetas-electronicas/tarjetas/',
     mssintetransVehiculosPropios: 'http://localhost:8084/mssintetrans-vehiculos/propios',
+    mssintetransVehiculosArrendados : 'http://localhost:8084/mssintetrans-vehiculos/arrendados',
     mssintetransChoferes: 'http://localhost:8087/mssintetrans-choferes/choferes',
-    mssintetransVehiculosArrendados : '',
     mssintetransAseguradoras : 'http://localhost:8088/mssintetrans-aseguradoras'
   }
 };

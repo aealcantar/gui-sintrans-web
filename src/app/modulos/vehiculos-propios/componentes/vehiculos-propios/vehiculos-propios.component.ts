@@ -14,7 +14,6 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
 })
 export class VehiculosPropiosComponent implements OnInit {
 
-  // readonly POSICION_VEHICULOS_PROPIOS = 0;
   inicioPagina: number = 0;
   respuesta!: HttpRespuesta<any> | null;
   mostrarModal: boolean = false;
@@ -24,7 +23,6 @@ export class VehiculosPropiosComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
     private vehiculoPropioService: CatalogoVehiculosPropiosService
@@ -99,7 +97,6 @@ export class VehiculosPropiosComponent implements OnInit {
   }
 
   paginador(event: any): void {
-    console.log("EVENT: ", event);
     let inicio = event.first;
     let pagina = Math.floor(inicio / 10);
     let tamanio = event.rows;

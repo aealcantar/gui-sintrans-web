@@ -3,9 +3,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { Chofer } from 'src/app/modelos/chofer.interface';
+import { Usuario } from 'src/app/modelos/usuario.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { AutenticacionService } from 'src/app/servicios/seguridad/autenticacion.service';
 import { ChoferesService } from '../../servicios/choferes.service';
 
 @Component({
@@ -29,7 +33,7 @@ export class AltaChoferesComponent implements OnInit {
     }
   ];
   readonly ALTA_CHOFER = "Nuevo registro se dió de alta exitosamente.";
-  public archivos: any[] = [];
+  public archivos: CustomFile[] = [];
   public editForm!: FormGroup;
   // public chofer!: Chofer;
 
@@ -42,26 +46,32 @@ export class AltaChoferesComponent implements OnInit {
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private choferesService: ChoferesService,
+    private aut: AutenticacionService,
   ) { }
 
   ngOnInit(): void {
-    this.inicializarFormulario();
+    let matricula: string = '';
+
+    this.aut.usuario$.subscribe((value: Usuario | null) => {
+      matricula = value?.matricula || ''
+    });
+    this.inicializarFormulario(matricula);
   }
 
-  inicializarFormulario() {
+  inicializarFormulario(matricula: string) {
     this.editForm = this.fb.group({
-      idChofer: [null],
-      cveMatriculaChofer: [null, Validators.compose([Validators.required])],
-      // cveMatricula: [null, Validators.compose([Validators.required])],
-      nombreChofer: [null],
-      cveUnidadAdscripcion: [null],
-      idUnidadAdscripcion: [null],
-      cveUnidadOOAD: [null],
+      idChofer: [''],
+      nombreChofer: [{ value: 'NOMBRE_CHOFER_SIAP', disabled: true }],
+      cveUnidadAdscripcion: [{ value: 'CVE_ADSCRIPCION_SIAP', disabled: true }],
+      idUnidadAdscripcion: [{ value: 'ID_ADSCRIPCION_SIAP', disabled: true }],
+      cveUnidadOOAD: [{ value: 'OOAD_SIAP', disabled: true }],
+      desCategoria: [{ value: 'CATEGORIA_SIAP', disabled: true }],
+      cveMatriculaChofer: [null, Validators.compose([Validators.required, Validators.maxLength(12)])],
+      cveMatricula: [matricula, Validators.required],
       fecInicioContrato: [null, Validators.compose([Validators.required])],
       fecFinContrato: [null, Validators.compose([Validators.required])],
-      // fecIniIncapacidad: [null, Validators.compose([Validators.required])],
-      // fecFinIncapacidad: [null, Validators.compose([Validators.required])],
-      desCategoria: [null, Validators.compose([Validators.required])],
+      fecIniIncapacidad: [''],
+      fecFinIncapacidad: [''],
       estatusChofer: [null, Validators.compose([Validators.required])],
       desMotivo: [null, Validators.compose([Validators.required])],
       cveLicencia: [null, Validators.compose([Validators.required])],
@@ -73,14 +83,21 @@ export class AltaChoferesComponent implements OnInit {
   }
 
   guardar() {
-    this.editForm.get('desrutaLicencia')?.patchValue(this.archivos[0]?.name);
+    this.editForm.get('desrutaLicencia')?.patchValue(this.archivos[0]?.archivo?.name);
     console.log(this.editForm.value);
 
     if (this.editForm.valid) {
       let chofer: any = {
         ...this.editForm.value,
-      }
-      console.log(chofer);
+        fecInicioContrato: moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY-MM-DD'),
+        fecFinContrato: moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD'),
+        fecVigencia: moment(this.editForm.get('fecVigencia')?.value).format('YYYY-MM-DD'),
+        fecExpedicion: moment(this.editForm.get('fecExpedicion')?.value).format('YYYY-MM-DD'),
+        fecIniIncapacidad: this.editForm.get('fecIniIncapacidad')?.value && moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
+        fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value && moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
+        archivo: this.archivos[0]?.archivo,
+      };
+
       this.choferesService.guardar(chofer).subscribe(
         (respuesta) => {
           this.alertaService.mostrar("exito", this.ALTA_CHOFER);

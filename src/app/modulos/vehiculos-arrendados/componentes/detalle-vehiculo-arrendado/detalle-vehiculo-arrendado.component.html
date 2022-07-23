@@ -31,7 +31,7 @@
                 <div class="col-md-3">
                     <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idTipoVehiculo" id="tipoVehiculo"
-                        class="form-control" [options]="ooad" placeholder="Seleccionar">
+                        class="form-control" [options]="catTipoVehiculo" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
@@ -46,13 +46,13 @@
                     <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
                             class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idClasifConuee" id="clasifVehiculo"
-                        class="form-control" [options]="ooad" placeholder="Seleccionar">
+                        class="form-control" [options]="catCONUEE" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idTipoServicio" id="tipoServicio"
-                        class="form-control" [options]="ooad" placeholder="Seleccionar">
+                        class="form-control" [options]="catTipoServicio" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
@@ -63,7 +63,7 @@
                 <div class="col-md-3">
                     <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idCilindro" id="cilindros" class="form-control"
-                        [options]="ooad" placeholder="Seleccionar">
+                        [options]="catCilindros" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
             </div>
@@ -80,15 +80,14 @@
                 <div class="col-md-3">
                     <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idCombustible" id="combustible" class="form-control"
-                        [options]="ooad" placeholder="Seleccionar">
+                        [options]="catCombustible" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="cantidadCombustible">Cantidad de combustible por litro<span
                             class="req">*</span>:</label>
-                    <p-dropdown [disabled]="true" formControlName="idCantCombustiblePorLitro" id="cantidadCombustible"
-                        class="form-control" [options]="ooad" placeholder="Seleccionar">
-                    </p-dropdown>
+                    <p-inputNumber class="form-control" id="idCantCombustiblePorLitro" formControlName="idCantCombustiblePorLitro" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
+                    <span class="campos-obligatorios" *ngIf="f.idCantCombustiblePorLitro?.errors?.required && (f.idCantCombustiblePorLitro?.dirty || f.idCantCombustiblePorLitro?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
@@ -98,7 +97,7 @@
                 <div class="col-md-3">
                     <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idCapToneladas" id="capToneladas"
-                        class="form-control" [options]="ooad" placeholder="Seleccionar">
+                        class="form-control" [options]="catToneladas" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
             </div>
@@ -132,7 +131,7 @@
                 <div class="col-md-3">
                     <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idTipoRegimen" id="tipoRegimen" class="form-control"
-                        [options]="ooad" placeholder="Seleccionar">
+                        [options]="catTipoRegimen" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
             </div>
@@ -149,7 +148,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idUnidad" id="unidad" class="form-control"
-                        [options]="ooad" placeholder="Seleccionar">
+                        [options]="catUnidades" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
                 <div class="col-md-2">
@@ -199,9 +198,9 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="noContrato">N° de contrato<span class="req">*</span>:</label>
-                    <p-dropdown [disabled]="true" formControlName="idNoContrato" id="noContrato" class="form-control"
-                        [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idNoContrato" id="noContrato" class="form-control" [options]="catCONUEE" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idNoContrato?.errors?.required && (f.idNoContrato?.dirty || f.idNoContrato?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="fechaInicioContrato">Fecha inicio del contrato<span
@@ -233,7 +232,7 @@
                 <div class="col-md-4">
                     <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
                     <p-dropdown [disabled]="true" formControlName="idEstatus" id="estatus" class="form-control"
-                        [options]="ooad" placeholder="Seleccionar">
+                        [options]="catEstatus" placeholder="Seleccionar">
                     </p-dropdown>
                 </div>
             </div>

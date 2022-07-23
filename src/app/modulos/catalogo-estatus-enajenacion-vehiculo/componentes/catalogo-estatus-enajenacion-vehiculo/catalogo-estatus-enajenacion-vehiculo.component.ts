@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
@@ -13,10 +14,10 @@ import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-
 })
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   mostrarModal: boolean = false;
-  respuseta!: HttpRespuesta<any> | null;
-  unidades: any[] = [];
-  unidad: any;
-
+  inicioPagina:number = 0
+  respuesta!: HttpRespuesta<any> | null;
+  estatusList: any[] = [];
+  estatus: any;
   constructor(
     private route: ActivatedRoute,
     private alertaService: AlertasFlotantesService,
@@ -24,28 +25,46 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.respuseta = this.route.snapshot.data['respuesta'];
-    console.log(this.respuseta);
-    this.unidades = this.respuseta!.datos.content;
+    this.respuesta = this.route.snapshot.data['respuesta'];
+    console.log(this.respuesta);
+    this.estatusList = this.respuesta!.datos.content;
   }
 
   mostrarModalEliminar(unidad: any) {
-    this.unidad = unidad;
+    this.estatus = unidad;
     this.mostrarModal = true;
   }
   eliminar() {
     this.estatusEnajenacionService
-      .eliminar(this.unidad.idEstatusEnajenacion)
+      .eliminar(this.estatus.idEstatusEnajenacion)
       .subscribe((response) => {
         if (response.codigo === 200) {
           this.alertaService.mostrar('exito', 'Se Elimino El Registro');
-          const index = this.unidades.findIndex(
-            (u) => u.idEstatusEnajenacion === this.unidad.idEstatusEnajenacion
+          const index = this.estatusList.findIndex(
+            (u) => u.idEstatusEnajenacion === this.estatus.idEstatusEnajenacion
           );
-          this.unidades.splice(index, 1);
+          this.estatusList.splice(index, 1);
           this.mostrarModal = false 
           this.alertaService.limpiar();
         }
       });
   }
+  paginador(event: any): void {
+    let inicio = event.first;
+    let pagina = Math.floor(inicio / 10);
+    let tamanio = event.rows;
+    this.estatusEnajenacionService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.estatusList = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.estatusList = this.respuesta!.datos.content;
+        //this.ordenar(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
 }

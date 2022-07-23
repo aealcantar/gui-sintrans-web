@@ -22,12 +22,14 @@ export class AltaEstatusEnajenacionVehiculoComponent implements OnInit {
   ) {
     this.form = fb.group({
       desEstatusEnajenacion: new FormControl('', Validators.required),
+      cveMatricula: new FormControl('',Validators.required)
     });
   }
 
   ngOnInit(): void {}
 
   guardar() {
+    this.form.controls['cveMatricula'].setValue('XXXXXX')
     if (this.form.valid) {
       const body = this.form.getRawValue();
       this.estatusService.guardar(body).subscribe((response) => {

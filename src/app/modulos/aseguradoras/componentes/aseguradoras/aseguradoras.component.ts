@@ -1,41 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AseguradoraService } from '../service/aseguradora.service';
 
 @Component({
   selector: 'app-aseguradoras',
   templateUrl: './aseguradoras.component.html',
-  styleUrls: ['./aseguradoras.component.scss']
+  styleUrls: ['./aseguradoras.component.scss'],
 })
 export class AseguradorasComponent implements OnInit {
-
   mostrarModal: boolean = false;
 
-  aseguradoras: any[] = [
-    {
-      id:1,
-      aseguradora: 'Nombre de aseguradora',
-      poliza: 'Póliza',
-      fechaVencimiento: 'dd/mm/aaaa',
-      costoPoliza:'$000,000.00'
-    },
-    {
-      id:2,
-      aseguradora: 'Nombre de aseguradora',
-      poliza: 'Póliza',
-      fechaVencimiento: 'dd/mm/aaaa',
-      costoPoliza:'$000,000.00'
-    },
-    {
-      id:3,
-      aseguradora: 'Nombre de aseguradora',
-      poliza: 'Póliza',
-      fechaVencimiento: 'dd/mm/aaaa',
-      costoPoliza:'$000,000.00'
-    }
-  ];
+  aseguradoras: any[] = [];
+  aseguradora: any;
+  nombreAseguradora: string='';
 
-  constructor() { }
+  constructor(private aseguradoraService : AseguradoraService, private router :ActivatedRoute) {}
 
   ngOnInit(): void {
+    const respuesta = this.router.snapshot.data['respuesta']
+    console.log(respuesta)
+    this.aseguradoras = respuesta.datos.content
   }
 
+
+  mostrarModalEliminar(aseguradora:any){
+    this.aseguradora = aseguradora
+    this.mostrarModal = true
+  }
 }

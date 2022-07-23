@@ -12,6 +12,7 @@ import { UsuarioService } from '../../service/usuario.service';
 })
 export class AltaUsuarioSitComponent implements OnInit {
   form;
+  validarCampos:boolean=false;
   ooads: Array<any> = [];
   roles: Array<any> = [];
   unidades: Array<any> = [];
@@ -39,7 +40,7 @@ export class AltaUsuarioSitComponent implements OnInit {
       nombreUsuario: new FormControl('', Validators.required),
       apellidoPaterno: new FormControl('', Validators.required),
       apellidoMaterno: new FormControl('', Validators.required),
-      ooad: new FormControl(''),
+      ooad: new FormControl('',Validators.required),
       unidad: new FormControl('', Validators.required),
       idRol: new FormControl('', Validators.required),
       estatusUsuario: new FormControl('', Validators.required),
@@ -66,10 +67,21 @@ export class AltaUsuarioSitComponent implements OnInit {
       const datos = this.form.getRawValue();
       this.usuarioSitService.guardar(datos).subscribe((response) => {
         console.log(response);
-        this.alertService.mostrar("exito","El Usuario Fue Dado de alta")
-        this.route.navigate(["../"], { relativeTo: this.router });
+        this.alertService.mostrar("exito","El usuario a sido dado de alta exitosamente")
+        //this.route.navigate(["../"], { relativeTo: this.router });
 
       });
+    }else{
+      this.validarCampos =true;
+      this.onFormUpdate();
     }
+  }
+  
+  onFormUpdate(){
+    this.form.valueChanges.subscribe(()=>{
+      if(this.form.valid){
+        this.validarCampos = false
+      }
+    })
   }
 }

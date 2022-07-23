@@ -25,6 +25,9 @@
             formControlName="matricula"
             placeholder="Ingresar"
             type="text"
+            [ngClass]="{
+              inputError: validarCampos && form.get('matricula')!.hasError('required')
+            }"
           />
         </div>
         <div class="col-md-6">
@@ -37,6 +40,9 @@
             id="nombre"
             placeholder="Ingresar"
             type="text"
+            [ngClass]="{
+              inputError: validarCampos && form.get('nombreUsuario')!.hasError('required')
+            }"
           />
         </div>
       </div>
@@ -51,6 +57,9 @@
             formControlName="apellidoPaterno"
             placeholder="Ingresar"
             type="text"
+            [ngClass]="{
+              inputError: validarCampos && form.get('apellidoPaterno')!.hasError('required')
+            }"
           />
         </div>
         <div class="col-md-6">
@@ -63,6 +72,9 @@
             formControlName="apellidoMaterno"
             placeholder="Ingresar"
             type="text"
+            [ngClass]="{
+              inputError: validarCampos && form.get('apellidoMaterno')!.hasError('required')
+            }"
           />
         </div>
       </div>
@@ -87,6 +99,9 @@
             (onChange)="onChangeOoad()"
             [options]="ooads"
             placeholder="Seleccionar"
+            [ngClass]="{
+              inputError: validarCampos && form.get('ooad')!.hasError('required')
+            }"
           ></p-dropdown>
         </div>
         <div class="col-md-6">
@@ -101,6 +116,9 @@
             optionLabel="nombreUnidad"
             optionValue="idUnidad"
             placeholder="Seleccionar"
+            [ngClass]="{
+              inputError: validarCampos && form.get('unidad')!.hasError('required')
+            }"
           ></p-dropdown>
         </div>
       </div>
@@ -118,6 +136,9 @@
             [options]="roles"
             formControlName="idRol"
             placeholder="Seleccionar"
+            [ngClass]="{
+              inputError: validarCampos && form.get('idRol')!.hasError('required')
+            }"
           ></p-dropdown>
         </div>
         <div class="col-md-3">
@@ -132,6 +153,9 @@
             optionValue="label"
             formControlName="estatusUsuario"
             placeholder="Seleccionar"
+            [ngClass]="{
+              inputError: validarCampos && form.get('estatusUsuario')!.hasError('required')
+            }"
           >
           </p-dropdown>
         </div>
@@ -147,6 +171,9 @@
             optionLabel="label"
             optionValue="label"
             placeholder="Seleccionar"
+            [ngClass]="{
+              inputError: validarCampos && form.get('motivo')!.hasError('required')
+            }"
           ></p-dropdown>
         </div>
         <div class="col-md-3">
@@ -158,6 +185,9 @@
             id="password"
             formControlName="password"
             placeholder="Ingresar"
+            [ngClass]="{
+              inputError: validarCampos && form.get('password')!.hasError('required')
+            }"
             type="password"
           />
         </div>
@@ -166,7 +196,7 @@
         <span class="campos-obligatorios">*Campos obligatorios</span>
         <div>
           <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-          <button class="btn btn-primary btn-lg ml-4" (click)="guardar()">Guardar</button>
+          <button class="btn btn-primary btn-lg ml-4" [disabled]="validarCampos && form.invalid" (click)="guardar()">Guardar</button>
         </div>
       </div>
     </form>

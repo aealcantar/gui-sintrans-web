@@ -71,8 +71,7 @@ const routes: Routes = [
   {
     path: 'aseguradoras',
     loadChildren: () => import('./modulos/aseguradoras/aseguradoras.module').then(m => m.AseguradorasModule),
-    canActivate: [PermiteUsuarioLogueadoGuard],
-    canActivateChild: [PermiteUsuarioLogueadoGuard]
+ 
   },
   {
     path: '**',

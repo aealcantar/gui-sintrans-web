@@ -11,8 +11,9 @@ import { UsuarioService } from '../../service/usuario.service';
 })
 export class CatalogoUsuariosSitComponent implements OnInit {
   mostrarModal: boolean = false;
-
-  unidades: any[] = [];
+  inicioPagina: number = 0;
+  respuesta: any;
+  usuarios: any[] = [];
   usuario: any;
   unidad: any;
   validarDatos: boolean = false;
@@ -31,10 +32,10 @@ export class CatalogoUsuariosSitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const respuesta = this.route.snapshot.data['respuesta'];
-    console.log(respuesta);
-    this.unidades = respuesta!.data.content;
-    console.log(this.unidades);
+    this.respuesta = this.route.snapshot.data['respuesta'];
+    console.log(this.respuesta);
+    this.usuarios = this.respuesta!.data.content;
+    console.log(this.usuarios);
   }
   buscar() {
     if (this.form.valid) {
@@ -42,7 +43,7 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       this.usuarioService
         .get(0, datos.matricula, datos.nombreUsuario, datos.ooad)
         .subscribe((response) => {
-          this.unidades = response!.data.content;
+          this.usuarios = response!.data.content;
         });
     } else {
       this.validarDatos = true;
@@ -57,10 +58,10 @@ export class CatalogoUsuariosSitComponent implements OnInit {
     });
   }
   limpiar() {
-    this.unidades = [];
+    this.usuarios = [];
     this.form.reset();
     this.usuarioService.get(0, '', '', '').subscribe((response) => {
-      this.unidades = response!.data.content;
+      this.usuarios = response!.data.content;
     });
   }
   abrirModal(usuario: any) {
@@ -69,13 +70,25 @@ export class CatalogoUsuariosSitComponent implements OnInit {
   }
   eliminar() {
     this.usuarioService.eliminar(this.usuario.idUsuario).subscribe((res) => {
-      const index = this.unidades.findIndex(
+      const index = this.usuarios.findIndex(
         (u) => u.idUsuario === this.usuario.idUsuario
       );
-      this.unidades.splice(index, 1);
+      this.usuarios.splice(index, 1);
       this.usuario = null;
       this.mostrarModal = false;
-      this.alertService.mostrar('exito', 'Se Elimino El Registro');
+      this.alertService.mostrar('exito', 'El registro ha sido eliminado exitosamente');
     });
+  }
+  paginacion(event:any){
+    const inicio = event.first;
+    const pagina = Math.floor(inicio / 10)
+    const tamanio = event.rows
+    const filtros = this.form.getRawValue()
+    this.usuarioService.get(pagina,filtros.matricula,filtros.nombreUsuario,filtros.ooad).subscribe(respuesta=>{
+      this.usuarios = []
+      this.respuesta = null;
+      this.respuesta = respuesta
+      this.usuarios = respuesta.data.content;
+    })
   }
 }

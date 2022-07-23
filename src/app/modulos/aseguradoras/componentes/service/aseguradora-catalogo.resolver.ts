@@ -6,18 +6,19 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { UsuarioService } from './usuario.service';
+import { AseguradoraService } from './aseguradora.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CatalogoUsuarioSitResolver implements Resolve<any> {
-  constructor(private usaurioService: UsuarioService) {}
+export class AseguradoraCatalogoResolver implements Resolve<any> {
+  constructor(private aseguradoraService: AseguradoraService) {}
+
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    const page = 0;
-    return this.usaurioService.get(page, '','','');
+    const filtro = {};
+    return this.aseguradoraService.obtenerAseguradoras(0, 50, '');
   }
 }

@@ -105,8 +105,7 @@ export class EditarUsuarioSitComponent implements OnInit {
       const usuario = this.form.getRawValue();
       console.log(usuario)
       this.usuarioService.actualizar(this.usuario.idUsuario,usuario).subscribe(response=>{
-      
-        this.alertService.mostrar('exito','Se Guardaron Los Cambios Correctamente')
+        this.alertService.mostrar('exito','El usuario ha sido guardado exitosamente.')
         
       });
     } else {

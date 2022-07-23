@@ -15,6 +15,7 @@ import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/carg
 import { AltaAseguradoraComponent } from './componentes/alta-aseguradora/alta-aseguradora.component';
 import { EditarAseguradoraComponent } from './componentes/editar-aseguradora/editar-aseguradora.component';
 import { DetalleAseguradoraComponent } from './componentes/detalle-aseguradora/detalle-aseguradora.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -35,7 +36,10 @@ import { DetalleAseguradoraComponent } from './componentes/detalle-aseguradora/d
     BtnRegresarModule,
     DialogModule,
     CalendarModule,
-    CargadorArchivoModule
+    CargadorArchivoModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
   ]
 })
 export class AseguradorasModule { }

@@ -18,7 +18,8 @@ export const environment = {
     mssintetransTarjetaElectronica: 'http://localhost:8085/mssintetrans-tarjetas-electronicas/tarjetas/',
     mssintetransVehiculosPropios: 'http://localhost:8084/mssintetrans-vehiculos/propios',
     mssintetransChoferes: 'http://localhost:8087/mssintetrans-choferes/choferes',
-    mssintetransVehiculosArrendados : ''
+    mssintetransVehiculosArrendados : '',
+    mssintetransAseguradoras : 'http://localhost:8088/mssintetrans-aseguradoras'
   }
 };
 

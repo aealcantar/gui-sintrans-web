@@ -54,4 +54,11 @@ export class AltaAseguradoraComponent implements OnInit {
       console.log(res);
     });
   }
+
+
+  
+  get f() {
+    return this.form.controls;
+  }
+
 }

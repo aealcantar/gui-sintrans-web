@@ -19,14 +19,12 @@
             id="nombreAseguradora"
             placeholder="Ingresar"
             type="text"
-            [ngClass]="{
-              inputError: validarCampos && form.get('nombreAseguradora')!.hasError('required')
-            }"
+          
           />
           
-          <span class="campos-obligatorios" *ngIf="(validarCampos && form.get('nombreAseguradora')!.hasError('required'))||(form.get('nombreAseguradora')?.dirty ||form.get('nombreAseguradora')?.touched)">*Campo obligatorio</span>
+          <!-- <span class="campos-obligatorios" *ngIf="(validarCampos && form.get('nombreAseguradora')!.hasError('required'))||(form.get('nombreAseguradora')?.dirty ||form.get('nombreAseguradora')?.touched)">*Campo obligatorio</span> -->
 
-          <!-- <span class="campos-obligatorios" *ngIf="f.fechaVencimiento?.errors?.required && (f.fechaVencimiento?.dirty || f.fechaVencimiento?.touched)">*Campo obligatorio</span> -->
+          <span class="campos-obligatorios" *ngIf="f?.nombreAseguradora?.errors?.required && (f?.nombreAseguradora?.dirty || f?.nombreAseguradora?.touched)">*Campo obligatorio</span>
         </div>
         <div class="col-md-4">
           <label class="control-label" for="poliza"
@@ -38,9 +36,7 @@
             id="poliza"
             placeholder="Ingresar"
             type="text"
-            [ngClass]="{
-              inputError: validarCampos && form.get('poliza')!.hasError('required')
-            }"
+          
           />
         </div>
       </div>
@@ -56,9 +52,7 @@
             styleClass="form-control"
             [showIcon]="true"
             placeholder="dd/mmm/aaaa"
-            [ngClass]="{
-              inputError: validarCampos && form.get('fechaVencimiento')!.hasError('required')
-            }"
+            
           >
           </p-calendar>
         </div>
@@ -72,9 +66,7 @@
             formControlName="costoPoliza"
             placeholder="Ingresar"
             type="text"
-            [ngClass]="{
-              inputError: validarCampos && form.get('costoPoliza')!.hasError('required')
-            }"
+           
           />
         </div>
         <div class="col-md-4">
@@ -87,9 +79,7 @@
             formControlName="tipoCobertura"
             placeholder="Ingresar"
             type="text"
-            [ngClass]="{
-              inputError: validarCampos && form.get('tipoCobertura')!.hasError('required')
-            }"
+        
           />
         </div>
       </div>
@@ -105,9 +95,7 @@
             formControlName="tipoSiniestro"
             placeholder="Ingresar"
             type="text"
-            [ngClass]="{
-              inputError: validarCampos && form.get('tipoSiniestro')!.hasError('required')
-            }"
+       
           />
         </div>
         <div class="col-md-4">
@@ -128,7 +116,7 @@
           <button type="button" class="btn btn-gold btn-lg" routerLink="../">
             Cancelar
           </button>
-          <button type="submit" [disabled]="validarCampos && form.invalid" class="btn btn-primary btn-lg ml-4">
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-lg ml-4">
             Guardar
           </button>
         </div>

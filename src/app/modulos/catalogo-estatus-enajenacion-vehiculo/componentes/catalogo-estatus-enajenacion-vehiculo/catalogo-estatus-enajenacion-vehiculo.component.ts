@@ -14,6 +14,8 @@ import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-
   styleUrls: ['./catalogo-estatus-enajenacion-vehiculo.component.scss'],
 })
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
+  readonly MENSAJE_BORRADO_EXITO = 'El registro ha sido eliminado exitosamente'
+  
   mostrarModal: boolean = false;
   inicioPagina: number = 0;
   respuesta!: HttpRespuesta<any> | null;
@@ -48,7 +50,7 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
           );
           this.estatusList.splice(index, 1);
           this.mostrarModal = false 
-          this.alertaService.limpiar();
+          //this.alertaService.limpiar();
         }
       });
   }

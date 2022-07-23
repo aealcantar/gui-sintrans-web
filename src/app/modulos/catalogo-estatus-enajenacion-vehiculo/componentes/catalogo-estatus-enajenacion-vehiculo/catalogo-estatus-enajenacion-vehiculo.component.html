@@ -11,7 +11,7 @@
     <div class="row -mx-6">
         <div class="col-md-12">
             <p-card>
-                <p-table [value]="unidades" [paginator]="unidades.length > 0" [rows]="10" [lazy]="true"
+                <p-table [value]="estatusList" [paginator]="estatusList.length > 0" [rows]="10" [lazy]="true"
                     [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
                     <ng-template pTemplate="header">
                         <tr>

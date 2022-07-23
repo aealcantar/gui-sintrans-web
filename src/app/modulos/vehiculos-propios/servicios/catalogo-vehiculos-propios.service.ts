@@ -60,7 +60,7 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios, formData)
     }
 
-    actualizarRegistro(vehiculoPropio: any, matricula: any, archivos: any): Observable<HttpRespuesta<any>> {
+    actualizarRegistro(idVehiculo: number, vehiculoPropio: any, matricula: any, archivos: any): Observable<HttpRespuesta<any>> {
         const formData = new FormData();
         formData.append('archivoTjetaCirc', archivos.tarjetaCirculacion);
         formData.append('archivoVerificacion', archivos.verificacion);
@@ -103,11 +103,16 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         formData.append('fecVencPoliza', this.datePipe.transform(vehiculoPropio.fechaVencimientoPoliza, 'YYYY-MM-dd') as string);
         // formData.append('fechaBaja', this.datePipe.transform(vehiculoPropio.fechaBaja, 'YYYY-MM-dd'));
         formData.append('cveMatricula', matricula);
-        return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios, formData)
+        return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/" + idVehiculo, formData)
     }
 
-    buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {
-        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ooad=${ooad}&ecco=${ecco}`)
+    buscarPorFiltroEcco(pagina: number, tamanio: number, ecco: string): Observable<HttpRespuesta<any>> {
+        console.log("ECCO: ", ecco);
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/ecco/" + ecco + `?pagina=${pagina}&tamanio=${tamanio}`)
+    }
+
+    descargarArchivo(ruta: string) {
+        return this._http.post<Blob>(environment.api.mssintetransCargaArchivos + `/descargar-archivo`, { ruta }, { responseType: 'blob' as any });
     }
 
     obtenerCatalogoTipoVehiculo() {

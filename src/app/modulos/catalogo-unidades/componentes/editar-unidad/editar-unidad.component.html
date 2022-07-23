@@ -120,7 +120,7 @@
             <span class="campos-obligatorios">*Campos obligatorios</span>
             <div>
                 <button type="button" class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
-                <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>
+                <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid">Guardar</button>
             </div>
         </div>
     </form>

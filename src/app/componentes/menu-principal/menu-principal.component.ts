@@ -36,6 +36,7 @@ export class MenuPrincipalComponent implements OnInit {
   }
 
   abrirOverlay(event: any, elemento: any) {
+    this.mostrarOverlayUsuario = false;
     this.opcionSeleccionada = elemento;
     this.columna1 = elemento.columna1;
     this.columna2 = elemento.columna2;
@@ -45,11 +46,13 @@ export class MenuPrincipalComponent implements OnInit {
   }
 
   navegar(ruta: string) {
+    this.mostrarOverlayUsuario = false;
     this.overlayPanel.hide();
     this.router.navigate([ruta]);
   }
 
   cerrarSesion(){
+    this.mostrarOverlayUsuario = false;
     this.aut.cerrarSesion();
     this.router.navigateByUrl('/inicio-sesion');
   }

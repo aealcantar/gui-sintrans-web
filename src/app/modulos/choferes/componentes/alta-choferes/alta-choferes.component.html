@@ -110,7 +110,7 @@
             <div class="row flex mb-4">
                 <div class="col-md-6">
                     <label class="control-label">Licencia<span class="req">*</span>:</label>
-                    <app-cargador-archivo [class.ng-invalid]="archivos.length === 0" patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [class.ng-invalid]="archivos.length === 0" accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="archivos">
                     </app-cargador-archivo>
                 </div>

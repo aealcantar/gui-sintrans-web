@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
@@ -19,13 +20,13 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
 export class AltaVehiculoPropioComponent implements OnInit {
 
   //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  tarjetaCirculacion: File[] = [];
-  verificacion: File[] = [];
-  polizaSeguro: File[] = [];
-  fotografiaFrente: File[] = [];
-  fotografiaLateralDerecho: File[] = [];
-  fotografiaLateralIzquierdo: File[] = [];
-  fotografiaTrasera: File[] = [];
+  tarjetaCirculacion: CustomFile[] = [];
+  verificacion: CustomFile[] = [];
+  polizaSeguro: CustomFile[] = [];
+  fotografiaFrente: CustomFile[] = [];
+  fotografiaLateralDerecho: CustomFile[] = [];
+  fotografiaLateralIzquierdo: CustomFile[] = [];
+  fotografiaTrasera: CustomFile[] = [];
 
   readonly POSICION_CATALOGO_UNIDADES = 0;
   readonly POSICION_CATALOGO_TIPO_VEHICULO = 1;
@@ -37,7 +38,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_TONELADAS = 7;
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
-  readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dada de alta exitosamente.";
+  readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dado de alta exitosamente.";
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -196,7 +197,6 @@ export class AltaVehiculoPropioComponent implements OnInit {
   }
 
   guardar() {
-    console.log("DATOS: ", this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let archivos = {
       tarjetaCirculacion: this.tarjetaCirculacion[0],

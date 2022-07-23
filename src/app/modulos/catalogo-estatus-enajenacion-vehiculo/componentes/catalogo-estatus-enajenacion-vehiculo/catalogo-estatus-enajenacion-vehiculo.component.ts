@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
 import { VehiculoEnajenacionService } from '../../service/vehiculo-enajenacion.service';
 import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-propio-enajenacion-service.service';
 
@@ -14,10 +15,11 @@ import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-
 })
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   mostrarModal: boolean = false;
-  inicioPagina:number = 0
+  inicioPagina: number = 0;
   respuesta!: HttpRespuesta<any> | null;
   estatusList: any[] = [];
   estatus: any;
+
   constructor(
     private route: ActivatedRoute,
     private alertaService: AlertasFlotantesService,
@@ -27,19 +29,20 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data['respuesta'];
     console.log(this.respuesta);
-    this.estatusList = this.respuesta!.datos.content;
+    this.estatusList = this.respuesta!.datos?.content;
   }
 
   mostrarModalEliminar(unidad: any) {
     this.estatus = unidad;
     this.mostrarModal = true;
   }
+
   eliminar() {
     this.estatusEnajenacionService
       .eliminar(this.estatus.idEstatusEnajenacion)
       .subscribe((response) => {
         if (response.codigo === 200) {
-          this.alertaService.mostrar('exito', 'Se Elimino El Registro');
+          this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
           const index = this.estatusList.findIndex(
             (u) => u.idEstatusEnajenacion === this.estatus.idEstatusEnajenacion
           );
@@ -59,12 +62,29 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
         this.respuesta = null;
         this.respuesta = respuesta;
         this.estatusList = this.respuesta!.datos.content;
-        //this.ordenar(event);
+        this.ordenar(event);
       },
       (error: HttpErrorResponse) => {
         console.error(error);
       }
     );
+  }
+
+  ordenar(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+        return 1;
+      }
+      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+        return -1;
+      }
+      return 0;
+    };
+    if (event.sortOrder === 1) {
+      this.estatusList = this.estatusList.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.estatusList = this.estatusList.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
   }
 
 }

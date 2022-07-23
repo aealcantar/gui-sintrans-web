@@ -3,58 +3,28 @@
   <form [formGroup]="form">
     <div class="row flex align-items-end mb-4">
       <div class="col-md-3">
-        <label class="control-label" for="matricula"
-          >Matricula<span class="req">*</span>:</label
-        >
-        <input
-          [ngClass]="{
+        <label class="control-label" for="matricula">Matricula<span class="req">*</span>:</label>
+        <input [ngClass]="{
             inputError:
               validarDatos && form.get('matricula')!.hasError('required')
-          }"
-          class="form-control"
-          formControlName="matricula"
-          id="matricula"
-          placeholder="Ingresar"
-          type="text"
-        />
+          }" class="form-control" formControlName="matricula" id="matricula" placeholder="Ingresar" type="text" />
       </div>
       <div class="col-md-4">
-        <label class="control-label" for="nombreUsuario"
-          >Nombre de usuario<span class="req">*</span>:</label
-        >
-        <input
-          [ngClass]="{
+        <label class="control-label" for="nombreUsuario">Nombre de usuario<span class="req">*</span>:</label>
+        <input [ngClass]="{
             inputError:
               validarDatos && form.get('nombreUsuario')!.hasError('required')
-          }"
-          class="form-control"
-          formControlName="nombreUsuario"
-          id="nombreUsuario"
-          placeholder="Ingresar"
-          type="text"
-        />
+          }" class="form-control" formControlName="nombreUsuario" id="nombreUsuario" placeholder="Ingresar"
+          type="text" />
       </div>
       <div class="col-md-3">
-        <label class="control-label" for="ooad"
-          >OOAD<span class="req">*</span>:</label
-        >
-        <input
-          [ngClass]="{
+        <label class="control-label" for="ooad">OOAD<span class="req">*</span>:</label>
+        <input [ngClass]="{
             inputError: validarDatos && form.get('ooad')!.hasError('required')
-          }"
-          class="form-control"
-          id="ooad"
-          formControlName="ooad"
-          placeholder="Ingresar"
-          type="text"
-        />
+          }" class="form-control" id="ooad" formControlName="ooad" placeholder="Ingresar" type="text" />
       </div>
       <div class="col-md-2 flex align-items-center justify-content-end">
-        <button
-          class="btn btn-primary btn-small"
-          [disabled]="validarDatos && form.invalid"
-          (click)="buscar()"
-        >
+        <button class="btn btn-primary btn-small" [disabled]="validarDatos && form.invalid" (click)="buscar()">
           Buscar
         </button>
         <button class="ml-7 btn btn-default btn-small" (click)="limpiar()">
@@ -67,10 +37,7 @@
         <span class="campos-obligatorios">*Campos obligatorios</span>
       </div>
       <div class="col-md-6 flex justify-content-end">
-        <button
-          class="btn-icon btn btn-primary"
-          routerLink="alta-de-usuario-sit"
-        >
+        <button class="btn-icon btn btn-primary" routerLink="alta-de-usuario-sit">
           <i class="icon-circulo-mas"></i>Alta de usuario
         </button>
       </div>
@@ -79,16 +46,9 @@
   <div class="row -mx-6">
     <div class="col-md-12">
       <p-card>
-        <p-table
-          [value]="usuarios"
-          [paginator]="usuarios.length > 0"
-          [rows]="respuesta?.data?.numberOfElements"
-          [totalRecords]="respuesta?.data?.totalElements"
-          [pageLinks]="3"
-          [lazy]="true"
-          [(first)]="inicioPagina"
-          (onLazyLoad)="paginacion($event)"
-        >
+        <p-table [value]="usuarios" [paginator]="usuarios.length > 0" [rows]="10"
+          [totalRecords]="respuesta?.data?.totalElements" [pageLinks]="3" [lazy]="true" [(first)]="inicioPagina"
+          (onLazyLoad)="paginacion($event)">
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nombreUsuario">
@@ -107,30 +67,20 @@
           <ng-template pTemplate="body" let-usuario>
             <tr>
               <td>
-                <a
-                  class="link"
-                  [routerLink]="['detalle-del-usuario-sit', usuario.idUsuario]"
-                  >{{ usuario.nombreUsuario }}</a
-                >
+                <a class="link"
+                  [routerLink]="['detalle-del-usuario-sit', usuario.idUsuario]">{{ usuario.nombreUsuario }}</a>
               </td>
               <td>{{ usuario.matricula }}</td>
               <td>{{ usuario.ooad }}</td>
               <td class="flex justify-content-center">
-                <i
-                  [routerLink]="['editar-usuario-sit', usuario.idUsuario]"
-                  class="icon-editar cursor-pointer"
-                ></i>
-                <i
-                  class="icon-eliminar cursor-pointer"
-                  (click)="abrirModal(usuario)"
-                ></i>
+                <i [routerLink]="['editar-usuario-sit', usuario.idUsuario]" class="icon-editar cursor-pointer"></i>
+                <i class="icon-eliminar cursor-pointer" (click)="abrirModal(usuario)"></i>
               </td>
             </tr>
           </ng-template>
           <ng-template pTemplate="paginatorright" let-state>
             <div class="paginator-template">
-              <label>Página</label
-              ><input type="text" [value]="state.page + 1" disabled />
+              <label>Página</label><input type="text" [value]="state.page + 1" disabled />
             </div>
           </ng-template>
         </p-table>
@@ -139,14 +89,8 @@
   </div>
 </div>
 
-<p-dialog
-  styleClass="modal-eliminar"
-  [(visible)]="mostrarModal"
-  [modal]="true"
-  [style]="{ width: '480px' }"
-  [draggable]="false"
-  [resizable]="false"
->
+<p-dialog styleClass="modal-eliminar" [(visible)]="mostrarModal" [modal]="true" [style]="{ width: '480px' }"
+  [draggable]="false" [resizable]="false">
   <ng-template pTemplate="content">
     <div class="flex flex-column align-items-center">
       <i class="icon-alerta"></i>

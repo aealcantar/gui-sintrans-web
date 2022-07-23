@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 
@@ -13,13 +14,13 @@ import { Unidad } from 'src/app/modelos/unidad.interface';
 export class DetalleVehiculoPropioComponent implements OnInit {
 
   //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  tarjetaCirculacion: File[] = [];
-  verificacion: File[] = [];
-  polizaSeguro: File[] = [];
-  fotografiaFrente: File[] = [];
-  fotografiaLateralDerecho: File[] = [];
-  fotografiaLateralIzquierdo: File[] = [];
-  fotografiaTrasera: File[] = [];
+  tarjetaCirculacion: CustomFile[] = [];
+  verificacion: CustomFile[] = [];
+  polizaSeguro: CustomFile[] = [];
+  fotografiaFrente: CustomFile[] = [];
+  fotografiaLateralDerecho: CustomFile[] = [];
+  fotografiaLateralIzquierdo: CustomFile[] = [];
+  fotografiaTrasera: CustomFile[] = [];
 
   readonly POSICION_CATALOGO_UNIDADES = 0;
   readonly POSICION_CATALOGO_TIPO_VEHICULO = 1;
@@ -32,6 +33,8 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
   readonly POSICION_VEHICULO_PROPIO = 10;
+  readonly POSICION_ARCHIVO_TARJETA_CIRC = 11;
+
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -43,6 +46,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   catToneladas: any[] = [];
   catCilindros: any[] = [];
   catEstatus: any[] = [];
+  idVehiculo!: number;
 
   form!: FormGroup;
 
@@ -54,9 +58,8 @@ export class DetalleVehiculoPropioComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    console.log("RESPUESTA: ", respuesta);
     let vehiculoPropio = respuesta[this.POSICION_VEHICULO_PROPIO].datos[0];
-    console.log("VP: ", vehiculoPropio);
+    this.idVehiculo = vehiculoPropio.idVehiculo;
     this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.content.map(
       (unidad: any) => ({
         label: unidad.nomUnidadAdscripcion,
@@ -86,7 +89,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
           value: tipoServicio.idTipoServicio
         }
       )
-    );;
+    );
     this.catVersion = respuesta[this.POSICION_CATALOGO_VERSION].map(
       (version: any) => (
         {
@@ -136,6 +139,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
       )
     );
     this.inicializarForm(vehiculoPropio);
+    this.inicializarArchivos(vehiculoPropio);
   }
 
   // numPoliza REGRESA NULL       desEstatusEnajenacion REGRESA NULL    y    desVersionVehiculo REGRESA NULL
@@ -181,6 +185,38 @@ export class DetalleVehiculoPropioComponent implements OnInit {
       fechaVencimientoPoliza: new FormControl({ value: this.datePipe.transform(vehiculoPropio.fecVencPoliza, 'dd/MM/YYYY'), disabled: true }, Validators.required)
     });
   }
+
+  inicializarArchivos(vehiculoPropio: any) {
+    this.tarjetaCirculacion.push({
+      ruta: vehiculoPropio.desRutaArchivoTjetaCirc
+    });
+
+    this.verificacion.push({
+      ruta: vehiculoPropio.desRutaVerificacion
+    });
+
+    this.polizaSeguro.push({
+      ruta: vehiculoPropio.desRutaPolizaSeguro
+    });
+
+    this.fotografiaFrente.push({
+      ruta: vehiculoPropio.desRutaFotoFrente
+    });
+
+    this.fotografiaLateralIzquierdo.push({
+      ruta: vehiculoPropio.desRutaFotoLateralIzq
+    });
+
+    this.fotografiaLateralDerecho.push({
+      ruta: vehiculoPropio.desRutaFotoLateralDer
+    });
+    
+    this.fotografiaTrasera.push({
+      ruta: vehiculoPropio.desRutaFotoTrasera
+    });
+
+  }
+
 
   validarArchivo(event: any) {
     console.log(event);

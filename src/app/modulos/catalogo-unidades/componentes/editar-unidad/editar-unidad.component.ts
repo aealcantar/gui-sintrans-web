@@ -93,19 +93,22 @@ export class EditarUnidadComponent implements OnInit {
     this.cargadorService.activar();
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let unidad: any = {
+      ooad: {
+        idOoad: this.form.get("ooad")?.value
+      },
       idOoad: this.form.get("ooad")?.value,
       nomUnidadAdscripcion: this.form.get("nombreUnidad")?.value,
       desTipoUnidad: this.form.get("unidad")?.value,
-      indUnidadPernocta: this.form.get("pernocta")?.value ? "1" : '0',
+      indUnidadPernocta: this.form.get("pernocta")?.value ? "1" : "0",
       numUnInf: this.form.get("unInf")?.value,
       numUnOpe: this.form.get("unOpe")?.value,
-      numCc: this.form.get("nomCc")?.value,
-      numCu: this.form.get("nomCu")?.value,
-      numDiv: this.form.get("nomDiv")?.value,
-      numSdiv: this.form.get("nomSdiv")?.value,
+      numCc: this.form.get("cc")?.value,
+      numCu: this.form.get("cu")?.value,
+      numDiv: this.form.get("div")?.value,
+      numSdiv: this.form.get("sdiv")?.value,
       idCodigoPostal: this.codigoPostal.nativeElement.value,
       nomColonia: this.form.get("colonia")?.value,
-      matricula: usuarioAutenticado.matricula
+      cveMatricula: usuarioAutenticado.matricula
     };
     console.log("DATOS: ", unidad);
     this.unidadService.actualizar(this.idUnidad, unidad).subscribe(

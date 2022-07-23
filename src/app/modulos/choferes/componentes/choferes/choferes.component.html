@@ -25,7 +25,7 @@
     <div class="row -mx-6">
         <div class="col-md-12">
             <p-card>
-                <p-table [value]="catChoferes" [paginator]="catChoferes.length > 0" [rows]="respuesta?.datos?.numberOfElements || 10" [lazy]="true"
+                <p-table [value]="catChoferes" [paginator]="catChoferes.length > 0" [rows]="10" [lazy]="true"
                     [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
                     <ng-template pTemplate="header">
                         <tr>

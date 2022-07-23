@@ -1,3 +1,10 @@
+@media screen and (min-width: 1200px){
+    .container {
+        width: 1210px;
+    }
+}
+
+
 .p-component {
     font-family: "Montserrat";
 }
@@ -270,7 +277,7 @@ p-dropdown.p-inputwrapper[ng-reflect-disabled="true"] {
         border: none;
     }
     .p-button.p-component.p-fileupload-choose {
-        &.p-disabled{
+        &.p-disabled {
             display: none;
         }
         position: absolute;
@@ -317,9 +324,9 @@ p-dropdown.p-inputwrapper[ng-reflect-disabled="true"] {
     }
 }
 
-p-fileupload[ng-reflect-disabled="true"]{
-    .p-fileupload-content{
-        background: #F3F3F3;
+p-fileupload[ng-reflect-disabled="true"] {
+    .p-fileupload-content {
+        background: #f3f3f3;
     }
 }
 
@@ -346,7 +353,7 @@ p-fileupload[ng-reflect-disabled="true"]{
                 display: none;
             }
         }
-        .p-message-wrapper{
+        .p-message-wrapper {
             padding: 5px 0;
         }
         .p-message-detail {
@@ -403,6 +410,40 @@ p-fileupload[ng-reflect-disabled="true"]{
 .p-fileupload-files {
     display: none;
 }
+
+p-inputnumber.form-control {
+    padding: 0;
+    .p-inputnumber.p-component {
+        width: 100%;
+        height: 100%;
+        display: block;
+    
+        .p-inputtext {
+            padding: 6px 12px;
+            border: none;
+            &[disabled]{
+                background-color: #eee;
+                opacity: 1;
+            }
+            &:focus {
+                border-color: #66afe9;
+                outline: 0;
+                box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(102 175 233 / 60%);
+            }
+            box-shadow: none;
+            outline: none;
+            width: 100%;
+            height: 100%;
+            display: block;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #7f7f7f;
+        }
+    }
+}
+
 
 .p-paginator .p-paginator-first,
 .p-paginator .p-paginator-prev,

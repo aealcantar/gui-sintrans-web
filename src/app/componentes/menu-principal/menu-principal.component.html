@@ -31,7 +31,7 @@
         <div class="user-overlay" *ngIf="mostrarOverlayUsuario">
             <div class="user-overlay-data">
                 <div class="user-overlay-role1">{{(aut.usuario$ | async)?.rol}}</div>
-                <div class="user-overlay-role2">UMAE</div>
+                <div class="user-overlay-role2">{{(aut.usuario$ | async)?.ooad}}</div>
             </div>
             <div class="user-overlay-logout">
                 <div class="icon">

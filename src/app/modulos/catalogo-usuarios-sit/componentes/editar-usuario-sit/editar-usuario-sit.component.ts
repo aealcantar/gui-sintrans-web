@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertaFlotanteComponent } from 'src/app/compartidos/alerta-flotante/alerta-flotante.component';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { UsuarioSitUnidadService } from '../../service/usuario-sit-unidad.service';
@@ -12,6 +12,8 @@ import { UsuarioService } from '../../service/usuario.service';
   styleUrls: ['./editar-usuario-sit.component.scss'],
 })
 export class EditarUsuarioSitComponent implements OnInit {
+  
+  readonly ACTUALIZAR_USUARIO = "El usuario ha sido guardado exitosamente.";
   validarDatos: boolean = false;
   ooads: Array<any> = [];
   roles: Array<any> = [];
@@ -31,9 +33,10 @@ export class EditarUsuarioSitComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private alertService : AlertasFlotantesService,
+    private alertService: AlertasFlotantesService,
     private unidadService: UsuarioSitUnidadService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: Router
   ) {
     this.form = fb.group({
       matricula: new FormControl('', Validators.required),
@@ -100,13 +103,15 @@ export class EditarUsuarioSitComponent implements OnInit {
       this.unidades = response.data;
     });
   }
+  
   guardar() {
     if (this.form.valid) {
       const usuario = this.form.getRawValue();
       console.log(usuario)
-      this.usuarioService.actualizar(this.usuario.idUsuario,usuario).subscribe(response=>{
-        this.alertService.mostrar('exito','El usuario ha sido guardado exitosamente.')
-        
+      this.usuarioService.actualizar(this.usuario.idUsuario, usuario).subscribe(
+        (response) => {
+        this.alertService.mostrar('exito', this.ACTUALIZAR_USUARIO);
+        this.route.navigate(["../.."], { relativeTo: this.router });
       });
     } else {
       this.validarDatos = true;
@@ -114,6 +119,7 @@ export class EditarUsuarioSitComponent implements OnInit {
       this.onFormChanges();
     }
   }
+
   onFormChanges() {
     this.form.valueChanges.subscribe(() => {
       if (this.form.valid) {
@@ -121,4 +127,9 @@ export class EditarUsuarioSitComponent implements OnInit {
       }
     });
   }
+
+  get f() {
+    return this.form.controls;
+  }
+
 }

@@ -16,6 +16,7 @@ import { AltaChoferesComponent } from './componentes/alta-choferes/alta-choferes
 import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer.component';
 import { DetalleChoferComponent } from './componentes/detalle-chofer/detalle-chofer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChoferesService } from '../choferes/servicios/choferes.service';
 
 
 @NgModule({
@@ -39,6 +40,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DialogModule,
     CalendarModule,
     CargadorArchivoModule
+  ],
+  providers: [
+    ChoferesService
   ]
 })
 export class ChoferesModule { }

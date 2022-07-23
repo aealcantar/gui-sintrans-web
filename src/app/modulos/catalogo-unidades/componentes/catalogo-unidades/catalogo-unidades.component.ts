@@ -59,7 +59,7 @@ export class CatalogoUnidadesComponent implements OnInit {
 
   buscar(): void {
     this.cargadorService.activar();
-    this.unidadService.buscarPorFiltros(0, 10, this.ooad, this.nombreUnidad).subscribe(
+    this.unidadService.buscarPorFiltros(0, 10, this.ooad, this.nombreUnidad.replace('%20', ' ')).subscribe(
       (respuesta) => {
         this.catUnidades = [];
         this.respuesta = null;

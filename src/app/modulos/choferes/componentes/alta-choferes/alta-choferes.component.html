@@ -3,7 +3,7 @@
         <app-btn-regresar routerLink="../"></app-btn-regresar>
         <app-separador class="flex-grow-1" texto="Alta de choferes"></app-separador>
     </div>
-    <form [formGroup]="form">
+    <form [formGroup]="editForm">
         <p-card>
             <div class="row">
                 <div class="col-md-12">
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
-                    <input class="form-control" id="matricula" formControlName="matricula" placeholder="Ingresar" type="text">
+                    <input class="form-control" id="matricula" placeholder="Ingresar" type="text" formControlName="cveMatriculaChofer">
                 </div>
             </div>
 
@@ -42,13 +42,12 @@
                 <div class="col-md-3">
                     <label class="control-label" for="inicioContrato">Inicio de contrato<span
                             class="req">*</span>:</label>
-                    <p-calendar id="inicioContrato" formControlName="inicioContrato" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa">
+                    <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecInicioContrato">
                     </p-calendar>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
-                    <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecFinContrato">
                     </p-calendar>
                 </div>
             </div>
@@ -57,18 +56,18 @@
             <div class="row flex align-items-end mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="categoria">Categoría<span class="req">*</span>:</label>
-                    <p-dropdown id="categoria" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown id="categoria" class="form-control" [options]="ooad" placeholder="Seleccionar" formControlName="desCategoria">
                     </p-dropdown>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="estatusChofer">Estatus del chofer<span
                             class="req">*</span>:</label>
-                    <p-dropdown id="estatusChofer" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown id="estatusChofer" class="form-control" [options]="ooad" placeholder="Seleccionar" formControlName="estatusChofer">
                     </p-dropdown>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                    <p-dropdown id="motivo" class="form-control" formControlName="motivo" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown id="motivo" class="form-control" formControlName="motivo" [options]="ooad" placeholder="Seleccionar" formControlName="desMotivo">
                     </p-dropdown>
                 </div>
             </div>
@@ -86,24 +85,24 @@
                 <div class="col-md-3">
                     <label class="control-label" for="numeroLicencia">Número de licencia<span
                             class="req">*</span>:</label>
-                    <p-dropdown id="numeroLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown id="numeroLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar" formControlName="cveLicencia">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="tipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
-                    <p-dropdown id="tipoLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown id="tipoLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar" formControlName="cveTipoLicencia">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="vigLicencia">Vigencia de la licencia<span
                             class="req">*</span>:</label>
-                    <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecVigencia">
                     </p-calendar>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="expLicencia">Expedición de licencia<span
                             class="req">*</span>:</label>
-                    <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
+                    <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecExpedicion">
                     </p-calendar>
                 </div>
             </div>
@@ -122,7 +121,7 @@
             <span class="campos-obligatorios">*Campos obligatorios</span>
             <div>
                 <button type="button" class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-                <button type="submit" class="btn btn-primary btn-lg ml-4" (clic)="guardar()">Guardar</button>
+                <button type="submit" class="btn btn-primary btn-lg ml-4" (click)="guardar()">Guardar</button>
             </div>
         </div>
     </form>

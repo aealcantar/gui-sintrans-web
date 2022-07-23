@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
+import { ALTA_INCORRECTA } from 'src/app/utilerias/constantes';
 import { CatalogoUnidadesService } from '../../servicios/catalogo-unidades.service';
 
 @Component({
@@ -35,10 +37,10 @@ export class AltaUnidadComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data['respuesta'];
-    this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].map(
+    this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].datos.map(
       (ooad: any) => (
         {
-          label: ooad.nombreOoad,
+          label: ooad.nomOoad,
           value: ooad.idOoad
         }
       )
@@ -74,22 +76,26 @@ export class AltaUnidadComponent implements OnInit {
 
   guardar(): void {
     this.cargadorService.activar();
+    let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let unidad: any = {
-      ooad: this.form.get("ooad")?.value,
-      nombreUnidad: this.form.get("nombreUnidad")?.value,
-      tipoUnidad: this.form.get("unidad")?.value,
-      pernocta: this.form.get("pernocta")?.value,
-      unInf: this.form.get("unInf")?.value,
-      unOpe: this.form.get("unOpe")?.value,
-      nomCc: this.form.get("nomCc")?.value,
-      nomCu: this.form.get("nomCu")?.value,
-      nomDiv: this.form.get("nomDiv")?.value,
-      nomSdiv: this.form.get("nomSdiv")?.value,
-      codigoPostal: this.codigoPostal.nativeElement.value,
-      nombreColonia: this.form.get("colonia")?.value,
-      matricula: "0123456789", //Matricula del Usuario Logueado
-      indiceSistema: 0
+      ooad: {
+        idOoad: this.form.get("ooad")?.value
+      },
+      idOoad: this.form.get("ooad")?.value,
+      nomUnidadAdscripcion: this.form.get("nombreUnidad")?.value,
+      desTipoUnidad: this.form.get("unidad")?.value,
+      indUnidadPernocta: this.form.get("pernocta")?.value ? "1" : "0",
+      numUnInf: this.form.get("unInf")?.value,
+      numUnOpe: this.form.get("unOpe")?.value,
+      numCc: this.form.get("cc")?.value,
+      numCu: this.form.get("cu")?.value,
+      numDiv: this.form.get("div")?.value,
+      numSdiv: this.form.get("sdiv")?.value,
+      idCodigoPostal: this.codigoPostal.nativeElement.value,
+      nomColonia: this.form.get("colonia")?.value,
+      cveMatricula: usuarioAutenticado.matricula
     };
+    console.log("DATOS", unidad);
     this.unidadService.guardar(unidad).subscribe(
       (respuesta) => {
         this.alertaService.mostrar("exito", this.ALTA_UNIDAD);
@@ -98,6 +104,7 @@ export class AltaUnidadComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.cargadorService.desactivar();
+        this.alertaService.mostrar("error", ALTA_INCORRECTA);
         console.error("ERROR: ", error)
       }
     );
@@ -106,9 +113,8 @@ export class AltaUnidadComponent implements OnInit {
   buscarPorCP(cveCodigoPostal: any): void {
     this.unidadService.buscarPorCP(cveCodigoPostal).subscribe(
       (respuesta) => {
-        this.form.get('entidad')?.setValue(respuesta.datos[0].nomEntidad);
+        this.form.get('entidad')?.setValue(respuesta.datos[0].nomEstado);
         this.form.get('municipio')?.setValue(respuesta.datos[0].nomMunicipio);
-        this.form.get('colonia')?.setValue(respuesta.datos[0].colonia);
       }
     );
   }

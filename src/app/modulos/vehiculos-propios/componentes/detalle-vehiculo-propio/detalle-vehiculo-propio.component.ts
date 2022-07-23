@@ -54,9 +54,10 @@ export class DetalleVehiculoPropioComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    let vehiculoPropio = respuesta[this.POSICION_VEHICULO_PROPIO].data[0];
+    console.log("RESPUESTA: ", respuesta);
+    let vehiculoPropio = respuesta[this.POSICION_VEHICULO_PROPIO].datos[0];
     console.log("VP: ", vehiculoPropio);
-    this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.map(
+    this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.content.map(
       (unidad: any) => ({
         label: unidad.nomUnidadAdscripcion,
         value: unidad.idUnidad

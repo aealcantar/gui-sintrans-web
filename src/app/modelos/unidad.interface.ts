@@ -1,9 +1,9 @@
-import { TipoUnidad } from "./paginacion";
+import { Ooad } from "./ooad.interface";
 
 export interface Unidad {
     idUnidad?: number;
-    nombreUnidad?: string;
-    ooad?: string;
-    tipoUnidad?: string;
-    pernocta?: boolean;
+    nomUnidadAdscripcion?: string;
+    ooad?: Ooad;
+    desTipoUnidad?: string;
+    indUnidadPernocta?: boolean;
 }

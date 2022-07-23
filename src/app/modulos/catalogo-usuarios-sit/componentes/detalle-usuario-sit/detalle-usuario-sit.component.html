@@ -1,17 +1,11 @@
 <div class="container mb-4">
   <div class="flex align-items-center">
     <app-btn-regresar routerLink="../.."></app-btn-regresar>
-    <app-separador
-      class="flex-grow-1"
-      texto="Detalle del usuario SIT"
-    ></app-separador>
+    <app-separador class="flex-grow-1" texto="Detalle del usuario SIT"></app-separador>
   </div>
   <div class="row mb-4">
     <div class="col-md-12 flex justify-content-end">
-      <button
-        class="btn btn-primary btn-lg"
-        [routerLink]="['../../editar-usuario-sit', 2]"
-      >
+      <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-usuario-sit', idUsuario]">
         Editar
       </button>
     </div>
@@ -25,52 +19,26 @@
     </div>
     <div class="row flex align-items-end mb-4">
       <div class="col-md-6">
-        <label class="control-label" for="matricula"
-          >Matrícula<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="matricula"
-          placeholder="Ingresar"
-          [(ngModel)]="usuaurio.matricula"
-          type="text"
-          disabled
-        />
+        <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
+        <input class="form-control" id="matricula" placeholder="Ingresar" [(ngModel)]="usuario.matricula" type="text"
+          disabled />
       </div>
       <div class="col-md-6">
-        <label class="control-label" for="nombre"
-          >Nombre<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="nombre"
-          placeholder="Ingresar"
-          [(ngModel)]="usuaurio.nombre"
-          type="text"
-          disabled
-        />
+        <label class="control-label" for="nombre">Nombre<span class="req">*</span>:</label>
+        <input class="form-control" id="nombre" placeholder="Ingresar" [(ngModel)]="usuario.nombreUsuario" type="text"
+          disabled />
       </div>
     </div>
     <div class="row flex align-items-end mb-4">
       <div class="col-md-6">
-        <label class="control-label" for="app"
-          >Apellido paterno<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="app"
-          placeholder="Ingresar"
-          [(ngModel)]="usuaurio.apellidoPaterno"
-          type="text"
-          disabled
-        />
+        <label class="control-label" for="app">Apellido paterno<span class="req">*</span>:</label>
+        <input class="form-control" id="app" placeholder="Ingresar" [(ngModel)]="usuario.apellidoPaterno" type="text"
+          disabled />
       </div>
       <div class="col-md-6">
-        <label class="control-label" for="apm"
-          >Apellido materno<span class="req">*</span>:</label
-        >
-        <input class="form-control" id="apm" placeholder="Ingresar" type="text"
-        [(ngModel)]="usuaurio.apellidoMaterno" disabled>
+        <label class="control-label" for="apm">Apellido materno<span class="req">*</span>:</label>
+        <input class="form-control" id="apm" placeholder="Ingresar" type="text" [(ngModel)]="usuario.apellidoMaterno"
+          disabled>
       </div>
     </div>
     <hr class="separador-small" />
@@ -81,86 +49,38 @@
     </div>
     <div class="row flex align-items-end mb-4">
       <div class="col-md-6">
-        <label class="control-label" for="ooad"
-          >OOAD o Delegación<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="ooad"
-          placeholder="Ingresar"
-          type="text"
-          disabled
-          [(ngModel)]="usuaurio.unidad.ooad.nombreOoad"
-        />
+        <label class="control-label" for="ooad">OOAD o Delegación<span class="req">*</span>:</label>
+        <input class="form-control" id="ooad" placeholder="Ingresar" type="text" disabled
+          [(ngModel)]="usuario.unidad.ooad.nombreOoad" />
       </div>
       <div class="col-md-6">
-        <label class="control-label" for="unidadAdscripcion"
-          >Unidad de adscripción<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="unidadAdscripcion"
-          placeholder="Ingresar"
-          type="text"
-          disabled
-          [(ngModel)]="usuaurio.unidad.nombreUnidad"
-        />
+        <label class="control-label" for="unidadAdscripcion">Unidad de adscripción<span class="req">*</span>:</label>
+        <input class="form-control" id="unidadAdscripcion" placeholder="Ingresar" type="text" disabled
+          [(ngModel)]="usuario.unidad.nombreUnidad" />
       </div>
     </div>
 
     <div class="row flex align-items-end mb-4">
       <div class="col-md-3">
-        <label class="control-label" for="rol"
-          >Rol<span class="req">*</span>:</label
-        >
+        <label class="control-label" for="rol">Rol<span class="req">*</span>:</label>
         <!-- <p-dropdown id="rol" class="form-control" [options]="ooad" placeholder="Seleccionar" [disabled]="true"></p-dropdown> -->
-        <input
-          class="form-control"
-          id="rol"
-          placeholder="Ingresar"
-          type="text"
-          disabled
-          [(ngModel)]="rol.descripcion"
-        />
+        <input class="form-control" id="rol" placeholder="Ingresar" type="text" disabled
+          [(ngModel)]="rol.descripcion" />
       </div>
       <div class="col-md-3">
-        <label class="control-label" for="estatus"
-          >Estatus<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="estatus"
-          placeholder="Ingresar"
-          type="text"
-          disabled
-          [(ngModel)]="usuaurio.estatusUsuario"
-        />
+        <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
+        <input class="form-control" id="estatus" placeholder="Ingresar" type="text" disabled
+          [(ngModel)]="usuario.estatusUsuario" />
       </div>
       <div class="col-md-3">
-        <label class="control-label" for="motivo"
-          >Motivo<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="motivo"
-          placeholder="Ingresar"
-          type="text"
-          disabled
-          [(ngModel)]="usuaurio.motivo"
-        />
+        <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
+        <input class="form-control" id="motivo" placeholder="Ingresar" type="text" disabled
+          [(ngModel)]="usuario.motivo" />
       </div>
       <div class="col-md-3">
-        <label class="control-label" for="password"
-          >Password<span class="req">*</span>:</label
-        >
-        <input
-          class="form-control"
-          id="password"
-          placeholder="Ingresar"
-          type="password"
-          disabled
-          [(ngModel)]="usuaurio.password"
-        />
+        <label class="control-label" for="password">Password<span class="req">*</span>:</label>
+        <input class="form-control" id="password" placeholder="Ingresar" type="password" disabled
+          [(ngModel)]="usuario.password" />
       </div>
     </div>
   </p-card>

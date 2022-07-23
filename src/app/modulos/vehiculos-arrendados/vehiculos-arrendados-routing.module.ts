@@ -11,20 +11,28 @@ import { ListaVehiculoArrendadoResolver } from './servicios/lista-vehiculo-arren
 
 const routes: Routes = [
   {
-    path: '',
-    component: VehiculosArrendadosComponent
+    path: '', component: VehiculosArrendadosComponent,
+    resolve: {
+      respuesta: ListaVehiculoArrendadoResolver
+    }
   },
   {
-    path: 'alta-de-vehiculo-arrendado',
-    component: AltaVehiculoArrendadoComponent
+    path: 'alta-de-vehiculo-arrendado', component: AltaVehiculoArrendadoComponent,
+    resolve: {
+      respuesta: AltaVehiculoArrendadoResolver
+    }
   },
   {
-    path: 'editar-vehiculo-arrendado/:idVehiculo',
-    component: EditarVehiculoArrendadoComponent
+    path: 'editar-vehiculo-arrendado/:idVehiculo', component: EditarVehiculoArrendadoComponent,
+    resolve: {
+      respuesta: EditarVehiculoArrendadoResolver
+    }
   },
   {
-    path: 'detalle-de-vehiculo-arrendado/:idVehiculo',
-    component: DetalleVehiculoArrendadoComponent
+    path: 'detalle-de-vehiculo-arrendado/:idVehiculo', component: DetalleVehiculoArrendadoComponent,
+    resolve: {
+      respuesta: DetalleVehiculoArrendadoResolver
+    }
   },
 ];
 

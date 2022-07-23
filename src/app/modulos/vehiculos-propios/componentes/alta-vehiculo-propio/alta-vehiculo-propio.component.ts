@@ -37,7 +37,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_TONELADAS = 7;
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
-  readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dada de alta exitosamente.";
+  readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dado de alta exitosamente.";
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -196,7 +196,6 @@ export class AltaVehiculoPropioComponent implements OnInit {
   }
 
   guardar() {
-    console.log("DATOS: ", this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let archivos = {
       tarjetaCirculacion: this.tarjetaCirculacion[0],

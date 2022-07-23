@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { AseguradoraService } from '../service/aseguradora.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AseguradoraService } from '../service/aseguradora.service';
   providers: [DatePipe],
 })
 export class AltaAseguradoraComponent implements OnInit {
-  archivos: File[] = [];
+  archivos: CustomFile[] = [];
 
   form;
   constructor(
@@ -39,7 +40,7 @@ export class AltaAseguradoraComponent implements OnInit {
   guardar() {
     console.log(this.form.getRawValue());
     const data = this.form.getRawValue();
-    data.nombreArchivo = this.archivos[0].name;
+    data.nombreArchivo = this.archivos[0]?.archivo?.name;
     data.fechaVencimiento = this.datePipe.transform(
       data.fechaVencimiento,
       'dd/mm/yyyy'

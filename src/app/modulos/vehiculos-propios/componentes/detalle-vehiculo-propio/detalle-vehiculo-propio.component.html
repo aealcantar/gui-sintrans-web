@@ -251,7 +251,7 @@
                 <div class="col-md-8">
                     <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [mostrarBtnDescargar]="true" accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="tarjetaCirculacion" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
@@ -265,7 +265,7 @@
             <div class="row flex mb-4">
                 <div class="col-md-8">
                     <label class="control-label" for="verificacion">Verificación<span class="req">*</span>:</label>
-                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="verificacion" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
@@ -279,7 +279,7 @@
             <div class="row flex mb-4">
                 <div class="col-md-8">
                     <label class="control-label" for="polizaSeguro">Póliza de seguro<span class="req">*</span>:</label>
-                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="polizaSeguro" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
@@ -302,13 +302,13 @@
             <div class="row flex mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaFrente">Fotografía de frente<span class="req">*</span>:</label>
-                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="fotografiaFrente" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaLateralDerecho">Fotografía lateral derecho<span class="req">*</span>:</label>
-                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="fotografiaLateralDerecho" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
@@ -317,13 +317,13 @@
             <div class="row flex mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaLateralIzquierdo">Fotografía lateral izquierdo<span class="req">*</span>:</label>
-                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="fotografiaLateralIzquierdo" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaTrasera">Fotografía trasera<span class="req">*</span>:</label>
-                    <app-cargador-archivo patronAceptado="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivos)]="fotografiaTrasera" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>

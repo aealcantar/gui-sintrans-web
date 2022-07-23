@@ -9,7 +9,7 @@ import { CatalogoVehiculosPropiosService } from "./catalogo-vehiculos-propios.se
 export class DetalleVehiculoPropioResolver implements Resolve<HttpRespuesta<any>>{
 
     constructor(
-        private catalogoUnidadesService: CatalogoUnidadesService, 
+        private catalogoUnidadesService: CatalogoUnidadesService,
         private catalogoVehiculosPropiosService: CatalogoVehiculosPropiosService
     ) { }
 
@@ -19,6 +19,55 @@ export class DetalleVehiculoPropioResolver implements Resolve<HttpRespuesta<any>
         const catUnidades$ = this.catalogoUnidadesService.buscarPorPagina(pagina, tamanio);
         const idVehiculoPropio = route.paramMap.get('idVehiculo');
         const vehiculoPropio$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio);
+        // //     map((vehiculoPropio)=> ({
+        // //         ...vehiculoPropio,
+
+        // //     })
+        // // );
+
+        // const archivoTjetaCirc$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaArchivoTjetaCirc).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaArchivoTjetaCirc))
+        //     ))
+        // );
+
+        // const archivoVerificacion$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaVerificacion).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaVerificacion))
+        //     ))
+        // );
+
+        // const archivoPoliza$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaPolizaSeguro).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaPolizaSeguro))
+        //     ))
+        // );
+
+        // const desRutaFotoFrente$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoFrente).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoFrente))
+        //     ))
+        // );
+
+        // const desRutaFotoLateralIzq$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoLateralIzq).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoLateralIzq))
+        //     ))
+        // );
+
+        // const desRutaFotoLateralDer$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoLateralDer).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoLateralDer))
+        //     ))
+        // );
+
+        // const desRutaFotoTrasera$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
+        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoTrasera).pipe(
+        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoTrasera))
+        //     ))
+        // );
+
+
         const catTipoVehiculo$ = this.catalogoVehiculosPropiosService.obtenerCatalogoTipoVehiculo();
         const catCONUEE$ = this.catalogoVehiculosPropiosService.obtenerCatalogoCONUEE();
         const catTipoServicio$ = this.catalogoVehiculosPropiosService.obtenerCatalogoTipoServicio();
@@ -28,6 +77,28 @@ export class DetalleVehiculoPropioResolver implements Resolve<HttpRespuesta<any>
         const catToneladas$ = this.catalogoVehiculosPropiosService.obtenerCatalogoToneladas();
         const catCilindros$ = this.catalogoVehiculosPropiosService.obtenerCatalogoCilindros();
         const catEstatus$ = this.catalogoVehiculosPropiosService.obtenerCatalogoEstatus();
-        return forkJoin([catUnidades$, catTipoVehiculo$, catCONUEE$, catTipoServicio$, catVersion$, catTipoRegimen$, catCombustible$, catToneladas$, catCilindros$, catEstatus$, vehiculoPropio$]);
+
+        return forkJoin([
+            catUnidades$,
+            catTipoVehiculo$,
+            catCONUEE$,
+            catTipoServicio$,
+            catVersion$,
+            catTipoRegimen$,
+            catCombustible$,
+            catToneladas$,
+            catCilindros$,
+            catEstatus$,
+            vehiculoPropio$,
+            // archivoTjetaCirc$,
+            // archivoVerificacion$,
+            // archivoPoliza$,
+            // desRutaFotoFrente$,
+            // desRutaFotoLateralIzq$,
+            // desRutaFotoLateralDer$,
+            // desRutaFotoTrasera$
+        ]);
+
     }
+
 }

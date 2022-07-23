@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
@@ -19,13 +20,13 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
 export class AltaVehiculoPropioComponent implements OnInit {
 
   //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  tarjetaCirculacion: File[] = [];
-  verificacion: File[] = [];
-  polizaSeguro: File[] = [];
-  fotografiaFrente: File[] = [];
-  fotografiaLateralDerecho: File[] = [];
-  fotografiaLateralIzquierdo: File[] = [];
-  fotografiaTrasera: File[] = [];
+  tarjetaCirculacion: CustomFile[] = [];
+  verificacion: CustomFile[] = [];
+  polizaSeguro: CustomFile[] = [];
+  fotografiaFrente: CustomFile[] = [];
+  fotografiaLateralDerecho: CustomFile[] = [];
+  fotografiaLateralIzquierdo: CustomFile[] = [];
+  fotografiaTrasera: CustomFile[] = [];
 
   readonly POSICION_CATALOGO_UNIDADES = 0;
   readonly POSICION_CATALOGO_TIPO_VEHICULO = 1;

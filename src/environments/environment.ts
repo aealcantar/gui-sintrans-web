@@ -19,7 +19,8 @@ export const environment = {
     mssintetransVehiculosPropios: 'http://localhost:8084/mssintetrans-vehiculos/propios',
     mssintetransVehiculosArrendados : 'http://localhost:8084/mssintetrans-vehiculos/arrendados',
     mssintetransChoferes: 'http://localhost:8087/mssintetrans-choferes/choferes',
-    mssintetransAseguradoras : 'http://localhost:8088/mssintetrans-aseguradoras'
+    mssintetransAseguradoras : 'http://localhost:8088/mssintetrans-aseguradoras',
+    mssintetransCargaArchivos : 'http://localhost:8086/mssintetrans-carga-archivos'
   }
 };
 

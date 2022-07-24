@@ -142,7 +142,7 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idUnidad" (onChange)="buscarDatosPorIdUnidad()" id="unidad" class="form-control" [options]="catUnidades" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idUnidad" (onChange)="consultaDatosPorIdUnidad($event.value)" id="unidad" class="form-control" [options]="catUnidades" placeholder="Seleccionar">
                     </p-dropdown>
                     <span class="campos-obligatorios" *ngIf="f.idUnidad?.errors?.required && (f.idUnidad?.dirty || f.idUnidad?.touched)">*Campo obligatorio</span>
                 </div>

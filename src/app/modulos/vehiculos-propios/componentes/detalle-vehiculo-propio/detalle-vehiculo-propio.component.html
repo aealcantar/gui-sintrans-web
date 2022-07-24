@@ -287,7 +287,7 @@
                 <div class="col-md-8">
                     <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" [disabled]="true" accept="application/pdf"
+                    <app-cargador-archivo [disabled]="true" accept="application/pdf"
                         [extensionesAceptadas]="['pdf']" [(archivo)]="tarjetaCirculacion"
                         (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
@@ -370,7 +370,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaTrasera">Fotografía trasera<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" [disabled]="true" accept="application/pdf"
+                    <app-cargador-archivo [disabled]="true" accept="application/pdf"
                         [extensionesAceptadas]="['pdf']" [(archivo)]="fotografiaTrasera"
                         (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>

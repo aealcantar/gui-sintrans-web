@@ -17,15 +17,14 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
   styleUrls: ['./editar-vehiculo-propio.component.scss']
 })
 export class EditarVehiculoPropioComponent implements OnInit {
-
-  //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  tarjetaCirculacion: CustomFile[] = [];
-  verificacion: CustomFile[] = [];
-  polizaSeguro: CustomFile[] = [];
-  fotografiaFrente: CustomFile[] = [];
-  fotografiaLateralDerecho: CustomFile[] = [];
-  fotografiaLateralIzquierdo: CustomFile[] = [];
-  fotografiaTrasera: CustomFile[] = [];
+  
+  tarjetaCirculacion!: CustomFile;
+  verificacion!: CustomFile;
+  polizaSeguro!: CustomFile;
+  fotografiaFrente!: CustomFile;
+  fotografiaLateralDerecho!: CustomFile;
+  fotografiaLateralIzquierdo!: CustomFile;
+  fotografiaTrasera!: CustomFile;
 
   readonly ACTUALIZA_VEHICULO = "El vehículo propio ha sido guardado exitosamente";
   readonly POSICION_CATALOGO_UNIDADES = 0;
@@ -172,9 +171,9 @@ export class EditarVehiculoPropioComponent implements OnInit {
       tipoRegimen: new FormControl(parseInt(vehiculoPropio.desTipoRegimen), Validators.required),
       unidad: new FormControl(vehiculoPropio.idUnidadAdscripcion, Validators.required),
       cp: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(5)]),
-      entidad: new FormControl({ value:null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
-      municipio: new FormControl({ value:null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
-      colonia: new FormControl({ value:null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
+      entidad: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
+      municipio: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
+      colonia: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
       respBienes: new FormControl(vehiculoPropio.nomResponsableBienes, [Validators.required, Validators.maxLength(20)]),
       estatus: new FormControl(parseInt(vehiculoPropio.desEstatusVehiculo), [Validators.required, Validators.maxLength(30)]),
       fechaBaja: new FormControl(this.datePipe.transform(vehiculoPropio.fecBaja, 'dd/MM/YYYY'), Validators.required),
@@ -206,13 +205,13 @@ export class EditarVehiculoPropioComponent implements OnInit {
     console.log("DATOS: ", this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let archivos = {
-      tarjetaCirculacion: this.tarjetaCirculacion[0],
-      verificacion: this.verificacion[0],
-      polizaSeguro: this.polizaSeguro[0],
-      fotografiaFrente: this.fotografiaFrente[0],
-      fotografiaLateralDerecho: this.fotografiaLateralDerecho[0],
-      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo[0],
-      fotografiaTrasera: this.fotografiaTrasera[0]
+      tarjetaCirculacion: this.tarjetaCirculacion.archivo,
+      verificacion: this.verificacion.archivo,
+      polizaSeguro: this.polizaSeguro.archivo,
+      fotografiaFrente: this.fotografiaFrente.archivo,
+      fotografiaLateralDerecho: this.fotografiaLateralDerecho.archivo,
+      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo.archivo,
+      fotografiaTrasera: this.fotografiaTrasera.archivo
     }
     this.cargadorService.activar();
     this.vehiculoPropioService.actualizarRegistro(this.idVehiculo, this.form.value, usuarioAutenticado?.matricula, archivos).subscribe(
@@ -223,13 +222,26 @@ export class EditarVehiculoPropioComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.cargadorService.desactivar();
-        console.error("ERROR: ", error)
       }
     );
   }
 
   get f() {
     return this.form.controls;
+  }
+
+  get estanLosArchivosCargados(): boolean {
+    let archivosCargados: boolean = false;
+    if (this.tarjetaCirculacion &&
+      this.verificacion &&
+      this.polizaSeguro &&
+      this.fotografiaFrente &&
+      this.fotografiaLateralDerecho &&
+      this.fotografiaLateralIzquierdo &&
+      this.fotografiaTrasera) {
+      archivosCargados = true;
+    }
+    return archivosCargados;
   }
 
 }

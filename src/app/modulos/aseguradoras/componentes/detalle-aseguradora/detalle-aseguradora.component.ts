@@ -11,37 +11,35 @@ import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
   providers: [DatePipe],
 })
 export class DetalleAseguradoraComponent implements OnInit {
-  archivos: any[] = [];
-  archivoPoliza : CustomFile[]=[];
+  archivoPoliza !: CustomFile;
   form;
-  constructor(private router: ActivatedRoute, private fb: FormBuilder,    private datePipe: DatePipe,) {
+  constructor(private router: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe,) {
     this.form = this.fb.group({
-      nombreAseguradora: new FormControl({value : '' , disabled: true},),
-      poliza: new FormControl({value : '' , disabled: true}),
-      fechaVencimiento: new FormControl({value : '' , disabled: true}),
-      costoPoliza: new FormControl({value : '' , disabled: true}),
-      tipoCobertura: new FormControl({value : '' , disabled: true}),
-      tipoSiniestro: new FormControl({value : '' , disabled: true}),
-      polizaFile: new FormControl({value : '' , disabled: true}),
+      nombreAseguradora: new FormControl({ value: '', disabled: true },),
+      poliza: new FormControl({ value: '', disabled: true }),
+      fechaVencimiento: new FormControl({ value: '', disabled: true }),
+      costoPoliza: new FormControl({ value: '', disabled: true }),
+      tipoCobertura: new FormControl({ value: '', disabled: true }),
+      tipoSiniestro: new FormControl({ value: '', disabled: true }),
+      polizaFile: new FormControl({ value: '', disabled: true }),
     });
   }
   aseguradora: any;
 
   ngOnInit(): void {
     const respuesta = this.router.snapshot.data['respuesta'];
-    console.log(respuesta);
     const aseguradora = respuesta.datos;
     this.form.controls['nombreAseguradora'].setValue(
       aseguradora.nombreAseguradora
     );
     this.form.controls['poliza'].setValue(aseguradora.poliza);
     this.form.controls['fechaVencimiento'].setValue(
-      this.datePipe.transform(aseguradora.fechaVencimiento,  'dd/MM/YYYY')
+      this.datePipe.transform(aseguradora.fechaVencimiento, 'dd/MM/YYYY')
     );
     this.form.controls['costoPoliza'].setValue(aseguradora.costoPoliza);
     this.form.controls['tipoCobertura'].setValue(aseguradora.tipoCobertura);
     this.form.controls['polizaFile'].setValue(aseguradora.rutaPoliza);
     this.form.controls['tipoSiniestro'].setValue(aseguradora.tipoSiniestro);
-    this.archivoPoliza.push({ruta : aseguradora.rutaPoliza})
+    this.archivoPoliza = { ruta: aseguradora.rutaPoliza };
   }
 }

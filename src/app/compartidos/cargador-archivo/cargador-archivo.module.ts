@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CargadorArchivoComponent } from './cargador-archivo.component';
+import { NgModule } from '@angular/core';
 import { FileUploadModule } from 'primeng-lts/fileupload';
+import { CargadorArchivoComponent } from './cargador-archivo.component';
 import { NombreArchivoPipe } from './nombre-archivo.pipe';
-
 
 
 @NgModule({

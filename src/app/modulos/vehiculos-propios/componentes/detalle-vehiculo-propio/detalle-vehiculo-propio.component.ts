@@ -13,14 +13,13 @@ import { Unidad } from 'src/app/modelos/unidad.interface';
 })
 export class DetalleVehiculoPropioComponent implements OnInit {
 
-  //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  tarjetaCirculacion: CustomFile[] = [];
-  verificacion: CustomFile[] = [];
-  polizaSeguro: CustomFile[] = [];
-  fotografiaFrente: CustomFile[] = [];
-  fotografiaLateralDerecho: CustomFile[] = [];
-  fotografiaLateralIzquierdo: CustomFile[] = [];
-  fotografiaTrasera: CustomFile[] = [];
+  tarjetaCirculacion!: CustomFile;
+  verificacion!: CustomFile;
+  polizaSeguro!: CustomFile;
+  fotografiaFrente!: CustomFile;
+  fotografiaLateralDerecho!: CustomFile;
+  fotografiaLateralIzquierdo!: CustomFile;
+  fotografiaTrasera!: CustomFile;
 
   readonly POSICION_CATALOGO_UNIDADES = 0;
   readonly POSICION_CATALOGO_TIPO_VEHICULO = 1;
@@ -187,36 +186,35 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   }
 
   inicializarArchivos(vehiculoPropio: any) {
-    this.tarjetaCirculacion.push({
+    this.tarjetaCirculacion = {
       ruta: vehiculoPropio.desRutaArchivoTjetaCirc
-    });
+    };
 
-    this.verificacion.push({
+    this.verificacion = {
       ruta: vehiculoPropio.desRutaVerificacion
-    });
+    };
 
-    this.polizaSeguro.push({
+    this.polizaSeguro = {
       ruta: vehiculoPropio.desRutaPolizaSeguro
-    });
+    };
 
-    this.fotografiaFrente.push({
+    this.fotografiaFrente = {
       ruta: vehiculoPropio.desRutaFotoFrente
-    });
+    };
 
-    this.fotografiaLateralIzquierdo.push({
+    this.fotografiaLateralIzquierdo = {
       ruta: vehiculoPropio.desRutaFotoLateralIzq
-    });
+    };
 
-    this.fotografiaLateralDerecho.push({
+    this.fotografiaLateralDerecho = {
       ruta: vehiculoPropio.desRutaFotoLateralDer
-    });
-    
-    this.fotografiaTrasera.push({
+    };
+
+    this.fotografiaTrasera = {
       ruta: vehiculoPropio.desRutaFotoTrasera
-    });
+    };
 
   }
-
 
   validarArchivo(event: any) {
     console.log(event);

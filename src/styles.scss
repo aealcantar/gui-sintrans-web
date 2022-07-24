@@ -150,6 +150,8 @@ hr.separador-small {
             font-size: 14px;
             color: #4d92df;
             text-decoration: none;
+            position: relative;
+            top: 2px;
         }
         &-descargar {
             cursor: pointer;
@@ -159,7 +161,7 @@ hr.separador-small {
             border: 2px solid #9d2449;
             border-radius: 4px;
             text-decoration: none;
-            padding: 4px;
+            padding: 0;
             font-family: "Montserrat";
             font-style: normal;
             font-weight: 500;

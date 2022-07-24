@@ -14,16 +14,16 @@ import { AseguradoraService } from '../service/aseguradora.service';
   providers: [DatePipe],
 })
 export class AltaAseguradoraComponent implements OnInit {
-  archivos: CustomFile[] = [];
-readonly MENSAJE_EXITO = 'La aseguradora ha sido dada de alta exitosamente.'
+  archivo!: CustomFile;
+  readonly MENSAJE_EXITO = 'La aseguradora ha sido dada de alta exitosamente.'
   form;
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private aseguradoraService: AseguradoraService,
     private alertService: AlertasFlotantesService,
-    private route : Router,
-    private router : ActivatedRoute
+    private route: Router,
+    private router: ActivatedRoute
   ) {
     this.form = this.fb.group({
       nombreAseguradora: new FormControl('', Validators.required),
@@ -41,27 +41,27 @@ readonly MENSAJE_EXITO = 'La aseguradora ha sido dada de alta exitosamente.'
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   guardar() {
     console.log(this.form.getRawValue());
     const data = this.form.getRawValue();
-    data.nombreArchivo = this.archivos[0]?.archivo?.name;
+    data.nombreArchivo = this.archivo?.archivo?.name;
     data.fechaVencimiento = this.datePipe.transform(
       data.fechaVencimiento,
       'dd/mm/yyyy'
     );
     data.fechaExpiracion = data.fechaVencimiento;
     //data.archivoLocal = 'file:///C:/Users/aivillafan/Downloads/Curriculum.pdf'
-    this.aseguradoraService.save(data, this.archivos[0].archivo).subscribe((res) => {
+    this.aseguradoraService.save(data, this.archivo.archivo).subscribe((res) => {
       console.log(res);
-      this.alertService.mostrar('exito' , this.MENSAJE_EXITO)
+      this.alertService.mostrar('exito', this.MENSAJE_EXITO)
       this.route.navigate(["../"], { relativeTo: this.router });
     });
   }
 
 
-  
+
   get f() {
     return this.form.controls;
   }

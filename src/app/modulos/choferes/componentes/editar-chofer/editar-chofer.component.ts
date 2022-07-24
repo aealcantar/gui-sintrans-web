@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { ChoferesService } from '../../servicios/choferes.service';
 
@@ -25,7 +26,7 @@ export class EditarChoferComponent implements OnInit {
   ];
   readonly ACTUALIZAR_CHOFER = "El registro se ha actualizado exitosamente.";
   public editForm!: FormGroup;
-  public archivos: any[] = [];
+  public archivo!: CustomFile;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -69,10 +70,7 @@ export class EditarChoferComponent implements OnInit {
   }
 
   editar() {
-    console.log(this.editForm.value);
-    this.editForm.get('desrutaLicencia')?.patchValue(this.archivos[0]?.name);
-    console.log(this.editForm.value);
-
+    this.editForm.get('desrutaLicencia')?.patchValue(this.archivo?.archivo?.name);
     if (this.editForm.valid) {
       let chofer: any = {
         ...this.editForm.value,
@@ -95,20 +93,10 @@ export class EditarChoferComponent implements OnInit {
   obtenerChoferPorId(id: any) {
     this.choferesService.buscarPorId(id).subscribe(
       (respuesta) => {
-        console.log(respuesta);
         this.editForm.patchValue({
           ...this.editForm.value,
           ...respuesta?.datos,
         });
-        console.log(this.editForm.value);
-        
-        // this.catChoferes = [];
-        // this.respuesta = null;
-        // this.respuesta = respuesta;
-        // this.catChoferes = this.respuesta!.datos.content;
-        // if (event) {
-        //   this.ordenar(event);
-        // }
       },
       (error: HttpErrorResponse) => {
         console.error(error);

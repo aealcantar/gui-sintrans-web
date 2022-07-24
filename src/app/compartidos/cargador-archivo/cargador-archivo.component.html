@@ -1,8 +1,8 @@
 <p-fileUpload [disabled]="disabled" [showUploadButton]="false" [showCancelButton]="false"
     (onSelect)="seleccionar($event)" [accept]="accept">
     <ng-template pTemplate="content">
-        <ul class="archivos" *ngIf="archivos.length > 0">
-            <li class="archivo" *ngFor="let archivoCustom of archivos">
+        <ul class="archivos" *ngIf="archivo as archivoCustom">
+            <li class="archivo">
                 <a class="archivo-nombre">
                     <ng-container *ngIf="archivoCustom.ruta">
                         {{archivoCustom.ruta | nombreArchivo}}
@@ -11,9 +11,9 @@
                         {{archivoCustom?.archivo?.name}}
                     </ng-container>
                 </a>
-                <a class="archivo-descargar" *ngIf="mostrarBtnDescargar" (click)="descargar(archivoCustom)"><i
+                <a class="archivo-descargar" *ngIf="mostrarBtnDescargar" (click)="descargar()"><i
                         class="icon-ver"></i>Descargar</a>
-                <a class="archivo-eliminar" (click)="eliminar(archivoCustom)"><i class="icon-cerrar-modal"></i></a>
+                <a class="archivo-eliminar" *ngIf="!disabled" (click)="eliminar()"><i class="icon-cerrar-modal"></i></a>
             </li>
         </ul>
     </ng-template>

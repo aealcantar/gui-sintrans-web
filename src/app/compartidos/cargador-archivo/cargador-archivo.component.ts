@@ -1,8 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { environment } from 'src/environments/environment';
 import { CargadorService } from '../cargador/cargador.service';
 import { CustomFile } from './custom-file';
@@ -15,8 +12,6 @@ import { NombreArchivoPipe } from './nombre-archivo.pipe';
 })
 export class CargadorArchivoComponent implements OnInit {
 
-  private form!:FormGroup;
-
   /**
    * Especifica un arreglo de string con las extensiones aceptadas.
    * Ejemplo: ['png','jpg','jpeg'] o ['pdf','docx','csv','xlsx']
@@ -26,7 +21,7 @@ export class CargadorArchivoComponent implements OnInit {
 
   /**
    * Especifica el tipo de archivo aceptado.
-   * Ejemplo: application/pdf o image/*. Hace referencia al atributo "accept" de los input[file]
+   * Ejemplo: application/pdf o image/*. Hace referencia al atributo "accept" de los input de tipo file
    */
   private _accept: string = '';
 
@@ -46,22 +41,22 @@ export class CargadorArchivoComponent implements OnInit {
   private _mostrarBtnDescargar: boolean = false;
 
   @Input()
-  archivos: CustomFile[] = [];
-
-  @HostBinding('class.ng-invalid')
-  invalid: boolean = this.archivos.length === 0;
+  archivo!: CustomFile;
 
   @Output()
-  archivosChange = new EventEmitter<CustomFile[]>();
+  archivoChange = new EventEmitter<CustomFile>();
+
+  @HostBinding('class.ng-invalid')
+  invalid: boolean = !this.archivo;
 
   /**
-   * Emite el archivo que se eliminara de la lista
+   * Emite el archivo que se elimino
    */
   @Output()
   eliminarEmitter: EventEmitter<CustomFile> = new EventEmitter<CustomFile>();
 
   /**
-   * Emite el archivo que se descargara de la lista
+   * Emite el archivo que se descargara
    */
   @Output()
   descargarEmitter: EventEmitter<CustomFile> = new EventEmitter<CustomFile>();
@@ -76,8 +71,7 @@ export class CargadorArchivoComponent implements OnInit {
     private renderer: Renderer2,
     private httpClient: HttpClient,
     private cargador: CargadorService,
-    private nombreArchivoPipe: NombreArchivoPipe,
-    private alertaService: AlertasFlotantesService
+    private nombreArchivoPipe: NombreArchivoPipe
   ) { }
 
   ngOnInit(): void {
@@ -139,79 +133,65 @@ export class CargadorArchivoComponent implements OnInit {
           mensaje: 'Tamaño máximo excedido.',
           archivo: customFile
         });
-        this.archivos = [];
         return;
       } else if (this.esExtensionInvalida(customFile)) {
         this.errorEmitter.emit({
           mensaje: 'El tipo de archivo es incorrecto.',
           archivo: customFile
         });
-        this.archivos = [];
         return;
       }
-      this.archivos.push(customFile);
-      this.archivosChange.emit(this.archivos);
+      this.archivo = customFile;
+      this.archivoChange.emit(this.archivo);
     }
   }
 
   esExtensionInvalida(customFile: CustomFile) {
     let ext = customFile?.archivo?.name.split('.').pop();
     let extEncontrada = this.extensionesAceptadas.find((extAceptadas: string) => extAceptadas.toLowerCase() === ext?.toLowerCase());
-    if (!extEncontrada) {
-      return true;
-    }
-    return false;
+    return !extEncontrada ? true : false;
   }
 
-  descargar(archivoSeleccionado: any) {
-    let indiceArchivo: number = this.archivos.findIndex(f => f === archivoSeleccionado);
-    if (indiceArchivo !== -1) {
-      this.descargarEmitter.emit(this.archivos[indiceArchivo]);
-      if (this.archivos[indiceArchivo].ruta) {
-        this.cargador.activar();
-        this.httpClient.post(`${environment.api.mssintetransCargaArchivos}/descargar-archivo`, {
-          ruta: this.archivos[indiceArchivo].ruta
-        }, {
-          responseType: 'blob' as any
-        }).subscribe(
-          (blob) => {
-            this.cargador.desactivar();
-            let url = window.URL.createObjectURL(blob as any);
-            let link = this.renderer.createElement('a');
-            link.setAttribute('target', '_blank');
-            link.setAttribute('href', url);
-            link.setAttribute('download', this.nombreArchivoPipe.transform(this.archivos[indiceArchivo]?.ruta as any));
-            link.click();
-            link.remove();
-          },
-          (httpError: HttpErrorResponse) => {
-            this.cargador.desactivar();
-            console.error(httpError);
-            this.alertaService.mostrar("error", "Ocurrió al intentar descargar el archivo.");
-          }
-        )
-      } else {
-        let url = window.URL.createObjectURL(this.archivos[indiceArchivo].archivo as any);
-        let link = this.renderer.createElement('a');
-        link.setAttribute('target', '_blank');
-        link.setAttribute('href', url);
-        link.setAttribute('download', this.archivos[indiceArchivo]?.archivo?.name);
-        link.click();
-        //window.URL.revokeObjectURL(url);
-        link.remove();
-      }
-
+  descargar() {
+    this.descargarEmitter.emit(this.archivo as CustomFile);
+    if (this.archivo?.ruta) {
+      this.cargador.activar();
+      this.httpClient.post(`${environment.api.mssintetransCargaArchivos}/descargar-archivo`, {
+        ruta: this.archivo?.ruta
+      }, {
+        responseType: 'blob' as any
+      }).subscribe(
+        (blob) => {
+          this.cargador.desactivar();
+          let url = window.URL.createObjectURL(blob as any);
+          let link = this.renderer.createElement('a');
+          link.setAttribute('target', '_blank');
+          link.setAttribute('href', url);
+          link.setAttribute('download', this.nombreArchivoPipe.transform(this.archivo?.ruta as any));
+          link.click();
+          link.remove();
+        },
+        (httpError: HttpErrorResponse) => {
+          this.cargador.desactivar();
+        }
+      )
+    } else {
+      let url = window.URL.createObjectURL(this.archivo?.archivo as File);
+      let etiquetaAncla = this.renderer.createElement('a');
+      etiquetaAncla.setAttribute('target', '_blank');
+      etiquetaAncla.setAttribute('href', url);
+      etiquetaAncla.setAttribute('download', this.archivo?.archivo?.name);
+      etiquetaAncla.click();
+      //window.URL.revokeObjectURL(url);
+      etiquetaAncla.remove();
     }
   }
 
-
-
-  eliminar(archivoSeleccionado: CustomFile) {
-    let indiceArchivo: number = this.archivos.findIndex((archivo: CustomFile) => archivo === archivoSeleccionado);
-    if (indiceArchivo !== -1) {
-      this.eliminarEmitter.emit(this.archivos[indiceArchivo]);
-      this.archivos.splice(indiceArchivo, 1);
-    }
+  eliminar() {
+    let archivoEliminado: CustomFile = { ...this.archivo };
+    this.eliminarEmitter.emit(archivoEliminado);
+    (this.archivo as any) = undefined;
+    this.archivoChange.emit(this.archivo);
   }
 
 }

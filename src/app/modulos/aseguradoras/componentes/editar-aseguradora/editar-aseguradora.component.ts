@@ -10,21 +10,21 @@ import { AseguradoraService } from '../service/aseguradora.service';
   selector: 'app-editar-aseguradora',
   templateUrl: './editar-aseguradora.component.html',
   styleUrls: ['./editar-aseguradora.component.scss'],
-  providers : [DatePipe]
+  providers: [DatePipe]
 })
 export class EditarAseguradoraComponent implements OnInit {
   readonly MENSAJE = 'La aseguradora ha sido guardada exitosamente.'
   respuesta: any;
   aseguradora: any;
   form;
-  archivos: CustomFile[] = [];
+  archivo!: CustomFile;
   constructor(
     private fb: FormBuilder,
     private router: ActivatedRoute,
     private route: Router,
-    private datePipe : DatePipe,
+    private datePipe: DatePipe,
     private aseguradoraService: AseguradoraService,
-    private alertService : AlertasFlotantesService
+    private alertService: AlertasFlotantesService
   ) {
     this.form = this.fb.group({
       idAseguradora: new FormControl('', Validators.required),
@@ -45,49 +45,36 @@ export class EditarAseguradoraComponent implements OnInit {
 
   ngOnInit(): void {
     this.respuesta = this.router.snapshot.data['respuesta']
-    console.log(this.respuesta)
-    const a = this.respuesta.datos
-    this.archivos.push({
-      ruta : a.rutaPoliza
-    })
-this.form.controls['idAseguradora'].setValue(a.idAseguradora)
-this.form.controls['nombreAseguradora'].setValue(a.nombreAseguradora)
-this.form.controls['poliza'].setValue(a.poliza)
-this.form.controls['fechaVencimiento'].setValue(this.datePipe.transform(a.fechaVencimiento , 'dd/MM/YYYY'))
-this.form.controls['fechaExpiracion'].setValue(a.fechaExpiracion)
-this.form.controls['costoPoliza'].setValue(a.costoPoliza)
-this.form.controls['tipoCobertura'].setValue(a.tipoCobertura)
-this.form.controls['tipoSiniestro'].setValue(a.tipoSiniestro)
-this.form.controls['matricula'].setValue(a.matricula)
-this.form.controls['sistema'].setValue(a.sistema)
-this.form.controls['nombreArchivo'].setValue(a.nombreArchivo)
-this.form.controls['archivoLocal'].setValue(a.archivoLocal)
-this.form.controls['rutaPoliza'].setValue(a.rutaPoliza)
-
-console.log(this.form.value)
+    const aseguradora = this.respuesta.datos;
+    this.archivo = {
+      ruta: aseguradora.rutaPoliza
+    };
+    this.form.controls['idAseguradora'].setValue(aseguradora.idAseguradora)
+    this.form.controls['nombreAseguradora'].setValue(aseguradora.nombreAseguradora)
+    this.form.controls['poliza'].setValue(aseguradora.poliza)
+    this.form.controls['fechaVencimiento'].setValue(this.datePipe.transform(aseguradora.fechaVencimiento, 'dd/MM/YYYY'))
+    this.form.controls['fechaExpiracion'].setValue(aseguradora.fechaExpiracion)
+    this.form.controls['costoPoliza'].setValue(aseguradora.costoPoliza)
+    this.form.controls['tipoCobertura'].setValue(aseguradora.tipoCobertura)
+    this.form.controls['tipoSiniestro'].setValue(aseguradora.tipoSiniestro)
+    this.form.controls['matricula'].setValue(aseguradora.matricula)
+    this.form.controls['sistema'].setValue(aseguradora.sistema)
+    this.form.controls['nombreArchivo'].setValue(aseguradora.nombreArchivo)
+    this.form.controls['archivoLocal'].setValue(aseguradora.archivoLocal)
+    this.form.controls['rutaPoliza'].setValue(aseguradora.rutaPoliza)
   }
 
-  guardar(){
-/**
- *    data.fechaVencimiento = this.datePipe.transform(
-      data.fechaVencimiento,
+  guardar() {
+    const data = this.form.getRawValue()
+    const file = this.archivo.archivo
+    data.fechaExpiracion = this.datePipe.transform(
+      data.fechaExpiracion,
       'dd/mm/yyyy'
     );
- */
-
-
-
-const data = this.form.getRawValue()
-const file = this.archivos[0].archivo
-data.fechaExpiracion = this.datePipe.transform(
-  data.fechaExpiracion,
-  'dd/mm/yyyy'
-);
-this.aseguradoraService.update(data.idAseguradora , data , file).subscribe(res=>{
-  console.log(res)
-  this.alertService.mostrar('exito' , this.MENSAJE)
-  this.route.navigate(["../../"], { relativeTo: this.router });
-})
+    this.aseguradoraService.update(data.idAseguradora, data, file).subscribe(res => {
+      this.alertService.mostrar('exito', this.MENSAJE)
+      this.route.navigate(["../../"], { relativeTo: this.router });
+    })
   }
 
   get f() {

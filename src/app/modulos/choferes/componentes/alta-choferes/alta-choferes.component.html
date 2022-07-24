@@ -89,9 +89,10 @@
                     </p-calendar>
                 </div>
                 <div class="col-md-3">
-                    <label class="control-label" for="finIncapacidad">Fecha fin de incapacidad<span class="req">*</span>:</label>
-                    <p-calendar id="finIncapacidad" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
-                        formControlName="fecFinIncapacidad">
+                    <label class="control-label" for="finIncapacidad">Fecha fin de incapacidad<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="finIncapacidad" styleClass="form-control" [showIcon]="true"
+                        placeholder="dd/mmm/aaaa" formControlName="fecFinIncapacidad">
                     </p-calendar>
                 </div>
             </div>
@@ -136,8 +137,8 @@
             <div class="row flex mb-4">
                 <div class="col-md-6">
                     <label class="control-label">Licencia<span class="req">*</span>:</label>
-                    <app-cargador-archivo [class.ng-invalid]="archivos.length === 0" accept="application/pdf"
-                        [extensionesAceptadas]="['pdf']" [(archivos)]="archivos">
+                    <app-cargador-archivo [class.ng-invalid]="!archivo" accept="application/pdf"
+                        [extensionesAceptadas]="['pdf']" [(archivo)]="archivo">
                     </app-cargador-archivo>
                 </div>
             </div>

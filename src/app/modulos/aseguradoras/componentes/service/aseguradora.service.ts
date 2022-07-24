@@ -22,7 +22,7 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
     };
     return this._http.get<any>(`${this._base}`, opt);
   }
-  page(page: any, size: any, filtros?: any) {
+  consultaPaginada(page: any, size: any, filtros?: any) {
     return this._http.post<any>(`${this._base}/${page}/${size}`, filtros);
   }
   findById(id: any) {
@@ -42,10 +42,10 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
   delete(aseguradoraId: any) {
     return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
   }
-  update(aseguradoraId: any, aseguradora: any , archivo:any) {
+  update(aseguradoraId: any, aseguradora: any, archivo: any) {
     const formData = new FormData()
-    formData.append('archivo' , archivo)
-    formData.append('aseguradora' , JSON.stringify(aseguradora))
+    formData.append('archivo', archivo)
+    formData.append('aseguradora', JSON.stringify(aseguradora))
     return this._http.put<any>(
       `${this._base}/${aseguradoraId}`,
       formData

@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { Chofer } from 'src/app/modelos/chofer.interface';
 import { ChoferesService } from '../../servicios/choferes.service';
 
@@ -24,7 +25,7 @@ export class DetalleChoferComponent implements OnInit {
     }
   ];
 
-  public archivos: any[] = [];
+  public archivo!: CustomFile;
   public editForm!: FormGroup;
   public chofer!: Chofer;
 

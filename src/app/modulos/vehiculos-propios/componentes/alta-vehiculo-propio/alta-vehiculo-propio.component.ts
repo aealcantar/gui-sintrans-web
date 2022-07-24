@@ -6,9 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
-import { Unidad } from 'src/app/modelos/unidad.interface';
+import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
+import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
 import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehiculos-propios.service';
 
 @Component({
@@ -18,15 +19,6 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
   providers: [DatePipe]
 })
 export class AltaVehiculoPropioComponent implements OnInit {
-
-  //Se debe crear un atributo de archivos por cada componente cargador-archivo que exista
-  tarjetaCirculacion: CustomFile[] = [];
-  verificacion: CustomFile[] = [];
-  polizaSeguro: CustomFile[] = [];
-  fotografiaFrente: CustomFile[] = [];
-  fotografiaLateralDerecho: CustomFile[] = [];
-  fotografiaLateralIzquierdo: CustomFile[] = [];
-  fotografiaTrasera: CustomFile[] = [];
 
   readonly POSICION_CATALOGO_UNIDADES = 0;
   readonly POSICION_CATALOGO_TIPO_VEHICULO = 1;
@@ -39,17 +31,28 @@ export class AltaVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
   readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dado de alta exitosamente.";
+
+  tarjetaCirculacion!: CustomFile;
+  verificacion!: CustomFile;
+  polizaSeguro!: CustomFile;
+  fotografiaFrente!: CustomFile;
+  fotografiaLateralDerecho!: CustomFile;
+  fotografiaLateralIzquierdo!: CustomFile;
+  fotografiaTrasera!: CustomFile;
+
   respuesta!: HttpRespuesta<any> | null;
-  catUnidades: Unidad[] = [];
-  catTipoVehiculo: any[] = [];
-  catCONUEE: any[] = [];
-  catTipoServicio: any[] = [];
-  catVersion: any[] = [];
-  catTipoRegimen: any[] = [];
-  catCombustible: any[] = [];
-  catToneladas: any[] = [];
-  catCilindros: any[] = [];
-  catEstatus: any[] = [];
+
+  catUnidades: TipoDropdown[] = [];
+  catTipoVehiculo: TipoDropdown[] = [];
+  catCONUEE: TipoDropdown[] = [];
+  catTipoServicio: TipoDropdown[] = [];
+  catVersion: TipoDropdown[] = [];
+  catTipoRegimen: TipoDropdown[] = [];
+  catCombustible: TipoDropdown[] = [];
+  catToneladas: TipoDropdown[] = [];
+  catCilindros: TipoDropdown[] = [];
+  catEstatus: TipoDropdown[] = [];
+
   catTipoServicioCONUEE: any[] = [];
 
   form!: FormGroup;
@@ -65,78 +68,18 @@ export class AltaVehiculoPropioComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    this.catUnidades = respuesta[this.POSICION_CATALOGO_UNIDADES].datos.content.map(
-      (unidad: any) => ({
-        label: unidad.nomUnidadAdscripcion,
-        value: unidad.idUnidad
-      })
-    );
-    this.catTipoVehiculo = respuesta[this.POSICION_CATALOGO_TIPO_VEHICULO].map(
-      (tipoVehiculo: any) => (
-        {
-          label: tipoVehiculo.descripcion,
-          value: tipoVehiculo.idTipoVehiculo
-        }
-      )
-    );
-    this.catCONUEE = respuesta[this.POSICION_CATALOGO_CONUEE].map(
-      (conuee: any) => (
-        {
-          label: conuee.descripcion,
-          value: conuee.idClasificacionCONUEE
-        }
-      )
-    );
     this.catTipoServicioCONUEE = respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO];
-    this.catVersion = respuesta[this.POSICION_CATALOGO_VERSION].map(
-      (version: any) => (
-        {
-          label: version.descripcion,
-          value: version.idVersion
-        }
-      )
-    );
-    this.catTipoRegimen = respuesta[this.POSICION_CATALOGO_TIPO_REGIMEN].map(
-      (regimen: any) => (
-        {
-          label: regimen.descripcion,
-          value: regimen.idTipoRegimen
-        }
-      )
-    );
-    this.catCombustible = respuesta[this.POSICION_CATALOGO_COMBUSTIBLE].map(
-      (combustible: any) => (
-        {
-          label: combustible.descripcion,
-          value: combustible.idCombustible
-        }
-      )
-    );
-    this.catToneladas = respuesta[this.POSICION_CATALOGO_TONELADAS].map(
-      (tonelada: any) => (
-        {
-          label: tonelada.descripcion,
-          value: tonelada.idTonelada
-        }
-      )
-    );
-    this.catCilindros = respuesta[this.POSICION_CATALOGO_CILINDROS].map(
-      (cilindro: any) => (
-        {
-          label: cilindro.descripcion,
-          value: cilindro.idCilindro
-        }
-      )
-    );
-    this.catEstatus = respuesta[this.POSICION_CATALOGO_ESTATUS].map(
-      (estatus: any) => (
-        {
-          label: estatus.descripcion,
-          value: estatus.idEstatus
-        }
-      )
-    );
+    this.catUnidades = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_UNIDADES].datos.content, 'nomUnidadAdscripcion', 'idUnidad');
+    this.catTipoVehiculo = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_TIPO_VEHICULO], 'descripcion', 'idTipoVehiculo');
+    this.catCONUEE = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_CONUEE], 'descripcion', 'idClasificacionCONUEE');
+    this.catVersion = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_VERSION], 'descripcion', 'idVersion');
+    this.catTipoRegimen = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_TIPO_REGIMEN], 'descripcion', 'idTipoRegimen');
+    this.catCombustible = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_COMBUSTIBLE], 'descripcion', 'idCombustible');
+    this.catToneladas = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_TONELADAS], 'descripcion', 'idTonelada');
+    this.catCilindros = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_CILINDROS], 'descripcion', 'idCilindro');
+    this.catEstatus = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ESTATUS], 'descripcion', 'idEstatus');
     this.inicializarForm();
+
   }
 
   inicializarForm(): void {
@@ -199,13 +142,13 @@ export class AltaVehiculoPropioComponent implements OnInit {
   guardar() {
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let archivos = {
-      tarjetaCirculacion: this.tarjetaCirculacion[0].archivo,
-      verificacion: this.verificacion[0].archivo,
-      polizaSeguro: this.polizaSeguro[0].archivo,
-      fotografiaFrente: this.fotografiaFrente[0].archivo,
-      fotografiaLateralDerecho: this.fotografiaLateralDerecho[0].archivo,
-      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo[0].archivo,
-      fotografiaTrasera: this.fotografiaTrasera[0].archivo
+      tarjetaCirculacion: this.tarjetaCirculacion.archivo,
+      verificacion: this.verificacion.archivo,
+      polizaSeguro: this.polizaSeguro.archivo,
+      fotografiaFrente: this.fotografiaFrente.archivo,
+      fotografiaLateralDerecho: this.fotografiaLateralDerecho.archivo,
+      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo.archivo,
+      fotografiaTrasera: this.fotografiaTrasera.archivo
     }
     this.cargadorService.activar();
     this.vehiculoPropioService.guardarRegistro(this.form.value, usuarioAutenticado?.matricula, archivos).subscribe(
@@ -223,6 +166,20 @@ export class AltaVehiculoPropioComponent implements OnInit {
 
   get f() {
     return this.form.controls;
+  }
+
+  get estanLosArchivosCargados(): boolean {
+    let archivosCargados: boolean = false;
+    if (this.tarjetaCirculacion &&
+      this.verificacion &&
+      this.polizaSeguro &&
+      this.fotografiaFrente &&
+      this.fotografiaLateralDerecho &&
+      this.fotografiaLateralIzquierdo &&
+      this.fotografiaTrasera) {
+      archivosCargados = true;
+    }
+    return archivosCargados;
   }
 
 }

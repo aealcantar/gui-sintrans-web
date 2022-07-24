@@ -10,6 +10,11 @@ import { Chofer } from 'src/app/modelos/chofer.interface';
 import { Usuario } from 'src/app/modelos/usuario.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { AutenticacionService } from 'src/app/servicios/seguridad/autenticacion.service';
+import {
+  CATALOGO_ESTATUS_CHOFER,
+  CATALOGO_ESTATUS_CHOFER_BAJA,
+  CATALOGO_ESTATUS_CHOFER_BLOQUEADO,
+} from 'src/app/utilerias/catalogos';
 import { ChoferesService } from '../../servicios/choferes.service';
 
 @Component({
@@ -35,6 +40,8 @@ export class AltaChoferesComponent implements OnInit {
   readonly ALTA_CHOFER = "Nuevo registro se dió de alta exitosamente.";
   public archivos: CustomFile[] = [];
   public editForm!: FormGroup;
+  public catEstatus: any[] = CATALOGO_ESTATUS_CHOFER;
+  public catMotivo: any[] = [];
   // public chofer!: Chofer;
 
   constructor(
@@ -51,7 +58,6 @@ export class AltaChoferesComponent implements OnInit {
 
   ngOnInit(): void {
     let matricula: string = '';
-
     this.aut.usuario$.subscribe((value: Usuario | null) => {
       matricula = value?.matricula || ''
     });
@@ -62,23 +68,23 @@ export class AltaChoferesComponent implements OnInit {
     this.editForm = this.fb.group({
       idChofer: [''],
       nombreChofer: [{ value: 'NOMBRE_CHOFER_SIAP', disabled: true }],
-      cveUnidadAdscripcion: [{ value: 'CVE_ADSCRIPCION_SIAP', disabled: true }],
+      cveUnidadAdscripcion: [{ value: 'CONTRATACIÓN 08', disabled: true }],
       idUnidadAdscripcion: [{ value: 'ID_ADSCRIPCION_SIAP', disabled: true }],
       cveUnidadOOAD: [{ value: 'OOAD_SIAP', disabled: true }],
       desCategoria: [{ value: 'CATEGORIA_SIAP', disabled: true }],
       cveMatriculaChofer: [null, Validators.compose([Validators.required, Validators.maxLength(12)])],
       cveMatricula: [matricula, Validators.required],
-      fecInicioContrato: [null, Validators.compose([Validators.required])],
-      fecFinContrato: [null, Validators.compose([Validators.required])],
+      fecInicioContrato: [null, Validators.required],
+      fecFinContrato: [null, Validators.required],
       fecIniIncapacidad: [''],
       fecFinIncapacidad: [''],
-      estatusChofer: [null, Validators.compose([Validators.required])],
-      desMotivo: [null, Validators.compose([Validators.required])],
-      cveLicencia: [null, Validators.compose([Validators.required])],
-      cveTipoLicencia: [null, Validators.compose([Validators.required])],
-      fecVigencia: [null, Validators.compose([Validators.required])],
-      fecExpedicion: [null, Validators.compose([Validators.required])],
-      desrutaLicencia: [null, Validators.compose([Validators.required])],
+      estatusChofer: [null, Validators.required],
+      desMotivo: [null, Validators.required],
+      cveLicencia: [null, Validators.compose([Validators.required, Validators.maxLength(10)])],
+      cveTipoLicencia: [null, Validators.compose([Validators.required, Validators.maxLength(15)])],
+      fecVigencia: [null, Validators.required],
+      fecExpedicion: [null, Validators.required],
+      desrutaLicencia: [null, Validators.required],
     });
   }
 
@@ -114,8 +120,33 @@ export class AltaChoferesComponent implements OnInit {
     }
   }
 
-  // get f() {
-  //   return this.form.controls;
-  // }
+  cambioEstatus() {
+    debugger;
+    if (this.editForm.get('estatusChofer')?.value === 1) {
+      this.catMotivo = CATALOGO_ESTATUS_CHOFER_BAJA;
+    } else if (this.editForm.get('estatusChofer')?.value === 3) {
+      this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
+    }
+  }
+
+  cambioMotivo() {
+    if (this.editForm.get('desMotivo')?.value === 9) {
+      this.editForm.get('fecIniIncapacidad')?.setValidators(Validators.required);
+      this.editForm.get('fecFinIncapacidad')?.setValidators(Validators.required);
+    } else {
+      this.editForm.get('fecIniIncapacidad')?.reset();
+      this.editForm.get('fecIniIncapacidad')?.clearValidators();
+
+      this.editForm.get('fecFinIncapacidad')?.reset();
+      this.editForm.get('fecFinIncapacidad')?.clearValidators();
+    }
+
+    this.editForm.get('fecIniIncapacidad')?.updateValueAndValidity();
+    this.editForm.get('fecFinIncapacidad')?.updateValueAndValidity();
+  }
+
+  get f() {
+    return this.editForm.controls;
+  }
 
 }

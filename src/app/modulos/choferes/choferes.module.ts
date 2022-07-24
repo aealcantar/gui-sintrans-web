@@ -17,14 +17,15 @@ import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer
 import { DetalleChoferComponent } from './componentes/detalle-chofer/detalle-chofer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChoferesService } from '../choferes/servicios/choferes.service';
-
+import { NumberDirective } from 'src/app/directives/only-numbers.directive';
 
 @NgModule({
   declarations: [
     ChoferesComponent,
     AltaChoferesComponent,
     EditarChoferComponent,
-    DetalleChoferComponent
+    DetalleChoferComponent,
+    NumberDirective
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-export const CATALOGO_TIPO_VEHICULO:any[] = [
+export const CATALOGO_TIPO_VEHICULO: any[] = [
     {
         idTipoVehiculo: 1,
         descripcion: "Automóvil"
@@ -45,7 +45,7 @@ export const CATALOGO_TIPO_VEHICULO:any[] = [
     }
 ];
 
-export const CATALOGO_CONUEE:any[] = [
+export const CATALOGO_CONUEE: any[] = [
     {
         idClasificacionCONUEE: 1,
         descripcion: "Servicios generales"
@@ -60,7 +60,7 @@ export const CATALOGO_CONUEE:any[] = [
     }
 ];
 
-export const CATALOGO_TIPO_SERVICIO:any[] = [
+export const CATALOGO_TIPO_SERVICIO: any[] = [
     {
         idTipoServicio: 1,
         descripcion: "Apoyo administrativo",
@@ -118,7 +118,7 @@ export const CATALOGO_TIPO_SERVICIO:any[] = [
     }
 ];
 
-export const CATALOGO_VERSION:any[] = [
+export const CATALOGO_VERSION: any[] = [
     {
         idVersion: 1,
         descripcion: "Automático"
@@ -141,7 +141,7 @@ export const CATALOGO_VERSION:any[] = [
     }
 ];
 
-export const CATALOGO_TIPO_REGIMEN:any[] = [
+export const CATALOGO_TIPO_REGIMEN: any[] = [
     {
         idTipoRegimen: 1,
         descripcion: "Bienestar"
@@ -152,7 +152,7 @@ export const CATALOGO_TIPO_REGIMEN:any[] = [
     }
 ];
 
-export const CATALOGO_COMBUSTIBLE:any[] = [
+export const CATALOGO_COMBUSTIBLE: any[] = [
     {
         idCombustible: 1,
         descripcion: "Gasolina"
@@ -171,7 +171,7 @@ export const CATALOGO_COMBUSTIBLE:any[] = [
     }
 ];
 
-export const CATALOGO_TONELADA:any[] = [
+export const CATALOGO_TONELADA: any[] = [
     {
         idTonelada: 1,
         descripcion: "0.5"
@@ -202,7 +202,7 @@ export const CATALOGO_TONELADA:any[] = [
     }
 ];
 
-export const CATALOGO_CILINDROS:any[] = [
+export const CATALOGO_CILINDROS: any[] = [
     {
         idCilindro: 1,
         descripcion: "4"
@@ -221,7 +221,7 @@ export const CATALOGO_CILINDROS:any[] = [
     }
 ];
 
-export const CATALOGO_ESTATUS:any[] = [
+export const CATALOGO_ESTATUS: any[] = [
     {
         idEstatus: 1,
         descripcion: "Siniestrado"
@@ -242,4 +242,49 @@ export const CATALOGO_ESTATUS:any[] = [
         idEstatus: 5,
         descripcion: "Baja"
     }
+];
+
+export const CATALOGO_ESTATUS_CHOFER: any[] = [
+    {
+        value: 1,
+        label: "Baja"
+    },
+    {
+        value: 2,
+        label: "Título de la opción"
+    },
+    {
+        value: 3,
+        label: "Bloqueado"
+    },
+    {
+        value: 4,
+        label: "Título de la opción"
+    },
+];
+
+export const CATALOGO_ESTATUS_CHOFER_BAJA: any[] = [
+    {
+        value: 5,
+        label: "Defunción"
+    },
+    {
+        value: 6,
+        label: "Jubilación"
+    },
+    {
+        value: 7,
+        label: "Renuncia"
+    },
+];
+
+export const CATALOGO_ESTATUS_CHOFER_BLOQUEADO: any[] = [
+    {
+        value: 8,
+        label: "Contratación 08"
+    },
+    {
+        value: 9,
+        label: "Por incapacidad"
+    },
 ];

@@ -9,7 +9,7 @@
                 <div class="col-md-8">
                     <label class="control-label" for="nombreAseguradora">Nombre de aseguradora<span
                             class="req">*</span>:</label>
-                    <input class="form-control" formControlName="nombreAseguradora" id="nombreAseguradora"
+                    <input class="form-control" formControlName="nombreAseguradora" id="nombreAseguradora" maxlength="150"
                         placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios"
                         *ngIf="f?.nombreAseguradora?.errors?.required && (f?.nombreAseguradora?.dirty || f?.nombreAseguradora?.touched)">*Campo
@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="poliza">Póliza<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="poliza" id="poliza" placeholder="Ingresar" type="text">
+                    <input class="form-control" formControlName="poliza" id="poliza" placeholder="Ingresar" maxlength="20" type="text">
                     <span class="campos-obligatorios"
                         *ngIf="f?.poliza?.errors?.required && (f?.poliza?.dirty || f?.poliza?.touched)">*Campo
                         obligatorio</span>
@@ -37,8 +37,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="costoPoliza" id="costoPoliza" placeholder="Ingresar"
-                        type="text">
+                    <p-inputNumber maxlength="10" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" class="form-control" id="costoPoliza" formControlName="costoPoliza" placeholder="Ingresar" ></p-inputNumber>
                     <span class="campos-obligatorios"
                         *ngIf="f?.costoPoliza?.errors?.required && (f?.costoPoliza?.dirty || f?.costoPoliza?.touched)">*Campo
                         obligatorio</span>
@@ -47,6 +46,7 @@
                     <label class="control-label" for="tipoCobertura">Tipo de cobertura<span
                             class="req">*</span>:</label>
                     <input class="form-control" formControlName="tipoCobertura" id="tipoCobertura"
+                    maxlength="50"
                         placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios"
                         *ngIf="f?.tipoCobertura?.errors?.required && (f?.tipoCobertura?.dirty || f?.tipoCobertura?.touched)">*Campo
@@ -58,7 +58,7 @@
                 <div class="col-md-8">
                     <label class="control-label" for="tipoSiniestro">Tipo de siniestro<span
                             class="req">*</span>:</label>
-                    <input class="form-control" formControlName="tipoSiniestro" id="tipoSiniestro"
+                    <input class="form-control" formControlName="tipoSiniestro" id="tipoSiniestro" maxlength="150"
                         placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios"
                         *ngIf="f?.tipoSiniestro?.errors?.required && (f?.tipoSiniestro?.dirty || f?.tipoSiniestro?.touched)">*Campo

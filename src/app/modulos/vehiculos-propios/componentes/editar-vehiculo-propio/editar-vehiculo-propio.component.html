@@ -20,17 +20,17 @@
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="noInventario">N° de inventario<span class="req">*</span>:</label>
-                    <p-inputNumber class="form-control" id="noInventario" formControlName="noInventario" [min]="0" [maxlength]="12" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false"  class="form-control" id="noInventario" formControlName="noInventario" [min]="0" [maxlength]="12" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.noInventario?.errors?.required && (f.noInventario?.dirty || f.noInventario?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="noSerie">N° de serie<span class="req">*</span>:</label>
-                    <p-inputNumber class="form-control" id="noSerie" formControlName="noSerie" [min]="0" [maxlength]="14" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false"  class="form-control" id="noSerie" formControlName="noSerie" [min]="0" [maxlength]="14" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.noSerie?.errors?.required && (f.noSerie?.dirty || f.noSerie?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="noTarjeton">N° de tarjetón<span class="req">*</span>:</label>
-                    <p-inputNumber class="form-control" id="noTarjeton" formControlName="noTarjeton" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false"  class="form-control" id="noTarjeton" formControlName="noTarjeton" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.noTarjeton?.errors?.required && (f.noTarjeton?.dirty || f.noTarjeton?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="modelo">Modelo<span class="req">*</span>:</label>
-                    <p-inputNumber class="form-control" id="modelo" formControlName="modelo" [min]="0" [maxlength]="4" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false"  class="form-control" id="modelo" formControlName="modelo" [min]="0" [maxlength]="4" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.modelo?.errors?.required && (f.modelo?.dirty || f.modelo?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
@@ -114,12 +114,12 @@
                 <div class="col-md-3">
                     <label class="control-label" for="cantCombus">Cantidad de combustible por litro<span
                             class="req">*</span>:</label>
-                    <p-inputNumber class="form-control" id="cantCombus" formControlName="cantCombus" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false"  class="form-control" id="cantCombus" formControlName="cantCombus" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.cantCombus?.errors?.required && (f.cantCombus?.dirty || f.cantCombus?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
-                    <p-inputNumber class="form-control" id="capPersonas" formControlName="capPersonas" [min]="0" [maxlength]="3" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false"  class="form-control" id="capPersonas" formControlName="capPersonas" [min]="0" [maxlength]="3" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.capPersonas?.errors?.required && (f.capPersonas?.dirty || f.capPersonas?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">

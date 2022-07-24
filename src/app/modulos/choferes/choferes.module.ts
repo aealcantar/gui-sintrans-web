@@ -1,23 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ChoferesRoutingModule } from './choferes-routing.module';
-import { ChoferesComponent } from './componentes/choferes/choferes.component';
-import { FileUploadModule } from 'primeng-lts/fileupload';
+import { CalendarModule } from 'primeng-lts/calendar';
 import { CardModule } from 'primeng-lts/card';
+import { DialogModule } from 'primeng-lts/dialog';
 import { DropdownModule } from 'primeng-lts/dropdown';
-import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { FileUploadModule } from 'primeng-lts/fileupload';
 import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
-import { DialogModule } from 'primeng-lts/dialog';
-import { CalendarModule } from 'primeng-lts/calendar';
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
-import { AltaChoferesComponent } from './componentes/alta-choferes/alta-choferes.component';
-import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer.component';
-import { DetalleChoferComponent } from './componentes/detalle-chofer/detalle-chofer.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChoferesService } from '../choferes/servicios/choferes.service';
+import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
 import { NumberDirective } from 'src/app/directives/only-numbers.directive';
+import { ChoferesService } from '../choferes/servicios/choferes.service';
+import { ChoferesRoutingModule } from './choferes-routing.module';
+import { AltaChoferesComponent } from './componentes/alta-choferes/alta-choferes.component';
+import { ChoferesComponent } from './componentes/choferes/choferes.component';
+import { DetalleChoferComponent } from './componentes/detalle-chofer/detalle-chofer.component';
+import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer.component';
 
 @NgModule({
   declarations: [

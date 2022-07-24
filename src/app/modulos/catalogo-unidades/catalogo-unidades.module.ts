@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CardModule } from 'primeng-lts/card';
-import { TableModule } from 'primeng-lts/table';
-import { DropdownModule } from 'primeng-lts/dropdown';
 import { DialogModule } from 'primeng-lts/dialog';
+import { DropdownModule } from 'primeng-lts/dropdown';
+import { TableModule } from 'primeng-lts/table';
 
-import { CatalogoUnidadesRoutingModule } from './catalogo-unidades-routing.module';
-import { CatalogoUnidadesComponent } from './componentes/catalogo-unidades/catalogo-unidades.component';
-import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
-import { AltaUnidadComponent } from './componentes/alta-unidad/alta-unidad.component';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
-import { EditarUnidadComponent } from './componentes/editar-unidad/editar-unidad.component';
+import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { CatalogoUnidadesRoutingModule } from './catalogo-unidades-routing.module';
+import { AltaUnidadComponent } from './componentes/alta-unidad/alta-unidad.component';
+import { CatalogoUnidadesComponent } from './componentes/catalogo-unidades/catalogo-unidades.component';
 import { DetalleUnidadComponent } from './componentes/detalle-unidad/detalle-unidad.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarUnidadComponent } from './componentes/editar-unidad/editar-unidad.component';
 import { CatalogoUnidadesService } from './servicios/catalogo-unidades.service';
 
 

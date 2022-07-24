@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { environment } from 'src/environments/environment';
 import { CargadorService } from '../cargador/cargador.service';
@@ -13,6 +14,8 @@ import { NombreArchivoPipe } from './nombre-archivo.pipe';
   styleUrls: ['./cargador-archivo.component.scss'],
 })
 export class CargadorArchivoComponent implements OnInit {
+
+  private form!:FormGroup;
 
   /**
    * Especifica un arreglo de string con las extensiones aceptadas.

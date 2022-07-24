@@ -1,19 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CatalogoUsuariosSitRoutingModule } from './catalogo-usuarios-sit-routing.module';
-import { CatalogoUsuariosSitComponent } from './componentes/catalogo-usuarios-sit/catalogo-usuarios-sit.component';
-import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DialogModule } from 'primeng-lts/dialog';
-import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
-import { TableModule } from 'primeng-lts/table';
-import { DropdownModule } from 'primeng-lts/dropdown';
+
 import { CardModule } from 'primeng-lts/card';
+import { DialogModule } from 'primeng-lts/dialog';
+import { DropdownModule } from 'primeng-lts/dropdown';
+import { TableModule } from 'primeng-lts/table';
+import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
+import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { CatalogoUsuariosSitRoutingModule } from './catalogo-usuarios-sit-routing.module';
 import { AltaUsuarioSitComponent } from './componentes/alta-usuario-sit/alta-usuario-sit.component';
-import { EditarUsuarioSitComponent } from './componentes/editar-usuario-sit/editar-usuario-sit.component';
+import { CatalogoUsuariosSitComponent } from './componentes/catalogo-usuarios-sit/catalogo-usuarios-sit.component';
 import { DetalleUsuarioSitComponent } from './componentes/detalle-usuario-sit/detalle-usuario-sit.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { EditarUsuarioSitComponent } from './componentes/editar-usuario-sit/editar-usuario-sit.component';
 
 
 @NgModule({
@@ -24,10 +23,9 @@ import { BrowserModule } from '@angular/platform-browser';
     DetalleUsuarioSitComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,  
     FormsModule,
     ReactiveFormsModule,
-  
     CatalogoUsuariosSitRoutingModule,
     SeparadorModule,
     CardModule,
@@ -35,8 +33,7 @@ import { BrowserModule } from '@angular/platform-browser';
     SeparadorModule,
     TableModule,
     BtnRegresarModule,
-    DialogModule,
-    
+    DialogModule
   ]
 })
 export class CatalogoUsuariosSitModule { }

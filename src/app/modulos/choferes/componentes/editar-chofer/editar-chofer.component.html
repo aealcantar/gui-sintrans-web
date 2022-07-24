@@ -132,7 +132,7 @@
                 <div class="col-md-6">
                     <label class="control-label">Licencia<span class="req">*</span>:</label>
                     <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
-                        [(archivo)]="archivo" (errorEmitter)="validarArchivo($event)">
+                        [(archivo)]="archivo" (errorEmitter)="validarArchivo($event)" [mostrarBtnDescargar]="true">
                     </app-cargador-archivo>
                 </div>
             </div>

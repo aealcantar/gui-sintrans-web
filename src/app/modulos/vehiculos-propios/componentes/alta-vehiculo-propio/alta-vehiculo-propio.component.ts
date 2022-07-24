@@ -199,13 +199,13 @@ export class AltaVehiculoPropioComponent implements OnInit {
   guardar() {
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let archivos = {
-      tarjetaCirculacion: this.tarjetaCirculacion[0],
-      verificacion: this.verificacion[0],
-      polizaSeguro: this.polizaSeguro[0],
-      fotografiaFrente: this.fotografiaFrente[0],
-      fotografiaLateralDerecho: this.fotografiaLateralDerecho[0],
-      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo[0],
-      fotografiaTrasera: this.fotografiaTrasera[0]
+      tarjetaCirculacion: this.tarjetaCirculacion[0].archivo,
+      verificacion: this.verificacion[0].archivo,
+      polizaSeguro: this.polizaSeguro[0].archivo,
+      fotografiaFrente: this.fotografiaFrente[0].archivo,
+      fotografiaLateralDerecho: this.fotografiaLateralDerecho[0].archivo,
+      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo[0].archivo,
+      fotografiaTrasera: this.fotografiaTrasera[0].archivo
     }
     this.cargadorService.activar();
     this.vehiculoPropioService.guardarRegistro(this.form.value, usuarioAutenticado?.matricula, archivos).subscribe(

@@ -12,42 +12,42 @@ export class CatalogoTarjetasElectronicasService extends BaseService<HttpRespues
         super(_http, `${environment.api.mssintetransTarjetaElectronica}`);
     }
 
-    guardar(tarjetaElectronica: any): Observable<HttpRespuesta<any>> {
-        const formData = new FormData();
-        formData.append('cveNumeroConvenio', tarjetaElectronica.numeroConvenio);
-        formData.append('nomEmpresa', tarjetaElectronica.nombreEmpresa);
-        formData.append('fecIniConvenio', tarjetaElectronica.fechaInicioConvenio);
-        formData.append('fecFinConvenio', tarjetaElectronica.fechaFinConvenio);
-        formData.append('impMensual', tarjetaElectronica.importeMensual);
-        formData.append('canLitrosLimiteMes', tarjetaElectronica.litrosLimite);
-        formData.append('idOoad', tarjetaElectronica.ooad);
-        formData.append('numFolioInicial', tarjetaElectronica.folioInicial);
-        formData.append('numFolioFinal', tarjetaElectronica.folioFinal);
-        formData.append('canKmsRecorridos', tarjetaElectronica.km);
-        formData.append('desEstatusTarjeta', tarjetaElectronica.estatus);
-        formData.append('cveMatricula', tarjetaElectronica.matricula);
-        return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica, formData)
-    }
+    // guardar(tarjetaElectronica: any): Observable<HttpRespuesta<any>> {
+    //     const formData = new FormData();
+    //     formData.append('cveNumeroConvenio', tarjetaElectronica.numeroConvenio);
+    //     formData.append('nomEmpresa', tarjetaElectronica.nombreEmpresa);
+    //     formData.append('fecIniConvenio', tarjetaElectronica.fechaInicioConvenio);
+    //     formData.append('fecFinConvenio', tarjetaElectronica.fechaFinConvenio);
+    //     formData.append('impMensual', tarjetaElectronica.importeMensual);
+    //     formData.append('canLitrosLimiteMes', tarjetaElectronica.litrosLimite);
+    //     formData.append('idOoad', tarjetaElectronica.ooad);
+    //     formData.append('numFolioInicial', tarjetaElectronica.folioInicial);
+    //     formData.append('numFolioFinal', tarjetaElectronica.folioFinal);
+    //     formData.append('canKmsRecorridos', tarjetaElectronica.km);
+    //     formData.append('desEstatusTarjeta', tarjetaElectronica.estatus);
+    //     formData.append('cveMatricula', tarjetaElectronica.matricula);
+    //     return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica, formData)
+    // }
 
-    actualizar(tarjetaElectronica: any): Observable<HttpRespuesta<any>> {
-        const formData = new FormData();
-        formData.append('cveNumeroConvenio', tarjetaElectronica.numeroConvenio);
-        formData.append('nomEmpresa', tarjetaElectronica.nombreEmpresa);
-        formData.append('fecIniConvenio', tarjetaElectronica.fechaInicioConvenio);
-        formData.append('fecFinConvenio', tarjetaElectronica.fechaFinConvenio);
-        formData.append('impMensual', tarjetaElectronica.importeMensual);
-        formData.append('canLitrosLimiteMes', tarjetaElectronica.litrosLimite);
-        formData.append('idOoad', tarjetaElectronica.ooad);
-        formData.append('numFolioInicial', tarjetaElectronica.folioInicial);
-        formData.append('numFolioFinal', tarjetaElectronica.folioFinal);
-        formData.append('canKmsRecorridos', tarjetaElectronica.km);
-        formData.append('desEstatusTarjeta', tarjetaElectronica.estatus);
-        formData.append('cveMatricula', tarjetaElectronica.matricula);
-        return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica + `${tarjetaElectronica.idTarjetaElectronica}`, formData)
-    }
+    // actualizar(tarjetaElectronica: any): Observable<HttpRespuesta<any>> {
+    //     const formData = new FormData();
+    //     formData.append('cveNumeroConvenio', tarjetaElectronica.numeroConvenio);
+    //     formData.append('nomEmpresa', tarjetaElectronica.nombreEmpresa);
+    //     formData.append('fecIniConvenio', tarjetaElectronica.fechaInicioConvenio);
+    //     formData.append('fecFinConvenio', tarjetaElectronica.fechaFinConvenio);
+    //     formData.append('impMensual', tarjetaElectronica.importeMensual);
+    //     formData.append('canLitrosLimiteMes', tarjetaElectronica.litrosLimite);
+    //     formData.append('idOoad', tarjetaElectronica.ooad);
+    //     formData.append('numFolioInicial', tarjetaElectronica.folioInicial);
+    //     formData.append('numFolioFinal', tarjetaElectronica.folioFinal);
+    //     formData.append('canKmsRecorridos', tarjetaElectronica.km);
+    //     formData.append('desEstatusTarjeta', tarjetaElectronica.estatus);
+    //     formData.append('cveMatricula', tarjetaElectronica.matricula);
+    //     return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica + `${tarjetaElectronica.idTarjetaElectronica}`, formData)
+    // }
 
-    buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {
-        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ooad=${ooad}&ecco=${ecco}`)
+    buscarPorFiltros(pagina: number, tamanio: number, convenio: string): Observable<HttpRespuesta<any>> {
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica + `/?pagina=${pagina}&tamanio=${tamanio}&numConvenio=${convenio}`)
     }
 
     obtenerCatalogoEstatus() {

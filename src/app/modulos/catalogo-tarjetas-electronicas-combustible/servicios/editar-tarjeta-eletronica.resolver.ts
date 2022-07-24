@@ -14,7 +14,7 @@ export class EditarTarjetaElectronicaResolver implements Resolve<any>{
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         const idTarjetaElectronica = route.paramMap.get('idTarjeta');
-        const tarjetaElectronica$ = this.catalogoTarjetasElectronicasService.buscarElementoPorId(idTarjetaElectronica);
+        const tarjetaElectronica$ = this.catalogoTarjetasElectronicasService.buscarPorId(idTarjetaElectronica);
         let pagina = 0;
         let tamanio = 100;
         const catOoad$ = this.catalogosService.obtenerCatalogoOoad(pagina, tamanio);

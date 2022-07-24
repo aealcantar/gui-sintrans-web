@@ -7,6 +7,7 @@ import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Ooad } from 'src/app/modelos/ooad.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
 import { CatalogoTarjetasElectronicasService } from '../../servicios/catalogo-tarjetas-eletronicas.service';
 
 @Component({
@@ -73,19 +74,22 @@ export class AltaTarjetaElectronicaCombustibleComponent implements OnInit {
 
   guardar(): void {
     this.cargadorService.activar();
+    let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let tarjetaElectronica: any = {
-      numeroConvenio: this.form.get("numeroConvenio")?.value,
-      nombreEmpresa: this.form.get("nombreEmpresa")?.value,
-      importeMensual: this.form.get("importeMensual")?.value,
-      fechaInicioConvenio: this.datePipe.transform(this.form.get("fechaInicioConvenio")?.value, 'YYYY-MM-dd'),
-      fechaFinConvenio: this.datePipe.transform(this.form.get("fechaFinConvenio")?.value, 'YYYY-MM-dd'),
-      litrosLimite: this.form.get("litrosLimite")?.value,
-      ooad: this.form.get("ooad")?.value,
-      folioInicial: this.form.get("folioInicial")?.value,
-      folioFinal: this.form.get("folioFinal")?.value,
-      km: this.form.get("km")?.value,
-      estatus: this.form.get("estatus")?.value,
-      matricula: "0123456789" //Matricula del Usuario Logueado
+      cveNumeroConvenio: this.form.get("numeroConvenio")?.value,
+      nomEmpresa: this.form.get("nombreEmpresa")?.value,
+      impMensual: this.form.get("importeMensual")?.value,
+      fecIniConvenio: this.datePipe.transform(this.form.get("fechaInicioConvenio")?.value, 'YYYY-MM-dd'),
+      fecFinConvenio: this.datePipe.transform(this.form.get("fechaFinConvenio")?.value, 'YYYY-MM-dd'),
+      canLitrosLimiteMes: this.form.get("litrosLimite")?.value,
+      idOoad: {
+        idOoad: this.form.get("ooad")?.value
+      },
+      numFolioInicial: this.form.get("folioInicial")?.value,
+      numFolioFinal: this.form.get("folioFinal")?.value,
+      canKmsRecorridos: this.form.get("km")?.value,
+      desEstatusTarjeta: this.form.get("estatus")?.value,
+      cveMatricula: usuarioAutenticado.matricula
     };
     this.tarjetaElectronicaService.guardar(tarjetaElectronica).subscribe(
       (respuesta) => {

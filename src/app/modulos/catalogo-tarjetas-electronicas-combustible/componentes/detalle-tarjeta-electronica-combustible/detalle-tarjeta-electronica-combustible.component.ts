@@ -32,7 +32,7 @@ export class DetalleTarjetaElectronicaCombustibleComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    let tarjetaElectronica: TarjetaElectronica = respuesta[this.POSICION_TARJETA_ELECTRONICA].datos[0];
+    let tarjetaElectronica: any = respuesta[this.POSICION_TARJETA_ELECTRONICA].datos;
     this.idTarjetaElectronica = tarjetaElectronica.idTarjetaElectronica;
     this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].datos.map(
       (ooad: Ooad) => ({

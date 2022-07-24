@@ -20,6 +20,7 @@ export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit 
   respuesta!: HttpRespuesta<any> | null;
   tarjetasElectronicas: TarjetaElectronica[] = [];
   tarjetaElectronicaSeleccionada: TarjetaElectronica | null = null;
+  numeroConvenio: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +31,45 @@ export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit 
 
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data["respuesta"];
-    this.tarjetasElectronicas = this.respuesta!.datos;
+    this.tarjetasElectronicas = this.respuesta!.datos.content;
+  }
+
+  limpiar(): void {
+    this.cargadorService.activar();
+    this.numeroConvenio = "";
+    this.inicioPagina = 0;
+    this.tarjetaElectronicaService.buscarPorFiltros(0, 10, this.numeroConvenio).subscribe(
+      (respuesta) => {
+        this.tarjetasElectronicas = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.tarjetasElectronicas = this.respuesta!.datos?.content;
+        this.cargadorService.desactivar();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.cargadorService.desactivar();
+        this.alertaService.mostrar('error', error.message);
+      }
+    );
+  }
+
+  buscar(): void {
+    this.cargadorService.activar();
+    this.tarjetaElectronicaService.buscarPorFiltros(0, 10, this.numeroConvenio).subscribe(
+      (respuesta) => {
+        this.tarjetasElectronicas = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.tarjetasElectronicas = this.respuesta!.datos?.content;
+        this.cargadorService.desactivar();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.cargadorService.desactivar();
+        this.alertaService.mostrar('error', error.message);
+      }
+    );
   }
 
   mostrarModalEliminar(tarjetaElectronica: TarjetaElectronica): void {
@@ -63,12 +102,12 @@ export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit 
     let pagina = Math.floor(inicio / 10);
     let tamanio = event.rows;
     if(tamanio !== undefined) {
-      this.tarjetaElectronicaService.buscarPorPagina(pagina, tamanio).subscribe(
+      this.tarjetaElectronicaService.buscarPorFiltros(pagina, tamanio, '').subscribe(
         (respuesta) => {
           this.tarjetasElectronicas = [];
           this.respuesta = null;
           this.respuesta = respuesta;
-          this.tarjetasElectronicas = this.respuesta!.datos;
+          this.tarjetasElectronicas = this.respuesta!.datos?.content;
           this.ordenar(event);
         },
         (error: HttpErrorResponse) => {

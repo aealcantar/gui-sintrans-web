@@ -8,6 +8,7 @@ import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Ooad } from 'src/app/modelos/ooad.interface';
 import { TarjetaElectronica } from 'src/app/modelos/tarjeta-electronica.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
 import { CatalogoTarjetasElectronicasService } from '../../servicios/catalogo-tarjetas-eletronicas.service';
 
 @Component({
@@ -40,7 +41,7 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
 
   ngOnInit(): void {
     let respuesta = this.route.snapshot.data["respuesta"];
-    let tarjetaElectronica: TarjetaElectronica = respuesta[this.POSICION_TARJETA_ELECTRONICA].datos[0];
+    let tarjetaElectronica: TarjetaElectronica = respuesta[this.POSICION_TARJETA_ELECTRONICA].datos;
     this.catOoad = respuesta[this.POSICION_CATALOGO_OOAD].datos.map(
       (ooad: Ooad) => ({
         label: ooad.nomOoad,
@@ -58,7 +59,7 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
     this.inicializarForm(tarjetaElectronica);
   }
 
-  inicializarForm(tarjetaElectronica: TarjetaElectronica): void {
+  inicializarForm(tarjetaElectronica: any): void {
     this.form = this.formBuilder.group({
       idTarjetaElectronica: new FormControl({ value: tarjetaElectronica.idTarjetaElectronica, disabled: true}),
       numeroConvenio: new FormControl(tarjetaElectronica.cveNumeroConvenio, Validators.required),
@@ -67,7 +68,7 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
       fechaInicioConvenio: new FormControl(this.datePipe.transform(tarjetaElectronica.fecIniConvenio, 'dd/MM/YYYY'), Validators.required),
       fechaFinConvenio: new FormControl(this.datePipe.transform(tarjetaElectronica.fecFinConvenio, 'dd/MM/YYYY'), Validators.required),
       litrosLimite: new FormControl(tarjetaElectronica.canLitrosLimiteMes, Validators.required),
-      ooad: new FormControl(tarjetaElectronica.idOoad, Validators.required),
+      ooad: new FormControl(tarjetaElectronica.idOoad.idOoad, Validators.required),
       folioInicial: new FormControl(tarjetaElectronica.numFolioInicial, Validators.required),
       folioFinal: new FormControl(tarjetaElectronica.numFolioFinal, Validators.required),
       km: new FormControl(tarjetaElectronica.canKmsRecorridos, Validators.required),
@@ -77,22 +78,25 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
 
   editar(): void {
     this.cargadorService.activar();
+    let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let tarjetaElectronica: any = {
-      idTarjetaElectronica: this.form.get("idTarjetaElectronica")?.value, 
-      numeroConvenio: this.form.get("numeroConvenio")?.value,
-      nombreEmpresa: this.form.get("nombreEmpresa")?.value,
-      importeMensual: this.form.get("importeMensual")?.value,
-      fechaInicioConvenio: this.datePipe.transform(this.form.get("fechaInicioConvenio")?.value, 'YYYY-MM-dd'),
-      fechaFinConvenio: this.datePipe.transform(this.form.get("fechaFinConvenio")?.value, 'YYYY-MM-dd'),
-      litrosLimite: this.form.get("litrosLimite")?.value,
-      ooad: this.form.get("ooad")?.value,
-      folioInicial: this.form.get("folioInicial")?.value,
-      folioFinal: this.form.get("folioFinal")?.value,
-      km: this.form.get("km")?.value,
-      estatus: this.form.get("estatus")?.value,
-      matricula: "0123456789" //Matricula del Usuario Logueado
+      // idTarjetaElectronica: this.form.get("idTarjetaElectronica")?.value, 
+      cveNumeroConvenio: this.form.get("numeroConvenio")?.value,
+      nomEmpresa: this.form.get("nombreEmpresa")?.value,
+      impMensual: this.form.get("importeMensual")?.value,
+      fecIniConvenio: this.datePipe.transform(this.form.get("fechaInicioConvenio")?.value, 'YYYY-MM-dd'),
+      fecFinConvenio: this.datePipe.transform(this.form.get("fechaFinConvenio")?.value, 'YYYY-MM-dd'),
+      canLitrosLimiteMes: this.form.get("litrosLimite")?.value,
+      idOoad: {
+        idOoad: this.form.get("ooad")?.value
+      },
+      numFolioInicial: this.form.get("folioInicial")?.value,
+      numFolioFinal: this.form.get("folioFinal")?.value,
+      canKmsRecorridos: this.form.get("km")?.value,
+      desEstatusTarjeta: this.form.get("estatus")?.value,
+      cveMatricula: usuarioAutenticado.matricula
     };
-    this.tarjetaElectronicaService.actualizar(tarjetaElectronica).subscribe(
+    this.tarjetaElectronicaService.actualizar(this.form.get("idTarjetaElectronica")?.value, tarjetaElectronica).subscribe(
       (respuesta) => {
         this.alertaService.mostrar("exito", this.ACTUALIZA_TARJETA);
         this.cargadorService.desactivar();

@@ -12,6 +12,7 @@ export class ListaTarjetaElectronicaResolver implements Resolve<HttpRespuesta<an
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpRespuesta<any>> {
         let pagina = 0;
         let tamanio = 10;
-        return this.catalogoTarjetasElectronicasService.buscarPorPagina(pagina, tamanio);
+        let convenio = '';
+        return this.catalogoTarjetasElectronicasService.buscarPorFiltros(pagina, tamanio, convenio);
     }
 }

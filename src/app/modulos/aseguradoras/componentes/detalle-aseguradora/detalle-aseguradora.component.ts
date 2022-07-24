@@ -18,7 +18,7 @@ export class DetalleAseguradoraComponent implements OnInit {
 
   constructor(private router: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe,) {
     this.form = this.fb.group({
-      nombreAseguradora: new FormControl({ value: '', disabled: true },),
+      nombreAseguradora: new FormControl({ value: '', disabled: true }),
       poliza: new FormControl({ value: '', disabled: true }),
       fechaVencimiento: new FormControl({ value: '', disabled: true }),
       costoPoliza: new FormControl({ value: '', disabled: true }),

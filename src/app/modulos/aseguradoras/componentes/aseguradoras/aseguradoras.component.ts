@@ -32,7 +32,6 @@ export class AseguradorasComponent implements OnInit {
   
   buscar() {
     this.aseguradoraService.obtenerAseguradoras(0, 10, this.form.controls['aseguradora'].value).subscribe(res => {
-      console.log(res)
       this.aseguradoras = []
       this.aseguradoras = res.datos.content
     })

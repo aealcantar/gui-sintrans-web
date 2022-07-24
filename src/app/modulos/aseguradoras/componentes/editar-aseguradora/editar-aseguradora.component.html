@@ -35,8 +35,7 @@
         </div>
         <div class="col-md-4">
           <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
-          <input class="form-control" id="costoPoliza" [maxlength]="10" formControlName="costoPoliza"
-            placeholder="Ingresar" type="text" />
+          <p-inputNumber [useGrouping]="false" mode="currency" currency="USD" locale="en-US" class="form-control" id="costoPoliza" formControlName="costoPoliza" [min]="0" [maxlength]="11" placeholder="Ingresar"></p-inputNumber>
           <span class="campos-obligatorios"
             *ngIf="f?.costoPoliza?.errors?.required && (f?.costoPoliza?.dirty || f?.costoPoliza?.touched)">*Campo
             obligatorio</span>
@@ -70,7 +69,7 @@
       <div class="flex justify-content-between mt-4">
         <span class="campos-obligatorios">*Campos obligatorios</span>
         <div>
-          <button class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
+          <button type="button" class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
           <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid || !estaArchivoCargado">Guardar</button>
         </div>
       </div>

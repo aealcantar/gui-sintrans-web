@@ -14,25 +14,34 @@
       <div class="row mb-4">
         <div class="col-md-6">
           <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
-          <input class="form-control" id="matricula" formControlName="matricula" placeholder="Ingresar" type="text"/>
-            <span class="campos-obligatorios" *ngIf="f.matricula?.errors?.required && (f.matricula?.dirty || f.matricula?.touched)">*Campo obligatorio</span>
+          <p-inputNumber [useGrouping]="false" class="form-control" id="matricula" formControlName="matricula" [min]="0" [maxlength]="12" placeholder="Ingresar"></p-inputNumber>
+          <span class="campos-obligatorios" *ngIf="f.matricula?.errors?.required && (f.matricula?.dirty || f.matricula?.touched)">*Campo obligatorio</span>
         </div>
         <div class="col-md-6">
           <label class="control-label" for="nombre">Nombre<span class="req">*</span>:</label>
-          <input class="form-control" formControlName="nombreUsuario" id="nombre" placeholder="Ingresar" type="text"/>
-            <span class="campos-obligatorios" *ngIf="f.nombreUsuario?.errors?.required && (f.nombreUsuario?.dirty || f.nombreUsuario?.touched)">*Campo obligatorio</span>
+          <input class="form-control" formControlName="nombreUsuario" id="nombre" [maxlength]="50"
+            placeholder="Ingresar" type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f.nombreUsuario?.errors?.required && (f.nombreUsuario?.dirty || f.nombreUsuario?.touched)">*Campo
+            obligatorio</span>
         </div>
       </div>
       <div class="row mb-4">
         <div class="col-md-6">
           <label class="control-label" for="app">Apellido paterno<span class="req">*</span>:</label>
-          <input class="form-control" id="app" formControlName="apellidoPaterno" placeholder="Ingresar" type="text"/>
-            <span class="campos-obligatorios" *ngIf="f.apellidoPaterno?.errors?.required && (f.apellidoPaterno?.dirty || f.apellidoPaterno?.touched)">*Campo obligatorio</span>
+          <input class="form-control" id="app" formControlName="apellidoPaterno" [maxlength]="50" placeholder="Ingresar"
+            type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f.apellidoPaterno?.errors?.required && (f.apellidoPaterno?.dirty || f.apellidoPaterno?.touched)">*Campo
+            obligatorio</span>
         </div>
         <div class="col-md-6">
           <label class="control-label" for="apm">Apellido materno<span class="req">*</span>:</label>
-          <input class="form-control" id="apm" formControlName="apellidoMaterno" placeholder="Ingresar" type="text"/>
-            <span class="campos-obligatorios" *ngIf="f.apellidoMaterno?.errors?.required && (f.apellidoMaterno?.dirty || f.apellidoMaterno?.touched)">*Campo obligatorio</span>
+          <input class="form-control" id="apm" formControlName="apellidoMaterno" [maxlength]="50" placeholder="Ingresar"
+            type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f.apellidoMaterno?.errors?.required && (f.apellidoMaterno?.dirty || f.apellidoMaterno?.touched)">*Campo
+            obligatorio</span>
         </div>
       </div>
       <hr class="separador-small" />
@@ -46,13 +55,15 @@
           <label class="control-label" for="ooad">OOAD o Delegación<span class="req">*</span>:</label>
           <p-dropdown id="ooad" class="form-control" optionLabel="nombreOoad" formControlName="ooad"
             optionValue="idOoad" (onChange)="onChangeOoad()" [options]="ooads" placeholder="Seleccionar"></p-dropdown>
-            <span class="campos-obligatorios" *ngIf="f.ooad?.errors?.required && (f.ooad?.dirty || f.ooad?.touched)">*Campo obligatorio</span>
+          <span class="campos-obligatorios"
+            *ngIf="f.ooad?.errors?.required && (f.ooad?.dirty || f.ooad?.touched)">*Campo obligatorio</span>
         </div>
         <div class="col-md-6">
           <label class="control-label" for="unidadAdscripcion">Unidad de adscripción<span class="req">*</span>:</label>
           <p-dropdown id="unidadAdscripcion" class="form-control" [options]="unidades" formControlName="unidad"
             optionLabel="nombreUnidad" optionValue="idUnidad" placeholder="Seleccionar"></p-dropdown>
-            <span class="campos-obligatorios" *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span>
+          <span class="campos-obligatorios"
+            *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span>
         </div>
       </div>
 
@@ -61,33 +72,38 @@
           <label class="control-label" for="rol">Rol<span class="req">*</span>:</label>
           <p-dropdown id="rol" class="form-control" optionLabel="descripcion" optionValue="idRol" [options]="roles"
             formControlName="idRol" placeholder="Seleccionar"></p-dropdown>
-            <span class="campos-obligatorios" *ngIf="f.idRol?.errors?.required && (f.idRol?.dirty || f.idRol?.touched)">*Campo obligatorio</span>
+          <span class="campos-obligatorios"
+            *ngIf="f.idRol?.errors?.required && (f.idRol?.dirty || f.idRol?.touched)">*Campo obligatorio</span>
         </div>
         <div class="col-md-3">
           <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
           <p-dropdown id="estatus" class="form-control" [options]="estatus" optionLabel="label" optionValue="label"
             formControlName="estatusUsuario" placeholder="Seleccionar">
           </p-dropdown>
-          <span class="campos-obligatorios" *ngIf="f.estatusUsuario?.errors?.required && (f.estatusUsuario?.dirty || f.estatusUsuario?.touched)">*Campo obligatorio</span>
+          <span class="campos-obligatorios"
+            *ngIf="f.estatusUsuario?.errors?.required && (f.estatusUsuario?.dirty || f.estatusUsuario?.touched)">*Campo
+            obligatorio</span>
         </div>
         <div class="col-md-3">
           <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
           <p-dropdown id="motivo" class="form-control" [options]="motivos" formControlName="motivo" optionLabel="label"
             optionValue="label" placeholder="Seleccionar"></p-dropdown>
-            <span class="campos-obligatorios" *ngIf="f.motivo?.errors?.required && (f.motivo?.dirty || f.motivo?.touched)">*Campo obligatorio</span>
+          <span class="campos-obligatorios"
+            *ngIf="f.motivo?.errors?.required && (f.motivo?.dirty || f.motivo?.touched)">*Campo obligatorio</span>
         </div>
         <div class="col-md-3">
           <label class="control-label" for="password">Password<span class="req">*</span>:</label>
-          <input class="form-control" id="password" formControlName="password" placeholder="Ingresar" type="password" />
-            <span class="campos-obligatorios" *ngIf="f.password?.errors?.required && (f.password?.dirty || f.password?.touched)">*Campo obligatorio</span>
+          <input class="form-control" id="password" formControlName="password" [maxlength]="8" placeholder="Ingresar"
+            type="password" />
+          <span class="campos-obligatorios"
+            *ngIf="f.password?.errors?.required && (f.password?.dirty || f.password?.touched)">*Campo obligatorio</span>
         </div>
       </div>
       <div class="flex justify-content-between mt-4">
         <span class="campos-obligatorios">*Campos obligatorios</span>
         <div>
           <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-          <button class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid"
-            (click)="guardar()">Guardar</button>
+          <button class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid" (click)="guardar()">Guardar</button>
         </div>
       </div>
     </form>

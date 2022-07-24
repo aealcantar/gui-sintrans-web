@@ -65,7 +65,7 @@ export class AltaChoferesComponent implements OnInit {
       idChofer: new FormControl(null),
       nombreChofer: new FormControl({ value: '', disabled: true }),
       unidadAdscripcion: new FormControl({ value: '', disabled: true }),
-      idUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      idUnidadAdscripcion: new FormControl({ value: null, disabled: true }),
       unidadOoad: new FormControl({ value: '', disabled: true }),
       categoria: new FormControl({ value: '', disabled: true }),
       matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
@@ -97,6 +97,7 @@ export class AltaChoferesComponent implements OnInit {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
               this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('idUnidadAdscripcion')?.setValue(6);
               this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();

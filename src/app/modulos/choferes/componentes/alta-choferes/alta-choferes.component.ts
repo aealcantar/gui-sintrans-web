@@ -62,7 +62,7 @@ export class AltaChoferesComponent implements OnInit {
 
   inicializarFormulario(matricula: string) {
     this.editForm = this.fb.group({
-      idChofer: new FormControl(''),
+      idChofer: new FormControl(null),
       nombreChofer: new FormControl({ value: '', disabled: true }),
       unidadAdscripcion: new FormControl({ value: '', disabled: true }),
       idUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
@@ -70,12 +70,12 @@ export class AltaChoferesComponent implements OnInit {
       categoria: new FormControl({ value: '', disabled: true }),
       matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
       matricula: new FormControl(matricula, Validators.required),
-      fecInicioContrato: new FormControl(''),
-      fecFinContrato: new FormControl(''),
-      fecIniIncapacidad: new FormControl(''),
-      fecFinIncapacidad: new FormControl(''),
+      fecInicioContrato: new FormControl(null),
+      fecFinContrato: new FormControl(null),
+      fecIniIncapacidad: new FormControl(null),
+      fecFinIncapacidad: new FormControl(null),
       estatusChofer: new FormControl(null, Validators.required),
-      motivo: new FormControl(''),
+      motivo: new FormControl(null),
       licencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
       tipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
@@ -122,18 +122,19 @@ export class AltaChoferesComponent implements OnInit {
     if (this.editForm.valid) {
       let chofer: Chofer = {
         ...data,
+        motivo: String(this.editForm.get('motivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
-          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY/MM/DD'),
         fecFinContrato: this.editForm.get('fecFinContrato')?.value &&
-          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY/MM/DD'),
         fecVigencia: this.editForm.get('fecVigencia')?.value &&
-          moment(this.editForm.get('fecVigencia')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecVigencia')?.value).format('YYYY/MM/DD'),
         fecExpedicion: this.editForm.get('fecExpedicion')?.value &&
-          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY/MM/DD'),
         fecIniIncapacidad: this.editForm.get('fecIniIncapacidad')?.value &&
-          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY/MM/DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
-          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
       };
 
       console.log(chofer);

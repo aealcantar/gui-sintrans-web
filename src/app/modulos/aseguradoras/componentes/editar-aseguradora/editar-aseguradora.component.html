@@ -1,86 +1,81 @@
 <div class="container mb-4">
-    <div class="flex align-items-center">
-        <app-btn-regresar routerLink="../.."></app-btn-regresar>
-        <app-separador class="flex-grow-1" texto="Editar aseguradora"></app-separador>
-    </div>
+  <div class="flex align-items-center">
+    <app-btn-regresar routerLink="../.."></app-btn-regresar>
+    <app-separador class="flex-grow-1" texto="Editar aseguradora"></app-separador>
+  </div>
+  <form [formGroup]="form" (submit)="editar()">
     <p-card>
-        <form [formGroup]="form" (submit)="guardar()">
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-8">
-                    <label class="control-label" for="nombreAseguradora">Nombre de aseguradora<span
-                            class="req">*</span>:</label>
-                    <input class="form-control" formControlName="nombreAseguradora" id="nombreAseguradora"
-                        placeholder="Ingresar" type="text">
-                    <span class="campos-obligatorios"
-                        *ngIf="f?.nombreAseguradora?.errors?.required && (f?.nombreAseguradora?.dirty || f?.nombreAseguradora?.touched)">*Campo
-                        obligatorio</span>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label" for="poliza">Póliza<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="poliza" id="poliza" placeholder="Ingresar" type="text">
-                    <span class="campos-obligatorios"
-                        *ngIf="f?.poliza?.errors?.required && (f?.poliza?.dirty || f?.poliza?.touched)">*Campo
-                        obligatorio</span>
-                </div>
-            </div>
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <label class="control-label" for="nombreAseguradora">Nombre de aseguradora<span class="req">*</span>:</label>
+          <input class="form-control" formControlName="nombreAseguradora" [maxlength]="150" id="nombreAseguradora"
+            placeholder="Ingresar" type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f?.nombreAseguradora?.errors?.required && (f?.nombreAseguradora?.dirty || f?.nombreAseguradora?.touched)">*Campo
+            obligatorio</span>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label" for="poliza">Póliza<span class="req">*</span>:</label>
+          <input class="form-control" formControlName="poliza" [maxlength]="20" id="poliza" placeholder="Ingresar"
+            type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f?.poliza?.errors?.required && (f?.poliza?.dirty || f?.poliza?.touched)">*Campo obligatorio</span>
+        </div>
+      </div>
 
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-4">
-                    <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span
-                            class="req">*</span>:</label>
-                    <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control"
-                        [showIcon]="true" placeholder="dd/mmm/aaaa">
-                    </p-calendar>
-                    <span class="campos-obligatorios"
-                        *ngIf="f?.fechaVencimiento?.errors?.required && (f?.fechaVencimiento?.dirty || f?.fechaVencimiento?.touched)">*Campo
-                        obligatorio</span>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="costoPoliza" id="costoPoliza" placeholder="Ingresar"
-                        type="text">
-                    <span class="campos-obligatorios"
-                        *ngIf="f?.costoPoliza?.errors?.required && (f?.costoPoliza?.dirty || f?.costoPoliza?.touched)">*Campo
-                        obligatorio</span>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label" for="tipoCobertura">Tipo de cobertura<span
-                            class="req">*</span>:</label>
-                    <input class="form-control" formControlName="tipoCobertura" id="tipoCobertura"
-                        placeholder="Ingresar" type="text">
-                    <span class="campos-obligatorios"
-                        *ngIf="f?.tipoCobertura?.errors?.required && (f?.tipoCobertura?.dirty || f?.tipoCobertura?.touched)">*Campo
-                        obligatorio</span>
-                </div>
-            </div>
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
+          <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control"
+            [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+          </p-calendar>
+          <span class="campos-obligatorios"
+            *ngIf="f?.fechaVencimiento?.errors?.required && (f?.fechaVencimiento?.dirty || f?.fechaVencimiento?.touched)">*Campo
+            obligatorio</span>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
+          <input class="form-control" id="costoPoliza" [maxlength]="10" formControlName="costoPoliza"
+            placeholder="Ingresar" type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f?.costoPoliza?.errors?.required && (f?.costoPoliza?.dirty || f?.costoPoliza?.touched)">*Campo
+            obligatorio</span>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label" for="tipoCobertura">Tipo de cobertura<span class="req">*</span>:</label>
+          <input class="form-control" id="tipoCobertura" formControlName="tipoCobertura" [maxlength]="50"
+            placeholder="Ingresar" type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f?.tipoCobertura?.errors?.required && (f?.tipoCobertura?.dirty || f?.tipoCobertura?.touched)">*Campo
+            obligatorio</span>
+        </div>
+      </div>
 
-            <div class="row flex mb-4">
-                <div class="col-md-8">
-                    <label class="control-label" for="tipoSiniestro">Tipo de siniestro<span
-                            class="req">*</span>:</label>
-                    <input class="form-control" formControlName="tipoSiniestro" id="tipoSiniestro"
-                        placeholder="Ingresar" type="text">
-                    <span class="campos-obligatorios"
-                        *ngIf="f?.tipoSiniestro?.errors?.required && (f?.tipoSiniestro?.dirty || f?.tipoSiniestro?.touched)">*Campo
-                        obligatorio</span>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Póliza de seguro<span class="req">*</span>:</label>
-                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
-                        [(archivo)]="archivo">
-                    </app-cargador-archivo>
-                </div>
-            </div>
-
-            <div class="flex justify-content-between mt-4">
-                <span class="campos-obligatorios">*Campos obligatorios</span>
-                <div>
-                    <button class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
-                    <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="form.invalid">Guardar</button>
-                </div>
-            </div>
-        </form>
+      <div class="row flex mb-4">
+        <div class="col-md-8">
+          <label class="control-label" for="tipoSiniestro">Tipo de siniestro<span class="req">*</span>:</label>
+          <input class="form-control" id="tipoSiniestro" formControlName="tipoSiniestro" placeholder="Ingresar"
+            type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f?.tipoSiniestro?.errors?.required && (f?.tipoSiniestro?.dirty || f?.tipoSiniestro?.touched)">*Campo
+            obligatorio</span>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label">Póliza de seguro<span class="req">*</span>:</label>
+          <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']" [(archivo)]="archivo">
+          </app-cargador-archivo>
+          <span class="campos-obligatorios" *ngIf="!archivo">*Campo obligatorio</span>
+        </div>
+      </div>
+      <div class="flex justify-content-between mt-4">
+        <span class="campos-obligatorios">*Campos obligatorios</span>
+        <div>
+          <button class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid || !estaArchivoCargado">Guardar</button>
+        </div>
+      </div>
     </p-card>
+  </form>
 
 
 </div>

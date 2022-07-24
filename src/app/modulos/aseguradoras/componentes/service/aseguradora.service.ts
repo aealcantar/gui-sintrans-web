@@ -22,27 +22,28 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
     };
     return this._http.get<any>(`${this._base}`, opt);
   }
+
   consultaPaginada(page: any, size: any, filtros?: any) {
     return this._http.post<any>(`${this._base}/${page}/${size}`, filtros);
   }
-  findById(id: any) {
-    console.log(`consultando ${id}`);
+
+  consultarPorId(id: any) {
     return this._http.get<any>(`${this._base}/id/${id}`);
   }
+
   save(aseguradora: any, file: any) {
-    let data = new FormData();
+    let formData = new FormData();
     const datos = JSON.stringify(aseguradora);
-    console.log(datos);
-    data.append('aseguradora', datos);
-    data.append('archivo', file);
-    console.log(data);
-    return this._http.post<any>(`${this._base}`, data);
+    formData.append('aseguradora', datos);
+    formData.append('archivo', file);
+    return this._http.post<any>(`${this._base}`, formData);
   }
 
-  delete(aseguradoraId: any) {
+  eliminar(aseguradoraId: any) {
     return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
   }
-  update(aseguradoraId: any, aseguradora: any, archivo: any) {
+
+  actualizarAseguradora(aseguradoraId: any, aseguradora: any, archivo: any) {
     const formData = new FormData()
     formData.append('archivo', archivo)
     formData.append('aseguradora', JSON.stringify(aseguradora))

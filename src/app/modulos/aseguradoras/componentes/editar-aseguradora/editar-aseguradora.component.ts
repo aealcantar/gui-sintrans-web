@@ -13,10 +13,11 @@ import { AseguradoraService } from '../service/aseguradora.service';
   providers: [DatePipe]
 })
 export class EditarAseguradoraComponent implements OnInit {
-  
+
   readonly MENSAJE = 'La aseguradora ha sido guardada exitosamente.'
   respuesta: any;
   aseguradora: any;
+  idAseguradora!: number;
   form;
   archivo!: CustomFile;
 
@@ -48,32 +49,38 @@ export class EditarAseguradoraComponent implements OnInit {
   ngOnInit(): void {
     this.respuesta = this.router.snapshot.data['respuesta']
     const aseguradora = this.respuesta.datos;
+    this.idAseguradora = aseguradora.idAseguradora;
     this.archivo = {
       ruta: aseguradora.rutaPoliza
     };
-    this.form.controls['idAseguradora'].setValue(aseguradora.idAseguradora)
-    this.form.controls['nombreAseguradora'].setValue(aseguradora.nombreAseguradora)
-    this.form.controls['poliza'].setValue(aseguradora.poliza)
-    this.form.controls['fechaVencimiento'].setValue(this.datePipe.transform(aseguradora.fechaVencimiento, 'dd/MM/YYYY'))
-    this.form.controls['fechaExpiracion'].setValue(aseguradora.fechaExpiracion)
-    this.form.controls['costoPoliza'].setValue(aseguradora.costoPoliza)
-    this.form.controls['tipoCobertura'].setValue(aseguradora.tipoCobertura)
-    this.form.controls['tipoSiniestro'].setValue(aseguradora.tipoSiniestro)
-    this.form.controls['matricula'].setValue(aseguradora.matricula)
-    this.form.controls['sistema'].setValue(aseguradora.sistema)
-    this.form.controls['nombreArchivo'].setValue(aseguradora.nombreArchivo)
-    this.form.controls['archivoLocal'].setValue(aseguradora.archivoLocal)
-    this.form.controls['rutaPoliza'].setValue(aseguradora.rutaPoliza)
+    this.inicializarForm(aseguradora);
   }
 
-  guardar() {
+  inicializarForm(aseguradora: any): void {
+    this.form = this.fb.group({
+      nombreAseguradora: new FormControl(aseguradora.nombreAseguradora, Validators.required),
+      poliza: new FormControl(aseguradora.poliza, Validators.required),
+      fechaVencimiento: new FormControl((aseguradora.fechaVencimiento ? new Date(aseguradora.fechaVencimiento) : null), Validators.required),
+      fechaExpiracion: new FormControl(aseguradora.fechaExpiracion, Validators.required),
+      costoPoliza: new FormControl(aseguradora.costoPoliza, Validators.required),
+      tipoCobertura: new FormControl(aseguradora.tipoCobertura, Validators.required),
+      tipoSiniestro: new FormControl(aseguradora.tipoSiniestro, Validators.required),
+      matricula: new FormControl(aseguradora.matricula),
+      sistema: new FormControl(aseguradora.sistema),
+      nombreArchivo: new FormControl(aseguradora.nombreArchivo),
+      archivoLocal: new FormControl(aseguradora.archivoLocal),
+      rutaPoliza: new FormControl(aseguradora.rutaPoliza)
+    });
+  }
+
+  editar(): void {
     const data = this.form.getRawValue()
     const file = this.archivo.archivo
     data.fechaExpiracion = this.datePipe.transform(
       data.fechaExpiracion,
       'dd/mm/yyyy'
     );
-    this.aseguradoraService.update(data.idAseguradora, data, file).subscribe(res => {
+    this.aseguradoraService.actualizarAseguradora(data.idAseguradora, data, file).subscribe(res => {
       this.alertService.mostrar('exito', this.MENSAJE)
       this.route.navigate(["../../"], { relativeTo: this.router });
     })
@@ -82,4 +89,13 @@ export class EditarAseguradoraComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+
+  get estaArchivoCargado(): boolean {
+    let archivosCargados: boolean = false;
+    if (this.archivo) {
+      archivosCargados = true;
+    }
+    return archivosCargados;
+  }
+
 }

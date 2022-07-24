@@ -7,6 +7,7 @@ import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
+import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
 import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
@@ -63,7 +64,8 @@ export class AltaVehiculoPropioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
-    private vehiculoPropioService: CatalogoVehiculosPropiosService
+    private vehiculoPropioService: CatalogoVehiculosPropiosService,
+    private unidadService: CatalogoUnidadesService
   ) { }
 
   ngOnInit(): void {
@@ -136,6 +138,17 @@ export class AltaVehiculoPropioComponent implements OnInit {
           value: tipoServicio.idTipoServicio
         }
       )
+    );
+  }
+
+  consultaDatosPorIdUnidad(): void {
+    this.unidadService.buscarPorId(this.form.get('unidad')?.value).subscribe(
+      (respuesta) => {
+        this.form.controls['cp'].setValue(respuesta.datos.codigoPostal.cveCodigoPostal);
+        this.form.controls['entidad'].setValue(respuesta.datos.codigoPostal.idMunicipio.entidades.nomEntidad);
+        this.form.controls['municipio'].setValue(respuesta.datos.codigoPostal.idMunicipio.nomMunicipio);
+        this.form.controls['colonia'].setValue(respuesta.datos.nomColonia);
+      }
     );
   }
 

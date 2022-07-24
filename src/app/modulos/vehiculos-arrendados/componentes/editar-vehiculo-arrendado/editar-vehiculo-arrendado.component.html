@@ -15,20 +15,24 @@
             <div class="row mb-4">
                 <div class="col-md-3">
                     <label class="control-label" for="ecco">ECCO<span class="req">*</span>:</label>
-                    <input formControlName="ecco" class="form-control" id="ecco" placeholder="Ingresar" type="text" >
+                    <input formControlName="ecco" class="form-control" id="ecco" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.ecco?.errors?.required && (f.ecco?.dirty || f.ecco?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="noTarjeton">N° de tarjetón<span class="req">*</span>:</label>
                     <input formControlName="noTarjeton" class="form-control" id="noTarjeton" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.noTarjeton?.errors?.required && (f.noTarjeton?.dirty || f.noTarjeton?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="tipoVehiculo">Tipo de vehículo<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idTipoVehiculo" id="tipoVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idTipoVehiculo" id="tipoVehiculo" class="form-control" [options]="catTipoVehiculo" placeholder="Seleccionar">
+                        <span class="campos-obligatorios" *ngIf="f.idTipoVehiculo?.errors?.required && (f.idTipoVehiculo?.dirty || f.idTipoVehiculo?.touched)">*Campo obligatorio</span>
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="modelo">Modelo<span class="req">*</span>:</label>
-                    <input formControlName="modelo" class="form-control" id="modelo" placeholder="Ingresar" type="text">
+                    <p-inputNumber class="form-control" id="modelo" formControlName="modelo" [min]="0" [maxlength]="4" placeholder="Ingresar"></p-inputNumber>
+                    <span class="campos-obligatorios" *ngIf="f.modelo?.errors?.required && (f.modelo?.dirty || f.modelo?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -36,22 +40,26 @@
                 <div class="col-md-3">
                     <label class="control-label" for="clasifVehiculo">Clasificación del vehículo CONUEE<span
                             class="req">*</span>:</label>
-                    <p-dropdown formControlName="idClasifConuee"  id="clasifVehiculo" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idClasifConuee"  id="clasifVehiculo" class="form-control" (onChange)="llenarCatalogoTipoServicio($event)" [options]="catCONUEE" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idClasifConuee?.errors?.required && (f.idClasifConuee?.dirty || f.idClasifConuee?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="tipoServicio">Tipo de servicio<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idTipoServicio"  id="tipoServicio" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idTipoServicio"  id="tipoServicio" class="form-control" [options]="catTipoServicio" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idTipoServicio?.errors?.required && (f.idTipoServicio?.dirty || f.idTipoServicio?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="submarca">Submarca<span class="req">*</span>:</label>
                     <input formControlName="submarca" class="form-control" id="submarca" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.submarca?.errors?.required && (f.submarca?.dirty || f.submarca?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="cilindros">Cilindros<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idCilindro" id="cilindros" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idCilindro" id="cilindros" class="form-control" [options]="catCilindros" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idCilindro?.errors?.required && (f.idCilindro?.dirty || f.idCilindro?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -66,24 +74,25 @@
             <div class="row mb-4">
                 <div class="col-md-3">
                     <label class="control-label" for="combustible">Combustible<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idCombustible" id="combustible" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idCombustible" id="combustible" class="form-control" [options]="catCombustible" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idCombustible?.errors?.required && (f.idCombustible?.dirty || f.idCombustible?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
-                    <label class="control-label" for="cantidadCombustible">Cantidad de combustible por litro<span
-                            class="req">*</span>:</label>
-                    <p-dropdown formControlName="idCantCombustiblePorLitro" id="cantidadCombustible" class="form-control" [options]="ooad"
-                        placeholder="Seleccionar">
-                    </p-dropdown>
+                    <label class="control-label" for="cantidadCombustible">Cantidad de combustible por litro<span class="req">*</span>:</label>
+                    <p-inputNumber class="form-control" id="idCantCombustiblePorLitro" formControlName="idCantCombustiblePorLitro" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
+                    <span class="campos-obligatorios" *ngIf="f.idCantCombustiblePorLitro?.errors?.required && (f.idCantCombustiblePorLitro?.dirty || f.idCantCombustiblePorLitro?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="capPersonas">Cap. de personas<span class="req">*</span>:</label>
-                    <input formControlName="capacidadPersonas" class="form-control" id="capPersonas" placeholder="Ingresar" type="text">
+                    <p-inputNumber class="form-control" id="capPersonas" formControlName="capacidadPersonas" [min]="0" [maxlength]="3" placeholder="Ingresar"></p-inputNumber>
+                    <span class="campos-obligatorios" *ngIf="f.capPersonas?.errors?.required && (f.capPersonas?.dirty || f.capPersonas?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="capToneladas">Cap. en toneladas<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idCapToneladas" id="capToneladas" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idCapToneladas" id="capToneladas" class="form-control" [options]="catToneladas" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idCapToneladas?.errors?.required && (f.idCapToneladas?.dirty || f.idCapToneladas?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -99,10 +108,12 @@
                 <div class="col-md-3">
                     <label class="control-label" for="placas">Placas<span class="req">*</span>:</label>
                     <input formControlName="placas" class="form-control" id="placas" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.placas?.errors?.required && (f.placas?.dirty || f.placas?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="licCofepris">Licencia COFEPRIS<span class="req">*</span>:</label>
                     <input formControlName="licCofepris" class="form-control" id="licCofepris" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.licCofepris?.errors?.required && (f.licCofepris?.dirty || f.licCofepris?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="vencLicCofepris">Vencimiento licencia COFEPRIS<span
@@ -110,11 +121,13 @@
                     <p-calendar formControlName="vencLicCofepris" id="vencLicCofepris" styleClass="form-control" [showIcon]="true"
                         placeholder="dd/mmm/aaaa">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.vencLicCofepris?.errors?.required && (f.vencLicCofepris?.dirty || f.vencLicCofepris?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="tipoRegimen">Tipo de regimen<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idTipoRegimen" id="tipoRegimen" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idTipoRegimen" id="tipoRegimen" class="form-control" [options]="catTipoRegimen" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idTipoRegimen?.errors?.required && (f.idTipoRegimen?.dirty || f.idTipoRegimen?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -129,27 +142,32 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idUnidad" id="unidad" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idUnidad" (onChange)="buscarDatosPorIdUnidad()" id="unidad" class="form-control" [options]="catUnidades" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idUnidad?.errors?.required && (f.idUnidad?.dirty || f.idUnidad?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-2">
                     <label class="control-label" for="cp">CP:</label>
-                    <input formControlName="codigoPostal" class="form-control" id="cp" placeholder="XXXXXXXX" type="text" [disabled]="true">
+                    <input formControlName="codigoPostal" class="form-control" id="cp" placeholder="XXXXXXXX" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.codigoPostal?.errors?.required && (f.codigoPostal?.dirty || f.codigoPostal?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="entidad">Entidad<span class="req">*</span>:</label>
-                    <input formControlName="entidad" class="form-control" id="entidad" placeholder="xxxxxxxxxx" type="text" [disabled]="true">
+                    <input formControlName="entidad" class="form-control" id="entidad" placeholder="xxxxxxxxxx" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.entidad?.errors?.required && (f.entidad?.dirty || f.entidad?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="municipio">Municipio<span class="req">*</span>:</label>
-                    <input formControlName="municipio" class="form-control" id="municipio" placeholder="xxxxxxxxxx" type="text" [disabled]="true">
+                    <input formControlName="municipio" class="form-control" id="municipio" placeholder="xxxxxxxxxx" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.municipio?.errors?.required && (f.municipio?.dirty || f.municipio?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="colonia">Colonia<span class="req">*</span>:</label>
-                    <input formControlName="colonia" class="form-control" id="colonia" placeholder="xxxxxxxxxx" type="text" [disabled]="true">
+                    <input formControlName="colonia" class="form-control" id="colonia" placeholder="xxxxxxxxxx" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.colonia?.errors?.required && (f.colonia?.dirty || f.colonia?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -164,9 +182,9 @@
 
             <div class="row mb-4">
                 <div class="col-md-12">
-                    <label class="control-label" for="nombreArrendadora">Nombre de la arrendadora<span
-                            class="req">*</span>:</label>
+                    <label class="control-label" for="nombreArrendadora">Nombre de la arrendadora<span class="req">*</span>:</label>
                     <input formControlName="nombreArrendadora" class="form-control" id="nombreArrendadora" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.nombreArrendadora?.errors?.required && (f.nombreArrendadora?.dirty || f.nombreArrendadora?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -174,22 +192,21 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="noContrato">N° de contrato<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idNoContrato" id="noContrato" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idNoContrato" id="noContrato" class="form-control" [options]="catContratos" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idNoContrato?.errors?.required && (f.idNoContrato?.dirty || f.idNoContrato?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label" for="fechaInicioContrato">Fecha inicio del contrato<span
-                            class="req">*</span>:</label>
-                    <p-calendar  formControlName="fechaInicioContrato"  id="fechaInicioContrato" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa">
+                    <label class="control-label" for="fechaInicioContrato">Fecha inicio del contrato<span class="req">*</span>:</label>
+                    <p-calendar  formControlName="fechaInicioContrato"  id="fechaInicioContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.fechaInicioContrato?.errors?.required && (f.fechaInicioContrato?.dirty || f.fechaInicioContrato?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label" for="fechaFinContrato">Fecha fin del contrato<span
-                            class="req">*</span>:</label>
-                    <p-calendar formControlName="fechaFinContrato"  id="fechaFinContrato" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa">
+                    <label class="control-label" for="fechaFinContrato">Fecha fin del contrato<span class="req">*</span>:</label>
+                    <p-calendar formControlName="fechaFinContrato"  id="fechaFinContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f.fechaFinContrato?.errors?.required && (f.fechaFinContrato?.dirty || f.fechaFinContrato?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -197,15 +214,18 @@
                 <div class="col-md-4">
                     <label class="control-label" for="costoDiario">Costo diario<span class="req">*</span>:</label>
                     <input formControlName="costoDiario" class="form-control" id="costoDiario" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.costoDiario?.errors?.required && (f.costoDiario?.dirty || f.costoDiario?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="costoMensual">Costo mensual<span class="req">*</span>:</label>
                     <input formControlName="costoMensual" class="form-control" id="costoMensual" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.costoMensual?.errors?.required && (f.costoMensual?.dirty || f.costoMensual?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="estatus">Estatus<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idEstatus" id="estatus" class="form-control" [options]="ooad" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idEstatus" id="estatus" class="form-control" [options]="catEstatus" placeholder="Seleccionar">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f.idEstatus?.errors?.required && (f.idEstatus?.dirty || f.idEstatus?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -213,22 +233,23 @@
                 <div class="col-md-4">
                     <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
                     <input formControlName="nombreAseguradora" class="form-control" id="aseguradora" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.nombreAseguradora?.errors?.required && (f.nombreAseguradora?.dirty || f.nombreAseguradora?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="poliza">Póliza<span class="req">*</span>:</label>
                     <input formControlName="poliza" class="form-control" id="poliza" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.poliza?.errors?.required && (f.poliza?.dirty || f.poliza?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label" for="auxiliarContable">Auxiliar contable<span
-                            class="req">*</span>:</label>
+                    <label class="control-label" for="auxiliarContable">Auxiliar contable<span class="req">*</span>:</label>
                     <input formControlName="auxiliarContable" class="form-control" id="auxiliarContable" placeholder="Ingresar" type="text">
+                    <span class="campos-obligatorios" *ngIf="f.auxiliarContable?.errors?.required && (f.auxiliarContable?.dirty || f.auxiliarContable?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-4">
-                    <label class="control-label" for="esUnidadPernocta">Vehículo sustituto<span
-                            class="req">*</span>:</label>
+                    <label class="control-label" for="esUnidadPernocta">Vehículo sustituto<span class="req">*</span>:</label>
                     <div class="form-radio">
                         <label>
                             <input type="radio" name="vehiculoSustituto" formControlName="vehiculoSustituto" [value]="true"> Sí
@@ -237,6 +258,7 @@
                             <input type="radio" name="vehiculoSustituto" formControlName="vehiculoSustituto" [value]="false"> No
                         </label>
                     </div>
+                    <span class="campos-obligatorios" *ngIf="f.vehiculoSustituto?.errors?.required && (f.vehiculoSustituto?.dirty || f.vehiculoSustituto?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -245,7 +267,7 @@
             <span class="campos-obligatorios">*Campos obligatorios</span>
             <div>
                 <button type="button" class="btn btn-gold btn-lg" routerLink="../..">Cancelar</button>
-                <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>
+                <button type="submit" class="btn btn-primary btn-lg ml-4" [disabled]="!form.valid">Guardar</button>
             </div>
         </div>
     </form>

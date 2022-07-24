@@ -107,13 +107,10 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
     }
 
     buscarPorFiltroEcco(pagina: number, tamanio: number, ecco: string): Observable<HttpRespuesta<any>> {
-        console.log("ECCO: ", ecco);
-        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/ecco/" + ecco + `?pagina=${pagina}&tamanio=${tamanio}`)
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/ecco/" + ecco + `?pagina=${pagina}&tamanio=${tamanio}`);
     }
 
-    descargarArchivo(ruta: string) {
-        return this._http.post<Blob>(environment.api.mssintetransCargaArchivos + `/descargar-archivo`, { ruta }, { responseType: 'blob' as any });
-    }
+
 
     obtenerCatalogoTipoVehiculo() {
         return of(CATALOGO_TIPO_VEHICULO);

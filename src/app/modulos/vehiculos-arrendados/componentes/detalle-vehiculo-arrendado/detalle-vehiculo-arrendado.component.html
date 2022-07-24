@@ -5,7 +5,7 @@
     </div>
     <div class="row mb-4">
         <div class="col-md-12 flex justify-content-end">
-            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-vehiculo-arrendado',2]">Editar</button>
+            <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-vehiculo-arrendado',idVehiculo]">Editar</button>
         </div>
     </div>
     <form [formGroup]="form">
@@ -198,7 +198,7 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="noContrato">N° de contrato<span class="req">*</span>:</label>
-                    <p-dropdown formControlName="idNoContrato" id="noContrato" class="form-control" [options]="catCONUEE" placeholder="Seleccionar">
+                    <p-dropdown formControlName="idNoContrato" id="noContrato" class="form-control" [options]="catContratos" placeholder="Seleccionar">
                     </p-dropdown>
                     <span class="campos-obligatorios" *ngIf="f.idNoContrato?.errors?.required && (f.idNoContrato?.dirty || f.idNoContrato?.touched)">*Campo obligatorio</span>
                 </div>

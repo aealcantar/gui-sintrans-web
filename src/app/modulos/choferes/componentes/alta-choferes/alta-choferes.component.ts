@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import * as moment from 'moment';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
-import { Usuario } from 'src/app/modelos/usuario.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { MatriculaService } from 'src/app/servicios/matricula.service';
 import { AutenticacionService } from 'src/app/servicios/seguridad/autenticacion.service';
@@ -18,6 +18,7 @@ import {
 } from 'src/app/utilerias/catalogos';
 import { ChoferesService } from '../../servicios/choferes.service';
 import { Chofer } from 'src/app/modelos/chofer.interface';
+import { Usuario } from 'src/app/modelos/usuario.interface';
 
 @Component({
   selector: 'app-alta-choferes',
@@ -28,7 +29,10 @@ import { Chofer } from 'src/app/modelos/chofer.interface';
   ]
 })
 export class AltaChoferesComponent implements OnInit {
-  readonly ALTA_CHOFER = "Nuevo registro se dió de alta exitosamente.";
+
+  readonly ALTA_CHOFER = "El chofer ha sido dado de alta exitosamente.";
+  readonly MATRICULA_DESACTIVADA = "La matrícula ingresada no está vigente.";
+  readonly MATRICULA_INEXISTENTE = "La matrícula ingresada no existe.";
   public archivo!: CustomFile;
   public editForm!: FormGroup;
   public catEstatus: any[] = CATALOGO_ESTATUS_CHOFER;
@@ -45,8 +49,8 @@ export class AltaChoferesComponent implements OnInit {
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private choferesService: ChoferesService,
+    private matriculaService: MatriculaService,
     private aut: AutenticacionService,
-    private matriculaService: MatriculaService
   ) { }
 
   ngOnInit(): void {
@@ -54,38 +58,67 @@ export class AltaChoferesComponent implements OnInit {
     this.aut.usuario$.subscribe((value: Usuario | null) => {
       matricula = value?.matricula || ''
     });
-    this.inicializarFormulario(matricula);
+    this.inicializarFormulario();
   }
 
-  inicializarFormulario(matricula: string) {
+  inicializarFormulario() {
     this.editForm = this.fb.group({
-      nombreChofer: [{ value: 'NOMBRE_CHOFER_SIAP', disabled: true }],
-      unidadAdscripcion: [{ value: 'CONTRATACIÓN 08', disabled: true }],
-      idUnidadAdscripcion: [{ value: 1, disabled: true }],
-      unidadOoad: [{ value: 'OOAD_SIAP', disabled: true }],
-      categoria: [{ value: 'CATEGORIA_SIAP', disabled: true }],
-      matriculaChofer: [null, Validators.compose(
-        [Validators.required, Validators.maxLength(12)]
-      )],
-      matricula: [matricula, Validators.required],
-      fecInicioContrato: [null],
-      fecFinContrato: [null],
-      fecIniIncapacidad: [null],
-      fecFinIncapacidad: [null],
-      estatusChofer: [null, Validators.required],
-      motivo: [null, Validators.required],
-      licencia: [null, Validators.compose([Validators.required, Validators.maxLength(10)])],
-      tipoLicencia: [null, Validators.compose([Validators.required, Validators.maxLength(15)])],
-      fecVigencia: [null, Validators.required],
-      fecExpedicion: [null, Validators.required],
-      desrutaLicencia: [null, Validators.required],
+      idChofer: new FormControl(''),
+      nombreChofer: new FormControl({ value: '', disabled: true }),
+      unidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      idUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      unidadOoad: new FormControl({ value: '', disabled: true }),
+      categoria: new FormControl({ value: '', disabled: true }),
+      matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
+      matricula: new FormControl("", Validators.required),
+      fecInicioContrato: new FormControl(null, Validators.required),
+      fecFinContrato: new FormControl(null, Validators.required),
+      fecIniIncapacidad: new FormControl(''),
+      fecFinIncapacidad: new FormControl(''),
+      estatusChofer: new FormControl(null, Validators.required),
+      motivo: new FormControl(null, Validators.required),
+      licencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
+      tipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
+      fecVigencia: new FormControl(null, Validators.required),
+      fecExpedicion: new FormControl(null, Validators.required),
+      desrutaLicencia: new FormControl(null, Validators.required),
     });
+  }
+
+  consultarDatosSIAP(): void {
+    this.cargadorService.activar();
+    console.log("ENTRAMOS");
+    if (this.editForm.get('matriculaChofer')?.value) {
+      this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
+        filter(Boolean),
+        debounceTime(150),
+        distinctUntilChanged()
+      ).subscribe(
+        (respuesta: any) => {
+          if (respuesta.datos) {
+            if (respuesta.datos.status === 1) {
+              this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
+              this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
+              this.cargadorService.desactivar();
+            } else {
+              this.alertaService.mostrar("error", this.MATRICULA_DESACTIVADA);
+              this.cargadorService.desactivar();
+            }
+          } else {
+            this.alertaService.mostrar("error", this.MATRICULA_INEXISTENTE);
+            this.cargadorService.desactivar();
+          }
+        }
+      );
+    }
+    this.cargadorService.desactivar();
   }
 
   guardar() {
     this.editForm.get('desrutaLicencia')?.patchValue(this.archivo?.archivo?.name);
     const data = this.editForm.getRawValue();
-    
+
     if (this.editForm.valid) {
       let chofer: Chofer = {
         ...data,

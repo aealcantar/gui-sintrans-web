@@ -4,12 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpRespuesta } from '../modelos/http-respuesta.interface';
 
-/**
- * Servicio que permite mostrar las alertas flotantes del sistema.
- */
- @Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CatalogosService {
 
   constructor(

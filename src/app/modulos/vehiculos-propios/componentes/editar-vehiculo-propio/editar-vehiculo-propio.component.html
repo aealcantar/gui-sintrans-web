@@ -265,7 +265,7 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                    <p-dropdown id="unidad" class="form-control" formControlName="unidad" [options]="catUnidades"
+                    <p-dropdown id="unidad" class="form-control" (onChange)="consultaDatosPorIdUnidad($event.value)" formControlName="unidad" [options]="catUnidades"
                         placeholder="Seleccionar">
                     </p-dropdown>
                     <span class="campos-obligatorios"

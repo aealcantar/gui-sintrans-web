@@ -1,14 +1,34 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { forkJoin, Observable, of } from "rxjs";
+import { CatalogoUnidadesService } from "../../catalogo-unidades/servicios/catalogo-unidades.service";
+import { VehiculosArrendadosService } from "./vehiculos-arrendados.service";
 
 @Injectable()
 export class EditarVehiculoArrendadoResolver implements Resolve<any>{
 
-    constructor() { }
+    constructor(
+        private vehiculosArrendadosService: VehiculosArrendadosService,
+        private catalogoUnidadesService: CatalogoUnidadesService
+    ) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-
-        return of();
+        let pagina = 0;
+        let tamanio = 1000;
+        const catUnidades$ = this.catalogoUnidadesService.buscarPorPagina(pagina, tamanio);
+        const idVehiculoPropio = route.paramMap.get('idVehiculo');
+        const vehiculoArrendado$ = this.vehiculosArrendadosService.buscarPorId(idVehiculoPropio);
+        const catTipoVehiculo$ = this.vehiculosArrendadosService.obtenerCatalogoTipoVehiculo();
+        const catCONUEE$ = this.vehiculosArrendadosService.obtenerCatalogoCONUEE();
+        const catTipoServicio$ = this.vehiculosArrendadosService.obtenerCatalogoTipoServicio();
+        const catVersion$ = this.vehiculosArrendadosService.obtenerCatalogoVersion();
+        const catTipoRegimen$ = this.vehiculosArrendadosService.obtenerCatalogoTipoRegimen();
+        const catCombustible$ = this.vehiculosArrendadosService.obtenerCatalogoCombustible();
+        const catToneladas$ = this.vehiculosArrendadosService.obtenerCatalogoToneladas();
+        const catCilindros$ = this.vehiculosArrendadosService.obtenerCatalogoCilindros();
+        const catEstatus$ = this.vehiculosArrendadosService.obtenerCatalogoEstatus();
+        //Este catalogo es temporal, se quitara cuando se trabaje la HU03-13 (Arrendatarios)
+        const catNumeroContratos$ = this.vehiculosArrendadosService.obtenerCatalogoNumeroContratos();
+        return forkJoin([catUnidades$, catTipoVehiculo$, catCONUEE$, catTipoServicio$, catVersion$, catTipoRegimen$, catCombustible$, catToneladas$, catCilindros$, catEstatus$, vehiculoArrendado$, catNumeroContratos$]);
     }
 }

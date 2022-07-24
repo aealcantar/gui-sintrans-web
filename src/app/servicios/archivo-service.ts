@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CustomFile } from '../compartidos/cargador-archivo/custom-file';
 import { convierteBlobEnFile } from '../utilerias/funciones-utilerias';
@@ -30,13 +30,13 @@ export class ArchivoService {
    * @param contenedorArchivo 
    * @returns 
    */
-  obtenerArchivoDeCustomFile(contenedorArchivo: CustomFile): Observable<File> {
-    if (!contenedorArchivo.ruta) {
+  obtenerArchivoDeCustomFile(contenedorArchivo: CustomFile): any {
+    if (contenedorArchivo.ruta) {
       return this.descargarArchivo(contenedorArchivo.ruta as string).pipe(
         map((response) => convierteBlobEnFile(response, contenedorArchivo.ruta as string))
       );
     }
-    return of(contenedorArchivo?.archivo as File);
+    return of(contenedorArchivo?.archivo);
   }
 
   /**
@@ -49,8 +49,15 @@ export class ArchivoService {
    * @param contenedoresArchivos 
    * @returns 
    */
-  obtenerArchivosDeCustomFiles(...contenedoresArchivos: CustomFile[]): Observable<File[]> {
-    return forkJoin(contenedoresArchivos.map((contenedorArchivo: CustomFile) => this.obtenerArchivoDeCustomFile(contenedorArchivo)));
+  obtenerArchivosDeCustomFiles(...contenedoresArchivos: CustomFile[]): any {
+    //return forkJoin([...contenedoresArchivos.map((contenedorArchivo: CustomFile) => this.obtenerArchivoDeCustomFile(contenedorArchivo))])
+    // forkJoin([this.obtenerArchivoDeCustomFile(contenedoresArchivos[0]), this.obtenerArchivoDeCustomFile(contenedoresArchivos[1])]).subscribe(
+    //   res => console.log
+    // )
+    // return forkJoin([this.obtenerArchivoDeCustomFile(contenedoresArchivos[0]), this.obtenerArchivoDeCustomFile(contenedoresArchivos[1])])
+    return forkJoin(contenedoresArchivos.map((contenedorArchivo: CustomFile) => this.obtenerArchivoDeCustomFile(contenedorArchivo)))
   }
+
+  // 
 
 }

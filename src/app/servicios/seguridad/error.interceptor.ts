@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
@@ -15,15 +15,17 @@ export class ErrorInterceptor implements HttpInterceptor {
         private autententicacionService: AutenticacionService
     ) { }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
         return next.handle(request).pipe(
             catchError((err) => {
                 if (err.error instanceof ErrorEvent) {
                     this.alertasFlotantesService.mostrar('error', 'Ha ocurrido un error inesperado');
                     console.error('Ha ocurrido un error inesperado: ' + err.error.message);
-                }
-                if (err instanceof HttpErrorResponse) {
+                } else if (err instanceof HttpErrorResponse) {
                     this.mostrarErrorDeServidor(err);
+                } else {
+                    this.alertasFlotantesService.mostrar('error', 'Ha ocurrido un error inesperado');
+                    console.error('Ha ocurrido un error inesperado: ' + err);
                 }
                 return throwError(err);
             })
@@ -33,7 +35,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     private mostrarErrorDeServidor(error: HttpErrorResponse): void {
         switch (error.status) {
             case 401:
-                this.alertasFlotantesService.mostrar('error', 'Acceso no autorizado'); 
+                this.alertasFlotantesService.mostrar('error', 'Acceso no autorizado');
                 console.error(`Acceso no autorizado: ${error.message}`);
                 this.cerrarSesionConRedireccion();
                 break;

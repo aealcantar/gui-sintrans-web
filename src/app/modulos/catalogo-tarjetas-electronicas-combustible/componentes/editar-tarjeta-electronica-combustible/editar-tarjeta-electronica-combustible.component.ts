@@ -87,9 +87,7 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
       fecIniConvenio: this.datePipe.transform(this.form.get("fechaInicioConvenio")?.value, 'YYYY-MM-dd'),
       fecFinConvenio: this.datePipe.transform(this.form.get("fechaFinConvenio")?.value, 'YYYY-MM-dd'),
       canLitrosLimiteMes: this.form.get("litrosLimite")?.value,
-      idOoad: {
-        idOoad: this.form.get("ooad")?.value
-      },
+      Ooad: this.form.get("ooad")?.value,
       numFolioInicial: this.form.get("folioInicial")?.value,
       numFolioFinal: this.form.get("folioFinal")?.value,
       canKmsRecorridos: this.form.get("km")?.value,

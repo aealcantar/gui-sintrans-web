@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
 import { VehiculoEnajenacionService } from '../../service/vehiculo-enajenacion.service';
 
 @Component({
@@ -29,7 +30,8 @@ export class AltaEstatusEnajenacionVehiculoComponent implements OnInit {
   ngOnInit(): void {}
 
   guardar() {
-    this.form.controls['cveMatricula'].setValue('XXXXXX')
+    let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
+    this.form.controls['cveMatricula'].setValue(usuarioAutenticado.matricula);
     if (this.form.valid) {
       const body = this.form.getRawValue();
       this.estatusService.guardar(body).subscribe((response) => {

@@ -23,6 +23,7 @@ export class AltaUnidadComponent implements OnInit {
   readonly ALTA_UNIDAD = "La unidad ha sido dada de alta exitosamente.";
   catUnidad: any[] = [];
   catOoad: any[] = [];
+  idCodigoPostal!: number;
 
   form!: FormGroup;
 
@@ -91,7 +92,7 @@ export class AltaUnidadComponent implements OnInit {
       numCu: this.form.get("cu")?.value,
       numDiv: this.form.get("div")?.value,
       numSdiv: this.form.get("sdiv")?.value,
-      idCodigoPostal: this.codigoPostal.nativeElement.value,
+      idCodigoPostal: this.idCodigoPostal,
       nomColonia: this.form.get("colonia")?.value,
       cveMatricula: usuarioAutenticado.matricula
     };
@@ -115,6 +116,7 @@ export class AltaUnidadComponent implements OnInit {
       (respuesta) => {
         this.form.get('entidad')?.setValue(respuesta.datos[0].nomEstado);
         this.form.get('municipio')?.setValue(respuesta.datos[0].nomMunicipio);
+        this.idCodigoPostal = respuesta.datos[0].idCodigoPostal;
       }
     );
   }

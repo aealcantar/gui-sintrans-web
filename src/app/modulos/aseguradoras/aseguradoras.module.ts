@@ -7,6 +7,7 @@ import { CardModule } from 'primeng-lts/card';
 import { DialogModule } from 'primeng-lts/dialog';
 import { DropdownModule } from 'primeng-lts/dropdown';
 import { FileUploadModule } from 'primeng-lts/fileupload';
+import { InputNumberModule } from 'primeng-lts/inputnumber';
 import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
@@ -39,7 +40,7 @@ import { EditarAseguradoraComponent } from './componentes/editar-aseguradora/edi
     CargadorArchivoModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    InputNumberModule
   ]
 })
 export class AseguradorasModule { }

@@ -8,21 +8,23 @@ import { UsuarioSitRolService } from '../../service/usuario-sit-rol.service';
   styleUrls: ['./detalle-usuario-sit.component.scss'],
 })
 export class DetalleUsuarioSitComponent implements OnInit {
+
   usuario: any;
   idUsuario!: number;
-  rol: any={descripcion : ""}
+  rol: any = { descripcion: "" }
+
   constructor(
     private router: ActivatedRoute,
     private rolService: UsuarioSitRolService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const respuesta = this.router.snapshot.data['respuesta'];
     this.usuario = respuesta.data;
     this.idUsuario = this.usuario.idUsuario;
-    console.log("USUARIO: ", this.usuario);
-    this.rolService.buscarPorId(this.usuario.idRol).subscribe((response) => {
-      this.rol = response.data;
-    });
+    this.rolService.buscarTodos().subscribe(
+      (response: any) => {
+        this.rol = response.data.find((r: any) => r.idRol === respuesta.data.idRol).descripcion;
+      });
   }
 }

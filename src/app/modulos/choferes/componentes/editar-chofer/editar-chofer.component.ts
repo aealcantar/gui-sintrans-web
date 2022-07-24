@@ -67,7 +67,7 @@ export class EditarChoferComponent implements OnInit {
       idChofer: new FormControl(null),
       nombreChofer: new FormControl({ value: '', disabled: true }),
       unidadAdscripcion: new FormControl({ value: '', disabled: true }),
-      idUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      idUnidadAdscripcion: new FormControl({ value: null, disabled: true }),
       unidadOoad: new FormControl({ value: '', disabled: true }),
       categoria: new FormControl({ value: '', disabled: true }),
       matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
@@ -86,10 +86,15 @@ export class EditarChoferComponent implements OnInit {
     });
   }
 
+  inicializarArchivos(ruta: any) {
+    this.archivo = { ruta };
+  }
+
   obtenerChoferPorId(id: any) {
     this.choferesService.buscarPorId(id).subscribe(
       (respuesta) => {
         if (respuesta && respuesta?.datos) {
+          this.inicializarArchivos(respuesta?.datos.desrutaLicencia);
           this.editForm.patchValue({
             ...respuesta?.datos,
             fecInicioContrato: respuesta?.datos.fecInicioContrato &&
@@ -119,7 +124,6 @@ export class EditarChoferComponent implements OnInit {
 
   consultarDatosSIAP(): void {
     this.cargadorService.activar();
-    console.log("ENTRAMOS");
     if (this.editForm.get('matriculaChofer')?.value) {
       this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
         filter(Boolean),
@@ -131,6 +135,7 @@ export class EditarChoferComponent implements OnInit {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
               this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('idUnidadAdscripcion')?.setValue(6);
               this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();
@@ -170,8 +175,6 @@ export class EditarChoferComponent implements OnInit {
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
           moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
       };
-
-      console.log(chofer);
 
       this.choferesService.actualizarChofer(chofer.idChofer, chofer, this.archivo?.archivo).subscribe(
         (respuesta) => {
@@ -233,6 +236,10 @@ export class EditarChoferComponent implements OnInit {
     }
     this.editForm.get('fecInicioContrato')?.updateValueAndValidity();
     this.editForm.get('fecFinContrato')?.updateValueAndValidity();
+  }
+
+  validarArchivo(event: any) {
+    console.log(event);
   }
 
   get f() {

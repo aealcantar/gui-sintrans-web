@@ -13,11 +13,13 @@ import { AseguradoraService } from '../service/aseguradora.service';
   providers: [DatePipe]
 })
 export class EditarAseguradoraComponent implements OnInit {
+  
   readonly MENSAJE = 'La aseguradora ha sido guardada exitosamente.'
   respuesta: any;
   aseguradora: any;
   form;
   archivo!: CustomFile;
+
   constructor(
     private fb: FormBuilder,
     private router: ActivatedRoute,

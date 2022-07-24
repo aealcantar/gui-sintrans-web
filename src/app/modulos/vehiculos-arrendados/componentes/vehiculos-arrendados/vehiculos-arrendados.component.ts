@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
-import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
 import { VehiculosArrendadosService } from '../../servicios/vehiculos-arrendados.service';
@@ -13,11 +12,16 @@ import { VehiculosArrendadosService } from '../../servicios/vehiculos-arrendados
   styleUrls: ['./vehiculos-arrendados.component.scss']
 })
 export class VehiculosArrendadosComponent implements OnInit {
-  
+
+  readonly POSICION_VEHICULOS_ARRENDADOS = 0;
+  readonly POSICION_CATALOGO_TIPO_SERVICIO = 1;
+  readonly POSICION_CATALOGO_ESTATUS = 2;
   inicioPagina: number = 0;
-  respuesta!: HttpRespuesta<any> | null;
+  respuesta!: any | null;
   mostrarModal: boolean = false;
-  vehiculosArrendados: any[] = [];
+  vehiculosArrendados!: any[];
+  catTipoServicio: any[] = [];
+  catEstatus: any[] = [];
   vehiculoArrendado: any;
   ecco: string = "";
 
@@ -30,7 +34,42 @@ export class VehiculosArrendadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data["respuesta"];
-    this.vehiculosArrendados = this.respuesta?.datos?.content;
+    this.catTipoServicio = this.respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO].map(
+      (tipoServicio: any) => (
+        {
+          label: tipoServicio.descripcion,
+          value: tipoServicio.idTipoServicio
+        }
+      )
+    );
+    this.catEstatus = this.respuesta[this.POSICION_CATALOGO_ESTATUS].map(
+      (estatus: any) => (
+        {
+          label: estatus.descripcion,
+          value: estatus.idEstatus
+        }
+      )
+    );
+    this.vehiculosArrendados = this.respuesta[this.POSICION_VEHICULOS_ARRENDADOS].datos?.content.map(
+      (vehiculo: any) => {
+        return ({
+          ...vehiculo,
+          desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+          desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+        })
+      }
+    );
+  }
+
+  obtenerNombreTipoServicioPorId(idTipoServicio: string) {
+    let valor = this.catTipoServicio.find((tp) => tp.value === parseInt(idTipoServicio));
+    console.log("VALOR: ", valor);
+    return valor.label;
+  }
+
+  obtenerNombreEstatusPorId(idEstatus: string) {
+    let valor = this.catEstatus.find((e) => e.value === parseInt(idEstatus));
+    return valor.label;
   }
 
   limpiar(): void {
@@ -105,7 +144,15 @@ export class VehiculosArrendadosComponent implements OnInit {
         this.vehiculosArrendados = [];
         this.respuesta = null;
         this.respuesta = respuesta;
-        this.vehiculosArrendados = this.respuesta!.datos.content;
+        this.vehiculosArrendados = this.respuesta.datos?.content.map(
+          (vehiculo: any) => {
+            return ({
+              ...vehiculo,
+              desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+              desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+            })
+          }
+        );
         this.ordenar(event);
       },
       (error: HttpErrorResponse) => {

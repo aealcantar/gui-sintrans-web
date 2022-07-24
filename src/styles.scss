@@ -25,26 +25,28 @@ button[disabled].btn {
     color: #9f2241;
 }
 
-input.ng-invalid:not(.ng-untouched){
-    border: 1px solid #9F2241;
+input.ng-invalid:not(.ng-untouched) {
+    border: 1px solid #9f2241;
 }
 
-p-calendar.ng-invalid:not(.ng-untouched) .p-inputtext{
-    border: 1px solid #9F2241;
+p-calendar.ng-invalid:not(.ng-untouched) .p-inputtext {
+    border: 1px solid #9f2241;
 }
 
-p-dropdown.form-control.ng-invalid:not(.ng-untouched){
-    border: 1px solid #9F2241;
+p-dropdown.form-control.ng-invalid:not(.ng-untouched) {
+    border: 1px solid #9f2241;
 }
 
-p-inputnumber.form-control.ng-invalid:not(.ng-untouched){
-    border: 1px solid #9F2241;
+p-inputnumber.form-control.ng-invalid:not(.ng-untouched) {
+    border: 1px solid #9f2241;
 }
 
-form.ng-invalid app-cargador-archivo.ng-invalid{
-    .p-fileupload .p-fileupload-content{
-        border-color: #9f2241;
-    }
+app-cargador-archivo.ng-pristine + .campos-obligatorios {
+    display: none;
+}
+
+ app-cargador-archivo.ng-dirty + .campos-obligatorios {
+    display: inline-block;
 }
 
 h3.subtitulo {

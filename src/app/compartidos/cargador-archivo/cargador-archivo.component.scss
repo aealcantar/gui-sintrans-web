@@ -1,5 +1,15 @@
-:host-context(.ng-invalid){
-    :host{
-        
+:host(.ng-invalid) {
+    ::ng-deep {
+        .p-fileupload .p-fileupload-content {
+            border-color: #9f2241;
+        }
+    }
+}
+
+:host(.ng-pristine) {
+    ::ng-deep {
+        .p-fileupload .p-fileupload-content {
+            border-color: #b0b0b0;
+        }
     }
 }

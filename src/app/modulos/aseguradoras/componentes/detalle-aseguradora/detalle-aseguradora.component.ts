@@ -11,8 +11,11 @@ import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
   providers: [DatePipe],
 })
 export class DetalleAseguradoraComponent implements OnInit {
+
+  idAseguradora!: number;
   archivoPoliza !: CustomFile;
   form;
+
   constructor(private router: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe,) {
     this.form = this.fb.group({
       nombreAseguradora: new FormControl({ value: '', disabled: true },),
@@ -29,6 +32,7 @@ export class DetalleAseguradoraComponent implements OnInit {
   ngOnInit(): void {
     const respuesta = this.router.snapshot.data['respuesta'];
     const aseguradora = respuesta.datos;
+    this.idAseguradora = aseguradora.idAseguradora;
     this.form.controls['nombreAseguradora'].setValue(
       aseguradora.nombreAseguradora
     );

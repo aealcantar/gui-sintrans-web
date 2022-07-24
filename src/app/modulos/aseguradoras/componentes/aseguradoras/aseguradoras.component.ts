@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
 import { AseguradoraService } from '../service/aseguradora.service';
 
 @Component({
@@ -10,16 +11,17 @@ import { AseguradoraService } from '../service/aseguradora.service';
   styleUrls: ['./aseguradoras.component.scss'],
 })
 export class AseguradorasComponent implements OnInit {
+  
   mostrarModal: boolean = false;
-  inicioPagina:number = 0;
+  inicioPagina: number = 0;
   respuesta: any;
   aseguradoras: any[] = [];
   aseguradora: any;
   form;
-  MENSAJE = 'El registro ah sido eliminado exitosamente.'
+  
   constructor(
     private aseguradoraService: AseguradoraService,
-    private alertService : AlertasFlotantesService,
+    private alertService: AlertasFlotantesService,
     private router: ActivatedRoute,
     private fb: FormBuilder
   ) {
@@ -27,17 +29,26 @@ export class AseguradorasComponent implements OnInit {
       aseguradora: new FormControl('', Validators.required),
     });
   }
+  
   buscar() {
-    this.aseguradoraService.obtenerAseguradoras(0,10,this.form.controls['aseguradora'].value).subscribe(res=>{
+    this.aseguradoraService.obtenerAseguradoras(0, 10, this.form.controls['aseguradora'].value).subscribe(res => {
       console.log(res)
-      this.aseguradoras =[]
+      this.aseguradoras = []
       this.aseguradoras = res.datos.content
     })
   }
+
   limpiar() {
     this.form.controls['aseguradora'].setValue('');
-    this.aseguradoras = [];
-
+    let pagina = 0;
+    let tamanio = 10;
+    const aseguradora = this.form.controls['aseguradora'].value;
+    this.aseguradoraService.obtenerAseguradoras(pagina, tamanio, aseguradora).subscribe(res => {
+      this.aseguradoras = [];
+      this.respuesta = null;
+      this.respuesta = res;
+      this.aseguradoras = this.respuesta.datos.content;
+    })
   }
 
   ngOnInit(): void {
@@ -50,22 +61,21 @@ export class AseguradorasComponent implements OnInit {
     this.aseguradora = aseguradora;
     this.mostrarModal = true;
   }
-  get f() {
-    return this.form.controls;
-  }
-  paginador(event:any){
+
+  paginador(event: any) {
     const inicio = event.first;
-    const pagina = Math.floor(inicio/10);
+    const pagina = Math.floor(inicio / 10);
     const tamanio = event.rows;
     const aseguradora = this.form.controls['aseguradora'].value
-    this.aseguradoraService.obtenerAseguradoras(pagina,tamanio,aseguradora).subscribe(res=>{
+    this.aseguradoraService.obtenerAseguradoras(pagina, tamanio, aseguradora).subscribe(res => {
       this.aseguradoras = [];
       this.respuesta = null;
       this.respuesta = res;
       this.aseguradoras = this.respuesta.datos.content;
       this.ordenar(event)
-    })
+    });
   }
+
   ordenar(event: any): void {
     let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
       if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
@@ -82,12 +92,15 @@ export class AseguradorasComponent implements OnInit {
       this.aseguradoras = this.aseguradoras.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
     }
   }
-  eliminar(){
-    this.aseguradoraService.eliminar(this.aseguradora.idAseguradora).subscribe(response=>{
-      this.alertService.mostrar('exito' ,this.MENSAJE)
-      const index = this.aseguradoras.findIndex((u)=>u.idAseguradora === this.aseguradora.idAseguradora);
-      this.aseguradoras.splice(index,1)
+
+  eliminar() {
+    this.aseguradoraService.eliminar(this.aseguradora.idAseguradora).subscribe(
+      (respuesta) => {
+      this.alertService.mostrar('exito', REGISTRO_ELIMINADO)
+      const index = this.aseguradoras.findIndex((u) => u.idAseguradora === this.aseguradora.idAseguradora);
+      this.aseguradoras.splice(index, 1)
       this.mostrarModal = false
     })
   }
+
 }

@@ -236,7 +236,7 @@
                     <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS<span
                             class="req">*</span>:</label>
                     <p-calendar id="venLicCofepris" formControlName="venLicCofepris" styleClass="form-control"
-                        [showIcon]="true" placeholder="dd/mmm/aaaa">
+                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
                     </p-calendar>
                     <span class="campos-obligatorios"
                         *ngIf="f.venLicCofepris?.errors?.required && (f.venLicCofepris?.dirty || f.venLicCofepris?.touched)">*Campo
@@ -265,8 +265,8 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="unidad">Unidad<span class="req">*</span>:</label>
-                    <p-dropdown id="unidad" class="form-control" (onChange)="consultaDatosPorIdUnidad()" formControlName="unidad" [options]="catUnidades"
-                        placeholder="Seleccionar">
+                    <p-dropdown id="unidad" class="form-control" (onChange)="consultaDatosPorIdUnidad()"
+                        formControlName="unidad" [options]="catUnidades" placeholder="Seleccionar">
                     </p-dropdown>
                     <span class="campos-obligatorios"
                         *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo
@@ -326,9 +326,10 @@
                         obligatorio</span>
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label" for="fechaBajaVehiculo">Fecha de baja<span class="req">*</span>:</label>
-                    <p-calendar id="fechaBajaVehiculo" styleClass="form-control" formControlName="fechaBaja" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa">
+                    <label class="control-label" for="fechaBajaVehiculo">Fecha de baja<span
+                            class="req">*</span>:</label>
+                    <p-calendar id="fechaBajaVehiculo" styleClass="form-control" formControlName="fechaBaja"
+                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
                     </p-calendar>
                     <span class="campos-obligatorios"
                         *ngIf="f.fechaBaja?.errors?.required && (f.fechaBaja?.dirty || f.fechaBaja?.touched)">*Campo
@@ -390,7 +391,7 @@
                     <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span
                             class="req">*</span>:</label>
                     <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control"
-                        [showIcon]="true" placeholder="dd/mmm/aaaa">
+                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
                     </p-calendar>
                     <span class="campos-obligatorios"
                         *ngIf="f.fechaVencimiento?.errors?.required && (f.fechaVencimiento?.dirty || f.fechaVencimiento?.touched)">*Campo
@@ -410,7 +411,7 @@
                     <label class="control-label" for="fechaProximaVerificacion">Fecha próxima verificación<span
                             class="req">*</span>:</label>
                     <p-calendar styleClass="form-control" formControlName="fechaProximaVerificacion" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa">
+                        placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
                     </p-calendar>
                     <span class="campos-obligatorios"
                         *ngIf="f.fechaProximaVerificacion?.errors?.required && (f.fechaProximaVerificacion?.dirty || f.fechaProximaVerificacion?.touched)">*Campo
@@ -424,13 +425,13 @@
                     <app-cargador-archivo [accept]="'application/pdf'" [extensionesAceptadas]="['pdf']"
                         [(archivo)]="polizaSeguro" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
-                    <span class="campos-obligatorios" *ngIf="!polizaSeguro">*Campo obligatorio</span> 
+                    <span class="campos-obligatorios" *ngIf="!polizaSeguro">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="fechaVencimientoPoliza">Fecha vencimiento póliza<span
                             class="req">*</span>:</label>
                     <p-calendar styleClass="form-control" formControlName="fechaVencimientoPoliza" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa">
+                        placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
                     </p-calendar>
                     <span class="campos-obligatorios"
                         *ngIf="f.fechaVencimientoPoliza?.errors?.required && (f.fechaVencimientoPoliza?.dirty || f.fechaVencimientoPoliza?.touched)">*Campo
@@ -481,7 +482,7 @@
                     <app-cargador-archivo [accept]="'application/pdf'" [extensionesAceptadas]="['pdf']"
                         [(archivo)]="fotografiaTrasera" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
-                     <span class="campos-obligatorios" *ngIf="!fotografiaTrasera">*Campo obligatorio</span> 
+                    <span class="campos-obligatorios" *ngIf="!fotografiaTrasera">*Campo obligatorio</span>
                 </div>
             </div>
 

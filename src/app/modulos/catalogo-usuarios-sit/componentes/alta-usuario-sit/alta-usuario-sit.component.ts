@@ -95,8 +95,11 @@ export class AltaUsuarioSitComponent implements OnInit {
 
   async validarEstatusSIAP(): Promise<boolean> {
     let respuesta = await this.matriculaService.consultarMatriculaSIAP(this.form.get('matricula')?.value).pipe(first()).toPromise();
-    let informacionSIAP = respuesta.datos;
-    return informacionSIAP.status === 1;
+    if(respuesta.datos){
+      return respuesta.datos.status === 1;
+    } else {
+      return false;
+    }
   }
 
   onFormUpdate() {

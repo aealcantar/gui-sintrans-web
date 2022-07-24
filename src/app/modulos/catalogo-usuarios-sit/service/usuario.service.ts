@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UsuarioService extends BaseService<HttpRespuesta<any>, any> {
+  
   constructor(protected _http: HttpClient) {
     super(_http, `${environment.api.mssintetransUsuario}`);
   }
@@ -21,6 +22,7 @@ export class UsuarioService extends BaseService<HttpRespuesta<any>, any> {
         ooad,
       },
     };
-    return this._http.get<any>(this._base,opt)
+    return this._http.get<any>(this._base, opt)
   }
+  
 }

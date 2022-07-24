@@ -62,7 +62,7 @@ export class DetalleUnidadComponent implements OnInit {
     this.form = this.formBuilder.group({
       ooad: new FormControl({ value: unidad.ooad.idOoad, disabled: true }, Validators.required),
       nombreUnidad: new FormControl({ value: unidad.nomUnidadAdscripcion, disabled: true }, Validators.required),
-      unidad: new FormControl({ value: parseInt(unidad.desTipoUnidad), disabled: true }, Validators.required),
+      unidad: new FormControl({ value: unidad.desTipoUnidad, disabled: true }, Validators.required),
       pernocta: new FormControl({ value: !!unidad.indUnidadPernocta, disabled: true }, Validators.required),
       unInf: new FormControl({ value: unidad.numUnInf, disabled: true }, Validators.required),
       unOpe: new FormControl({ value: unidad.numUnOpe, disabled: true }, Validators.required),

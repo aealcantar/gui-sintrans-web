@@ -38,7 +38,6 @@ export class AltaChoferesComponent implements OnInit {
   public catEstatus: any[] = CATALOGO_ESTATUS_CHOFER;
   public catMotivo: any[] = [];
   public desMotivoHasValidator: boolean = false;
-  // public chofer!: Chofer;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,10 +57,10 @@ export class AltaChoferesComponent implements OnInit {
     this.aut.usuario$.subscribe((value: Usuario | null) => {
       matricula = value?.matricula || ''
     });
-    this.inicializarFormulario();
+    this.inicializarFormulario(matricula);
   }
 
-  inicializarFormulario() {
+  inicializarFormulario(matricula: string) {
     this.editForm = this.fb.group({
       idChofer: new FormControl(''),
       nombreChofer: new FormControl({ value: '', disabled: true }),
@@ -70,13 +69,13 @@ export class AltaChoferesComponent implements OnInit {
       unidadOoad: new FormControl({ value: '', disabled: true }),
       categoria: new FormControl({ value: '', disabled: true }),
       matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
-      matricula: new FormControl("", Validators.required),
-      fecInicioContrato: new FormControl(null, Validators.required),
-      fecFinContrato: new FormControl(null, Validators.required),
+      matricula: new FormControl(matricula, Validators.required),
+      fecInicioContrato: new FormControl(''),
+      fecFinContrato: new FormControl(''),
       fecIniIncapacidad: new FormControl(''),
       fecFinIncapacidad: new FormControl(''),
       estatusChofer: new FormControl(null, Validators.required),
-      motivo: new FormControl(null, Validators.required),
+      motivo: new FormControl(''),
       licencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
       tipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
@@ -98,6 +97,7 @@ export class AltaChoferesComponent implements OnInit {
           if (respuesta.datos) {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
+              this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();
@@ -160,7 +160,7 @@ export class AltaChoferesComponent implements OnInit {
     this.editForm.get('motivo')?.setValidators(Validators.required);
     if (this.editForm.get('estatusChofer')?.value === 1) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BAJA;
-    } else if (this.editForm.get('estatusChofer')?.value === 3) {
+    } else if (this.editForm.get('estatusChofer')?.value === 2) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
     } else {
       this.editForm.get('motivo')?.reset();
@@ -198,20 +198,6 @@ export class AltaChoferesComponent implements OnInit {
     }
     this.editForm.get('fecInicioContrato')?.updateValueAndValidity();
     this.editForm.get('fecFinContrato')?.updateValueAndValidity();
-  }
-
-  validarMatricula() {
-    if (this.editForm.get('matriculaChofer')?.value.length >= 8) {
-      this.validarEstatusSIAP();
-    }
-  }
-
-  async validarEstatusSIAP(): Promise<boolean> {
-    let respuesta = await this.matriculaService.consultarMatriculaSIAP(
-      this.editForm.get('matriculaChofer')?.value
-    ).pipe(first()).toPromise();
-    let informacionSIAP = respuesta.datos;
-    return informacionSIAP.status === 1;
   }
 
   get f() {

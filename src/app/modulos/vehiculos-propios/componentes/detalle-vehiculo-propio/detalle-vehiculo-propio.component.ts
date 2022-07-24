@@ -180,7 +180,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
       valorContable: new FormControl({ value: vehiculoPropio.impValorContable, disabled: true }, [Validators.required, Validators.maxLength(10)]),
       placas: new FormControl({ value: vehiculoPropio.numPlacas, disabled: true }, [Validators.required, Validators.maxLength(8)]),
       licCofepris: new FormControl({ value: vehiculoPropio.numLicenciaCofepris, disabled: true }, [Validators.required, Validators.maxLength(10)]),
-      venLicCofepris: new FormControl({ value: this.datePipe.transform(vehiculoPropio.fecVencimientoCofepris, 'dd/MM/YYYY'), disabled: true }, Validators.required),
+      venLicCofepris: new FormControl({ value: vehiculoPropio.fecVencimientoCofepris ? new Date(vehiculoPropio.fecVencimientoCofepris) : null, disabled: true }, Validators.required),
       tipoRegimen: new FormControl({ value: parseInt(vehiculoPropio.desTipoRegimen), disabled: true }, Validators.required),
       unidad: new FormControl({ value: vehiculoPropio.idUnidadAdscripcion, disabled: true }, Validators.required),
       cp: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(5)]),
@@ -189,13 +189,13 @@ export class DetalleVehiculoPropioComponent implements OnInit {
       colonia: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
       respBienes: new FormControl({ value: vehiculoPropio.nomResponsableBienes, disabled: true }, [Validators.required, Validators.maxLength(20)]),
       estatus: new FormControl({ value: parseInt(vehiculoPropio.desEstatusVehiculo), disabled: true }, [Validators.required, Validators.maxLength(30)]),
-      fechaBaja: new FormControl({ value: this.datePipe.transform(vehiculoPropio.fecBaja, 'dd/MM/YYYY'), disabled: true }, Validators.required),
+      fechaBaja: new FormControl({ value: vehiculoPropio.fecBaja ? new Date(vehiculoPropio.fecBaja) : null, disabled: true }, Validators.required),
       motivo: new FormControl({ value: vehiculoPropio.desMotivoBaja, disabled: true }, Validators.required),
       estatusEnajenacion: new FormControl({ value: vehiculoPropio.desEstatusEnajenacion, disabled: true }, [Validators.required, Validators.maxLength(30)]),
       aseguradora: new FormControl({ value: vehiculoPropio.idAseguradora, disabled: true }, Validators.required),
-      fechaVencimiento: new FormControl({ value: this.datePipe.transform(vehiculoPropio.fecVencTarjetaCirculacion, 'dd/MM/YYYY'), disabled: true }, Validators.required),
-      fechaProximaVerificacion: new FormControl({ value: this.datePipe.transform(vehiculoPropio.fecProxVerificacion, 'dd/MM/YYYY'), disabled: true }, Validators.required),
-      fechaVencimientoPoliza: new FormControl({ value: this.datePipe.transform(vehiculoPropio.fecVencPoliza, 'dd/MM/YYYY'), disabled: true }, Validators.required)
+      fechaVencimiento: new FormControl({ value: vehiculoPropio.fecVencTarjetaCirculacion ? new Date(vehiculoPropio.fecVencTarjetaCirculacion) : null, disabled: true }, Validators.required),
+      fechaProximaVerificacion: new FormControl({ value: vehiculoPropio.fecProxVerificacion ? new Date(vehiculoPropio.fecProxVerificacion) : null, disabled: true }, Validators.required),
+      fechaVencimientoPoliza: new FormControl({ value: vehiculoPropio.fecVencPoliza ? new Date(vehiculoPropio.fecVencPoliza) : null, disabled: true }, Validators.required)
     });
   }
 

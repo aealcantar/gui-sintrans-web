@@ -47,7 +47,7 @@ export class CargadorArchivoComponent implements OnInit {
   archivoChange = new EventEmitter<CustomFile>();
 
   @HostBinding('class.ng-invalid')
-  invalid: boolean = !this.archivo;
+  invalid: boolean = this.archivo ? false : true;
 
   /**
    * Emite el archivo que se elimino

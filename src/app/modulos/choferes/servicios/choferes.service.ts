@@ -27,7 +27,7 @@ export class ChoferesService extends BaseService<HttpRespuesta<any>, any> {
         return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransChoferes, formData);
     }
 
-    actualizarChofer(idChofer: number, chofer: Chofer, archivo: any): Observable<HttpRespuesta<any>> {
+    actualizarChofer(idChofer: any, chofer: Chofer, archivo: any): Observable<HttpRespuesta<any>> {
         const formData = new FormData();
 
         const datos = JSON.stringify(chofer);

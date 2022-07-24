@@ -3,8 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
@@ -13,7 +12,6 @@ import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servi
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
-import { convierteBlobEnFile } from 'src/app/utilerias/funciones-utilerias';
 import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehiculos-propios.service';
 
 @Component({
@@ -195,7 +193,7 @@ export class EditarVehiculoPropioComponent implements OnInit {
       valorContable: new FormControl(vehiculoPropio.impValorContable, [Validators.required, Validators.maxLength(10)]),
       placas: new FormControl(vehiculoPropio.numPlacas, [Validators.required, Validators.maxLength(8)]),
       licCofepris: new FormControl(vehiculoPropio.numLicenciaCofepris, [Validators.required, Validators.maxLength(10)]),
-      venLicCofepris: new FormControl(this.datePipe.transform(vehiculoPropio.fecVencimientoCofepris, 'dd/MM/YYYY'), Validators.required),
+      venLicCofepris: new FormControl(vehiculoPropio.fecVencimientoCofepris ? new Date(vehiculoPropio.fecVencimientoCofepris) : null, Validators.required),
       tipoRegimen: new FormControl(parseInt(vehiculoPropio.desTipoRegimen), Validators.required),
       unidad: new FormControl(vehiculoPropio.idUnidadAdscripcion, Validators.required),
       cp: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(5)]),
@@ -204,13 +202,13 @@ export class EditarVehiculoPropioComponent implements OnInit {
       colonia: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(150)]),
       respBienes: new FormControl(vehiculoPropio.nomResponsableBienes, [Validators.required, Validators.maxLength(20)]),
       estatus: new FormControl(parseInt(vehiculoPropio.desEstatusVehiculo), [Validators.required, Validators.maxLength(30)]),
-      fechaBaja: new FormControl(this.datePipe.transform(vehiculoPropio.fecBaja, 'dd/MM/YYYY'), Validators.required),
+      fechaBaja: new FormControl(vehiculoPropio.fecBaja ? new Date(vehiculoPropio.fecBaja) : null, Validators.required),
       motivo: new FormControl(vehiculoPropio.desMotivoBaja, Validators.required),
       estatusEnajenacion: new FormControl(vehiculoPropio.desEstatusEnajenacion, [Validators.required, Validators.maxLength(30)]),
       aseguradora: new FormControl(vehiculoPropio.idAseguradora, Validators.required),
-      fechaVencimiento: new FormControl(this.datePipe.transform(vehiculoPropio.fecVencTarjetaCirculacion, 'dd/MM/YYYY'), Validators.required),
-      fechaProximaVerificacion: new FormControl(this.datePipe.transform(vehiculoPropio.fecProxVerificacion, 'dd/MM/YYYY'), Validators.required),
-      fechaVencimientoPoliza: new FormControl(this.datePipe.transform(vehiculoPropio.fecVencPoliza, 'dd/MM/YYYY'), Validators.required)
+      fechaVencimiento: new FormControl(vehiculoPropio.fecVencTarjetaCirculacion ? new Date(vehiculoPropio.fecVencTarjetaCirculacion) : null, Validators.required),
+      fechaProximaVerificacion: new FormControl(vehiculoPropio.fecProxVerificacion ? new Date(vehiculoPropio.fecProxVerificacion) : null, Validators.required),
+      fechaVencimientoPoliza: new FormControl(vehiculoPropio.fecVencPoliza ? new Date(vehiculoPropio.fecVencPoliza) : null, Validators.required)
     });
   }
 
@@ -261,6 +259,7 @@ export class EditarVehiculoPropioComponent implements OnInit {
   }
 
   editar() {
+    console.log(this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     this.cargadorService.activar();
     this.archivoService.obtenerArchivosDeCustomFiles(
@@ -284,12 +283,13 @@ export class EditarVehiculoPropioComponent implements OnInit {
           return this.vehiculoPropioService.actualizarRegistro(this.idVehiculo, this.form.value, usuarioAutenticado?.matricula, archivos)
         })
       ).subscribe(
-        (respuesta) => {
+        (respuesta: any) => {
           this.alertaService.mostrar("exito", this.ACTUALIZA_VEHICULO);
           this.cargadorService.desactivar();
-          this.router.navigate(["../"], { relativeTo: this.route });
+          this.router.navigate(["../.."], { relativeTo: this.route });
         },
         (error: HttpErrorResponse) => {
+          console.error(error);
           this.cargadorService.desactivar();
         }
       );

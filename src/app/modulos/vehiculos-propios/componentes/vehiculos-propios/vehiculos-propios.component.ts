@@ -14,10 +14,15 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
 })
 export class VehiculosPropiosComponent implements OnInit {
 
+  readonly POSICION_VEHICULOS_PROPIOS = 0;
+  readonly POSICION_CATALOGO_TIPO_SERVICIO = 1;
+  readonly POSICION_CATALOGO_ESTATUS = 2;
   inicioPagina: number = 0;
-  respuesta!: HttpRespuesta<any> | null;
+  respuesta!: any | null;
   mostrarModal: boolean = false;
   vehiculosPropios: any[] = [];
+  catTipoServicio: any[] = [];
+  catEstatus: any[] = [];
   vehiculoPropio: any;
   ecco: string = "";
 
@@ -30,7 +35,41 @@ export class VehiculosPropiosComponent implements OnInit {
 
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data["respuesta"];
-    this.vehiculosPropios = this.respuesta?.datos?.content;
+    this.catTipoServicio = this.respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO].map(
+      (tipoServicio: any) => (
+        {
+          label: tipoServicio.descripcion,
+          value: tipoServicio.idTipoServicio
+        }
+      )
+    );
+    this.catEstatus = this.respuesta[this.POSICION_CATALOGO_ESTATUS].map(
+      (estatus: any) => (
+        {
+          label: estatus.descripcion,
+          value: estatus.idEstatus
+        }
+      )
+    );
+    this.vehiculosPropios = this.respuesta[this.POSICION_VEHICULOS_PROPIOS].datos?.content.map(
+      (vehiculo: any) => {
+        return ({
+          ...vehiculo,
+          desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+          desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+        })
+      }
+    );
+  }
+
+  obtenerNombreTipoServicioPorId(idTipoServicio: string) {
+    let valor = this.catTipoServicio.find((tp) => tp.value === parseInt(idTipoServicio));
+    return valor.label;
+  }
+
+  obtenerNombreEstatusPorId(idEstatus: string) {
+    let valor = this.catEstatus.find((e) => e.value === parseInt(idEstatus));
+    return valor.label;
   }
 
   limpiar(): void {
@@ -105,7 +144,15 @@ export class VehiculosPropiosComponent implements OnInit {
         this.vehiculosPropios = [];
         this.respuesta = null;
         this.respuesta = respuesta;
-        this.vehiculosPropios = this.respuesta!.datos.content;
+        this.vehiculosPropios = this.respuesta.datos?.content.map(
+          (vehiculo: any) => {
+            return ({
+              ...vehiculo,
+              desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+              desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+            })
+          }
+        );
         this.ordenar(event);
       },
       (error: HttpErrorResponse) => {

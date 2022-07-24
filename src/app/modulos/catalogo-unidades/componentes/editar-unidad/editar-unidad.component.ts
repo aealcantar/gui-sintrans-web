@@ -67,6 +67,7 @@ export class EditarUnidadComponent implements OnInit {
       (respuesta) => {
         this.form.get('entidad')?.setValue(respuesta.datos[0].nomEstado);
         this.form.get('municipio')?.setValue(respuesta.datos[0].nomMunicipio);
+        this.idCodigoPostal = respuesta.datos[0].idCodigoPostal;
       }
     );
   }
@@ -75,7 +76,7 @@ export class EditarUnidadComponent implements OnInit {
     this.form = this.formBuilder.group({
       ooad: new FormControl(unidad.ooad.idOoad, Validators.required),
       nombreUnidad: new FormControl(unidad.nomUnidadAdscripcion, Validators.required),
-      unidad: new FormControl(parseInt(unidad.desTipoUnidad), Validators.required),
+      unidad: new FormControl(unidad.desTipoUnidad, Validators.required),
       pernocta: new FormControl(!!unidad.indUnidadPernocta, Validators.required),
       unInf: new FormControl(unidad.numUnInf, Validators.required),
       unOpe: new FormControl(unidad.numUnOpe, Validators.required),

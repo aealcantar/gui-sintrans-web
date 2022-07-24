@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { REGISTRO_ELIMINADO } from 'src/app/utilerias/constantes';
 import { UsuarioService } from '../../service/usuario.service';
 
 @Component({
@@ -33,10 +35,9 @@ export class CatalogoUsuariosSitComponent implements OnInit {
 
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data['respuesta'];
-    console.log(this.respuesta);
-    this.usuarios = this.respuesta!.datos.content;
-    console.log(this.usuarios);
+    this.usuarios = this.respuesta!.data.content;
   }
+
   buscar() {
     if (this.form.valid) {
       const datos = this.form.getRawValue();
@@ -50,6 +51,7 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       this.onFormChange();
     }
   }
+
   onFormChange() {
     this.form.valueChanges.subscribe((res) => {
       if (this.form.valid) {
@@ -57,6 +59,7 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       }
     });
   }
+
   limpiar() {
     this.usuarios = [];
     this.form.reset();
@@ -64,10 +67,12 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       this.usuarios = response!.data.content;
     });
   }
+
   abrirModal(usuario: any) {
     this.usuario = usuario;
     this.mostrarModal = true;
   }
+
   eliminar() {
     this.usuarioService.eliminar(this.usuario.idUsuario).subscribe((res) => {
       const index = this.usuarios.findIndex(
@@ -76,21 +81,39 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       this.usuarios.splice(index, 1);
       this.usuario = null;
       this.mostrarModal = false;
-      this.alertService.mostrar('exito', 'El registro ha sido eliminado exitosamente');
+      this.alertService.mostrar('exito', REGISTRO_ELIMINADO);
     });
   }
-  paginacion(event:any){
-    const inicio = event.first;
-    const pagina = Math.floor(inicio / 10)
-    const tamanio = event.rows
+
+  // paginacion(event: any) {
+  //   const inicio = event.first;
+  //   const pagina = Math.floor(inicio / 10)
+  //   const tamanio = event.rows
+  //   const filtros = this.form.getRawValue()
+  //   this.usuarioService.get(pagina, filtros.matricula, filtros.nombreUsuario, filtros.ooad).subscribe(respuesta => {
+  //     this.usuarios = []
+  //     this.respuesta = null;
+  //     this.respuesta = respuesta
+  //     this.usuarios = respuesta.data.content;
+  //   })
+  // }
+
+  paginador(event: any): void {
+    let inicio = event.first;
+    let pagina = Math.floor(inicio / 10);
     const filtros = this.form.getRawValue()
-    this.usuarioService.get(pagina,filtros.matricula,filtros.nombreUsuario,filtros.ooad).subscribe(respuesta=>{
-      this.usuarios = []
-      this.respuesta = null;
-      this.respuesta = respuesta
-      this.usuarios = respuesta.datos.content;
-      this.ordenar(event)
-    })
+    this.usuarioService.get(pagina, filtros.matricula, filtros.nombreUsuario, filtros.ooad).subscribe(
+      (respuesta) => {
+        this.usuarios = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.usuarios = this.respuesta!.data.content;
+        this.ordenar(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
   }
 
   ordenar(event: any): void {
@@ -109,4 +132,6 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       this.usuarios = this.usuarios.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
     }
   }
+
+ 
 }

@@ -1,17 +1,11 @@
 <div class="container mb-4">
   <div class="flex align-items-center">
     <app-btn-regresar routerLink="../.."></app-btn-regresar>
-    <app-separador
-      class="flex-grow-1"
-      texto="Detalle de aseguradora"
-    ></app-separador>
+    <app-separador class="flex-grow-1" texto="Detalle de aseguradora"></app-separador>
   </div>
   <div class="row mb-4">
     <div class="col-md-12 flex justify-content-end">
-      <button
-        class="btn btn-primary btn-lg"
-        [routerLink]="['../../editar-aseguradora', 2]"
-      >
+      <button class="btn btn-primary btn-lg" [routerLink]="['../../editar-aseguradora', idAseguradora]">
         Editar
       </button>
     </div>
@@ -20,99 +14,46 @@
     <form [formGroup]="form">
       <div class="row flex align-items-end mb-4">
         <div class="col-md-8">
-          <label class="control-label" for="nombreAseguradora"
-            >Nombre de aseguradora<span class="req">*</span>:</label
-          >
-          <input
-            class="form-control"
-            id="nombreAseguradora"
-            placeholder="Ingresar"
-            formControlName="nombreAseguradora" 
-            type="text" 
-            [disabled]="true" />
+          <label class="control-label" for="nombreAseguradora">Nombre de aseguradora<span class="req">*</span>:</label>
+          <input class="form-control" id="nombreAseguradora" placeholder="Ingresar" formControlName="nombreAseguradora"
+            type="text" [disabled]="true" />
         </div>
         <div class="col-md-4">
-          <label class="control-label" for="poliza"
-            >Póliza<span class="req">*</span>:</label
-          >
-          <input
-            class="form-control"
-            id="poliza"
-            placeholder="Ingresar"
-            type="text"
-            formControlName="poliza"
+          <label class="control-label" for="poliza">Póliza<span class="req">*</span>:</label>
+          <input class="form-control" id="poliza" placeholder="Ingresar" type="text" formControlName="poliza"
             [disabled]="true" />
         </div>
       </div>
 
       <div class="row flex align-items-end mb-4">
         <div class="col-md-4">
-          <label class="control-label" for="fechaVencimiento"
-            >Fecha vencimiento<span class="req">*</span>:</label
-          >
-          <p-calendar
-            id="fechaVencimiento"
-            styleClass="form-control"
-            [showIcon]="true"
-            formControlName="fechaVencimiento"
-            placeholder="dd/mmm/aaaa"
-            [disabled]="true"
-          >
+          <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
+          <p-calendar id="fechaVencimiento" styleClass="form-control" [showIcon]="true"
+            formControlName="fechaVencimiento" placeholder="dd/mmm/aaaa" [disabled]="true">
           </p-calendar>
         </div>
         <div class="col-md-4">
-          <label class="control-label" for="costoPoliza"
-            >Costo de la póliza<span class="req">*</span>:</label
-          >
-          <input
-            class="form-control"
-            id="costoPoliza"
-            placeholder="Ingresar"
-            formControlName="costoPoliza"
-            type="text"
-            [disabled]="true"
-          />
+          <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
+          <input class="form-control" id="costoPoliza" placeholder="Ingresar" formControlName="costoPoliza" type="text"
+            [disabled]="true" />
         </div>
         <div class="col-md-4">
-          <label class="control-label" for="tipoCobertura"
-            >Tipo de cobertura<span class="req">*</span>:</label
-          >
-          <input
-            class="form-control"
-            id="tipoCobertura"
-            placeholder="Ingresar"
-            formControlName="tipoCobertura"
-            type="text"
-            [disabled]="true"
-          />
+          <label class="control-label" for="tipoCobertura">Tipo de cobertura<span class="req">*</span>:</label>
+          <input class="form-control" id="tipoCobertura" placeholder="Ingresar" formControlName="tipoCobertura"
+            type="text" [disabled]="true" />
         </div>
       </div>
 
       <div class="row flex mb-4">
         <div class="col-md-8">
-          <label class="control-label" for="tipoSiniestro"
-            >Tipo de siniestro<span class="req">*</span>:</label
-          >
-          <input
-            class="form-control"
-            id="tipoSiniestro"
-            placeholder="Ingresar"
-            formControlName="tipoSiniestro"
-            type="text"
-            [disabled]="true"
-          />
+          <label class="control-label" for="tipoSiniestro">Tipo de siniestro<span class="req">*</span>:</label>
+          <input class="form-control" id="tipoSiniestro" placeholder="Ingresar" formControlName="tipoSiniestro"
+            type="text" [disabled]="true" />
         </div>
         <div class="col-md-4">
-          <label class="control-label"
-            >Póliza de seguro<span class="req">*</span>:</label
-          >
-          <app-cargador-archivo
-            accept="application/pdf"
-            [extensionesAceptadas]="['pdf']"
-            [disabled]="true"
-            [mostrarBtnDescargar]="true"
-            [(archivo)]="archivoPoliza"
-          >
+          <label class="control-label">Póliza de seguro<span class="req">*</span>:</label>
+          <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']" [disabled]="true"
+            [(archivo)]="archivoPoliza">
           </app-cargador-archivo>
         </div>
       </div>

@@ -97,6 +97,7 @@ export class AltaChoferesComponent implements OnInit {
           if (respuesta.datos) {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
+              this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();
@@ -159,7 +160,7 @@ export class AltaChoferesComponent implements OnInit {
     this.editForm.get('motivo')?.setValidators(Validators.required);
     if (this.editForm.get('estatusChofer')?.value === 1) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BAJA;
-    } else if (this.editForm.get('estatusChofer')?.value === 3) {
+    } else if (this.editForm.get('estatusChofer')?.value === 2) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
     } else {
       this.editForm.get('motivo')?.reset();

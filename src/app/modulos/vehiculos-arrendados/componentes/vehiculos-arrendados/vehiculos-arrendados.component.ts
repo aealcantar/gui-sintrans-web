@@ -63,7 +63,6 @@ export class VehiculosArrendadosComponent implements OnInit {
 
   obtenerNombreTipoServicioPorId(idTipoServicio: string) {
     let valor = this.catTipoServicio.find((tp) => tp.value === parseInt(idTipoServicio));
-    console.log("VALOR: ", valor);
     return valor.label;
   }
 

@@ -23,7 +23,7 @@ export class AltaEstatusEnajenacionVehiculoComponent implements OnInit {
   ) {
     this.form = fb.group({
       desEstatusEnajenacion: new FormControl('', Validators.required),
-      cveMatricula: new FormControl('',Validators.required)
+      cveMatricula: new FormControl('5555',Validators.required)
     });
   }
 

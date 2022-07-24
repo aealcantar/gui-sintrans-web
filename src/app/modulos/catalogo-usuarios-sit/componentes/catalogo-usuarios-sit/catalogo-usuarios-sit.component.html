@@ -46,9 +46,8 @@
   <div class="row -mx-6">
     <div class="col-md-12">
       <p-card>
-        <p-table [value]="usuarios" [paginator]="usuarios.length > 0" [rows]="10"
-          [totalRecords]="respuesta?.data?.totalElements" [pageLinks]="3" [lazy]="true" [(first)]="inicioPagina"
-          (onLazyLoad)="paginacion($event)">
+        <p-table [value]="usuarios" [paginator]="usuarios.length > 0" [rows]="10" [lazy]="true"
+          [totalRecords]="respuesta?.data?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nombreUsuario">
@@ -80,7 +79,7 @@
           </ng-template>
           <ng-template pTemplate="paginatorright" let-state>
             <div class="paginator-template">
-              <label>Página</label><input type="text" [value]="state.page + 1" disabled />
+              <label>Página</label><input type="text" [value]="state.page + 1" disabled>
             </div>
           </ng-template>
         </p-table>

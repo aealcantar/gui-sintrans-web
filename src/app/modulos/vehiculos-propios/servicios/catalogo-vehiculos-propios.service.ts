@@ -30,7 +30,7 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         formData.append('desTipoVehiculo', vehiculoPropio.tipoVehiculo);
         formData.append('desClasifConuee', vehiculoPropio.clasifVehiculo);
         formData.append('desTipoServicio', vehiculoPropio.tipoServicio);
-        formData.append('numVersionVehiculo', vehiculoPropio.version);
+        formData.append('desVersionVehiculo', vehiculoPropio.version);
         formData.append('desMarca', vehiculoPropio.marca);
         formData.append('desClase', vehiculoPropio.clase);
         formData.append('desSubmarca', vehiculoPropio.submarca);
@@ -49,13 +49,13 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         formData.append('idUnidadAdscripcion', vehiculoPropio.unidad);
         formData.append('nomResponsableBienes', vehiculoPropio.respBienes);
         formData.append('desEstatusVehiculo', vehiculoPropio.estatus);
-        // formData.append('desEstatusEnajenacion', vehiculoPropio.estatusEnajenacion);
+        formData.append('desEstatusEnajenacion', vehiculoPropio.estatusEnajenacion);
         formData.append('desMotivoBaja', vehiculoPropio.motivo);
         formData.append('idAseguradora', vehiculoPropio.aseguradora);
         formData.append('fecVencTarjetaCirculacion', this.datePipe.transform(vehiculoPropio.fechaVencimiento, 'YYYY-MM-dd') as string);
         formData.append('fecProxVerificacion', this.datePipe.transform(vehiculoPropio.fechaProximaVerificacion, 'YYYY-MM-dd') as string);
         formData.append('fecVencPoliza', this.datePipe.transform(vehiculoPropio.fechaVencimientoPoliza, 'YYYY-MM-dd') as string);
-        // formData.append('fechaBaja', this.datePipe.transform(vehiculoPropio.fechaBaja, 'YYYY-MM-dd'));
+        formData.append('fecBajaVehiculo', this.datePipe.transform(vehiculoPropio.fechaBaja, 'YYYY-MM-dd') as string);
         formData.append('cveMatricula', matricula);
         return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios, formData)
     }
@@ -76,6 +76,7 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         formData.append('desTipoVehiculo', vehiculoPropio.tipoVehiculo);
         formData.append('desClasifConuee', vehiculoPropio.clasifVehiculo);
         formData.append('desTipoServicio', vehiculoPropio.tipoServicio);
+        formData.append('desVersionVehiculo', vehiculoPropio.version);
         formData.append('numVersionVehiculo', vehiculoPropio.version);
         formData.append('desMarca', vehiculoPropio.marca);
         formData.append('desClase', vehiculoPropio.clase);
@@ -95,13 +96,13 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         formData.append('idUnidadAdscripcion', vehiculoPropio.unidad);
         formData.append('nomResponsableBienes', vehiculoPropio.respBienes);
         formData.append('desEstatusVehiculo', vehiculoPropio.estatus);
-        // formData.append('desEstatusEnajenacion', vehiculoPropio.estatusEnajenacion);
+        formData.append('desEstatusEnajenacion', vehiculoPropio.estatusEnajenacion);
         formData.append('desMotivoBaja', vehiculoPropio.motivo);
         formData.append('idAseguradora', vehiculoPropio.aseguradora);
         formData.append('fecVencTarjetaCirculacion', this.datePipe.transform(vehiculoPropio.fechaVencimiento, 'YYYY-MM-dd') as string);
         formData.append('fecProxVerificacion', this.datePipe.transform(vehiculoPropio.fechaProximaVerificacion, 'YYYY-MM-dd') as string);
         formData.append('fecVencPoliza', this.datePipe.transform(vehiculoPropio.fechaVencimientoPoliza, 'YYYY-MM-dd') as string);
-        // formData.append('fechaBaja', this.datePipe.transform(vehiculoPropio.fechaBaja, 'YYYY-MM-dd'));
+        formData.append('fecBajaVehiculo', this.datePipe.transform(vehiculoPropio.fechaBaja, 'YYYY-MM-dd') as string);
         formData.append('cveMatricula', matricula);
         return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/" + idVehiculo, formData)
     }

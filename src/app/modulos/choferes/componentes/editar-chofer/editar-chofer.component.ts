@@ -167,7 +167,7 @@ export class EditarChoferComponent implements OnInit {
     this.editForm.get('motivo')?.setValidators(Validators.required);
     if (this.editForm.get('estatusChofer')?.value === 1) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BAJA;
-    } else if (this.editForm.get('estatusChofer')?.value === 3) {
+    } else if (this.editForm.get('estatusChofer')?.value === 2) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
     } else {
       this.editForm.get('motivo')?.reset();

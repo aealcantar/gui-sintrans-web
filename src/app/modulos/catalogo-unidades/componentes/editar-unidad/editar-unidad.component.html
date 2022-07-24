@@ -28,8 +28,7 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="tipoUnidad">Tipo de unidad<span class="req">*</span>:</label>
-                    <p-dropdown id="tipoUnidad" class="form-control" formControlName="unidad" [options]="catUnidad" placeholder="Seleccionar">
-                    </p-dropdown>
+                    <input id="tipoUnidad" class="form-control" formControlName="unidad" placeholder="Ingresar" />
                     <span class="campos-obligatorios" *ngIf="f.unidad?.errors?.required && (f.unidad?.dirty || f.unidad?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-8">

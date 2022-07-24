@@ -143,8 +143,8 @@
             <div class="row flex mb-4">
                 <div class="col-md-6">
                     <label class="control-label">Licencia<span class="req">*</span>:</label>
-                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
-                        [(archivo)]="archivo" [disabled]="true">
+                    <app-cargador-archivo [disabled]="true" accept="application/pdf" [extensionesAceptadas]="['pdf']"
+                        [(archivo)]="archivo" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                 </div>
             </div>

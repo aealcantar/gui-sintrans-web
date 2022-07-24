@@ -86,10 +86,15 @@ export class EditarChoferComponent implements OnInit {
     });
   }
 
+  inicializarArchivos(ruta: any) {
+    this.archivo = { ruta };
+  }
+
   obtenerChoferPorId(id: any) {
     this.choferesService.buscarPorId(id).subscribe(
       (respuesta) => {
         if (respuesta && respuesta?.datos) {
+          this.inicializarArchivos(respuesta?.datos.desrutaLicencia);
           this.editForm.patchValue({
             ...respuesta?.datos,
             fecInicioContrato: respuesta?.datos.fecInicioContrato &&
@@ -119,7 +124,6 @@ export class EditarChoferComponent implements OnInit {
 
   consultarDatosSIAP(): void {
     this.cargadorService.activar();
-    console.log("ENTRAMOS");
     if (this.editForm.get('matriculaChofer')?.value) {
       this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
         filter(Boolean),
@@ -170,8 +174,6 @@ export class EditarChoferComponent implements OnInit {
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
           moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
       };
-
-      console.log(chofer);
 
       this.choferesService.actualizarChofer(chofer.idChofer, chofer, this.archivo?.archivo).subscribe(
         (respuesta) => {
@@ -233,6 +235,10 @@ export class EditarChoferComponent implements OnInit {
     }
     this.editForm.get('fecInicioContrato')?.updateValueAndValidity();
     this.editForm.get('fecFinContrato')?.updateValueAndValidity();
+  }
+
+  validarArchivo(event: any) {
+    console.log(event);
   }
 
   get f() {

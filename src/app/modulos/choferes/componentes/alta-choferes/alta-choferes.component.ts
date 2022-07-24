@@ -86,7 +86,6 @@ export class AltaChoferesComponent implements OnInit {
 
   consultarDatosSIAP(): void {
     this.cargadorService.activar();
-    console.log("ENTRAMOS");
     if (this.editForm.get('matriculaChofer')?.value) {
       this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
         filter(Boolean),
@@ -136,8 +135,6 @@ export class AltaChoferesComponent implements OnInit {
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
           moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
       };
-
-      console.log(chofer);
 
       this.choferesService.guardarChofer(chofer, this.archivo?.archivo).subscribe(
         (respuesta) => {

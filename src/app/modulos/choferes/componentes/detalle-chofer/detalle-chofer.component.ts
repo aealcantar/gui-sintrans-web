@@ -70,7 +70,7 @@ export class DetalleChoferComponent implements OnInit {
       (respuesta) => {
         if (respuesta && respuesta?.datos) {
           this.cambioEstatus(parseInt(respuesta?.datos.estatusChofer));
-
+          this.inicializarArchivos(respuesta?.datos.desrutaLicencia);
           this.editForm.patchValue({
             ...respuesta?.datos,
             fecInicioContrato: respuesta?.datos.fecInicioContrato &&
@@ -96,6 +96,10 @@ export class DetalleChoferComponent implements OnInit {
     );
   }
 
+  inicializarArchivos(ruta: any) {
+    this.archivo = { ruta };
+  }
+
   cambioEstatus(idEstatus: number) {
     this.catMotivo = [];
     if (idEstatus === 1) {
@@ -103,6 +107,10 @@ export class DetalleChoferComponent implements OnInit {
     } else if (idEstatus === 2) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
     }
+  }
+
+  validarArchivo(event: any) {
+    console.log(event);
   }
 
   get f() {

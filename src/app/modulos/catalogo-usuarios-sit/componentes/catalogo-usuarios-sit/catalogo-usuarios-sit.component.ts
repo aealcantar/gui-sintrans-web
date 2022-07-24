@@ -34,7 +34,7 @@ export class CatalogoUsuariosSitComponent implements OnInit {
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data['respuesta'];
     console.log(this.respuesta);
-    this.usuarios = this.respuesta!.data.content;
+    this.usuarios = this.respuesta!.datos.content;
     console.log(this.usuarios);
   }
   buscar() {
@@ -88,7 +88,25 @@ export class CatalogoUsuariosSitComponent implements OnInit {
       this.usuarios = []
       this.respuesta = null;
       this.respuesta = respuesta
-      this.usuarios = respuesta.data.content;
+      this.usuarios = respuesta.datos.content;
+      this.ordenar(event)
     })
+  }
+
+  ordenar(event: any): void {
+    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+        return 1;
+      }
+      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+        return -1;
+      }
+      return 0;
+    };
+    if (event.sortOrder === 1) {
+      this.usuarios = this.usuarios.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+    } else {
+      this.usuarios = this.usuarios.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+    }
   }
 }

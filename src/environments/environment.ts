@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   api: {
     mssintetransOauth: 'http://localhost:8080/mssintetrans-oauth/api',
-    mssintetransSIAP: 'http://localhost:8090/mssintetrans-siap/siap/matricula',
+    mssintetransSIAP: 'http://localhost:8090/mssintetrans-siap/matricula/siap',
     mssintetransUnidad: 'http://localhost:8082/mssintetrans-unidad/unidades',
     mssintetransVehiculosEnajenacion: 'http://localhost:8084/mssintetrans-vehiculos/estatus-enajenacion',
     mssintetransUsuario:'http://localhost:8083/mssintetrans-usuario/usuarios',

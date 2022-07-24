@@ -60,14 +60,15 @@ export class AltaUsuarioSitComponent implements OnInit {
 
   ngOnInit(): void {
     const respuesta = this.router.snapshot.data['respuesta'];
-    this.ooads = respuesta[1].data;
-    this.roles = respuesta[0].data;
+    this.ooads = respuesta[1].datos;
+    this.roles = respuesta[0].datos;
+    console.log(respuesta)
   }
 
   onChangeOoad() {
     const ooad = this.form.controls['ooad'].value;
     this.unidadService.consultarPorOoad(ooad).subscribe((response) => {
-      this.unidades = response!.data;
+      this.unidades = response!.datos;
     });
   }
 

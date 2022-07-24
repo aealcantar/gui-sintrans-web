@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NumberDirective } from 'src/app/directives/only-numbers.directive';
 import { AltaAseguradoraComponent } from './componentes/alta-aseguradora/alta-aseguradora.component';
 import { AseguradorasComponent } from './componentes/aseguradoras/aseguradoras.component';
 import { DetalleAseguradoraComponent } from './componentes/detalle-aseguradora/detalle-aseguradora.component';
@@ -43,7 +44,8 @@ const routes: Routes = [
   providers : [
     AseguradoraCatalogoResolver,
     AseguradoraDetalleResolver,
-    AseguradoraEditResolver
+    AseguradoraEditResolver,
+   
   ]
 })
 export class AseguradorasRoutingModule { }

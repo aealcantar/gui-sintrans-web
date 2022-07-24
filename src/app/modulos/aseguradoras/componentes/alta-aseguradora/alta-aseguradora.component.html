@@ -8,7 +8,7 @@
       <div class="row flex align-items-end mb-4">
         <div class="col-md-8">
           <label class="control-label" for="nombreAseguradora">Nombre de aseguradora<span class="req">*</span>:</label>
-          <input class="form-control" formControlName="nombreAseguradora" id="nombreAseguradora" placeholder="Ingresar"
+          <input class="form-control" formControlName="nombreAseguradora" id="nombreAseguradora" placeholder="Ingresar" maxlength="150"
             type="text" />
 
           <!-- <span class="campos-obligatorios" *ngIf="(validarCampos && form.get('nombreAseguradora')!.hasError('required'))||(form.get('nombreAseguradora')?.dirty ||form.get('nombreAseguradora')?.touched)">*Campo obligatorio</span> -->
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-4">
           <label class="control-label" for="poliza">Póliza<span class="req">*</span>:</label>
-          <input class="form-control" formControlName="poliza" id="poliza" placeholder="Ingresar" type="text" />
+          <input class="form-control" formControlName="poliza" id="poliza" placeholder="Ingresar" type="text" maxlength="20" />
         </div>
       </div>
 
@@ -31,13 +31,14 @@
           </p-calendar>
         </div>
         <div class="col-md-4">
-          <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
-          <input class="form-control" id="costoPoliza" formControlName="costoPoliza" placeholder="Ingresar"
-            type="text" />
+          <label  class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
+          <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" class="form-control" id="costoPoliza" formControlName="costoPoliza" placeholder="Ingresar" ></p-inputNumber>
+          <!-- <input numbersOnly class="form-control" id="costoPoliza" formControlName="costoPoliza" placeholder="Ingresar" 
+            type="text" /> -->
         </div>
         <div class="col-md-4">
           <label class="control-label" for="tipoCobertura">Tipo de cobertura<span class="req">*</span>:</label>
-          <input class="form-control" id="tipoCobertura" formControlName="tipoCobertura" placeholder="Ingresar"
+          <input  class="form-control" id="tipoCobertura" formControlName="tipoCobertura" placeholder="Ingresar"
             type="text" />
         </div>
       </div>
@@ -60,7 +61,7 @@
           <button type="button" class="btn btn-gold btn-lg" routerLink="../">
             Cancelar
           </button>
-          <button type="submit" class="btn btn-primary btn-lg ml-4">
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-lg ml-4">
             Guardar
           </button>
         </div>

@@ -29,15 +29,15 @@ export class AltaAseguradoraComponent implements OnInit {
       nombreAseguradora: new FormControl('', Validators.required),
       poliza: new FormControl('', Validators.required),
       fechaVencimiento: new FormControl('', Validators.required),
-      fechaExpiracion: new FormControl('', Validators.required),
+      fechaExpiracion: new FormControl(''),
       costoPoliza: new FormControl('', Validators.required),
       tipoCobertura: new FormControl('', Validators.required),
       tipoSiniestro: new FormControl('', Validators.required),
       matricula: new FormControl('XXXXXX', Validators.required),
       sistema: new FormControl(true, Validators.required),
-      rutaPoliza: new FormControl('', Validators.required),
-      nombreArchivo: new FormControl('', Validators.required),
-      archivoLocal: new FormControl('', Validators.required),
+      rutaPoliza: new FormControl('', ),
+      nombreArchivo: new FormControl('',),
+      archivoLocal: new FormControl('', ),
     });
   }
 
@@ -52,14 +52,16 @@ export class AltaAseguradoraComponent implements OnInit {
       'dd/mm/yyyy'
     );
     data.fechaExpiracion = data.fechaVencimiento;
-    //data.archivoLocal = 'file:///C:/Users/aivillafan/Downloads/Curriculum.pdf'
     this.aseguradoraService.save(data, this.archivo.archivo).subscribe((res) => {
       console.log(res);
       this.alertService.mostrar('exito', this.MENSAJE_EXITO)
       this.route.navigate(["../"], { relativeTo: this.router });
     });
   }
+validarMonto(){
+  const valorActual = this.form.controls['costoPoliza'].value
 
+}
 
 
   get f() {

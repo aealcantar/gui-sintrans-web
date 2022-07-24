@@ -17,7 +17,7 @@ export class MatriculaService {
   ) { }
 
   consultarMatriculaSIAP(matricula: number): Observable<HttpRespuesta<any>> {
-    return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransSIAP + `/${matricula}`)
+    return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransSIAP + `/consultamatricula/${matricula}`)
   }
 
 }

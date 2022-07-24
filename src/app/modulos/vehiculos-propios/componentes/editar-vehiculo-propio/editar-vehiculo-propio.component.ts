@@ -3,12 +3,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
+import { convierteBlobEnFile } from 'src/app/utilerias/funciones-utilerias';
 import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehiculos-propios.service';
 
 @Component({
@@ -17,7 +21,7 @@ import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehicu
   styleUrls: ['./editar-vehiculo-propio.component.scss']
 })
 export class EditarVehiculoPropioComponent implements OnInit {
-  
+
   tarjetaCirculacion!: CustomFile;
   verificacion!: CustomFile;
   polizaSeguro!: CustomFile;
@@ -61,7 +65,8 @@ export class EditarVehiculoPropioComponent implements OnInit {
     private datePipe: DatePipe,
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
-    private vehiculoPropioService: CatalogoVehiculosPropiosService
+    private vehiculoPropioService: CatalogoVehiculosPropiosService,
+    private archivoService: ArchivoService
   ) { }
 
   ngOnInit(): void {
@@ -140,6 +145,7 @@ export class EditarVehiculoPropioComponent implements OnInit {
       )
     );
     this.inicializarForm(vehiculoPropio);
+    this.inicializarArchivos(vehiculoPropio);
   }
 
   // numPoliza REGRESA NULL       desEstatusEnajenacion REGRESA NULL    y    desVersionVehiculo REGRESA NULL
@@ -186,6 +192,37 @@ export class EditarVehiculoPropioComponent implements OnInit {
     });
   }
 
+  inicializarArchivos(vehiculoPropio: any) {
+    this.tarjetaCirculacion = {
+      ruta: vehiculoPropio.desRutaArchivoTjetaCirc
+    };
+
+    this.verificacion = {
+      ruta: vehiculoPropio.desRutaVerificacion
+    };
+
+    this.polizaSeguro = {
+      ruta: vehiculoPropio.desRutaPolizaSeguro
+    };
+
+    this.fotografiaFrente = {
+      ruta: vehiculoPropio.desRutaFotoFrente
+    };
+
+    this.fotografiaLateralIzquierdo = {
+      ruta: vehiculoPropio.desRutaFotoLateralIzq
+    };
+
+    this.fotografiaLateralDerecho = {
+      ruta: vehiculoPropio.desRutaFotoLateralDer
+    };
+
+    this.fotografiaTrasera = {
+      ruta: vehiculoPropio.desRutaFotoTrasera
+    };
+
+  }
+
   validarArchivo(event: any) {
     console.log(event);
   }
@@ -202,28 +239,38 @@ export class EditarVehiculoPropioComponent implements OnInit {
   }
 
   editar() {
-    console.log("DATOS: ", this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
-    let archivos = {
-      tarjetaCirculacion: this.tarjetaCirculacion.archivo,
-      verificacion: this.verificacion.archivo,
-      polizaSeguro: this.polizaSeguro.archivo,
-      fotografiaFrente: this.fotografiaFrente.archivo,
-      fotografiaLateralDerecho: this.fotografiaLateralDerecho.archivo,
-      fotografiaLateralIzquierdo: this.fotografiaLateralIzquierdo.archivo,
-      fotografiaTrasera: this.fotografiaTrasera.archivo
-    }
     this.cargadorService.activar();
-    this.vehiculoPropioService.actualizarRegistro(this.idVehiculo, this.form.value, usuarioAutenticado?.matricula, archivos).subscribe(
-      (respuesta) => {
-        this.alertaService.mostrar("exito", this.ACTUALIZA_VEHICULO);
-        this.cargadorService.desactivar();
-        this.router.navigate(["../"], { relativeTo: this.route });
-      },
-      (error: HttpErrorResponse) => {
-        this.cargadorService.desactivar();
-      }
-    );
+    this.archivoService.obtenerArchivosDeCustomFiles(
+      this.tarjetaCirculacion,
+      this.verificacion,
+      this.polizaSeguro,
+      this.fotografiaFrente,
+      this.fotografiaLateralDerecho,
+      this.fotografiaLateralIzquierdo,
+      this.fotografiaTrasera).pipe(
+        switchMap((archivosRespuesta: File[]) => {
+          let archivos = {
+            tarjetaCirculacion: archivosRespuesta[0],
+            verificacion: archivosRespuesta[1],
+            polizaSeguro: archivosRespuesta[2],
+            fotografiaFrente: archivosRespuesta[3],
+            fotografiaLateralDerecho: archivosRespuesta[4],
+            fotografiaLateralIzquierdo: archivosRespuesta[5],
+            fotografiaTrasera: archivosRespuesta[6]
+          };
+          return this.vehiculoPropioService.actualizarRegistro(this.idVehiculo, this.form.value, usuarioAutenticado?.matricula, archivos)
+        })
+      ).subscribe(
+        (respuesta) => {
+          this.alertaService.mostrar("exito", this.ACTUALIZA_VEHICULO);
+          this.cargadorService.desactivar();
+          this.router.navigate(["../"], { relativeTo: this.route });
+        },
+        (error: HttpErrorResponse) => {
+          this.cargadorService.desactivar();
+        }
+      );
   }
 
   get f() {

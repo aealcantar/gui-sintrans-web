@@ -12,6 +12,7 @@ import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { CatalogoUnidadesService } from '../catalogo-unidades/servicios/catalogo-unidades.service';
 import { AltaVehiculoPropioComponent } from './componentes/alta-vehiculo-propio/alta-vehiculo-propio.component';
 import { DetalleVehiculoPropioComponent } from './componentes/detalle-vehiculo-propio/detalle-vehiculo-propio.component';
@@ -45,9 +46,10 @@ import { VehiculosPropiosRoutingModule } from './vehiculos-propios-routing.modul
     InputNumberModule
   ],
   providers: [
+    DatePipe,
     CatalogoVehiculosPropiosService,
     CatalogoUnidadesService,
-    DatePipe
+    ArchivoService
   ]
 })
 export class VehiculosPropiosModule { }

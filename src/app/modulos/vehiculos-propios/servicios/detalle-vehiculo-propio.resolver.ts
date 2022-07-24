@@ -19,54 +19,6 @@ export class DetalleVehiculoPropioResolver implements Resolve<HttpRespuesta<any>
         const catUnidades$ = this.catalogoUnidadesService.buscarPorPagina(pagina, tamanio);
         const idVehiculoPropio = route.paramMap.get('idVehiculo');
         const vehiculoPropio$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio);
-        // //     map((vehiculoPropio)=> ({
-        // //         ...vehiculoPropio,
-
-        // //     })
-        // // );
-
-        // const archivoTjetaCirc$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaArchivoTjetaCirc).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaArchivoTjetaCirc))
-        //     ))
-        // );
-
-        // const archivoVerificacion$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaVerificacion).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaVerificacion))
-        //     ))
-        // );
-
-        // const archivoPoliza$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaPolizaSeguro).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaPolizaSeguro))
-        //     ))
-        // );
-
-        // const desRutaFotoFrente$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoFrente).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoFrente))
-        //     ))
-        // );
-
-        // const desRutaFotoLateralIzq$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoLateralIzq).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoLateralIzq))
-        //     ))
-        // );
-
-        // const desRutaFotoLateralDer$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoLateralDer).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoLateralDer))
-        //     ))
-        // );
-
-        // const desRutaFotoTrasera$ = this.catalogoVehiculosPropiosService.buscarPorId(idVehiculoPropio).pipe(
-        //     switchMap(respuesta => this.catalogoVehiculosPropiosService.descargarArchivo(respuesta.datos[0].desRutaFotoTrasera).pipe(
-        //         map((response) => convierteBlobEnFile(response, respuesta.datos[0].desRutaFotoTrasera))
-        //     ))
-        // );
-
 
         const catTipoVehiculo$ = this.catalogoVehiculosPropiosService.obtenerCatalogoTipoVehiculo();
         const catCONUEE$ = this.catalogoVehiculosPropiosService.obtenerCatalogoCONUEE();
@@ -89,14 +41,7 @@ export class DetalleVehiculoPropioResolver implements Resolve<HttpRespuesta<any>
             catToneladas$,
             catCilindros$,
             catEstatus$,
-            vehiculoPropio$,
-            // archivoTjetaCirc$,
-            // archivoVerificacion$,
-            // archivoPoliza$,
-            // desRutaFotoFrente$,
-            // desRutaFotoLateralIzq$,
-            // desRutaFotoLateralDer$,
-            // desRutaFotoTrasera$
+            vehiculoPropio$
         ]);
 
     }

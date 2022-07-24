@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { forkJoin, Observable } from "rxjs";
 import { HttpRespuesta } from "src/app/modelos/http-respuesta.interface";
 import { VehiculosArrendadosService } from "./vehiculos-arrendados.service";
 
@@ -11,9 +11,12 @@ export class ListaVehiculoArrendadoResolver implements Resolve<HttpRespuesta<any
         private vehiculosArrendadosService: VehiculosArrendadosService
     ) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpRespuesta<any>> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         let pagina = 0;
         let tamanio = 10;
-        return this.vehiculosArrendadosService.buscarPorPagina(pagina, tamanio);
+        const vehiculosArrendados$ = this.vehiculosArrendadosService.buscarPorPagina(pagina, tamanio);
+        const catTipoServicio$ = this.vehiculosArrendadosService.obtenerCatalogoTipoServicio();
+        const catEstatus$ = this.vehiculosArrendadosService.obtenerCatalogoEstatus();
+        return forkJoin([vehiculosArrendados$, catTipoServicio$, catEstatus$]);
     }
 }

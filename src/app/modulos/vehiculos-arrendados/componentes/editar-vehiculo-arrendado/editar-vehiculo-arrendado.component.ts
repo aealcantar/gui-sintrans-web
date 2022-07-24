@@ -178,17 +178,6 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
     );
   }
 
-  buscarDatosPorIdUnidad(): void {
-    this.unidadService.buscarPorId(this.form.get('idUnidad')?.value).subscribe(
-      (respuesta) => {
-        this.form.controls['codigoPostal'].setValue(respuesta.datos.codigoPostal.cveCodigoPostal);
-        this.form.controls['entidad'].setValue(respuesta.datos.codigoPostal.idMunicipio.entidades.nomEntidad);
-        this.form.controls['municipio'].setValue(respuesta.datos.codigoPostal.idMunicipio.nomMunicipio);
-        this.form.controls['colonia'].setValue(respuesta.datos.nomColonia);
-      }
-    );
-  }
-
   inicializarForm(vehiculoArrendado: any): void {
     this.form = this.formBuilder.group({
       ecco: new FormControl(vehiculoArrendado.cveEcco, Validators.required),

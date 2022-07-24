@@ -27,7 +27,7 @@
                 <div class="col-md-3">
                     <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
                     <input class="form-control" id="matricula" placeholder="Ingresar" type="text"
-                        formControlName="cveMatriculaChofer">
+                        formControlName="matriculaChofer">
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="ooad">OOAD:</label>
                     <input class="form-control" id="ooad" placeholder="Ingresar" type="text"
-                        formControlName="cveUnidadOOAD">
+                        formControlName="unidadOoad">
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="adscripcion">Adscripción:</label>
                     <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
-                        formControlName="cveUnidadAdscripcion">
+                        formControlName="unidadAdscripcion">
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="inicioContrato">Inicio de contrato<span
@@ -70,7 +70,7 @@
                 <div class="col-md-4">
                     <label class="control-label" for="categoria">Categoría<span class="req">*</span>:</label>
                     <p-dropdown id="categoria" class="form-control" [options]="ooad" placeholder="Seleccionar"
-                        formControlName="desCategoria">
+                        formControlName="categoria">
                     </p-dropdown>
                 </div>
                 <div class="col-md-4">
@@ -83,7 +83,7 @@
                 <div class="col-md-4">
                     <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
                     <p-dropdown id="motivo" class="form-control" [options]="ooad" placeholder="Seleccionar"
-                        formControlName="desMotivo">
+                        formControlName="motivo">
                     </p-dropdown>
                 </div>
             </div>
@@ -102,13 +102,13 @@
                     <label class="control-label" for="numeroLicencia">Número de licencia<span
                             class="req">*</span>:</label>
                     <p-dropdown id="numeroLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar"
-                        formControlName="cveLicencia">
+                        formControlName="licencia">
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="tipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
                     <p-dropdown id="tipoLicencia" class="form-control" [options]="ooad" placeholder="Seleccionar"
-                        formControlName="cveTipoLicencia"> 
+                        formControlName="tipoLicencia"> 
                     </p-dropdown>
                 </div>
                 <div class="col-md-3">

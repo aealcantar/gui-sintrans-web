@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
+import { Chofer } from "src/app/modelos/chofer.interface";
 import { HttpRespuesta } from "src/app/modelos/http-respuesta.interface";
 import { BaseService } from "src/app/utilerias/base-service";
 import { environment } from "src/environments/environment";
@@ -16,79 +17,23 @@ export class ChoferesService extends BaseService<HttpRespuesta<any>, any> {
         return this._http.get<HttpRespuesta<any>>(`${environment.api.mssintetransChoferes}?pagina=${pagina}&tamanio=${tamanio}&matricula=${matricula}`)
     }
 
-    guardar(chofer: any): Observable<HttpRespuesta<any>> {
+    guardarChofer(chofer: Chofer, archivo: any): Observable<HttpRespuesta<any>> {
         const formData = new FormData();
-        console.log(chofer);
-        
-        formData.append('idChofer', chofer.idChofer);
-        formData.append('cveMatriculaChofer', chofer.cveMatriculaChofer);
-        formData.append('nombreChofer', chofer.nombreChofer);
-        formData.append('cveUnidadAdscripcion', chofer.cveUnidadAdscripcion);
-        formData.append('cveUnidadOOAD', chofer.cveUnidadOOAD);
-        formData.append('estatusChofer', chofer.estatusChofer);
-        formData.append('fecInicioContrato', chofer.fecInicioContrato);
-        formData.append('fecFinContrato', chofer.fecFinContrato);
-        formData.append('desCategoria', chofer.desCategoria);
-        formData.append('desMotivo', chofer.desMotivo);
-        formData.append('noLicencia', chofer.noLicencia);
-        formData.append('cveTipoLicencia', chofer.cveTipoLicencia);
-        formData.append('fecVigencia', chofer.fecVigencia);
-        formData.append('fecExpedicion', chofer.fecExpedicion);
-        formData.append('cveMatricula', chofer.cveMatricula);
-        formData.append('fecIniIncapacidad', chofer.fecIniIncapacidad);
-        formData.append('fecFinIncapacidad', chofer.fecFinIncapacidad);
-        formData.append('idUnidadAdscripcion', chofer.idUnidadAdscripcion);
-        formData.append('desrutaLicencia', chofer.desrutaLicencia);
-        formData.append('archivo', chofer.archivo);
-        return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransChoferes, formData)
+
+        const datos = JSON.stringify(chofer);
+        formData.append('chofer', datos);
+        formData.append('archivo', archivo);
+
+        return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransChoferes, formData);
     }
 
-    // actualizar(tarjetaElectronica: any): Observable<HttpRespuesta<any>> {
-    //     const formData = new FormData();
-    //     formData.append('cveNumeroConvenio', tarjetaElectronica.numeroConvenio);
-    //     formData.append('nomEmpresa', tarjetaElectronica.nombreEmpresa);
-    //     formData.append('fecIniConvenio', tarjetaElectronica.fechaInicioConvenio);
-    //     formData.append('fecFinConvenio', tarjetaElectronica.fechaFinConvenio);
-    //     formData.append('impMensual', tarjetaElectronica.importeMensual);
-    //     formData.append('canLitrosLimiteMes', tarjetaElectronica.litrosLimite);
-    //     formData.append('idOoad', tarjetaElectronica.ooad);
-    //     formData.append('numFolioInicial', tarjetaElectronica.folioInicial);
-    //     formData.append('numFolioFinal', tarjetaElectronica.folioFinal);
-    //     formData.append('canKmsRecorridos', tarjetaElectronica.km);
-    //     formData.append('desEstatusTarjeta', tarjetaElectronica.estatus);
-    //     formData.append('cveMatricula', tarjetaElectronica.matricula);
-    //     return this._http.put<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica + `${tarjetaElectronica.idTarjetaElectronica}`, formData)
-    // }
+    actualizarChofer(idChofer: any, chofer: Chofer, archivo: any): Observable<HttpRespuesta<any>> {
+        const formData = new FormData();
 
-    // buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {
-    //     return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransTarjetaElectronica + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ooad=${ooad}&ecco=${ecco}`)
-    // }
+        const datos = JSON.stringify(chofer);
+        formData.append('chofer', datos);
+        formData.append('archivo', archivo);
 
-
-    obtenerCatalogoEstatusChofer() {
-        return of([
-            {
-                idEstatusChofer: "Baja",
-                descripcion: "Baja"
-            },
-            {
-                idEstatusChofer: "Bloqueado",
-                descripcion: "Bloqueado"
-            }
-        ]);
+        return this._http.put<HttpRespuesta<any>>(`${environment.api.mssintetransChoferes}/${idChofer}`, formData);
     }
-
-    obtenerCatalogoMotivos() {
-        return of([
-            {
-                idMotivo: "Defunción",
-                descripcion: "Defunción"
-            },
-            {
-                idMotivo: "Renuncia",
-                descripcion: "Renuncia"
-            }
-        ]);
-    }
-
 }

@@ -6,7 +6,7 @@
 
     <p-card>
         <form [formGroup]="form">
-            <div class="row flex align-items-end mb-4">
+            <div class="row mb-4">
                 <div class="col-md-2">
                     <label class="control-label" for="id">ID<span class="req">*</span>:</label>
                     <input class="form-control" id="id" placeholder="XXXXXXXXXXX" type="text" disabled>
@@ -23,7 +23,7 @@
             <span class="campos-obligatorios">*Campos obligatorios</span>
             <div>
                 <button class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-                <button class="btn btn-primary btn-lg ml-4" (click)="guardar()">Guardar</button>
+                <button class="btn btn-primary btn-lg ml-4" (click)="guardar()" [disabled]="!form.valid">Guardar</button>
             </div>
         </div>
     </p-card>

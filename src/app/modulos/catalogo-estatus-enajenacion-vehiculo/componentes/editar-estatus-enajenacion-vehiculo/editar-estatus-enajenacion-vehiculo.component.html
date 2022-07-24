@@ -1,55 +1,35 @@
 <div class="container mb-4">
   <div class="flex align-items-center">
     <app-btn-regresar routerLink="../.."></app-btn-regresar>
-    <app-separador
-      class="flex-grow-1"
-      texto="Editar estatus de enajenación de vehículo"
-    ></app-separador>
+    <app-separador class="flex-grow-1" texto="Editar estatus de enajenación de vehículo"></app-separador>
   </div>
 
   <p-card>
     <form [formGroup]="form">
-      <div class="row flex align-items-end mb-4">
+      <div class="row mb-4">
         <div class="col-md-2">
-          <label class="control-label" for="id"
-            >ID<span class="req">*</span>:</label
-          >
-          <input
-            class="form-control"
-            formControlName="idEstatusEnajenacion"
-            id="id"
-            placeholder="XXXXXXXXXXX"
-            type="text"
-           
-          />
+          <label class="control-label" for="id">ID<span class="req">*</span>:</label>
+          <input class="form-control" formControlName="idEstatusEnajenacion" id="id" placeholder="XXXXXXXXXXX"
+            type="text" />
         </div>
         <div class="col-md-10">
-          <label class="control-label" for="estatus"
-            >Estatus de enajenación de vehículo<span class="req">*</span
-            >:</label
-          >
-          <input
-            class="form-control"
-            formControlName="desEstatusEnajenacion"
-            id="estatus"
-            placeholder="Ingresar"
-            type="text"
-          />
-          <span class="campos-obligatorios" *ngIf="f?.desEstatusEnajenacion?.errors?.required && (f?.desEstatusEnajenacion?.dirty || f?.desEstatusEnajenacion?.touched)">*Campo obligatorio</span>
+          <label class="control-label" for="estatus">Estatus de enajenación de vehículo<span
+              class="req">*</span>:</label>
+          <input class="form-control" formControlName="desEstatusEnajenacion" id="estatus" placeholder="Ingresar"
+            type="text" />
+          <span class="campos-obligatorios"
+            *ngIf="f?.desEstatusEnajenacion?.errors?.required && (f?.desEstatusEnajenacion?.dirty || f?.desEstatusEnajenacion?.touched)">*Campo
+            obligatorio</span>
         </div>
       </div>
     </form>
     <div class="flex justify-content-between mt-4">
       <span class="campos-obligatorios">*Campos obligatorios</span>
       <div>
-        <button
-          class="btn btn-gold btn-lg"
-          routerLink="../.."
-          (click)="cancelar()"
-        >
+        <button class="btn btn-gold btn-lg" routerLink="../..">
           Cancelar
         </button>
-        <button class="btn btn-primary btn-lg ml-4" (click)="guardar()">
+        <button class="btn btn-primary btn-lg ml-4" (click)="guardar()" [disabled]="!form.valid">
           Guardar
         </button>
       </div>

@@ -11,13 +11,15 @@ import { VehiculoEnajenacionService } from '../../service/vehiculo-enajenacion.s
   styleUrls: ['./editar-estatus-enajenacion-vehiculo.component.scss'],
 })
 export class EditarEstatusEnajenacionVehiculoComponent implements OnInit {
+  
   readonly MENSAJE = 'El estatus de enajenación ha sido guardado exitosamente.'
+  
   constructor(
     private router: ActivatedRoute,
-    private route : Router,
+    private route: Router,
     private vehiculosService: VehiculoEnajenacionService,
     public formBuilder: FormBuilder,
-    private alertService : AlertasFlotantesService
+    private alertService: AlertasFlotantesService
   ) {
     this.form = formBuilder.group({
       idEstatusEnajenacion: new FormControl('', Validators.required),
@@ -27,9 +29,9 @@ export class EditarEstatusEnajenacionVehiculoComponent implements OnInit {
   form;
   respuesta!: HttpRespuesta<any> | null;
   estatus: any;
+  
   ngOnInit(): void {
     const respuesta = this.router.snapshot.data['respuesta'];
-    console.log(respuesta);
     this.estatus = respuesta.datos;
     this.form.controls['idEstatusEnajenacion'].setValue(this.estatus.idEstatusEnajenacion);
     this.form.controls['desEstatusEnajenacion'].setValue(
@@ -38,8 +40,6 @@ export class EditarEstatusEnajenacionVehiculoComponent implements OnInit {
     this.form.controls['idEstatusEnajenacion'].disable();
   }
 
-  cancelar() {}
-
   guardar() {
     this.vehiculosService
       .update(
@@ -47,7 +47,7 @@ export class EditarEstatusEnajenacionVehiculoComponent implements OnInit {
         this.form.controls['desEstatusEnajenacion'].value
       )
       .subscribe((response) => {
-        this.alertService.mostrar('exito' , this.MENSAJE)
+        this.alertService.mostrar('exito', this.MENSAJE)
         this.route.navigate(["../../"], { relativeTo: this.router });
       });
   }

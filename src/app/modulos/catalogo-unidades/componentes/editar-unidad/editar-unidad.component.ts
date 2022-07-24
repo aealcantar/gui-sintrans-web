@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { Unidad } from 'src/app/modelos/unidad.interface';
@@ -17,7 +17,7 @@ export class EditarUnidadComponent implements OnInit {
 
   @ViewChild("input")
   codigoPostal!: ElementRef;
-  
+
   readonly POSICION_UNIDAD = 0;
   readonly POSICION_CATALOGO_OOAD = 1;
   readonly POSICION_CATALOGO_UNIDAD = 2;
@@ -25,6 +25,7 @@ export class EditarUnidadComponent implements OnInit {
   idUnidad!: number;
   catUnidad: any[] = [];
   catOoad: any[] = [];
+  idCodigoPostal!: number;
 
   form!: FormGroup;
 
@@ -72,20 +73,20 @@ export class EditarUnidadComponent implements OnInit {
 
   inicializarForm(unidad: any): void {
     this.form = this.formBuilder.group({
-      ooad: [unidad.ooad.idOoad, Validators.required],
-      nombreUnidad: [unidad.nomUnidadAdscripcion, Validators.required],
-      unidad: [unidad.desTipoUnidad, Validators.required],
-      pernocta: [!!unidad.indUnidadPernocta, Validators.required],
-      unInf: [unidad.numUnInf, Validators.required],
-      unOpe: [unidad.numUnOpe, Validators.required],
-      cp: [unidad.codigoPostal.cveCodigoPostal, Validators.required],
-      cc: [unidad.numCc, Validators.required],
-      cu: [unidad.numCu, Validators.required],
-      div: [unidad.numDiv, Validators.required],
-      sdiv: [unidad.numSdiv, Validators.required],
-      entidad: ['', Validators.required],
-      municipio: ['', Validators.required],
-      colonia: [unidad.nomColonia, Validators.required]
+      ooad: new FormControl(unidad.ooad.idOoad, Validators.required),
+      nombreUnidad: new FormControl(unidad.nomUnidadAdscripcion, Validators.required),
+      unidad: new FormControl(parseInt(unidad.desTipoUnidad), Validators.required),
+      pernocta: new FormControl(!!unidad.indUnidadPernocta, Validators.required),
+      unInf: new FormControl(unidad.numUnInf, Validators.required),
+      unOpe: new FormControl(unidad.numUnOpe, Validators.required),
+      cp: new FormControl(unidad.codigoPostal.cveCodigoPostal, Validators.required),
+      cc: new FormControl(unidad.numCc, Validators.required),
+      cu: new FormControl(unidad.numCu, Validators.required),
+      div: new FormControl(unidad.numDiv, Validators.required),
+      sdiv: new FormControl(unidad.numSdiv, Validators.required),
+      entidad: new FormControl({ value: '', disabled: true }, Validators.required),
+      municipio: new FormControl({ value: '', disabled: true }, Validators.required),
+      colonia: new FormControl(unidad.nomColonia, Validators.required)
     });
   }
 
@@ -106,7 +107,7 @@ export class EditarUnidadComponent implements OnInit {
       numCu: this.form.get("cu")?.value,
       numDiv: this.form.get("div")?.value,
       numSdiv: this.form.get("sdiv")?.value,
-      idCodigoPostal: this.codigoPostal.nativeElement.value,
+      idCodigoPostal: this.idCodigoPostal,
       nomColonia: this.form.get("colonia")?.value,
       cveMatricula: usuarioAutenticado.matricula
     };
@@ -129,10 +130,11 @@ export class EditarUnidadComponent implements OnInit {
       (respuesta) => {
         this.form.get('entidad')?.setValue(respuesta.datos[0].nomEstado);
         this.form.get('municipio')?.setValue(respuesta.datos[0].nomMunicipio);
+        this.idCodigoPostal = respuesta.datos[0].idCodigoPostal;
       }
     );
   }
-  
+
   get f() {
     return this.form.controls;
   }

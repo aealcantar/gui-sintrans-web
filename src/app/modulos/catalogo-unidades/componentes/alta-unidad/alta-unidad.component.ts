@@ -96,7 +96,6 @@ export class AltaUnidadComponent implements OnInit {
       nomColonia: this.form.get("colonia")?.value,
       cveMatricula: usuarioAutenticado.matricula
     };
-    console.log("DATOS", unidad);
     this.unidadService.guardar(unidad).subscribe(
       (respuesta) => {
         this.alertaService.mostrar("exito", this.ALTA_UNIDAD);

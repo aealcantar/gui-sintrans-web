@@ -112,7 +112,6 @@ export class EditarUnidadComponent implements OnInit {
       nomColonia: this.form.get("colonia")?.value,
       cveMatricula: usuarioAutenticado.matricula
     };
-    console.log("DATOS: ", unidad);
     this.unidadService.actualizar(this.idUnidad, unidad).subscribe(
       (respuesta) => {
         this.alertaService.mostrar("exito", this.ACTUALIZA_UNIDAD);

@@ -294,10 +294,6 @@ export const CATALOGO_ESTATUS_CHOFER: any[] = [
     },
     {
         value: 2,
-        label: "Título de la opción"
-    },
-    {
-        value: 3,
         label: "Bloqueado"
     },
 ];

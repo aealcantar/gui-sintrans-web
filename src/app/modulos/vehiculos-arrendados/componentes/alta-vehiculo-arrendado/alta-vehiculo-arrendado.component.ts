@@ -229,7 +229,7 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
       desTipoRegimen: this.form.get("idTipoRegimen")?.value,
       idUnidadAdscripcion: this.form.get("idUnidad")?.value,
       numAuxiliar: this.form.get("auxiliarContable")?.value,
-      indSustituto: this.form.get("vehiculoSustituto")?.value === true ? 1 : 2,
+      indSustituto: this.form.get("vehiculoSustituto")?.value === true ? 1 : 0,
       cveMatricula: usuarioAutenticado.matricula,
       desEstatusVehiculo: this.form.get("idEstatus")?.value,
       desClase: this.form.get("numeroConvenio")?.value,

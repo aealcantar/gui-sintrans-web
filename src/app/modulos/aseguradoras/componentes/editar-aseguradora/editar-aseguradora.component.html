@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Póliza de seguro<span class="req">*</span>:</label>
-                    <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [mostrarBtnDescargar]="true" accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivo)]="archivo">
                     </app-cargador-archivo>
                 </div>

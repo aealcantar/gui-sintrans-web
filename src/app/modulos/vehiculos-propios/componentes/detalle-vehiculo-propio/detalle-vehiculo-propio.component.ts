@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
+import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
 
 @Component({
   selector: 'app-detalle-vehiculo-propio',
@@ -52,7 +53,8 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private unidadService: CatalogoUnidadesService
   ) { }
 
   ngOnInit(): void {
@@ -139,6 +141,18 @@ export class DetalleVehiculoPropioComponent implements OnInit {
     );
     this.inicializarForm(vehiculoPropio);
     this.inicializarArchivos(vehiculoPropio);
+    this.consultaDatosPorIdUnidad(vehiculoPropio.idUnidadAdscripcion);
+  }
+
+  consultaDatosPorIdUnidad(idUnidad: any): void {
+    this.unidadService.buscarPorId(idUnidad).subscribe(
+      (respuesta) => {
+        this.form.controls['cp'].setValue(respuesta.datos.codigoPostal.cveCodigoPostal);
+        this.form.controls['entidad'].setValue(respuesta.datos.codigoPostal.idMunicipio.entidades.nomEntidad);
+        this.form.controls['municipio'].setValue(respuesta.datos.codigoPostal.idMunicipio.nomMunicipio);
+        this.form.controls['colonia'].setValue(respuesta.datos.nomColonia);
+      }
+    );
   }
 
   // numPoliza REGRESA NULL       desEstatusEnajenacion REGRESA NULL    y    desVersionVehiculo REGRESA NULL

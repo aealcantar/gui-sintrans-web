@@ -9,6 +9,7 @@ import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
 import { Unidad } from 'src/app/modelos/unidad.interface';
+import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
@@ -66,7 +67,8 @@ export class EditarVehiculoPropioComponent implements OnInit {
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
     private vehiculoPropioService: CatalogoVehiculosPropiosService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private unidadService: CatalogoUnidadesService
   ) { }
 
   ngOnInit(): void {
@@ -96,6 +98,14 @@ export class EditarVehiculoPropioComponent implements OnInit {
       )
     );
     this.catTipoServicioCONUEE = respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO];
+    this.catTipoServicio = respuesta[this.POSICION_CATALOGO_TIPO_SERVICIO].map(
+      (tipoServicio: any) => (
+        {
+          label: tipoServicio.descripcion,
+          value: tipoServicio.idTipoServicio
+        }
+      )
+    );
     this.catVersion = respuesta[this.POSICION_CATALOGO_VERSION].map(
       (version: any) => (
         {
@@ -146,6 +156,18 @@ export class EditarVehiculoPropioComponent implements OnInit {
     );
     this.inicializarForm(vehiculoPropio);
     this.inicializarArchivos(vehiculoPropio);
+    this.consultaDatosPorIdUnidad(vehiculoPropio.idUnidadAdscripcion);
+  }
+
+  consultaDatosPorIdUnidad(idUnidad: any): void {
+    this.unidadService.buscarPorId(idUnidad).subscribe(
+      (respuesta) => {
+        this.form.controls['cp'].setValue(respuesta.datos.codigoPostal.cveCodigoPostal);
+        this.form.controls['entidad'].setValue(respuesta.datos.codigoPostal.idMunicipio.entidades.nomEntidad);
+        this.form.controls['municipio'].setValue(respuesta.datos.codigoPostal.idMunicipio.nomMunicipio);
+        this.form.controls['colonia'].setValue(respuesta.datos.nomColonia);
+      }
+    );
   }
 
   // numPoliza REGRESA NULL       desEstatusEnajenacion REGRESA NULL    y    desVersionVehiculo REGRESA NULL

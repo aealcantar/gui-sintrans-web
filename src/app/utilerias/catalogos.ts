@@ -244,6 +244,49 @@ export const CATALOGO_ESTATUS: any[] = [
     }
 ];
 
+export const CATALOGO_NUMERO_CONTRATOS: any[] = [
+    {
+        idContrato: 1,
+        descripcion: "Contrato 1"
+    },
+    {
+        idContrato: 2,
+        descripcion: "Contrato 2"
+    },
+    {
+        idContrato: 3,
+        descripcion: "Contrato 3"
+    },
+    {
+        idContrato: 4,
+        descripcion: "Contrato 4"
+    },
+    {
+        idContrato: 5,
+        descripcion: "Contrato 5"
+    },
+    {
+        idContrato: 6,
+        descripcion: "Contrato 6"
+    },
+    {
+        idContrato: 7,
+        descripcion: "Contrato 7"
+    },
+    {
+        idContrato: 8,
+        descripcion: "Contrato 8"
+    },
+    {
+        idContrato: 9,
+        descripcion: "Contrato 9"
+    },
+    {
+        idContrato: 10,
+        descripcion: "Contrato 10"
+    }
+];
+
 export const CATALOGO_ESTATUS_CHOFER: any[] = [
     {
         value: 1,

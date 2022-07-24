@@ -25,6 +25,8 @@ export class AltaVehiculoArrendadoResolver implements Resolve<any>{
         const catToneladas$ = this.vehiculosArrendadosService.obtenerCatalogoToneladas();
         const catCilindros$ = this.vehiculosArrendadosService.obtenerCatalogoCilindros();
         const catEstatus$ = this.vehiculosArrendadosService.obtenerCatalogoEstatus();
-        return forkJoin([catUnidades$, catTipoVehiculo$, catCONUEE$, catTipoServicio$, catVersion$, catTipoRegimen$, catCombustible$, catToneladas$, catCilindros$, catEstatus$]);
+        //Este catalogo es temporal, se quitara cuando se trabaje la HU03-13 (Arrendatarios)
+        const catNumeroContratos$ = this.vehiculosArrendadosService.obtenerCatalogoNumeroContratos();
+        return forkJoin([catUnidades$, catTipoVehiculo$, catCONUEE$, catTipoServicio$, catVersion$, catTipoRegimen$, catCombustible$, catToneladas$, catCilindros$, catEstatus$, catNumeroContratos$]);
     }
 }

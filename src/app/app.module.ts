@@ -22,6 +22,7 @@ import { AutenticacionInterceptor } from './servicios/seguridad/autenticacion.in
 import { AutenticacionService } from './servicios/seguridad/autenticacion.service';
 import { PermiteUsuarioLogueadoGuard } from './servicios/seguridad/permite-usuario-logueado.guard';
 import { BloqueaUsuarioLogueadoGuard } from './servicios/seguridad/bloquea-usuario-logueado.guard';
+import { ErrorInterceptor } from './servicios/seguridad/error.interceptor';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -58,6 +59,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutenticacionInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     },
     PermiteUsuarioLogueadoGuard,

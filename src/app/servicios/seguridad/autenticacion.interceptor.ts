@@ -1,19 +1,12 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
-import { AlertasFlotantesService } from "../alertas-flotantes.service";
-import { AutenticacionService, TRANSPORTES_TOKEN } from "./autenticacion.service";
+import { Observable } from "rxjs";
+import { TRANSPORTES_TOKEN } from "./autenticacion.service";
 
 @Injectable()
 export class AutenticacionInterceptor implements HttpInterceptor {
 
-    constructor(
-        private alertasFlotantesService: AlertasFlotantesService,
-        private router: Router,
-        private autententicacionService: AutenticacionService
-    ) { }
+    constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = localStorage.getItem(TRANSPORTES_TOKEN);
@@ -24,18 +17,7 @@ export class AutenticacionInterceptor implements HttpInterceptor {
                 }
             });
         }
-        return next.handle(request).pipe(
-            catchError((err) => {
-                if (err instanceof HttpErrorResponse) {
-                    if (err.status === 401 || err.status === 403) {
-                        this.autententicacionService.cerrarSesion();
-                        this.alertasFlotantesService.mostrar('error', 'Acceso no autorizado');
-                        this.router.navigateByUrl('/inicio-sesion');
-                    }
-                }
-                return throwError(err);
-            })
-        );
+        return next.handle(request);
     }
 
 }

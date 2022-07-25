@@ -41,6 +41,8 @@ export class AseguradorasComponent implements OnInit {
     this.aseguradoraService.obtenerAseguradoras(0, 10, this.form.controls['aseguradora'].value).subscribe(res => {
       this.aseguradoras = []
       this.aseguradoras = res.datos.content
+      this.respuesta = null
+      this.respuesta = res
     },
       (error: HttpErrorResponse) => {
         console.error("ERROR: ", error);
@@ -122,6 +124,7 @@ export class AseguradorasComponent implements OnInit {
         this.mostrarModal = false;
         if (this.aseguradoras.length === 0) {
           this.recargarTabla();
+          this.cargadorService.desactivar()
         }
       },
       (error: HttpErrorResponse) => {

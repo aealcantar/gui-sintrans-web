@@ -49,9 +49,10 @@ export class AltaAseguradoraComponent implements OnInit {
     data.nombreArchivo = this.archivo?.archivo?.name;
     data.fechaVencimiento = this.datePipe.transform(
       data.fechaVencimiento,
-      'dd/mm/yyyy'
+      'dd/MM/yyyy'
     );
     data.fechaExpiracion = data.fechaVencimiento;
+    console.log(data,'antes de data')
     this.aseguradoraService.save(data, this.archivo.archivo).subscribe((res) => {
       console.log(res);
       this.alertService.mostrar('exito', this.MENSAJE_EXITO)

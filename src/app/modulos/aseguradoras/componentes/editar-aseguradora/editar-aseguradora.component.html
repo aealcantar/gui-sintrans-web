@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="costoPoliza">Costo de la póliza<span class="req">*</span>:</label>
-                    <p-inputNumber maxlength="10" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" class="form-control" id="costoPoliza" formControlName="costoPoliza" placeholder="Ingresar" ></p-inputNumber>
+                    <p-inputNumber  mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" class="form-control" id="costoPoliza" formControlName="costoPoliza" placeholder="Ingresar" ></p-inputNumber>
                     <span class="campos-obligatorios"
                         *ngIf="f?.costoPoliza?.errors?.required && (f?.costoPoliza?.dirty || f?.costoPoliza?.touched)">*Campo
                         obligatorio</span>

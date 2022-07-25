@@ -99,12 +99,12 @@ export class EditarChoferComponent implements OnInit {
           this.inicializarArchivos(respuesta?.datos.desrutaLicencia);
           this.editForm.patchValue({
             ...respuesta?.datos,
-            fecInicioContrato: respuesta?.datos.fecInicioContrato && new Date(respuesta?.datos.fecInicioContrato),
-            fecFinContrato: respuesta?.datos.fecFinContrato && new Date(respuesta?.datos.fecFinContrato),
-            fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad && new Date(respuesta?.datos.fecIniIncapacidad),
-            fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad && new Date(respuesta?.datos.fecFinIncapacidad),
-            fecVigencia: respuesta?.datos.fecVigencia && new Date(respuesta?.datos.fecVigencia),
-            fecExpedicion: respuesta?.datos.fecExpedicion && new Date(respuesta?.datos.fecExpedicion),
+            fecInicioContrato: respuesta?.datos.fecInicioContrato && new Date(this.diferenciaUTC(respuesta?.datos.fecInicioContrato)),
+            fecFinContrato: respuesta?.datos.fecFinContrato && new Date(this.diferenciaUTC(respuesta?.datos.fecFinContrato)),
+            fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad && new Date(this.diferenciaUTC(respuesta?.datos.fecIniIncapacidad)),
+            fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad && new Date(this.diferenciaUTC(respuesta?.datos.fecFinIncapacidad)),
+            fecVigencia: respuesta?.datos.fecVigencia && new Date(this.diferenciaUTC(respuesta?.datos.fecVigencia)),
+            fecExpedicion: respuesta?.datos.fecExpedicion && new Date(this.diferenciaUTC(respuesta?.datos.fecExpedicion)),
             estatusChofer: parseInt(respuesta?.datos.estatusChofer),
             desMotivo: parseInt(respuesta?.datos.desMotivo),
           });
@@ -116,6 +116,11 @@ export class EditarChoferComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  diferenciaUTC(fecha: string) {
+    let objetoFecha = new Date(fecha);
+    return objetoFecha.setMinutes(objetoFecha.getMinutes() + objetoFecha.getTimezoneOffset());
   }
 
   consultarDatosSIAP(): void {

@@ -29,20 +29,20 @@
                     [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina" (onLazyLoad)="paginador($event)">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="id">ID <p-sortIcon field="id">
+                            <th pSortableColumn="idChofer">ID <p-sortIcon field="idChofer">
                                 </p-sortIcon>
                             </th>
-                            <th pSortableColumn="matricula">Matrícula <p-sortIcon field="matricula">
+                            <th pSortableColumn="cveMatriculaChofer">Matrícula <p-sortIcon field="cveMatriculaChofer">
                                 </p-sortIcon>
                             </th>
-                            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon>
+                            <th pSortableColumn="nombreChofer">Nombre <p-sortIcon field="nombreChofer"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="adscripcion">Adscripción <p-sortIcon field="adscripcion"></p-sortIcon>
+                            <th pSortableColumn="cveUnidadAdscripcion">Adscripción <p-sortIcon field="cveUnidadAdscripcion"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="ooad">OOAD <p-sortIcon field="ooad">
+                            <th pSortableColumn="cveUnidadOOAD">OOAD <p-sortIcon field="cveUnidadOOAD">
                                 </p-sortIcon>
                             </th>
-                            <th pSortableColumn="estatus">Estatus <p-sortIcon field="estatus">
+                            <th pSortableColumn="estatusChofer">Estatus <p-sortIcon field="estatusChofer">
                                 </p-sortIcon>
                             </th>
                             <th class="text-center">Acciones
@@ -54,10 +54,10 @@
                             <td><a class="link"
                                     [routerLink]="['detalle-de-chofer',chofer.idChofer]">{{chofer.idChofer}}</a>
                             </td>
-                            <td>{{chofer.matriculaChofer}}</td>
+                            <td>{{chofer.cveMatriculaChofer}}</td>
                             <td>{{chofer.nombreChofer}}</td>
-                            <td>{{chofer.unidadAdscripcion}}</td>
-                            <td>{{chofer.unidadOoad}}</td>
+                            <td>{{chofer.cveUnidadAdscripcion}}</td>
+                            <td>{{chofer.cveUnidadOOAD}}</td>
                             <td>{{chofer.estatusChofer}}</td>
                             <td class="flex justify-content-center">
                                 <i [routerLink]="['editar-chofer',chofer.idChofer]"

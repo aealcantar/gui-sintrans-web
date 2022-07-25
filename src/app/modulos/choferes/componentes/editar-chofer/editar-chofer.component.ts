@@ -159,7 +159,7 @@ export class EditarChoferComponent implements OnInit {
     const data = this.editForm.getRawValue();
 
     if (this.editForm.valid) {
-      let chofer: Chofer = {
+      let chofer: any = {
         ...data,
         motivo: String(this.editForm.get('motivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
@@ -174,9 +174,10 @@ export class EditarChoferComponent implements OnInit {
           moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY/MM/DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
           moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
+        archivo: this.archivo?.archivo,
       };
 
-      this.choferesService.actualizarChofer(chofer.idChofer, chofer, this.archivo?.archivo).subscribe(
+      this.choferesService.actualizarChofer(chofer).subscribe(
         (respuesta) => {
           this.alertaService.mostrar("exito", this.ACTUALIZAR_CHOFER);
           this.cargadorService.desactivar();

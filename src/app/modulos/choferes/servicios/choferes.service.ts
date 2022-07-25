@@ -13,27 +13,59 @@ export class ChoferesService extends BaseService<HttpRespuesta<any>, any> {
         super(_http, `${environment.api.mssintetransChoferes}`);
     }
 
-    buscarPorPagina(pagina: number, tamanio: number, matricula?: string): Observable<HttpRespuesta<any>> {
-        return this._http.get<HttpRespuesta<any>>(`${environment.api.mssintetransChoferes}?pagina=${pagina}&tamanio=${tamanio}&matricula=${matricula}`)
+    buscarPorPagina(pagina: number, tamanio: number, matricula?: string, sort?: any): Observable<HttpRespuesta<any>> {
+        return this._http.get<HttpRespuesta<any>>(`${environment.api.mssintetransChoferes}/buscar?pagina=${pagina}&tamanio=${tamanio}&matricula=${matricula}&columna=${sort?.columna}&tipoOrdenamiento=${sort?.tipoOrdenamiento}`)
     }
 
-    guardarChofer(chofer: Chofer, archivo: any): Observable<HttpRespuesta<any>> {
+    guardarChofer(chofer: any): Observable<HttpRespuesta<any>> {
         const formData = new FormData();
 
-        const datos = JSON.stringify(chofer);
-        formData.append('chofer', datos);
-        formData.append('archivo', archivo);
+        formData.append('idChofer', chofer.idChofer);
+        formData.append('cveMatriculaChofer', chofer.matriculaChofer);
+        formData.append('nombreChofer', chofer.nombreChofer);
+        formData.append('cveUnidadAdscripcion', chofer.unidadAdscripcion);
+        formData.append('cveUnidadOOAD', chofer.unidadOoad);
+        formData.append('estatusChofer', chofer.estatusChofer);
+        formData.append('fecInicioContrato', chofer.fecInicioContrato);
+        formData.append('fecFinContrato', chofer.fecFinContrato);
+        formData.append('desCategoria', chofer.categoria);
+        formData.append('desMotivo', chofer.motivo);
+        formData.append('noLicencia', chofer.licencia);
+        formData.append('cveTipoLicencia', chofer.tipoLicencia);
+        formData.append('fecVigencia', chofer.fecVigencia);
+        formData.append('fecExpedicion', chofer.fecExpedicion);
+        formData.append('cveMatricula', chofer.matricula);
+        formData.append('fecIniIncapacidad', chofer.fecIniIncapacidad);
+        formData.append('fecFinIncapacidad', chofer.fecFinIncapacidad);
+        formData.append('idUnidadAdscripcion', chofer.idUnidadAdscripcion);
+        formData.append('archivo', chofer.archivo);
 
         return this._http.post<HttpRespuesta<any>>(environment.api.mssintetransChoferes, formData);
     }
 
-    actualizarChofer(idChofer: any, chofer: Chofer, archivo: any): Observable<HttpRespuesta<any>> {
+    actualizarChofer(chofer: any): Observable<HttpRespuesta<any>> {
         const formData = new FormData();
 
-        const datos = JSON.stringify(chofer);
-        formData.append('chofer', datos);
-        formData.append('archivo', archivo);
+        formData.append('idChofer', chofer.idChofer);
+        formData.append('cveMatriculaChofer', chofer.matriculaChofer);
+        formData.append('nombreChofer', chofer.nombreChofer);
+        formData.append('cveUnidadAdscripcion', chofer.unidadAdscripcion);
+        formData.append('cveUnidadOOAD', chofer.unidadOoad);
+        formData.append('estatusChofer', chofer.estatusChofer);
+        formData.append('fecInicioContrato', chofer.fecInicioContrato);
+        formData.append('fecFinContrato', chofer.fecFinContrato);
+        formData.append('desCategoria', chofer.categoria);
+        formData.append('desMotivo', chofer.motivo);
+        formData.append('noLicencia', chofer.licencia);
+        formData.append('cveTipoLicencia', chofer.tipoLicencia);
+        formData.append('fecVigencia', chofer.fecVigencia);
+        formData.append('fecExpedicion', chofer.fecExpedicion);
+        formData.append('cveMatricula', chofer.matricula);
+        formData.append('fecIniIncapacidad', chofer.fecIniIncapacidad);
+        formData.append('fecFinIncapacidad', chofer.fecFinIncapacidad);
+        formData.append('idUnidadAdscripcion', chofer.idUnidadAdscripcion);
+        formData.append('archivo', chofer.archivo);
 
-        return this._http.put<HttpRespuesta<any>>(`${environment.api.mssintetransChoferes}/${idChofer}`, formData);
+        return this._http.put<HttpRespuesta<any>>(`${environment.api.mssintetransChoferes}`, formData);
     }
 }

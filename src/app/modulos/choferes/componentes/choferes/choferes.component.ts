@@ -44,15 +44,19 @@ export class ChoferesComponent implements OnInit {
     let pagina = Math.floor(inicio / 10);
     let tamanio = event?.rows || 10;
     let matricula = this.editForm.get('matricula')?.value;
-    this.choferesService.buscarPorPagina(pagina, tamanio, matricula).subscribe(
+    let sort = {
+      columna: event?.sortField || '',
+      tipoOrdenamiento: this.obtenerOrden(event?.sortOrder || 0),
+    }
+    this.choferesService.buscarPorPagina(pagina, tamanio, matricula, sort).subscribe(
       (respuesta) => {
         this.catChoferes = [];
         this.respuesta = null;
         this.respuesta = respuesta;
         this.catChoferes = this.respuesta!.datos.content;
-        if (event) {
-          this.ordenar(event);
-        }
+        // if (event) {
+        //   this.ordenar(event);
+        // }
       },
       (error: HttpErrorResponse) => {
         console.error(error);
@@ -86,21 +90,32 @@ export class ChoferesComponent implements OnInit {
 
   }
 
-  ordenar(event: any): void {
-    let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
-      if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
-        return 1;
-      }
-      if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
-        return -1;
-      }
-      return 0;
-    };
-    if (event.sortOrder === 1) {
-      this.catChoferes = this.catChoferes.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
-    } else {
-      this.catChoferes = this.catChoferes.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+  obtenerOrden(idOrder: number) {
+    switch (idOrder) {
+      case 1:
+        return 'asc';
+      case -1:
+        return 'desc';
+      default:
+        return '';
     }
   }
+
+  // ordenar(event: any): void {
+  //   let ordenamiento = (a: any, b: any, campoOrdenamiento: string) => {
+  //     if (a[campoOrdenamiento] > b[campoOrdenamiento]) {
+  //       return 1;
+  //     }
+  //     if (a[campoOrdenamiento] < b[campoOrdenamiento]) {
+  //       return -1;
+  //     }
+  //     return 0;
+  //   };
+  //   if (event.sortOrder === 1) {
+  //     this.catChoferes = this.catChoferes.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+  //   } else {
+  //     this.catChoferes = this.catChoferes.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+  //   }
+  // }
 
 }

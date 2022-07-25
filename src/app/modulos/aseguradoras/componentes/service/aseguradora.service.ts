@@ -41,7 +41,7 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
   }
 
   eliminar(aseguradoraId: any) {
-    return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
+    return this._http.delete<any>(`${this._base}/${aseguradoraId}`);
   }
 
   actualizarAseguradora(aseguradoraId: any, aseguradora: any, archivo: any) {

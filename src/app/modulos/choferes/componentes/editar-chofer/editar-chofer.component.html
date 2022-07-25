@@ -12,7 +12,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="row flex align-items-end mb-4">
+            <div class="row align-items-end mb-4">
                 <div class="col-md-3">
                     <label class="control-label" for="ecco">ID consecutivo:</label>
                     <input class="form-control" id="ecco" placeholder="xxxxxxxxxxx" type="text" disabled>
@@ -21,6 +21,7 @@
                     <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
                     <input class="form-control" (keyup)="consultarDatosSIAP()" id="matricula" placeholder="Ingresar" type="text"
                         formControlName="cveMatriculaChofer" maxlength="12" numbersOnly>
+                    <span class="campos-obligatorios" *ngIf="f?.cveMatriculaChofer?.errors?.required && (f?.cveMatriculaChofer?.dirty || f?.cveMatriculaChofer?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -37,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="row flex align-items-end mb-4">
+            <div class="row align-items-end mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="adscripcion">Adscripción:</label>
                     <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
@@ -47,16 +48,18 @@
                     <label class="control-label" for="inicioContrato">Inicio de contrato<span class="req">*</span>:</label>
                     <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecInicioContrato">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f?.fecInicioContrato?.errors?.required && (f?.fecInicioContrato?.dirty || f?.fecInicioContrato?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
                     <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
                     <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecFinContrato">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f?.fecFinContrato?.errors?.required && (f?.fecFinContrato?.dirty || f?.fecFinContrato?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
 
-            <div class="row flex align-items-end mb-4">
+            <div class="row align-items-end mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="desCategoria">Categoría<span class="req">*</span>:</label>
                     <input class="form-control" id="desCategoria" placeholder="xxxxxxxxxxx" type="text"
@@ -67,6 +70,7 @@
                     <p-dropdown id="estatusChofer" class="form-control" [options]="catEstatus" placeholder="Seleccionar"
                         formControlName="estatusChofer"  (onChange)="cambioEstatus();">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f?.estatusChofer?.errors?.required && (f?.estatusChofer?.dirty || f?.estatusChofer?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="desMotivo">Motivo
@@ -75,16 +79,18 @@
                     <p-dropdown id="desMotivo" class="form-control" [options]="catMotivo" placeholder="Seleccionar"
                         formControlName="desMotivo" (onChange)="cambioMotivo();">
                     </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f?.desMotivo?.errors?.required && (f?.desMotivo?.dirty || f?.desMotivo?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
-            <div class="row flex align-items-end mb-4" *ngIf="f.desMotivo.value === 9">
+            <div class="row align-items-end mb-4" *ngIf="f.desMotivo.value === 9">
                 <div class="col-md-3">
                     <label class="control-label" for="inicioIncapacidad">Inicio de incapacidad<span
                             class="req">*</span>:</label>
                     <p-calendar id="inicioIncapacidad" styleClass="form-control" [showIcon]="true"
                         placeholder="dd/mmm/aaaa" formControlName="fecIniIncapacidad">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f?.fecIniIncapacidad?.errors?.required && (f?.fecIniIncapacidad?.dirty || f?.fecIniIncapacidad?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="finIncapacidad">Fin de incapacidad<span
@@ -92,6 +98,7 @@
                     <p-calendar id="finIncapacidad" styleClass="form-control" [showIcon]="true"
                         placeholder="dd/mmm/aaaa" formControlName="fecFinIncapacidad">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f?.fecFinIncapacidad?.errors?.required && (f?.fecFinIncapacidad?.dirty || f?.fecFinIncapacidad?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
@@ -104,36 +111,41 @@
                 </div>
             </div>
 
-            <div class="row flex align-items-end mb-4">
+            <div class="row align-items-end mb-4">
                 <div class="col-md-3">
                     <label class="control-label" for="numeroLicencia">Número de licencia<span class="req">*</span>:</label>
                     <input class="form-control" id="numeroLicencia" placeholder="Ingresar" type="text"
                         formControlName="cveLicencia" maxlength="10" numbersOnly>
+                    <span class="campos-obligatorios" *ngIf="f?.cveLicencia?.errors?.required && (f?.cveLicencia?.dirty || f?.cveLicencia?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="cveTipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
                     <input class="form-control" id="cveTipoLicencia" placeholder="Ingresar" type="text"
                         formControlName="cveTipoLicencia" maxlength="15">
+                    <span class="campos-obligatorios" *ngIf="f?.cveTipoLicencia?.errors?.required && (f?.cveTipoLicencia?.dirty || f?.cveTipoLicencia?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="vigLicencia">Vigencia de la licencia<span
                             class="req">*</span>:</label>
                     <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecVigencia">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f?.fecVigencia?.errors?.required && (f?.fecVigencia?.dirty || f?.fecVigencia?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="expLicencia">Expedición de licencia<span class="req">*</span>:</label>
                     <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecExpedicion">
                     </p-calendar>
+                    <span class="campos-obligatorios" *ngIf="f?.fecExpedicion?.errors?.required && (f?.fecExpedicion?.dirty || f?.fecExpedicion?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
-            <div class="row flex mb-4">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="control-label">Licencia<span class="req">*</span>:</label>
                     <app-cargador-archivo accept="application/pdf" [extensionesAceptadas]="['pdf']"
                         [(archivo)]="archivo" (errorEmitter)="validarArchivo($event)" [mostrarBtnDescargar]="true">
                     </app-cargador-archivo>
+                    <span class="campos-obligatorios" *ngIf="!archivo">*Campo obligatorio</span>
                 </div>
             </div>
         </form>

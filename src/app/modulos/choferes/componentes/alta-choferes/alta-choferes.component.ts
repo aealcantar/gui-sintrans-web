@@ -59,7 +59,7 @@ export class AltaChoferesComponent implements OnInit {
 
   inicializarFormulario(matricula: string) {
     this.editForm = this.fb.group({
-      idChofer: new FormControl(null),
+      idChofer: new FormControl({ value: null, disabled: true }),
       nombreChofer: new FormControl({ value: '', disabled: true }),
       cveUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
       idUnidadAdscripcion: new FormControl({ value: null, disabled: true }),

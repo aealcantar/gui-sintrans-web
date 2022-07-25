@@ -1,9 +1,13 @@
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
+import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
+import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { AseguradoraService } from '../service/aseguradora.service';
 
 @Component({
@@ -14,11 +18,11 @@ import { AseguradoraService } from '../service/aseguradora.service';
 })
 export class EditarAseguradoraComponent implements OnInit {
 
-  readonly MENSAJE = 'La aseguradora ha sido guardada exitosamente.'
+  readonly ACTUALIZA_ASEGURADORA = 'La aseguradora ha sido guardada exitosamente.'
   respuesta: any;
   aseguradora: any;
   idAseguradora!: number;
-  form;
+  form!: FormGroup;
   archivo!: CustomFile;
 
   constructor(
@@ -27,24 +31,10 @@ export class EditarAseguradoraComponent implements OnInit {
     private route: Router,
     private datePipe: DatePipe,
     private aseguradoraService: AseguradoraService,
-    private alertService: AlertasFlotantesService
-  ) {
-    this.form = this.fb.group({
-      idAseguradora: new FormControl('', Validators.required),
-      nombreAseguradora: new FormControl('', Validators.required),
-      poliza: new FormControl('', Validators.required),
-      fechaVencimiento: new FormControl('', Validators.required),
-      fechaExpiracion: new FormControl('', Validators.required),
-      costoPoliza: new FormControl('', Validators.required),
-      tipoCobertura: new FormControl('', Validators.required),
-      tipoSiniestro: new FormControl('', Validators.required),
-      matricula: new FormControl('', Validators.required),
-      sistema: new FormControl('', Validators.required),
-      rutaPoliza: new FormControl(''),
-      nombreArchivo: new FormControl(''),
-      archivoLocal: new FormControl(''),
-    });
-  }
+    private alertService: AlertasFlotantesService,
+    private cargadorService: CargadorService,
+    private archivoService: ArchivoService
+  ) { }
 
   ngOnInit(): void {
     this.respuesta = this.router.snapshot.data['respuesta']
@@ -54,36 +44,52 @@ export class EditarAseguradoraComponent implements OnInit {
       ruta: aseguradora.rutaPoliza
     };
     this.inicializarForm(aseguradora);
+    this.inicializarArchivo(aseguradora);
   }
 
   inicializarForm(aseguradora: any): void {
     this.form = this.fb.group({
       nombreAseguradora: new FormControl(aseguradora.nombreAseguradora, Validators.required),
       poliza: new FormControl(aseguradora.poliza, Validators.required),
-      fechaVencimiento: new FormControl((aseguradora.fechaVencimiento ? new Date(aseguradora.fechaVencimiento) : null), Validators.required),
-      fechaExpiracion: new FormControl(aseguradora.fechaExpiracion, Validators.required),
+      fechaVencimiento: new FormControl(aseguradora.fechaVencimiento ? new Date(aseguradora.fechaVencimiento) : null, Validators.required),
+      fechaExpiracion: new FormControl(aseguradora.fechaExpiracion ? new Date(aseguradora.fechaExpiracion) : null, Validators.required),
       costoPoliza: new FormControl(aseguradora.costoPoliza, Validators.required),
       tipoCobertura: new FormControl(aseguradora.tipoCobertura, Validators.required),
       tipoSiniestro: new FormControl(aseguradora.tipoSiniestro, Validators.required),
       matricula: new FormControl(aseguradora.matricula),
       sistema: new FormControl(aseguradora.sistema),
-      nombreArchivo: new FormControl(aseguradora.nombreArchivo),
-      archivoLocal: new FormControl(aseguradora.archivoLocal),
+      nombreArchivo: new FormControl(aseguradora.nombreArchivo ? aseguradora.nombreArchivo : ''),
+      archivoLocal: new FormControl(aseguradora.archivoLocal ? aseguradora.archivoLocal : ''),
       rutaPoliza: new FormControl(aseguradora.rutaPoliza)
     });
   }
 
+  inicializarArchivo(aseguradora: any) {
+    this.archivo = {
+      ruta: aseguradora.rutaPoliza
+    };
+  }
+
   editar(): void {
-    const data = this.form.getRawValue()
-    const file = this.archivo.archivo
-    data.fechaExpiracion = this.datePipe.transform(
-      data.fechaExpiracion,
-      'dd/mm/yyyy'
+    this.cargadorService.activar();
+    this.archivoService.obtenerArchivosDeCustomFiles(this.archivo).pipe(
+      switchMap((archivoRespuesta: File[]) => {
+        const data = this.form.getRawValue();
+        console.log("DATOS: ", this.form.value);
+        data.fechaVencimiento = this.datePipe.transform(data.fechaVencimiento, 'dd/MM/yyyy'); 
+        data.fechaExpiracion = this.datePipe.transform(data.fechaExpiracion, 'dd/MM/yyyy');
+        return this.aseguradoraService.actualizarAseguradora(this.idAseguradora, data, archivoRespuesta[0])
+      })
+    ).subscribe(
+      (respuesta: any) => {
+        this.cargadorService.desactivar();
+        this.alertService.mostrar('exito', this.ACTUALIZA_ASEGURADORA)
+        this.route.navigate(["../.."], { relativeTo: this.router });
+      }, (error: HttpErrorResponse) => {
+        this.cargadorService.desactivar();
+        console.error("ERROR: ", error);
+      }
     );
-    this.aseguradoraService.actualizarAseguradora(data.idAseguradora, data, file).subscribe(res => {
-      this.alertService.mostrar('exito', this.MENSAJE)
-      this.route.navigate(["../../"], { relativeTo: this.router });
-    })
   }
 
   get f() {

@@ -12,13 +12,12 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
     super(_http, `${environment.api.mssintetransAseguradoras}`);
   }
 
-  obtenerAseguradoras(pagina: any, tamanio: any, nombreAseguradora: any,sort:any ) {
+  obtenerAseguradoras(pagina: any, tamanio: any, nombreAseguradora: any) {
     const opt = {
       params: {
         pagina,
         tamanio,
         nombreAseguradora,
-        sort
       },
     };
     return this._http.get<any>(`${this._base}`, opt);
@@ -32,7 +31,7 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
     return this._http.get<any>(`${this._base}/id/${id}`);
   }
 
-  save(aseguradora: any, file: any) {
+  guardarAseguradora(aseguradora: any, file: any) {
     let formData = new FormData();
     const datos = JSON.stringify(aseguradora);
     formData.append('aseguradora', datos);
@@ -41,7 +40,7 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
   }
 
   eliminar(aseguradoraId: any) {
-    return this._http.delete<any>(`${this._base}/${aseguradoraId}`);
+    return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
   }
 
   actualizarAseguradora(aseguradoraId: any, aseguradora: any, archivo: any) {
@@ -53,4 +52,5 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
       formData
     );
   }
+  
 }

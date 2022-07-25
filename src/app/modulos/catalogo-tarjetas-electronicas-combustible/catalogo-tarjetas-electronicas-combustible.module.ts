@@ -6,6 +6,7 @@ import { CalendarModule } from 'primeng-lts/calendar';
 import { CardModule } from 'primeng-lts/card';
 import { DialogModule } from 'primeng-lts/dialog';
 import { DropdownModule } from 'primeng-lts/dropdown';
+import { InputNumberModule } from 'primeng-lts/inputnumber';
 import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
@@ -36,7 +37,8 @@ import { CatalogoTarjetasElectronicasService } from './servicios/catalogo-tarjet
     TableModule,
     BtnRegresarModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    InputNumberModule
   ],
   providers: [
     CatalogoTarjetasElectronicasService,

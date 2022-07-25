@@ -91,6 +91,9 @@ export class CatalogoUnidadesComponent implements OnInit {
           this.mostrarModal = false;
           this.cargadorService.desactivar();
           this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+          if (this.catUnidades.length === 0) {
+            this.recargarTabla();
+          }
         }
       },
       (error: HttpErrorResponse) => {
@@ -100,6 +103,22 @@ export class CatalogoUnidadesComponent implements OnInit {
         this.mostrarModal = false;
       }
     )
+  }
+
+  recargarTabla() {
+    let pagina = 0;
+    let tamanio = 10;
+    this.unidadService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.catUnidades = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.catUnidades = this.respuesta!.datos.content;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
   }
 
   paginador(event: any): void {

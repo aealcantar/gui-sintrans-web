@@ -15,23 +15,22 @@ import { VehiculoPropioEnajenacionServiceService } from '../../service/vehiculo-
 })
 export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
   readonly MENSAJE_BORRADO_EXITO = 'El registro ha sido eliminado exitosamente'
-  
+
   mostrarModal: boolean = false;
   inicioPagina: number = 0;
   respuesta!: HttpRespuesta<any> | null;
-  estatusList: any[] = [];
+  catEstatus: any[] = [];
   estatus: any;
 
   constructor(
     private route: ActivatedRoute,
     private alertaService: AlertasFlotantesService,
     private estatusEnajenacionService: VehiculoEnajenacionService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.respuesta = this.route.snapshot.data['respuesta'];
-    console.log(this.respuesta);
-    this.estatusList = this.respuesta!.datos?.content;
+    this.catEstatus = this.respuesta!.datos?.content;
   }
 
   mostrarModalEliminar(unidad: any) {
@@ -43,27 +42,48 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
     this.estatusEnajenacionService
       .eliminar(this.estatus.idEstatusEnajenacion)
       .subscribe((response) => {
-        if (response.codigo === 200) {
-          this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
-          const index = this.estatusList.findIndex(
-            (u) => u.idEstatusEnajenacion === this.estatus.idEstatusEnajenacion
-          );
-          this.estatusList.splice(index, 1);
-          this.mostrarModal = false 
-          //this.alertaService.limpiar();
+        this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+        const index = this.catEstatus.findIndex(
+          (u) => u.idEstatusEnajenacion === this.estatus.idEstatusEnajenacion
+        );
+        this.catEstatus.splice(index, 1);
+        //Aplicar esta validacion en todos los metodos de eliminar
+        if(this.catEstatus.length === 0) {
+          this.recargarTabla();
         }
-      });
+        this.mostrarModal = false
+      }), 
+      (error: HttpErrorResponse) => {
+        console.error("ERROR: ", error);
+      };
   }
+
+  recargarTabla() {
+    let pagina = 0;
+    let tamanio = 10;
+    this.estatusEnajenacionService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.catEstatus = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.catEstatus = this.respuesta!.datos.content;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
   paginador(event: any): void {
     let inicio = event.first;
     let pagina = Math.floor(inicio / 10);
     let tamanio = event.rows;
     this.estatusEnajenacionService.buscarPorPagina(pagina, tamanio).subscribe(
       (respuesta) => {
-        this.estatusList = [];
+        this.catEstatus = [];
         this.respuesta = null;
         this.respuesta = respuesta;
-        this.estatusList = this.respuesta!.datos.content;
+        this.catEstatus = this.respuesta!.datos.content;
         this.ordenar(event);
       },
       (error: HttpErrorResponse) => {
@@ -83,9 +103,9 @@ export class CatalogoEstatusEnajenacionVehiculoComponent implements OnInit {
       return 0;
     };
     if (event.sortOrder === 1) {
-      this.estatusList = this.estatusList.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
+      this.catEstatus = this.catEstatus.sort((a: any, b: any) => ordenamiento(a, b, event.sortField));
     } else {
-      this.estatusList = this.estatusList.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
+      this.catEstatus = this.catEstatus.sort((a: any, b: any) => ordenamiento(a, b, event.sortField)).reverse();
     }
   }
 

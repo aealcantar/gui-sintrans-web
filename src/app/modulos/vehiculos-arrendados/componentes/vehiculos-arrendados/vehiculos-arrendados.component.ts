@@ -80,7 +80,15 @@ export class VehiculosArrendadosComponent implements OnInit {
         this.vehiculosArrendados = [];
         this.respuesta = null;
         this.respuesta = respuesta;
-        this.vehiculosArrendados = this.respuesta!.datos?.content;
+        this.vehiculosArrendados = this.respuesta!.datos?.content.map(
+          (vehiculo: any) => {
+            return ({
+              ...vehiculo,
+              desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+              desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+            })
+          }
+        );
         this.cargadorService.desactivar();
       },
       (error: HttpErrorResponse) => {
@@ -98,7 +106,15 @@ export class VehiculosArrendadosComponent implements OnInit {
         this.vehiculosArrendados = [];
         this.respuesta = null;
         this.respuesta = respuesta;
-        this.vehiculosArrendados = this.respuesta!.datos?.content;
+        this.vehiculosArrendados = this.respuesta!.datos?.content.map(
+          (vehiculo: any) => {
+            return ({
+              ...vehiculo,
+              desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+              desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+            })
+          }
+        );
         this.cargadorService.desactivar();
       },
       (error: HttpErrorResponse) => {
@@ -124,6 +140,9 @@ export class VehiculosArrendadosComponent implements OnInit {
         this.mostrarModal = false;
         this.cargadorService.desactivar();
         this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+        if(this.vehiculosArrendados.length === 0) {
+          this.recargarTabla();
+        }
       },
       (error: HttpErrorResponse) => {
         console.error(error);
@@ -132,6 +151,31 @@ export class VehiculosArrendadosComponent implements OnInit {
         this.mostrarModal = false;
       }
     )
+  }
+
+  recargarTabla() {
+    let pagina = 0;
+    let tamanio = 10;
+    this.vehiculoArrendadosService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.vehiculosArrendados = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.vehiculosArrendados = this.respuesta.datos?.content.map(
+          (vehiculo: any) => {
+            return ({
+              ...vehiculo,
+              desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+              desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+            })
+          }
+        );
+        this.ordenar(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
   }
 
   paginador(event: any): void {

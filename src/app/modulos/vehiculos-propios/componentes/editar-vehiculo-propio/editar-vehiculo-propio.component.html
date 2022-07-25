@@ -401,7 +401,7 @@
             <div class="row flex mb-4">
                 <div class="col-md-8">
                     <label class="control-label" for="verificacion">Verificación<span class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" [accept]="'application/pdf'"
+                    <app-cargador-archivo [accept]="'application/pdf'"
                         [extensionesAceptadas]="['pdf']" [(archivo)]="verificacion"
                         (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
@@ -422,7 +422,7 @@
             <div class="row flex mb-4">
                 <div class="col-md-8">
                     <label class="control-label" for="polizaSeguro">Póliza de seguro<span class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" [accept]="'application/pdf'"
+                    <app-cargador-archivo [accept]="'application/pdf'"
                         [extensionesAceptadas]="['pdf']" [(archivo)]="polizaSeguro"
                         (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>

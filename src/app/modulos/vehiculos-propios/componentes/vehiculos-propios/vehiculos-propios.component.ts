@@ -125,6 +125,9 @@ export class VehiculosPropiosComponent implements OnInit {
         this.mostrarModal = false;
         this.cargadorService.desactivar();
         this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+        if(this.vehiculosPropios.length === 0) {
+          this.recargarTabla();
+        }
       },
       (error: HttpErrorResponse) => {
         console.error(error);
@@ -133,6 +136,31 @@ export class VehiculosPropiosComponent implements OnInit {
         this.mostrarModal = false;
       }
     )
+  }
+
+  recargarTabla() {
+    let pagina = 0;
+    let tamanio = 10;
+    this.vehiculoPropioService.buscarPorPagina(pagina, tamanio).subscribe(
+      (respuesta) => {
+        this.vehiculosPropios = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.vehiculosPropios = this.respuesta.datos?.content.map(
+          (vehiculo: any) => {
+            return ({
+              ...vehiculo,
+              desTipoServicio: this.obtenerNombreTipoServicioPorId(vehiculo.desTipoServicio),
+              desEstatusVehiculo: this.obtenerNombreEstatusPorId(vehiculo.desEstatusVehiculo)
+            })
+          }
+        );
+        this.ordenar(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
   }
 
   paginador(event: any): void {

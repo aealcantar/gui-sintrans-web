@@ -23,7 +23,7 @@
         <div class="col-md-4">
           <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span class="req">*</span>:</label>
           <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control"
-            [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+            [showIcon]="true" placeholder="dd/mm/aaaa" dateFormat="dd/mm/yy">
           </p-calendar>
           <span class="campos-obligatorios" *ngIf="f?.fechaVencimiento?.errors?.required && (f?.fechaVencimiento?.dirty || f?.fechaVencimiento?.touched)">*Campo obligatorio</span>
         </div>

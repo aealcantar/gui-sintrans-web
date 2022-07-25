@@ -65,8 +65,8 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
       numeroConvenio: new FormControl(tarjetaElectronica.cveNumeroConvenio, Validators.required),
       nombreEmpresa: new FormControl(tarjetaElectronica.nomEmpresa, Validators.required),
       importeMensual: new FormControl(tarjetaElectronica.impMensual, Validators.required),
-      fechaInicioConvenio: new FormControl(this.datePipe.transform(tarjetaElectronica.fecIniConvenio, 'dd/MM/YYYY'), Validators.required),
-      fechaFinConvenio: new FormControl(this.datePipe.transform(tarjetaElectronica.fecFinConvenio, 'dd/MM/YYYY'), Validators.required),
+      fechaInicioConvenio: new FormControl(tarjetaElectronica.fecIniConvenio ? new Date(tarjetaElectronica.fecIniConvenio) : null, Validators.required),
+      fechaFinConvenio: new FormControl(tarjetaElectronica.fecFinConvenio ? new Date(tarjetaElectronica.fecFinConvenio) : null, Validators.required),
       litrosLimite: new FormControl(tarjetaElectronica.canLitrosLimiteMes, Validators.required),
       ooad: new FormControl(tarjetaElectronica.idOoad.idOoad, Validators.required),
       folioInicial: new FormControl(tarjetaElectronica.numFolioInicial, Validators.required),
@@ -80,7 +80,6 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
     this.cargadorService.activar();
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     let tarjetaElectronica: any = {
-      // idTarjetaElectronica: this.form.get("idTarjetaElectronica")?.value, 
       cveNumeroConvenio: this.form.get("numeroConvenio")?.value,
       nomEmpresa: this.form.get("nombreEmpresa")?.value,
       impMensual: this.form.get("importeMensual")?.value,

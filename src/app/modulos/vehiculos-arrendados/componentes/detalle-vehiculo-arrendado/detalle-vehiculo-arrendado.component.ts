@@ -171,7 +171,7 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
       idCapToneladas: new FormControl({ value: vehiculoArrendado.canToneladas, disabled: true }, Validators.required),
       placas: new FormControl({ value: vehiculoArrendado.numPlacas, disabled: true }, Validators.required),
       licCofepris: new FormControl({ value: vehiculoArrendado.numLicenciaCofepris, disabled: true }, Validators.required),
-      vencLicCofepris: new FormControl({ value: this.datePipe.transform(vehiculoArrendado.fecVencimientoCofepris, 'dd/MM/YYYY'), disabled: true }, Validators.required),
+      vencLicCofepris: new FormControl({ value: vehiculoArrendado.fecVencimientoCofepris ? new Date(vehiculoArrendado.fecVencimientoCofepris) : null, disabled: true }, Validators.required),
       idTipoRegimen: new FormControl({ value: parseInt(vehiculoArrendado.desTipoRegimen), disabled: true }, Validators.required),
       idUnidad: new FormControl({ value: vehiculoArrendado.idUnidadAdscripcion, disabled: true }, Validators.required),
       codigoPostal: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -180,8 +180,8 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
       colonia: new FormControl({ value: null, disabled: true }, Validators.required),
       nombreArrendadora: new FormControl({ value: vehiculoArrendado.indArrendado, disabled: true }, Validators.required),
       idNoContrato: new FormControl({ value: vehiculoArrendado.arrendatarios.numContrato, disabled: true }, Validators.required),
-      fechaInicioContrato: new FormControl({ value: this.datePipe.transform(vehiculoArrendado.arrendatarios.fecIniContrato, 'dd/MM/YYYY'), disabled: true }, Validators.required), //NO VIENE DATO
-      fechaFinContrato: new FormControl({ value: this.datePipe.transform(vehiculoArrendado.arrendatarios.fecFinContrato, 'dd/MM/YYYY'), disabled: true }, Validators.required), //NO VIENE DATO
+      fechaInicioContrato: new FormControl({ value: vehiculoArrendado.arrendatarios.fecIniContrato ? new Date(vehiculoArrendado.arrendatarios.fecIniContrato) : null, disabled: true }, Validators.required),
+      fechaFinContrato: new FormControl({ value: vehiculoArrendado.arrendatarios.fecFinContrato ? new Date(vehiculoArrendado.arrendatarios.fecFinContrato) : null, disabled: true }, Validators.required),
       costoDiario: new FormControl({ value: vehiculoArrendado.arrendatarios.impCostoDiario, disabled: true }, Validators.required),
       costoMensual: new FormControl({ value: vehiculoArrendado.arrendatarios.impCostoMensual, disabled: true }, Validators.required),
       idEstatus: new FormControl({ value: parseInt(vehiculoArrendado.desEstatusVehiculo), disabled: true }, Validators.required),
@@ -191,7 +191,6 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
       vehiculoSustituto: new FormControl({ value: vehiculoArrendado.indSustituto === 1 ? true : false, disabled: true }, Validators.required),
     });
   }
-
 
   get f() {
     return this.form.controls;

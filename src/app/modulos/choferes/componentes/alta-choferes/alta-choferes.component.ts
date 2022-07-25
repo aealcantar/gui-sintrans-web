@@ -77,7 +77,7 @@ export class AltaChoferesComponent implements OnInit {
       cveTipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
       fecExpedicion: new FormControl(null, Validators.required),
-      desrutaLicencia: new FormControl(null, Validators.required),
+      desrutaLicencia: new FormControl(null),
     });
   }
 
@@ -121,17 +121,17 @@ export class AltaChoferesComponent implements OnInit {
         ...data,
         desMotivo: String(this.editForm.get('desMotivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
-          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY-MM-DD'),
         fecFinContrato: this.editForm.get('fecFinContrato')?.value &&
-          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD'),
         fecVigencia: this.editForm.get('fecVigencia')?.value &&
-          moment(this.editForm.get('fecVigencia')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecVigencia')?.value).format('YYYY-MM-DD'),
         fecExpedicion: this.editForm.get('fecExpedicion')?.value &&
-          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY-MM-DD'),
         fecIniIncapacidad: this.editForm.get('fecIniIncapacidad')?.value &&
-          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
-          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
         archivo: this.archivo?.archivo,
       };
 

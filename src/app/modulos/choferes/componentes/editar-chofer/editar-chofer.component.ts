@@ -82,7 +82,7 @@ export class EditarChoferComponent implements OnInit {
       cveTipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
       fecExpedicion: new FormControl(null, Validators.required),
-      desrutaLicencia: new FormControl(null, Validators.required),
+      desrutaLicencia: new FormControl(null),
     });
   }
 
@@ -98,17 +98,17 @@ export class EditarChoferComponent implements OnInit {
           this.editForm.patchValue({
             ...respuesta?.datos,
             fecInicioContrato: respuesta?.datos.fecInicioContrato &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecInicioContrato, 'dd/MM/YYYY'),
             fecFinContrato: respuesta?.datos.fecFinContrato &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecFinContrato, 'dd/MM/YYYY'),
             fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecIniIncapacidad, 'dd/MM/YYYY'),
             fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecFinIncapacidad, 'dd/MM/YYYY'),
             fecVigencia: respuesta?.datos.fecVigencia &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecVigencia, 'dd/MM/YYYY'),
             fecExpedicion: respuesta?.datos.fecExpedicion &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecExpedicion, 'dd/MM/YYYY'),
             estatusChofer: parseInt(respuesta?.datos.estatusChofer),
             desMotivo: parseInt(respuesta?.datos.desMotivo),
           });
@@ -157,23 +157,24 @@ export class EditarChoferComponent implements OnInit {
   editar() {
     this.editForm.get('desrutaLicencia')?.patchValue(this.archivo?.archivo?.name);
     const data = this.editForm.getRawValue();
-
+    console.log(this.editForm.value);
+    
     if (this.editForm.valid) {
       let chofer: any = {
         ...data,
         desMotivo: String(this.editForm.get('desMotivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
-          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY-MM-DD'),
         fecFinContrato: this.editForm.get('fecFinContrato')?.value &&
-          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD'),
         fecVigencia: this.editForm.get('fecVigencia')?.value &&
-          moment(this.editForm.get('fecVigencia')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecVigencia')?.value).format('YYYY-MM-DD'),
         fecExpedicion: this.editForm.get('fecExpedicion')?.value &&
-          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY-MM-DD'),
         fecIniIncapacidad: this.editForm.get('fecIniIncapacidad')?.value &&
-          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
-          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
+          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
         archivo: this.archivo?.archivo,
       };
 

@@ -74,20 +74,20 @@ export class DetalleChoferComponent implements OnInit {
           this.editForm.patchValue({
             ...respuesta?.datos,
             fecInicioContrato: respuesta?.datos.fecInicioContrato &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecInicioContrato, 'dd/MM/YYYY'),
             fecFinContrato: respuesta?.datos.fecFinContrato &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecFinContrato, 'dd/MM/YYYY'),
             fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecIniIncapacidad, 'dd/MM/YYYY'),
             fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecFinIncapacidad, 'dd/MM/YYYY'),
             fecVigencia: respuesta?.datos.fecVigencia &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecVigencia, 'dd/MM/YYYY'),
             fecExpedicion: respuesta?.datos.fecExpedicion &&
-              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+              this.datePipe.transform(respuesta?.datos.fecExpedicion, 'dd/MM/YYYY'),
             estatusChofer: parseInt(respuesta?.datos.estatusChofer),
             desMotivo: parseInt(respuesta?.datos.desMotivo),
-          });
+          });          
         }
       },
       (error: HttpErrorResponse) => {

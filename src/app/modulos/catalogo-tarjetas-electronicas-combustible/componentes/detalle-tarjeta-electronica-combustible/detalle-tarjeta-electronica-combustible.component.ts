@@ -51,7 +51,7 @@ export class DetalleTarjetaElectronicaCombustibleComponent implements OnInit {
     this.inicializarForm(tarjetaElectronica);
   }
 
-  inicializarForm(tarjetaElectronica: TarjetaElectronica): void {
+  inicializarForm(tarjetaElectronica: any): void {
     this.form = this.formBuilder.group({
       idTarjetaElectronica: new FormControl({ value: tarjetaElectronica.idTarjetaElectronica, disabled: true}),
       numeroConvenio: new FormControl({ value: tarjetaElectronica.cveNumeroConvenio, disabled: true}),
@@ -60,7 +60,7 @@ export class DetalleTarjetaElectronicaCombustibleComponent implements OnInit {
       fechaInicioConvenio: new FormControl({ value: this.datePipe.transform(tarjetaElectronica.fecIniConvenio, 'dd/MM/YYYY'), disabled: true}),
       fechaFinConvenio: new FormControl({ value: this.datePipe.transform(tarjetaElectronica.fecFinConvenio, 'dd/MM/YYYY'), disabled: true}),
       litrosLimite: new FormControl({ value: tarjetaElectronica.canLitrosLimiteMes, disabled: true}),
-      ooad: new FormControl({ value: tarjetaElectronica.idOoad, disabled: true}),
+      ooad: new FormControl({ value: tarjetaElectronica.idOoad.idOoad, disabled: true}),
       folioInicial: new FormControl({ value: tarjetaElectronica.numFolioInicial, disabled: true}),
       folioFinal: new FormControl({ value: tarjetaElectronica.numFolioFinal, disabled: true}),
       km: new FormControl({ value: tarjetaElectronica.canKmsRecorridos, disabled: true}),

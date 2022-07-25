@@ -1,95 +1,93 @@
 <div class="container mb-4">
-    <app-separador texto="Aseguradoras"></app-separador>
-    <form [formGroup]="form" (submit)="buscar()" >
+  <app-separador texto="Aseguradoras"></app-separador>
+  <form [formGroup]="form" (submit)="buscar()">
     <div class="row flex align-items-end">
-   
-        <div class="col-md-3">
-            <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
-            <input formControlName="aseguradora" class="form-control" id="aseguradora" placeholder="Ingresar" type="text">
-            <!-- <span class="campos-obligatorios" *ngIf="f?.aseguradora?.errors?.required && (f?.aseguradora?.dirty || f?.aseguradora?.touched)">*Campo obligatorio</span> -->
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary btn-small" [disabled]="form.invalid">Buscar</button>
-            <button type="button" class="ml-6 btn btn-default btn-small" (click)="limpiar()">Limpiar</button>
-        </div>
-        <div class="col-md-5 flex justify-content-end">
-            <button type="button" class="btn-icon btn btn-primary" routerLink="alta-de-aseguradora"><i
-                    class="icon-circulo-mas"></i>Alta de aseguradora</button>
-        </div>
-   
+
+      <div class="col-md-3">
+        <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
+        <input formControlName="aseguradora" class="form-control" id="aseguradora" placeholder="Ingresar" type="text">
+      </div>
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-primary btn-small" [disabled]="form.invalid">Buscar</button>
+        <button type="button" class="ml-6 btn btn-default btn-small" (click)="limpiar()">Limpiar</button>
+      </div>
+      <div class="col-md-5 flex justify-content-end">
+        <button type="button" class="btn-icon btn btn-primary" routerLink="alta-de-aseguradora"><i
+            class="icon-circulo-mas"></i>Alta de aseguradora</button>
+      </div>
+
     </div>
     <div class="row mb-4">
-        <div class="col-md-6">
-            <span class="campos-obligatorios">*Campos obligatorios</span>
-        </div>
+      <div class="col-md-6">
+        <span class="campos-obligatorios">*Campos obligatorios</span>
+      </div>
     </div>
-</form>
-    <div class="row -mx-6">
-        <div class="col-md-12">
-            <p-card>
-                <p-table [value]="aseguradoras" [paginator]="aseguradoras.length>0" [rows]="10" [lazy]="true"
-                    [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina"
-                    (onLazyLoad)="paginador($event)"
-                    >
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th pSortableColumn="nombreAseguradora" >Aseguradora <p-sortIcon field="nombreAseguradora">
-                                </p-sortIcon>
-                            </th>
-                            <th pSortableColumn="poliza">Póliza <p-sortIcon field="poliza">
-                                </p-sortIcon>
-                            </th>
-                            <th pSortableColumn="fechaVencimiento">Fecha de vencimiento <p-sortIcon
-                                    field="fechaVencimiento"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="costoPoliza">Costo de póliza <p-sortIcon field="costoPoliza">
-                                </p-sortIcon>
-                            </th>
-                            <th class="text-center">Acciones
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-aseguradora>
-                        <tr>
-                            <td><a class="link"
-                                    [routerLink]="['detalle-de-aseguradora',aseguradora.idAseguradora]">{{aseguradora.nombreAseguradora }}</a>
-                            </td>
-                            <td>{{aseguradora.poliza}}</td>
-                            <td>{{aseguradora.fechaVencimiento}}</td>
-                            <td>{{aseguradora.costoPoliza}}</td>
-                            <td class="flex justify-content-center">
-                                <i [routerLink]="['editar-aseguradora',aseguradora.idAseguradora]"
-                                    class="icon-editar cursor-pointer"></i>
-                                <i class="icon-eliminar cursor-pointer" (click)="mostrarModalEliminar(aseguradora)"></i>
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="paginatorright" let-state>
-                        <div class="paginator-template">
-                            <label>Página</label><input type="text" [value]="state.page + 1" disabled>
-                        </div>
-                    </ng-template>
-                </p-table>
-            </p-card>
-        </div>
+  </form>
+  <div class="row -mx-6">
+    <div class="col-md-12">
+      <p-card>
+        <p-table [value]="aseguradoras" [paginator]="aseguradoras.length>0" [rows]="10" [lazy]="true"
+          [totalRecords]="respuesta?.datos?.totalElements" [pageLinks]="3" [(first)]="inicioPagina"
+          (onLazyLoad)="paginador($event)">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="aseguradora">Aseguradora <p-sortIcon field="aseguradora">
+                </p-sortIcon>
+              </th>
+              <th pSortableColumn="poliza">Póliza <p-sortIcon field="poliza">
+                </p-sortIcon>
+              </th>
+              <th pSortableColumn="fechaVencimiento">Fecha de vencimiento <p-sortIcon field="fechaVencimiento">
+                </p-sortIcon>
+              </th>
+              <th pSortableColumn="costoPoliza">Costo de póliza <p-sortIcon field="costoPoliza">
+                </p-sortIcon>
+              </th>
+              <th class="text-center">Acciones
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-aseguradora>
+            <tr>
+              <td><a class="link"
+                  [routerLink]="['detalle-de-aseguradora',aseguradora.idAseguradora]">{{aseguradora.nombreAseguradora }}</a>
+              </td>
+              <td>{{aseguradora.poliza}}</td>
+              <td>{{aseguradora.fechaVencimiento}}</td>
+              <td>{{aseguradora.costoPoliza}}</td>
+              <td class="flex justify-content-center">
+                <i [routerLink]="['editar-aseguradora',aseguradora.idAseguradora]"
+                  class="icon-editar cursor-pointer"></i>
+                <i class="icon-eliminar cursor-pointer" (click)="mostrarModalEliminar(aseguradora)"></i>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="paginatorright" let-state>
+            <div class="paginator-template">
+              <label>Página</label><input type="text" [value]="state.page + 1" disabled>
+            </div>
+          </ng-template>
+        </p-table>
+      </p-card>
     </div>
+  </div>
 </div>
 
 <p-dialog styleClass="modal-eliminar" [(visible)]="mostrarModal" [modal]="true" [style]="{width: '480px'}"
-    [draggable]="false" [resizable]="false">
-    <ng-template pTemplate="content">
-        <div class="flex flex-column align-items-center">
-            <i class="icon-alerta"></i>
-            <span>El registro de la aseguradora será eliminado.</span>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <div class="text-center">
-            <label>¿Deseas continuar?</label>
-        </div>
-        <div class="flex justify-content-center">
-            <button class="btn btn-default btn-lg" (click)="mostrarModal=false">Cancelar</button>
-            <button class="btn btn-primary ml-4 btn-lg" (click)="eliminar()">Aceptar</button>
-        </div>
-    </ng-template>
+  [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="content">
+    <div class="flex flex-column align-items-center">
+      <i class="icon-alerta"></i>
+      <span>El registro de la aseguradora será eliminado.</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="text-center">
+      <label>¿Deseas continuar?</label>
+    </div>
+    <div class="flex justify-content-center">
+      <button class="btn btn-default btn-lg" (click)="mostrarModal=false">Cancelar</button>
+      <button class="btn btn-primary ml-4 btn-lg" (click)="eliminar()">Aceptar</button>
+    </div>
+  </ng-template>
 </p-dialog>

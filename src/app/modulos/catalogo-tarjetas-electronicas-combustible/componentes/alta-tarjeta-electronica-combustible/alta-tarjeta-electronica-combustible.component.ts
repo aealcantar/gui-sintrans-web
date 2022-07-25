@@ -58,17 +58,17 @@ export class AltaTarjetaElectronicaCombustibleComponent implements OnInit {
 
   inicializarForm(): void {
     this.form = this.formBuilder.group({
-      numeroConvenio: new FormControl('', Validators.required),
-      nombreEmpresa: new FormControl('', Validators.required),
-      importeMensual: new FormControl('', Validators.required),
+      numeroConvenio: new FormControl(null, Validators.required),
+      nombreEmpresa: new FormControl(null, Validators.required),
+      importeMensual: new FormControl(null, Validators.required),
       fechaInicioConvenio: new FormControl(null, Validators.required),
       fechaFinConvenio: new FormControl(null, Validators.required),
-      litrosLimite: new FormControl('', Validators.required),
-      ooad: new FormControl('', Validators.required),
-      folioInicial: new FormControl('', Validators.required),
-      folioFinal: new FormControl('', Validators.required),
-      km: new FormControl('', Validators.required),
-      estatus: new FormControl('', Validators.required)
+      litrosLimite: new FormControl(null, Validators.required),
+      ooad: new FormControl(null, Validators.required),
+      folioInicial: new FormControl(null, Validators.required),
+      folioFinal: new FormControl(null, Validators.required),
+      km: new FormControl(null, Validators.required),
+      estatus: new FormControl(null, Validators.required)
     });
   }
 

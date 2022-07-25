@@ -74,29 +74,39 @@ export class CatalogoUsuariosSitComponent implements OnInit {
   }
 
   eliminar() {
-    this.usuarioService.eliminar(this.usuario.idUsuario).subscribe((res) => {
-      const index = this.usuarios.findIndex(
-        (u) => u.idUsuario === this.usuario.idUsuario
-      );
-      this.usuarios.splice(index, 1);
-      this.usuario = null;
-      this.mostrarModal = false;
-      this.alertService.mostrar('exito', REGISTRO_ELIMINADO);
-    });
+    this.usuarioService.eliminar(this.usuario.idUsuario).subscribe(
+      (respuesta) => {
+        const index = this.usuarios.findIndex(
+          (u) => u.idUsuario === this.usuario.idUsuario
+        );
+        this.usuarios.splice(index, 1);
+        this.usuario = null;
+        this.mostrarModal = false;
+        this.alertService.mostrar('exito', REGISTRO_ELIMINADO);
+        if (this.usuarios.length === 0) {
+          this.recargarTabla();
+        }
+      }),
+      (error: HttpErrorResponse) => {
+        console.error("ERROR: ", error);
+      };
   }
 
-  // paginacion(event: any) {
-  //   const inicio = event.first;
-  //   const pagina = Math.floor(inicio / 10)
-  //   const tamanio = event.rows
-  //   const filtros = this.form.getRawValue()
-  //   this.usuarioService.get(pagina, filtros.matricula, filtros.nombreUsuario, filtros.ooad).subscribe(respuesta => {
-  //     this.usuarios = []
-  //     this.respuesta = null;
-  //     this.respuesta = respuesta
-  //     this.usuarios = respuesta.data.content;
-  //   })
-  // }
+  recargarTabla() {
+    let pagina = 0;
+    const filtros = this.form.getRawValue()
+    this.usuarioService.get(pagina, filtros.matricula, filtros.nombreUsuario, filtros.ooad).subscribe(
+      (respuesta) => {
+        this.usuarios = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.usuarios = this.respuesta!.data.content;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
 
   paginador(event: any): void {
     let inicio = event.first;
@@ -133,5 +143,4 @@ export class CatalogoUsuariosSitComponent implements OnInit {
     }
   }
 
- 
 }

@@ -12,7 +12,7 @@ import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
-import { NumberDirective } from 'src/app/directives/only-numbers.directive';
+import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { AseguradorasRoutingModule } from './aseguradoras-routing.module';
 import { AltaAseguradoraComponent } from './componentes/alta-aseguradora/alta-aseguradora.component';
 import { AseguradorasComponent } from './componentes/aseguradoras/aseguradoras.component';
@@ -42,6 +42,9 @@ import { EditarAseguradoraComponent } from './componentes/editar-aseguradora/edi
     FormsModule,
     ReactiveFormsModule,
     InputNumberModule
+  ],
+  providers: [
+    ArchivoService
   ]
 })
 export class AseguradorasModule { }

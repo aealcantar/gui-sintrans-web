@@ -87,6 +87,9 @@ export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit 
         this.mostrarModal = false;
         this.cargadorService.desactivar();
         this.alertaService.mostrar('exito', REGISTRO_ELIMINADO);
+        if (this.tarjetasElectronicas.length === 0) {
+          this.recargarTabla();
+        }
       },
       (error: HttpErrorResponse) => {
         console.error(error);
@@ -97,11 +100,27 @@ export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit 
     )
   }
 
+  recargarTabla() {
+    let pagina = 0;
+    let tamanio = 10;
+    this.tarjetaElectronicaService.buscarPorFiltros(pagina, tamanio, '').subscribe(
+      (respuesta) => {
+        this.tarjetasElectronicas = [];
+        this.respuesta = null;
+        this.respuesta = respuesta;
+        this.tarjetasElectronicas = this.respuesta!.datos?.content;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
   paginador(event: any): void {
     let inicio = event.first;
     let pagina = Math.floor(inicio / 10);
     let tamanio = event.rows;
-    if(tamanio !== undefined) {
+    if (tamanio !== undefined) {
       this.tarjetaElectronicaService.buscarPorFiltros(pagina, tamanio, '').subscribe(
         (respuesta) => {
           this.tarjetasElectronicas = [];
@@ -118,7 +137,7 @@ export class CatalogoTarjetasElectronicasCombustibleComponent implements OnInit 
   }
 
   ordenar(event: any): void {
-    if(event.sortField !== 'idOoad') {
+    if (event.sortField !== 'idOoad') {
       this.ordenarNumericos(event);
     } else {
       this.ordenarCadenas(event);

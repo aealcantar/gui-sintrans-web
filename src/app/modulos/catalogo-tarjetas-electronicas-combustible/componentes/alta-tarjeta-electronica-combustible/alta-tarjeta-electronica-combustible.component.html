@@ -13,12 +13,12 @@
                 </div>
                 <div class="col-md-5">
                     <label class="control-label" for="numeroConvenio">Número de convenio<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="numeroConvenio" id="numeroConvenio" placeholder="Ingresar" type="text">
+                    <input class="form-control" formControlName="numeroConvenio" [maxlength]="50" id="numeroConvenio" placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios" *ngIf="f.numeroConvenio?.errors?.required && (f.numeroConvenio?.dirty || f.numeroConvenio?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-5">
                     <label class="control-label" for="nombreEmpresa">Nombre de la empresa<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="nombreEmpresa" id="nombreEmpresa" placeholder="Ingresar" type="text">
+                    <input class="form-control" formControlName="nombreEmpresa" id="nombreEmpresa" [maxlength]="50" placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios" *ngIf="f.nombreEmpresa?.errors?.required && (f.nombreEmpresa?.dirty || f.nombreEmpresa?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
@@ -26,27 +26,27 @@
             <div class="row mb-4">
                 <div class="col-md-2">
                     <label class="control-label" for="importeMensual">Importe mensual<span class="req">*</span>:</label>
-                    <input class="form-control" formControlName="importeMensual" id="importeMensual" placeholder="Ingresar" type="text">
+                    <p-inputNumber [useGrouping]="false" mode="currency" currency="USD" locale="en-US" class="form-control" id="importeMensual" formControlName="importeMensual" [min]="0" [maxlength]="7" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.importeMensual?.errors?.required && (f.importeMensual?.dirty || f.importeMensual?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label block" for="fechaInicioConvenio">Fecha inicio de convenio<span
                             class="req">*</span>:</label>
                     <p-calendar id="fechaInicioConvenio" formControlName="fechaInicioConvenio" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mm/aaaa"></p-calendar>
+                        placeholder="dd/mm/aaaa" dateFormat="dd/mm/yy"></p-calendar>
                     <span class="campos-obligatorios" *ngIf="f.fechaInicioConvenio?.errors?.required && (f.fechaInicioConvenio?.dirty || f.fechaInicioConvenio?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="fechaFinConvenio">Fecha fin de convenio<span
                             class="req">*</span>:</label>
-                    <p-calendar id="fechaFinConvenio" formControlName="fechaFinConvenio" styleClass="form-control" [showIcon]="true" placeholder="dd/mm/aaaa">
+                    <p-calendar id="fechaFinConvenio" formControlName="fechaFinConvenio" styleClass="form-control" [showIcon]="true" placeholder="dd/mm/aaaa" dateFormat="dd/mm/yy">
                     </p-calendar>
                     <span class="campos-obligatorios" *ngIf="f.fechaFinConvenio?.errors?.required && (f.fechaFinConvenio?.dirty || f.fechaFinConvenio?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="litrosLimite">Litros límite de combustible al mes<span
                             class="req">*</span>:</label>
-                    <input class="form-control" formControlName="litrosLimite" id="litrosLimite" placeholder="Ingresar" type="text">
+                    <p-inputNumber [useGrouping]="false" class="form-control" id="litrosLimite" formControlName="litrosLimite" [min]="0" [maxlength]="5" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.litrosLimite?.errors?.required && (f.litrosLimite?.dirty || f.litrosLimite?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
@@ -81,17 +81,17 @@
             <div class="row mb-4">
                 <div class="col-md-3">
                     <label class="control-label" for="folioInicial">Folio inicial<span class="req">*</span>:</label>
-                    <input class="form-control" id="folioInicial" formControlName="folioInicial" placeholder="Ingresar" type="text">
+                    <p-inputNumber [useGrouping]="false" class="form-control" id="folioInicial" formControlName="folioInicial" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.folioInicial?.errors?.required && (f.folioInicial?.dirty || f.folioInicial?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="folioFinal">Folio final<span class="req">*</span>:</label>
-                    <input class="form-control" id="folioFinal" formControlName="folioFinal" placeholder="Ingresar" type="text">
+                    <p-inputNumber [useGrouping]="false" class="form-control" id="folioFinal" formControlName="folioFinal" [min]="0" [maxlength]="10" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.folioFinal?.errors?.required && (f.folioFinal?.dirty || f.folioFinal?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="km">Kilómetros aprox recorridos<span class="req">*</span>:</label>
-                    <input class="form-control" id="km" formControlName="km" placeholder="Ingresar" type="text">
+                    <p-inputNumber [useGrouping]="false" class="form-control" id="km" formControlName="km" [min]="0" [maxlength]="20" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.km?.errors?.required && (f.km?.dirty || f.km?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">

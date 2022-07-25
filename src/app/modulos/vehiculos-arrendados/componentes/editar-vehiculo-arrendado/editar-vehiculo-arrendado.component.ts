@@ -190,11 +190,11 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
       idCilindro: new FormControl(vehiculoArrendado.canCilindros, Validators.required),
       idCombustible: new FormControl(parseInt(vehiculoArrendado.desCombustible), Validators.required),
       idCantCombustiblePorLitro: new FormControl(vehiculoArrendado.desCombustibleXLitro, Validators.required),
-      capacidadPersonas: new FormControl(vehiculoArrendado.canCapacidadPersonas, Validators.required),
+      capPersonas: new FormControl(vehiculoArrendado.canCapacidadPersonas, Validators.required),
       idCapToneladas: new FormControl(vehiculoArrendado.canToneladas, Validators.required),
       placas: new FormControl(vehiculoArrendado.numPlacas, Validators.required),
       licCofepris: new FormControl(vehiculoArrendado.numLicenciaCofepris, Validators.required),
-      vencLicCofepris: new FormControl(this.datePipe.transform(vehiculoArrendado.fecVencimientoCofepris, 'dd/MM/YYYY'), Validators.required),
+      vencLicCofepris: new FormControl(vehiculoArrendado.fecVencimientoCofepris ? new Date(vehiculoArrendado.fecVencimientoCofepris) : null, Validators.required),
       idTipoRegimen: new FormControl(parseInt(vehiculoArrendado.desTipoRegimen), Validators.required),
       idUnidad: new FormControl(vehiculoArrendado.idUnidadAdscripcion, Validators.required),
       codigoPostal: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -203,8 +203,8 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
       colonia: new FormControl({ value: null, disabled: true }, Validators.required),
       nombreArrendadora: new FormControl(vehiculoArrendado.arrendatarios.nomArrendadora, Validators.required),
       idNoContrato: new FormControl(vehiculoArrendado.arrendatarios.numContrato, Validators.required),
-      fechaInicioContrato: new FormControl(this.datePipe.transform(vehiculoArrendado.arrendatarios.fecIniContrato, 'dd/MM/YYYY'), Validators.required), //NO VIENE DATO
-      fechaFinContrato: new FormControl(this.datePipe.transform(vehiculoArrendado.arrendatarios.fecFinContrato, 'dd/MM/YYYY'), Validators.required), //NO VIENE DATO
+      fechaInicioContrato: new FormControl(vehiculoArrendado.arrendatarios.fecIniContrato ? new Date(vehiculoArrendado.arrendatarios.fecIniContrato) : null, Validators.required),
+      fechaFinContrato: new FormControl(vehiculoArrendado.arrendatarios.fecFinContrato ? new Date(vehiculoArrendado.arrendatarios.fecFinContrato) : null, Validators.required),
       costoDiario: new FormControl(vehiculoArrendado.arrendatarios.impCostoDiario, Validators.required),
       costoMensual: new FormControl(vehiculoArrendado.arrendatarios.impCostoMensual, Validators.required),
       idEstatus: new FormControl(parseInt(vehiculoArrendado.desEstatusVehiculo), Validators.required),
@@ -216,7 +216,6 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
   }
 
   editar(): void {
-    console.log("DATOS", this.form.value);
     let usuarioAutenticado: any = JSON.parse(localStorage.getItem(TRANSPORTES_USUARIO) as string);
     this.cargadorService.activar();
     let vehiculoArrendado: any = {

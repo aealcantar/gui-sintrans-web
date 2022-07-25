@@ -62,20 +62,20 @@ export class AltaChoferesComponent implements OnInit {
 
   inicializarFormulario(matricula: string) {
     this.editForm = this.fb.group({
-      idChofer: new FormControl(''),
+      idChofer: new FormControl(null),
       nombreChofer: new FormControl({ value: '', disabled: true }),
       unidadAdscripcion: new FormControl({ value: '', disabled: true }),
-      idUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      idUnidadAdscripcion: new FormControl({ value: null, disabled: true }),
       unidadOoad: new FormControl({ value: '', disabled: true }),
       categoria: new FormControl({ value: '', disabled: true }),
       matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
       matricula: new FormControl(matricula, Validators.required),
-      fecInicioContrato: new FormControl(''),
-      fecFinContrato: new FormControl(''),
-      fecIniIncapacidad: new FormControl(''),
-      fecFinIncapacidad: new FormControl(''),
+      fecInicioContrato: new FormControl(null),
+      fecFinContrato: new FormControl(null),
+      fecIniIncapacidad: new FormControl(null),
+      fecFinIncapacidad: new FormControl(null),
       estatusChofer: new FormControl(null, Validators.required),
-      motivo: new FormControl(''),
+      motivo: new FormControl(null),
       licencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
       tipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
@@ -86,7 +86,6 @@ export class AltaChoferesComponent implements OnInit {
 
   consultarDatosSIAP(): void {
     this.cargadorService.activar();
-    console.log("ENTRAMOS");
     if (this.editForm.get('matriculaChofer')?.value) {
       this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
         filter(Boolean),
@@ -98,6 +97,7 @@ export class AltaChoferesComponent implements OnInit {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
               this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('idUnidadAdscripcion')?.setValue(6);
               this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();
@@ -122,21 +122,20 @@ export class AltaChoferesComponent implements OnInit {
     if (this.editForm.valid) {
       let chofer: Chofer = {
         ...data,
+        motivo: String(this.editForm.get('motivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
-          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY/MM/DD'),
         fecFinContrato: this.editForm.get('fecFinContrato')?.value &&
-          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY/MM/DD'),
         fecVigencia: this.editForm.get('fecVigencia')?.value &&
-          moment(this.editForm.get('fecVigencia')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecVigencia')?.value).format('YYYY/MM/DD'),
         fecExpedicion: this.editForm.get('fecExpedicion')?.value &&
-          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY/MM/DD'),
         fecIniIncapacidad: this.editForm.get('fecIniIncapacidad')?.value &&
-          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY/MM/DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
-          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
       };
-
-      console.log(chofer);
 
       this.choferesService.guardarChofer(chofer, this.archivo?.archivo).subscribe(
         (respuesta) => {

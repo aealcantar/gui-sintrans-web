@@ -179,7 +179,7 @@
                     <label class="control-label" for="venLicCofepris">Vencimiento licencia COFEPRIS<span
                             class="req">*</span>:</label>
                     <p-calendar id="venLicCofepris" formControlName="venLicCofepris" styleClass="form-control"
-                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd/mm/yy">
                     </p-calendar>
                 </div>
                 <div class="col-md-3">
@@ -247,7 +247,7 @@
                 <div class="col-md-4">
                     <label class="control-label" for="fechaBaja">Fecha de baja<span class="req">*</span>:</label>
                     <p-calendar id="fechaBaja" styleClass="form-control" formControlName="fechaBaja" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+                        placeholder="dd/mmm/aaaa" dateFormat="dd/mm/yy">
                     </p-calendar>
                 </div>
             </div>
@@ -287,7 +287,7 @@
                 <div class="col-md-8">
                     <label class="control-label" for="tarjetaCirculacion">Tarjeta de circulación<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" [disabled]="true" accept="application/pdf"
+                    <app-cargador-archivo  [disabled]="true" accept="application/pdf"
                         [extensionesAceptadas]="['pdf']" [(archivo)]="tarjetaCirculacion"
                         (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
@@ -296,7 +296,7 @@
                     <label class="control-label" for="fechaVencimiento">Fecha vencimiento<span
                             class="req">*</span>:</label>
                     <p-calendar id="fechaVencimiento" formControlName="fechaVencimiento" styleClass="form-control"
-                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+                        [showIcon]="true" placeholder="dd/mmm/aaaa" dateFormat="dd/mm/yy">
                     </p-calendar>
                 </div>
             </div>
@@ -312,7 +312,7 @@
                     <label class="control-label" for="fechaProximaVerificacion">Fecha próxima verificación<span
                             class="req">*</span>:</label>
                     <p-calendar styleClass="form-control" formControlName="fechaProximaVerificacion" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+                        placeholder="dd/mmm/aaaa" dateFormat="dd/mm/yy">
                     </p-calendar>
                 </div>
             </div>
@@ -328,7 +328,7 @@
                     <label class="control-label" for="fechaVencimientoPoliza">Fecha vencimiento póliza<span
                             class="req">*</span>:</label>
                     <p-calendar styleClass="form-control" formControlName="fechaVencimientoPoliza" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa" dateFormat="dd-mm-yy">
+                        placeholder="dd/mmm/aaaa" dateFormat="dd/mm/yy">
                     </p-calendar>
                 </div>
             </div>
@@ -370,7 +370,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaTrasera">Fotografía trasera<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [mostrarBtnDescargar]="true" [disabled]="true" accept="application/pdf"
+                    <app-cargador-archivo  [disabled]="true" accept="application/pdf"
                         [extensionesAceptadas]="['pdf']" [(archivo)]="fotografiaTrasera"
                         (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>

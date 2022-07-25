@@ -49,6 +49,12 @@ export class CargadorArchivoComponent implements OnInit {
   @HostBinding('class.ng-invalid')
   invalid: boolean = this.archivo ? false : true;
 
+  @HostBinding('class.ng-dirty')
+  dirty: boolean = this.archivo ? true : false;
+
+  @HostBinding('class.ng-pristine')
+  pristine: boolean = this.archivo ? false : true;
+
   /**
    * Emite el archivo que se elimino
    */
@@ -142,6 +148,9 @@ export class CargadorArchivoComponent implements OnInit {
         return;
       }
       this.archivo = customFile;
+      this.invalid = false;
+      this.dirty = true;
+      this.pristine = false;
       this.archivoChange.emit(this.archivo);
     }
   }
@@ -188,6 +197,9 @@ export class CargadorArchivoComponent implements OnInit {
   }
 
   eliminar() {
+    this.invalid = true;
+    this.dirty = true;
+    this.pristine = false;
     let archivoEliminado: CustomFile = { ...this.archivo };
     this.eliminarEmitter.emit(archivoEliminado);
     (this.archivo as any) = undefined;

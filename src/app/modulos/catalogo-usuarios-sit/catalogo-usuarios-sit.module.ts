@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng-lts/card';
 import { DialogModule } from 'primeng-lts/dialog';
 import { DropdownModule } from 'primeng-lts/dropdown';
+import { InputNumberModule } from 'primeng-lts/inputnumber';
 import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
@@ -33,7 +34,8 @@ import { EditarUsuarioSitComponent } from './componentes/editar-usuario-sit/edit
     SeparadorModule,
     TableModule,
     BtnRegresarModule,
-    DialogModule
+    DialogModule,
+    InputNumberModule
   ]
 })
 export class CatalogoUsuariosSitModule { }

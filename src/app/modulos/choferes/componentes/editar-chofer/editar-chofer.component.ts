@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
@@ -21,7 +22,8 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-editar-chofer',
   templateUrl: './editar-chofer.component.html',
-  styleUrls: ['./editar-chofer.component.scss']
+  styleUrls: ['./editar-chofer.component.scss'],
+  providers: [DatePipe],
 })
 export class EditarChoferComponent implements OnInit {
 
@@ -44,32 +46,38 @@ export class EditarChoferComponent implements OnInit {
     private choferesService: ChoferesService,
     private matriculaService: MatriculaService,
     private aut: AutenticacionService,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
-    this.inicializarFormulario();
+    let matricula: string = '';
+    this.aut.usuario$.subscribe((value: Usuario | null) => {
+      matricula = value?.matricula || ''
+    });
+    this.inicializarFormulario(matricula);
+
     const idChofer = String(this.rutaActiva.snapshot.paramMap.get('idChofer'));
     if (idChofer) {
       this.obtenerChoferPorId(idChofer);
     }
   }
 
-  inicializarFormulario() {
+  inicializarFormulario(matricula: string) {
     this.editForm = this.fb.group({
-      idChofer: new FormControl(''),
+      idChofer: new FormControl(null),
       nombreChofer: new FormControl({ value: '', disabled: true }),
       unidadAdscripcion: new FormControl({ value: '', disabled: true }),
-      idUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      idUnidadAdscripcion: new FormControl({ value: null, disabled: true }),
       unidadOoad: new FormControl({ value: '', disabled: true }),
       categoria: new FormControl({ value: '', disabled: true }),
       matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
-      matricula: new FormControl('', Validators.required),
-      fecInicioContrato: new FormControl(''),
-      fecFinContrato: new FormControl(''),
-      fecIniIncapacidad: new FormControl(''),
-      fecFinIncapacidad: new FormControl(''),
+      matricula: new FormControl(matricula, Validators.required),
+      fecInicioContrato: new FormControl(null),
+      fecFinContrato: new FormControl(null),
+      fecIniIncapacidad: new FormControl(null),
+      fecFinIncapacidad: new FormControl(null),
       estatusChofer: new FormControl(null, Validators.required),
-      motivo: new FormControl(''),
+      motivo: new FormControl(null),
       licencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
       tipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
@@ -78,13 +86,35 @@ export class EditarChoferComponent implements OnInit {
     });
   }
 
+  inicializarArchivos(ruta: any) {
+    this.archivo = { ruta };
+  }
+
   obtenerChoferPorId(id: any) {
     this.choferesService.buscarPorId(id).subscribe(
       (respuesta) => {
-        this.editForm.patchValue({
-          ...this.editForm.value,
-          ...respuesta?.datos,
-        });
+        if (respuesta && respuesta?.datos) {
+          this.inicializarArchivos(respuesta?.datos.desrutaLicencia);
+          this.editForm.patchValue({
+            ...respuesta?.datos,
+            fecInicioContrato: respuesta?.datos.fecInicioContrato &&
+              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+            fecFinContrato: respuesta?.datos.fecFinContrato &&
+              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+            fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad &&
+              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+            fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad &&
+              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+            fecVigencia: respuesta?.datos.fecVigencia &&
+              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+            fecExpedicion: respuesta?.datos.fecExpedicion &&
+              this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
+            estatusChofer: parseInt(respuesta?.datos.estatusChofer),
+            motivo: parseInt(respuesta?.datos.motivo),
+          });
+          this.cambioEstatus();
+          this.cambioMotivo();
+        }
       },
       (error: HttpErrorResponse) => {
         console.error(error);
@@ -94,7 +124,6 @@ export class EditarChoferComponent implements OnInit {
 
   consultarDatosSIAP(): void {
     this.cargadorService.activar();
-    console.log("ENTRAMOS");
     if (this.editForm.get('matriculaChofer')?.value) {
       this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
         filter(Boolean),
@@ -105,6 +134,8 @@ export class EditarChoferComponent implements OnInit {
           if (respuesta.datos) {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
+              this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('idUnidadAdscripcion')?.setValue(6);
               this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();
@@ -122,6 +153,7 @@ export class EditarChoferComponent implements OnInit {
     this.cargadorService.desactivar();
   }
 
+
   editar() {
     this.editForm.get('desrutaLicencia')?.patchValue(this.archivo?.archivo?.name);
     const data = this.editForm.getRawValue();
@@ -129,21 +161,20 @@ export class EditarChoferComponent implements OnInit {
     if (this.editForm.valid) {
       let chofer: Chofer = {
         ...data,
+        motivo: String(this.editForm.get('motivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
-          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY/MM/DD'),
         fecFinContrato: this.editForm.get('fecFinContrato')?.value &&
-          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecFinContrato')?.value).format('YYYY/MM/DD'),
         fecVigencia: this.editForm.get('fecVigencia')?.value &&
-          moment(this.editForm.get('fecVigencia')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecVigencia')?.value).format('YYYY/MM/DD'),
         fecExpedicion: this.editForm.get('fecExpedicion')?.value &&
-          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecExpedicion')?.value).format('YYYY/MM/DD'),
         fecIniIncapacidad: this.editForm.get('fecIniIncapacidad')?.value &&
-          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY/MM/DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
-          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
+          moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY/MM/DD'),
       };
-
-      console.log(chofer);
 
       this.choferesService.actualizarChofer(chofer.idChofer, chofer, this.archivo?.archivo).subscribe(
         (respuesta) => {
@@ -205,6 +236,10 @@ export class EditarChoferComponent implements OnInit {
     }
     this.editForm.get('fecInicioContrato')?.updateValueAndValidity();
     this.editForm.get('fecFinContrato')?.updateValueAndValidity();
+  }
+
+  validarArchivo(event: any) {
+    console.log(event);
   }
 
   get f() {

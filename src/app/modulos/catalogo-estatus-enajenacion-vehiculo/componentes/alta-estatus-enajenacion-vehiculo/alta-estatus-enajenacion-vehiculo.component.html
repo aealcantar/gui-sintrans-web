@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-10">
                     <label class="control-label" for="estatus">Estatus de enajenación de vehículo<span class="req">*</span>:</label>
-                    <input class="form-control" id="estatus" formControlName="desEstatusEnajenacion" placeholder="Ingresar" type="text">
+                    <input class="form-control" id="estatus" formControlName="desEstatusEnajenacion" [maxlength]="150" placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios" *ngIf="f?.desEstatusEnajenacion?.errors?.required && (f?.desEstatusEnajenacion?.dirty || f?.desEstatusEnajenacion?.touched)">*Campo obligatorio</span>
                 </div>
             </div>

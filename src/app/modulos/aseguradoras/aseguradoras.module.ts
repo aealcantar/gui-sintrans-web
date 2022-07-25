@@ -41,8 +41,7 @@ import { EditarAseguradoraComponent } from './componentes/editar-aseguradora/edi
     CargadorArchivoModule,
     FormsModule,
     ReactiveFormsModule,
-   InputNumberModule
-    
+    InputNumberModule
   ]
 })
 export class AseguradorasModule { }

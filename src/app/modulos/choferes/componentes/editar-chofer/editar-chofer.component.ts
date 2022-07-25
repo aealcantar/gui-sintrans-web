@@ -66,20 +66,20 @@ export class EditarChoferComponent implements OnInit {
     this.editForm = this.fb.group({
       idChofer: new FormControl(null),
       nombreChofer: new FormControl({ value: '', disabled: true }),
-      unidadAdscripcion: new FormControl({ value: '', disabled: true }),
+      cveUnidadAdscripcion: new FormControl({ value: '', disabled: true }),
       idUnidadAdscripcion: new FormControl({ value: null, disabled: true }),
-      unidadOoad: new FormControl({ value: '', disabled: true }),
-      categoria: new FormControl({ value: '', disabled: true }),
-      matriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
-      matricula: new FormControl(matricula, Validators.required),
+      cveUnidadOOAD: new FormControl({ value: '', disabled: true }),
+      desCategoria: new FormControl({ value: '', disabled: true }),
+      cveMatriculaChofer: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(12)])),
+      cveMatricula: new FormControl(matricula, Validators.required),
       fecInicioContrato: new FormControl(null),
       fecFinContrato: new FormControl(null),
       fecIniIncapacidad: new FormControl(null),
       fecFinIncapacidad: new FormControl(null),
       estatusChofer: new FormControl(null, Validators.required),
-      motivo: new FormControl(null),
-      licencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
-      tipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
+      desMotivo: new FormControl(null),
+      cveLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(10)])),
+      cveTipoLicencia: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(15)])),
       fecVigencia: new FormControl(null, Validators.required),
       fecExpedicion: new FormControl(null, Validators.required),
       desrutaLicencia: new FormControl(null, Validators.required),
@@ -110,7 +110,7 @@ export class EditarChoferComponent implements OnInit {
             fecExpedicion: respuesta?.datos.fecExpedicion &&
               this.datePipe.transform(respuesta?.datos.fecAlta, 'dd/MM/YYYY'),
             estatusChofer: parseInt(respuesta?.datos.estatusChofer),
-            motivo: parseInt(respuesta?.datos.motivo),
+            desMotivo: parseInt(respuesta?.datos.desMotivo),
           });
           this.cambioEstatus();
           this.cambioMotivo();
@@ -124,8 +124,8 @@ export class EditarChoferComponent implements OnInit {
 
   consultarDatosSIAP(): void {
     this.cargadorService.activar();
-    if (this.editForm.get('matriculaChofer')?.value) {
-      this.matriculaService.consultarMatriculaSIAP(this.editForm.get('matriculaChofer')?.value).pipe(
+    if (this.editForm.get('cveMatriculaChofer')?.value) {
+      this.matriculaService.consultarMatriculaSIAP(this.editForm.get('cveMatriculaChofer')?.value).pipe(
         filter(Boolean),
         debounceTime(150),
         distinctUntilChanged()
@@ -134,10 +134,10 @@ export class EditarChoferComponent implements OnInit {
           if (respuesta.datos) {
             if (respuesta.datos.status === 1) {
               this.editForm.get('nombreChofer')?.setValue(respuesta.datos.nombre);
-              this.editForm.get('unidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('cveUnidadAdscripcion')?.setValue(respuesta.datos.descPuesto);
               this.editForm.get('idUnidadAdscripcion')?.setValue(6);
-              this.editForm.get('unidadOoad')?.setValue(respuesta.datos.descPuesto);
-              this.editForm.get('categoria')?.setValue(respuesta.datos.descDepto);
+              this.editForm.get('cveUnidadOOAD')?.setValue(respuesta.datos.descPuesto);
+              this.editForm.get('desCategoria')?.setValue(respuesta.datos.descDepto);
               this.cargadorService.desactivar();
             } else {
               this.alertaService.mostrar("error", this.MATRICULA_DESACTIVADA);
@@ -161,7 +161,7 @@ export class EditarChoferComponent implements OnInit {
     if (this.editForm.valid) {
       let chofer: any = {
         ...data,
-        motivo: String(this.editForm.get('motivo')?.value),
+        desMotivo: String(this.editForm.get('desMotivo')?.value),
         fecInicioContrato: this.editForm.get('fecInicioContrato')?.value &&
           moment(this.editForm.get('fecInicioContrato')?.value).format('YYYY/MM/DD'),
         fecFinContrato: this.editForm.get('fecFinContrato')?.value &&
@@ -196,21 +196,21 @@ export class EditarChoferComponent implements OnInit {
   cambioEstatus() {
     this.desMotivoHasValidator = true;
     this.catMotivo = [];
-    this.editForm.get('motivo')?.setValidators(Validators.required);
+    this.editForm.get('desMotivo')?.setValidators(Validators.required);
     if (this.editForm.get('estatusChofer')?.value === 1) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BAJA;
     } else if (this.editForm.get('estatusChofer')?.value === 2) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
     } else {
-      this.editForm.get('motivo')?.reset();
-      this.editForm.get('motivo')?.clearValidators();
+      this.editForm.get('desMotivo')?.reset();
+      this.editForm.get('desMotivo')?.clearValidators();
       this.desMotivoHasValidator = false;
     }
-    this.editForm.get('motivo')?.updateValueAndValidity();
+    this.editForm.get('desMotivo')?.updateValueAndValidity();
   }
 
   cambioMotivo() {
-    if (this.editForm.get('motivo')?.value === 9) {
+    if (this.editForm.get('desMotivo')?.value === 9) {
       this.editForm.get('fecIniIncapacidad')?.setValidators(Validators.required);
       this.editForm.get('fecFinIncapacidad')?.setValidators(Validators.required);
     } else {
@@ -225,7 +225,7 @@ export class EditarChoferComponent implements OnInit {
   }
 
   cambioAdscripcion() {
-    if (this.editForm.get('unidadAdscripcion')?.value === 'CONTRATACIÓN 08') {
+    if (this.editForm.get('cveUnidadAdscripcion')?.value === 'CONTRATACIÓN 08') {
       this.editForm.get('fecInicioContrato')?.reset();
       this.editForm.get('fecInicioContrato')?.setValidators(Validators.required);
 

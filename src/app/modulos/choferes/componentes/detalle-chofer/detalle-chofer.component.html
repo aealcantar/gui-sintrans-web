@@ -27,7 +27,7 @@
                 <div class="col-md-3">
                     <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
                     <input class="form-control" id="matricula" placeholder="Ingresar" type="text"
-                        formControlName="matriculaChofer">
+                        formControlName="cveMatriculaChofer">
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="ooad">OOAD:</label>
                     <input class="form-control" id="ooad" placeholder="Ingresar" type="text"
-                        formControlName="unidadOoad">
+                        formControlName="cveUnidadOOAD">
                 </div>
             </div>
 
@@ -48,16 +48,16 @@
                 <div class="col-md-6">
                     <label class="control-label" for="adscripcion">Adscripción:</label>
                     <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
-                        formControlName="unidadAdscripcion">
+                        formControlName="cveUnidadAdscripcion">
                 </div>
-                <div class="col-md-3" *ngIf="f.unidadAdscripcion.value === 'CONTRATACIÓN 08'">
+                <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
                     <label class="control-label" for="inicioContrato">Inicio de contrato<span
                             class="req">*</span>:</label>
                     <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true"
                         placeholder="dd/mmm/aaaa" formControlName="fecInicioContrato">
                     </p-calendar>
                 </div>
-                <div class="col-md-3" *ngIf="f.unidadAdscripcion.value === 'CONTRATACIÓN 08'">
+                <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
                     <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
                     <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
                         formControlName="fecFinContrato">
@@ -68,9 +68,9 @@
 
             <div class="row flex align-items-end mb-4">
                 <div class="col-md-4">
-                    <label class="control-label" for="categoria">Categoría:</label>
-                    <input class="form-control" id="categoria" placeholder="Ingresar" type="text"
-                        formControlName="categoria">
+                    <label class="control-label" for="desCategoria">Categoría:</label>
+                    <input class="form-control" id="desCategoria" placeholder="Ingresar" type="text"
+                        formControlName="desCategoria">
                 </div>
                 <div class="col-md-4">
                     <label class="control-label" for="estatusChofer">Estatus del chofer<span
@@ -80,14 +80,14 @@
                     </p-dropdown>
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                    <p-dropdown id="motivo" class="form-control" [options]="catMotivo" placeholder="Seleccionar"
-                        formControlName="motivo">
+                    <label class="control-label" for="desMotivo">Motivo<span class="req">*</span>:</label>
+                    <p-dropdown id="desMotivo" class="form-control" [options]="catMotivo" placeholder="Seleccionar"
+                        formControlName="desMotivo">
                     </p-dropdown>
                 </div>
             </div>
 
-            <div class="row flex align-items-end mb-4" *ngIf="f.motivo.value === 9">
+            <div class="row flex align-items-end mb-4" *ngIf="f.desMotivo.value === 9">
                 <div class="col-md-3">
                     <label class="control-label" for="inicioIncapacidad">Inicio de incapacidad<span
                             class="req">*</span>:</label>
@@ -117,12 +117,12 @@
                 <div class="col-md-3">
                     <label class="control-label" for="numeroLicencia">Número de licencia<span class="req">*</span>:</label>
                     <input class="form-control" id="numeroLicencia" placeholder="Ingresar" type="text"
-                        formControlName="licencia" maxlength="10" numbersOnly>
+                        formControlName="cveLicencia" maxlength="10" numbersOnly>
                 </div>
                 <div class="col-md-3">
-                    <label class="control-label" for="tipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
-                    <input class="form-control" id="tipoLicencia" placeholder="Ingresar" type="text"
-                        formControlName="tipoLicencia" maxlength="15">
+                    <label class="control-label" for="cveTipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
+                    <input class="form-control" id="cveTipoLicencia" placeholder="Ingresar" type="text"
+                        formControlName="cveTipoLicencia" maxlength="15">
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="vigLicencia">Vigencia de la licencia<span

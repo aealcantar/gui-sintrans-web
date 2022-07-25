@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
@@ -18,6 +18,7 @@ import { Usuario } from 'src/app/modelos/usuario.interface';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { MatriculaService } from 'src/app/servicios/matricula.service';
 import * as moment from 'moment';
+import { ArchivoService } from 'src/app/servicios/archivo-service';
 
 @Component({
   selector: 'app-editar-chofer',
@@ -47,6 +48,7 @@ export class EditarChoferComponent implements OnInit {
     private matriculaService: MatriculaService,
     private aut: AutenticacionService,
     private datePipe: DatePipe,
+    private archivoService: ArchivoService,
   ) { }
 
   ngOnInit(): void {
@@ -97,18 +99,12 @@ export class EditarChoferComponent implements OnInit {
           this.inicializarArchivos(respuesta?.datos.desrutaLicencia);
           this.editForm.patchValue({
             ...respuesta?.datos,
-            fecInicioContrato: respuesta?.datos.fecInicioContrato &&
-              this.datePipe.transform(respuesta?.datos.fecInicioContrato, 'dd/MM/YYYY'),
-            fecFinContrato: respuesta?.datos.fecFinContrato &&
-              this.datePipe.transform(respuesta?.datos.fecFinContrato, 'dd/MM/YYYY'),
-            fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad &&
-              this.datePipe.transform(respuesta?.datos.fecIniIncapacidad, 'dd/MM/YYYY'),
-            fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad &&
-              this.datePipe.transform(respuesta?.datos.fecFinIncapacidad, 'dd/MM/YYYY'),
-            fecVigencia: respuesta?.datos.fecVigencia &&
-              this.datePipe.transform(respuesta?.datos.fecVigencia, 'dd/MM/YYYY'),
-            fecExpedicion: respuesta?.datos.fecExpedicion &&
-              this.datePipe.transform(respuesta?.datos.fecExpedicion, 'dd/MM/YYYY'),
+            fecInicioContrato: respuesta?.datos.fecInicioContrato && new Date(respuesta?.datos.fecInicioContrato),
+            fecFinContrato: respuesta?.datos.fecFinContrato && new Date(respuesta?.datos.fecFinContrato),
+            fecIniIncapacidad: respuesta?.datos.fecIniIncapacidad && new Date(respuesta?.datos.fecIniIncapacidad),
+            fecFinIncapacidad: respuesta?.datos.fecFinIncapacidad && new Date(respuesta?.datos.fecFinIncapacidad),
+            fecVigencia: respuesta?.datos.fecVigencia && new Date(respuesta?.datos.fecVigencia),
+            fecExpedicion: respuesta?.datos.fecExpedicion && new Date(respuesta?.datos.fecExpedicion),
             estatusChofer: parseInt(respuesta?.datos.estatusChofer),
             desMotivo: parseInt(respuesta?.datos.desMotivo),
           });
@@ -157,7 +153,6 @@ export class EditarChoferComponent implements OnInit {
   editar() {
     this.editForm.get('desrutaLicencia')?.patchValue(this.archivo?.archivo?.name);
     const data = this.editForm.getRawValue();
-    console.log(this.editForm.value);
     
     if (this.editForm.valid) {
       let chofer: any = {
@@ -175,20 +170,32 @@ export class EditarChoferComponent implements OnInit {
           moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
           moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
-        archivo: this.archivo?.archivo,
-      };
+      };      
 
-      this.choferesService.actualizarChofer(chofer).subscribe(
-        (respuesta) => {
-          this.alertaService.mostrar("exito", this.ACTUALIZAR_CHOFER);
-          this.cargadorService.desactivar();
-          this.router.navigate(["../"], { relativeTo: this.route });
-        },
-        (error: HttpErrorResponse) => {
-          this.cargadorService.desactivar();
-          console.error("ERROR: ", error)
-        }
-      );
+      this.archivoService.obtenerArchivosDeCustomFiles(this.archivo).pipe(
+          switchMap((archivosRespuesta: File[]) => {
+            let archivos = {
+              archivo: archivosRespuesta[0],
+            };
+
+            chofer = {
+              ...chofer,
+              archivo: archivos?.archivo,
+            }
+            
+            return this.choferesService.actualizarChofer(chofer)
+          })
+        ).subscribe(
+          (respuesta: any) => {
+            this.alertaService.mostrar("exito", this.ACTUALIZAR_CHOFER);
+            this.cargadorService.desactivar();
+            this.router.navigate(["../.."], { relativeTo: this.route });
+          },
+          (error: HttpErrorResponse) => {
+            console.error(error);
+            this.cargadorService.desactivar();
+          }
+        );
     } else {
       this.editForm.markAllAsTouched();
     }

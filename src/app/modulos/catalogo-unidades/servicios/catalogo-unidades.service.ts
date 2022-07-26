@@ -16,6 +16,14 @@ export class CatalogoUnidadesService extends BaseService<HttpRespuesta<any>, any
         return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransCodigoPostal + `/${cveCodigoPostal}`)
     }
 
+    buscarOoadPorId(pagina: number, tamanio: number, ooad: number): Observable<HttpRespuesta<any>> {
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransCatalogoOoad + `/${ooad}?pagina=${pagina}&tamanio=${tamanio}`);
+    }
+
+    buscarAdscripcionPorOoad(pagina: number, tamanio: number, ooad: number): Observable<HttpRespuesta<any>> {
+        return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransUnidad + `/cc?pagina=${pagina}&tamanio=${tamanio}&ooad=${ooad}`);
+    }
+
     buscarPorFiltros(pagina: number, tamanio: number, ooad: string, ecco: string): Observable<HttpRespuesta<any>> {
         return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransUnidad + `/buscar?pagina=${pagina}&tamanio=${tamanio}&ecco=${ecco}&ooad=${ooad}`);
     }

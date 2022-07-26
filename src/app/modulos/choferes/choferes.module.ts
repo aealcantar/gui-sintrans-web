@@ -13,6 +13,7 @@ import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/carg
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
 import { NumberDirective } from 'src/app/directives/only-numbers.directive';
 import { ArchivoService } from 'src/app/servicios/archivo-service';
+import { CatalogoUnidadesService } from '../catalogo-unidades/servicios/catalogo-unidades.service';
 import { ChoferesService } from '../choferes/servicios/choferes.service';
 import { ChoferesRoutingModule } from './choferes-routing.module';
 import { AltaChoferesComponent } from './componentes/alta-choferes/alta-choferes.component';
@@ -45,7 +46,8 @@ import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer
   ],
   providers: [
     ChoferesService,
-    ArchivoService
+    ArchivoService,
+    CatalogoUnidadesService
   ]
 })
 export class ChoferesModule { }

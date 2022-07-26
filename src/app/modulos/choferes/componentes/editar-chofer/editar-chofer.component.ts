@@ -195,7 +195,7 @@ export class EditarChoferComponent implements OnInit {
 
   obtenerUnidadesAdscripcion(idOoad: number) {
     this.cargadorService.activar();
-    this.unidadService.buscarAdscripcionPorOoad(0, 10, 8).subscribe(
+    this.unidadService.buscarAdscripcionPorOoad(0, 10, idOoad).subscribe(
       (respuesta) => {
         if (respuesta && respuesta?.datos?.content.length > 0) {
           respuesta?.datos.content.map((item: any) => {

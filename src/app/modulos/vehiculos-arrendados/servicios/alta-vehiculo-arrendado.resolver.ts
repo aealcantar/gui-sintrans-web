@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { forkJoin, Observable } from "rxjs";
+import { AseguradoraService } from "../../aseguradoras/componentes/service/aseguradora.service";
 import { CatalogoUnidadesService } from "../../catalogo-unidades/servicios/catalogo-unidades.service";
 import { VehiculosArrendadosService } from "./vehiculos-arrendados.service";
 
@@ -9,7 +10,8 @@ export class AltaVehiculoArrendadoResolver implements Resolve<any>{
 
     constructor(
         private vehiculosArrendadosService: VehiculosArrendadosService,
-        private catalogoUnidadesService: CatalogoUnidadesService
+        private catalogoUnidadesService: CatalogoUnidadesService,
+        private aseguradoraService: AseguradoraService
     ) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
@@ -27,6 +29,7 @@ export class AltaVehiculoArrendadoResolver implements Resolve<any>{
         const catEstatus$ = this.vehiculosArrendadosService.obtenerCatalogoEstatus();
         //Este catalogo es temporal, se quitara cuando se trabaje la HU03-13 (Arrendatarios)
         const catNumeroContratos$ = this.vehiculosArrendadosService.obtenerCatalogoNumeroContratos();
-        return forkJoin([catUnidades$, catTipoVehiculo$, catCONUEE$, catTipoServicio$, catVersion$, catTipoRegimen$, catCombustible$, catToneladas$, catCilindros$, catEstatus$, catNumeroContratos$]);
+        const catAseguradoras$ = this.aseguradoraService.obtenerAseguradoras(0, 100, '');
+        return forkJoin([catUnidades$, catTipoVehiculo$, catCONUEE$, catTipoServicio$, catVersion$, catTipoRegimen$, catCombustible$, catToneladas$, catCilindros$, catEstatus$, catNumeroContratos$, catAseguradoras$]);
     }
 }

@@ -1,157 +1,162 @@
 <div class="container mb-4">
-    <div class="flex align-items-center">
-        <app-btn-regresar routerLink="../"></app-btn-regresar>
-        <app-separador class="flex-grow-1" texto="Alta de choferes"></app-separador>
-    </div>
-    <form [formGroup]="editForm">
-        <p-card>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="subtitulo">
-                        Datos generales
-                    </h3>
-                </div>
-            </div>
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-3">
-                    <label class="control-label" for="ecco">ID consecutivo:</label>
-                    <input class="form-control" id="ecco" placeholder="xxxxxxxxxxx" type="text" disabled>
-                </div>
-                <div class="col-md-3">
-                    <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
-                    <input class="form-control" (keyup)="consultarDatosSIAP()" id="matricula" placeholder="Ingresar" type="text"
-                        formControlName="cveMatriculaChofer" maxlength="12" numbersOnly>
-                </div>
-            </div>
-
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-6">
-                    <label class="control-label" for="nombre">Nombre:</label>
-                    <input class="form-control" id="nombre" placeholder="xxxxxxxxxxx" type="text"
-                        formControlName="nombreChofer">
-                </div>
-                <div class="col-md-6">
-                    <label class="control-label" for="ooad">OOAD:</label>
-                    <input class="form-control" id="ooad" placeholder="Ingresar" type="text"
-                        formControlName="cveUnidadOOAD">
-                </div>
-            </div>
-
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-6">
-                    <label class="control-label" for="adscripcion">Adscripción:</label>
-                    <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
-                        formControlName="cveUnidadAdscripcion" (change)="cambioAdscripcion()">
-                </div>
-                <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
-                    <label class="control-label" for="inicioContrato">Inicio de contrato<span
-                            class="req">*</span>:</label>
-                    <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa" formControlName="fecInicioContrato">
-                    </p-calendar>
-                </div>
-                <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
-                    <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
-                    <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
-                        formControlName="fecFinContrato">
-                    </p-calendar>
-                </div>
-            </div>
-
-
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-4">
-                    <label class="control-label" for="desCategoria">Categoría:</label>
-                    <input class="form-control" id="desCategoria" placeholder="Ingresar" type="text"
-                        formControlName="desCategoria">
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label" for="estatusChofer">Estatus del chofer<span
-                            class="req">*</span>:</label>
-                    <p-dropdown id="estatusChofer" class="form-control" [options]="catEstatus" placeholder="Seleccionar"
-                        formControlName="estatusChofer" (onChange)="cambioEstatus();">
-                    </p-dropdown>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label" for="desMotivo">Motivo
-                        <span class="req" *ngIf="desMotivoHasValidator">*</span>:
-                    </label>
-                    <p-dropdown id="desMotivo" class="form-control" formControlName="desMotivo" [options]="catMotivo"
-                        placeholder="Seleccionar" formControlName="desMotivo" (onChange)="cambioMotivo();">
-                    </p-dropdown>
-                </div>
-            </div>
-
-            <div class="row flex align-items-end mb-4" *ngIf="f.desMotivo.value === 9">
-                <div class="col-md-3">
-                    <label class="control-label" for="inicioIncapacidad">Inicio de incapacidad<span
-                            class="req">*</span>:</label>
-                    <p-calendar id="inicioIncapacidad" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa" formControlName="fecIniIncapacidad">
-                    </p-calendar>
-                </div>
-                <div class="col-md-3">
-                    <label class="control-label" for="finIncapacidad">Fin de incapacidad<span
-                            class="req">*</span>:</label>
-                    <p-calendar id="finIncapacidad" styleClass="form-control" [showIcon]="true"
-                        placeholder="dd/mmm/aaaa" formControlName="fecFinIncapacidad">
-                    </p-calendar>
-                </div>
-            </div>
-
-            <hr class="separador-small">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="subtitulo">
-                        Licencia
-                    </h3>
-                </div>
-            </div>
-
-            <div class="row flex align-items-end mb-4">
-                <div class="col-md-3">
-                    <label class="control-label" for="numeroLicencia">Número de licencia<span
-                            class="req">*</span>:</label>
-                    <input class="form-control" id="numeroLicencia" placeholder="Ingresar" type="text"
-                        formControlName="cveLicencia" maxlength="10" numbersOnly>
-                </div>
-                <div class="col-md-3">
-                    <label class="control-label" for="cveTipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
-                    <input class="form-control" id="cveTipoLicencia" placeholder="Ingresar" type="text"
-                        formControlName="cveTipoLicencia" maxlength="15">
-                </div>
-                <div class="col-md-3">
-                    <label class="control-label" for="vigLicencia">Vigencia de la licencia<span
-                            class="req">*</span>:</label>
-                    <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
-                        formControlName="fecVigencia">
-                    </p-calendar>
-                </div>
-                <div class="col-md-3">
-                    <label class="control-label" for="expLicencia">Expedición de licencia<span
-                            class="req">*</span>:</label>
-                    <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
-                        formControlName="fecExpedicion">
-                    </p-calendar>
-                </div>
-            </div>
-
-            <div class="row flex mb-4">
-                <div class="col-md-6">
-                    <label class="control-label">Licencia<span class="req">*</span>:</label>
-                    <app-cargador-archivo [class.ng-invalid]="!archivo" accept="application/pdf"
-                        [extensionesAceptadas]="['pdf']" [(archivo)]="archivo">
-                    </app-cargador-archivo>
-                </div>
-            </div>
-        </p-card>
-
-        <div class="flex justify-content-between mt-4">
-            <span class="campos-obligatorios">*Campos obligatorios</span>
-            <div>
-                <button type="button" class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
-                <button type="submit" class="btn btn-primary btn-lg ml-4" (click)="guardar()">Guardar</button>
-            </div>
+  <div class="flex align-items-center">
+    <app-btn-regresar routerLink="../"></app-btn-regresar>
+    <app-separador class="flex-grow-1" texto="Alta de choferes"></app-separador>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <p-card>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="subtitulo">
+            Datos generales
+          </h3>
         </div>
-    </form>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <label class="control-label" for="ecco">ID consecutivo:</label>
+          <input class="form-control" id="ecco" placeholder="xxxxxxxxxxx" type="text" disabled>
+        </div>
+        <div class="col-md-3">
+          <label class="control-label" for="matricula">Matrícula<span class="req">*</span>:</label>
+          <input class="form-control" #inputMatricula (blur)="consultarDatosSIAP(inputMatricula.value)" id="matricula" placeholder="Ingresar" type="text"
+            formControlName="cveMatriculaChofer" maxlength="12" numbersOnly>
+            <span class="campos-obligatorios" *ngIf="f.cveMatriculaChofer?.errors?.required && (f.cveMatriculaChofer?.dirty || f.cveMatriculaChofer?.touched)">*Campo obligatorio</span>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label class="control-label" for="nombre">Nombre:</label>
+          <input class="form-control" id="nombre" placeholder="xxxxxxxxxxx" type="text" formControlName="nombreChofer">
+        </div>
+        <div class="col-md-6">
+          <label class="control-label" for="ooad">OOAD:</label>
+          <input class="form-control" id="ooad" placeholder="Ingresar" type="text" formControlName="cveUnidadOOAD">
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label class="control-label" for="adscripcion">Adscripción:</label>
+          <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
+            formControlName="cveUnidadAdscripcion" (change)="cambioAdscripcion()">
+        </div>
+        <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
+          <label class="control-label" for="inicioContrato">Inicio de contrato<span class="req">*</span>:</label>
+          <p-calendar id="inicioContrato" formControlName="fecInicioContrato" styleClass="form-control"
+            [showIcon]="true" placeholder="dd/mm/aaaa" dateFormat="dd/mm/yy">
+          </p-calendar>
+          <span class="campos-obligatorios" *ngIf="f.fecInicioContrato?.errors?.required && (f.fecInicioContrato?.dirty || f.fecInicioContrato?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-3" *ngIf="f.cveUnidadAdscripcion.value === 'CONTRATACIÓN 08'">
+          <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
+          <p-calendar id="finContrato" styleClass="form-control" formControlName="fecFinContrato" [showIcon]="true"
+            placeholder="dd/mmm/aaaa" dateFormat="dd/mm/yy">
+          </p-calendar>
+          <span class="campos-obligatorios" *ngIf="f.fecFinContrato?.errors?.required && (f.fecFinContrato?.dirty || f.fecFinContrato?.touched)">*Campo obligatorio</span>
+        </div>
+      </div>
+
+
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="control-label" for="desCategoria">Categoría:</label>
+          <input class="form-control" id="desCategoria" placeholder="Ingresar" type="text"
+            formControlName="desCategoria">
+            <span class="campos-obligatorios" *ngIf="f.desCategoria?.errors?.required && (f.desCategoria?.dirty || f.desCategoria?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label" for="estatusChofer">Estatus del chofer<span class="req">*</span>:</label>
+          <p-dropdown id="estatusChofer" class="form-control" [options]="catEstatus" placeholder="Seleccionar"
+            formControlName="estatusChofer" (onChange)="cambioEstatus();">
+          </p-dropdown>
+          <span class="campos-obligatorios" *ngIf="f.estatusChofer?.errors?.required && (f.estatusChofer?.dirty || f.estatusChofer?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label" for="desMotivo">Motivo
+            <span class="req" *ngIf="desMotivoHasValidator">*</span>:
+          </label>
+          <p-dropdown id="desMotivo" class="form-control" formControlName="desMotivo" [options]="catMotivo"
+            placeholder="Seleccionar" formControlName="desMotivo" (onChange)="cambioMotivo();">
+          </p-dropdown>
+          <span class="campos-obligatorios" *ngIf="f.desMotivo?.errors?.required && (f.desMotivo?.dirty || f.desMotivo?.touched)">*Campo obligatorio</span>
+        </div>
+      </div>
+
+      <div class="row mb-4" *ngIf="f.desMotivo.value === 9">
+        <div class="col-md-3">
+          <label class="control-label" for="inicioIncapacidad">Inicio de incapacidad<span class="req">*</span>:</label>
+          <p-calendar id="inicioIncapacidad" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
+            formControlName="fecIniIncapacidad">
+          </p-calendar>
+          <span class="campos-obligatorios" *ngIf="f.fecIniIncapacidad?.errors?.required && (f.fecIniIncapacidad?.dirty || f.fecIniIncapacidad?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-3">
+          <label class="control-label" for="finIncapacidad">Fin de incapacidad<span class="req">*</span>:</label>
+          <p-calendar id="finIncapacidad" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
+            formControlName="fecFinIncapacidad">
+          </p-calendar>
+          <span class="campos-obligatorios" *ngIf="f.fecFinIncapacidad?.errors?.required && (f.fecFinIncapacidad?.dirty || f.fecFinIncapacidad?.touched)">*Campo obligatorio</span>
+        </div>
+      </div>
+
+      <hr class="separador-small">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="subtitulo">
+            Licencia
+          </h3>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <label class="control-label" for="numeroLicencia">Número de licencia<span class="req">*</span>:</label>
+          <input class="form-control" id="numeroLicencia" placeholder="Ingresar" type="text"
+            formControlName="cveLicencia" maxlength="10" numbersOnly>
+            <span class="campos-obligatorios" *ngIf="f.cveLicencia?.errors?.required && (f.cveLicencia?.dirty || f.cveLicencia?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-3">
+          <label class="control-label" for="cveTipoLicencia">Tipo de licencia<span class="req">*</span>:</label>
+          <input class="form-control" id="cveTipoLicencia" placeholder="Ingresar" type="text"
+            formControlName="cveTipoLicencia" maxlength="15">
+            <span class="campos-obligatorios" *ngIf="f.cveTipoLicencia?.errors?.required && (f.cveTipoLicencia?.dirty || f.cveTipoLicencia?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-3">
+          <label class="control-label" for="vigLicencia">Vigencia de la licencia<span class="req">*</span>:</label>
+          <p-calendar id="vigLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mm/aaaa"
+            formControlName="fecVigencia">
+          </p-calendar>
+          <span class="campos-obligatorios" *ngIf="f.fecVigencia?.errors?.required && (f.fecVigencia?.dirty || f.fecVigencia?.touched)">*Campo obligatorio</span>
+        </div>
+        <div class="col-md-3">
+          <label class="control-label" for="expLicencia">Expedición de licencia<span class="req">*</span>:</label>
+          <p-calendar id="expLicencia" styleClass="form-control" [showIcon]="true" placeholder="dd/mm/aaaa"
+            formControlName="fecExpedicion">
+          </p-calendar>
+          <span class="campos-obligatorios" *ngIf="f.fecExpedicion?.errors?.required && (f.fecExpedicion?.dirty || f.fecExpedicion?.touched)">*Campo obligatorio</span>
+        </div>
+      </div>
+
+      <div class="row flex mb-4">
+        <div class="col-md-6">
+          <label class="control-label">Licencia<span class="req">*</span>:</label>
+          <app-cargador-archivo [class.ng-invalid]="!archivo" accept="application/pdf" [extensionesAceptadas]="['pdf']"
+            [(archivo)]="archivo" (errorEmitter)="validarArchivo($event)">
+          </app-cargador-archivo>
+          <span class="campos-obligatorios" *ngIf="!archivo">*Campo obligatorio</span>
+        </div>
+      </div>
+    </p-card>
+
+    <div class="flex justify-content-between mt-4">
+      <span class="campos-obligatorios">*Campos obligatorios</span>
+      <div>
+        <button type="button" class="btn btn-gold btn-lg" routerLink="../">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-lg ml-4"
+          [disabled]="!form.valid || !estaArchivoCargado">Guardar</button>
+      </div>
+    </div>
+  </form>
 </div>

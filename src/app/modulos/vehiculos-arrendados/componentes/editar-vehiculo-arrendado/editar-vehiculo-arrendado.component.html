@@ -232,7 +232,8 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
-                    <input formControlName="nombreAseguradora" class="form-control" id="aseguradora" [maxlength]="50" placeholder="Ingresar" type="text">
+                    <p-dropdown formControlName="nombreAseguradora" id="aseguradora" class="form-control" [options]="catAseguradoras" placeholder="Seleccionar">
+                    </p-dropdown>
                     <span class="campos-obligatorios" *ngIf="f.nombreAseguradora?.errors?.required && (f.nombreAseguradora?.dirty || f.nombreAseguradora?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-4">

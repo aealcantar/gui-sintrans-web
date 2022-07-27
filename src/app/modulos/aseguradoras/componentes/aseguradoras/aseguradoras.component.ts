@@ -116,6 +116,7 @@ export class AseguradorasComponent implements OnInit {
     this.cargadorService.activar();
     this.aseguradoraService.eliminar(this.aseguradora.idAseguradora).subscribe(
       (respuesta) => {
+        this.cargadorService.desactivar();
         this.alertService.mostrar('exito', REGISTRO_ELIMINADO);
         const index = this.aseguradoras.findIndex((u) => u.idAseguradora === this.aseguradora.idAseguradora);
         this.aseguradoras.splice(index, 1);
@@ -125,6 +126,7 @@ export class AseguradorasComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
+        this.cargadorService.desactivar();
         console.error("ERROR: ", error);
       }
     );

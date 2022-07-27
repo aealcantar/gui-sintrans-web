@@ -93,7 +93,7 @@
             *ngIf="f.motivo?.errors?.required && (f.motivo?.dirty || f.motivo?.touched)">*Campo obligatorio</span>
         </div>
         <div class="col-md-3">
-          <label class="control-label" for="password">Password<span class="req">*</span>:</label>
+          <label class="control-label" for="password">Contraseña<span class="req">*</span>:</label>
           <input class="form-control" id="password" formControlName="password" [maxlength]="8" placeholder="Ingresar" type="password" />
           <span class="campos-obligatorios"
             *ngIf="f.password?.errors?.required && (f.password?.dirty || f.password?.touched)">*Campo obligatorio</span>

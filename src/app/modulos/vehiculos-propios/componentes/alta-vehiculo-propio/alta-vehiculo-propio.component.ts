@@ -31,6 +31,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_TONELADAS = 7;
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
+  readonly POSICION_CATALOGO_ASEGURADORAS = 10;
   readonly ALTA_VEHICULO_PROPIO = "La vehículo propio ha sido dado de alta exitosamente.";
 
   tarjetaCirculacion!: CustomFile;
@@ -53,6 +54,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
   catToneladas: TipoDropdown[] = [];
   catCilindros: TipoDropdown[] = [];
   catEstatus: TipoDropdown[] = [];
+  catAseguradoras: TipoDropdown[] = [];
 
   catTipoServicioCONUEE: any[] = [];
 
@@ -80,6 +82,7 @@ export class AltaVehiculoPropioComponent implements OnInit {
     this.catToneladas = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_TONELADAS], 'descripcion', 'idTonelada');
     this.catCilindros = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_CILINDROS], 'descripcion', 'idCilindro');
     this.catEstatus = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ESTATUS], 'descripcion', 'idEstatus');
+    this.catAseguradoras = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ASEGURADORAS].datos.content, 'nombreAseguradora', 'idAseguradora');
     this.inicializarForm();
 
   }

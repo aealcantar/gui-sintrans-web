@@ -61,11 +61,8 @@ export class CatalogoUsuariosSitComponent implements OnInit {
   }
 
   limpiar() {
-    this.usuarios = [];
     this.form.reset();
-    this.usuarioService.get(0, '', '', '').subscribe((response) => {
-      this.usuarios = response!.data.content;
-    });
+    this.recargarTabla();
   }
 
   abrirModal(usuario: any) {
@@ -93,9 +90,8 @@ export class CatalogoUsuariosSitComponent implements OnInit {
   }
 
   recargarTabla() {
-    let pagina = 0;
-    const filtros = this.form.getRawValue()
-    this.usuarioService.get(pagina, filtros.matricula, filtros.nombreUsuario, filtros.ooad).subscribe(
+    const page = 0;
+    this.usuarioService.get(page, '','','').subscribe(
       (respuesta) => {
         this.usuarios = [];
         this.respuesta = null;
@@ -112,7 +108,7 @@ export class CatalogoUsuariosSitComponent implements OnInit {
     let inicio = event.first;
     let pagina = Math.floor(inicio / 10);
     const filtros = this.form.getRawValue()
-    this.usuarioService.get(pagina, filtros.matricula, filtros.nombreUsuario, filtros.ooad).subscribe(
+    this.usuarioService.get(pagina, filtros.matricula ? filtros.matricula : '', filtros.nombreUsuario ? filtros.nombreUsuario : '', filtros.ooad ? filtros.ooad : '').subscribe(
       (respuesta) => {
         this.usuarios = [];
         this.respuesta = null;

@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
+import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
 
 @Component({
   selector: 'app-detalle-vehiculo-arrendado',
@@ -26,6 +28,7 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
   readonly POSICION_VEHICULO_ARRENDADO = 10;
   //TEMPORAL
   readonly POSICION_CATALOGO_NUMERO_CONTRATOS = 11;
+  readonly POSICION_CATALOGO_ASEGURADORAS = 12;
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -39,6 +42,7 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
   catEstatus: any[] = [];
   //TEMPORAL
   catContratos: any[] = [];
+  catAseguradoras: TipoDropdown[] = [];
   idVehiculo!: number;
 
   form!: FormGroup;
@@ -140,6 +144,7 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
         }
       )
     );
+    this.catAseguradoras = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ASEGURADORAS].datos.content, 'nombreAseguradora', 'idAseguradora');
     this.inicializarForm(vehiculoArrendado);
     this.consultaDatosPorIdUnidad(vehiculoArrendado.idUnidadAdscripcion);
   }
@@ -178,14 +183,14 @@ export class DetalleVehiculoArrendadoComponent implements OnInit {
       entidad: new FormControl({ value: null, disabled: true }, Validators.required),
       municipio: new FormControl({ value: null, disabled: true }, Validators.required),
       colonia: new FormControl({ value: null, disabled: true }, Validators.required),
-      nombreArrendadora: new FormControl({ value: vehiculoArrendado.indArrendado, disabled: true }, Validators.required),
+      nombreArrendadora: new FormControl({ value: vehiculoArrendado.arrendatarios.nomArrendadora, disabled: true }, Validators.required),
       idNoContrato: new FormControl({ value: vehiculoArrendado.arrendatarios.numContrato, disabled: true }, Validators.required),
       fechaInicioContrato: new FormControl({ value: vehiculoArrendado.arrendatarios.fecIniContrato ? new Date(vehiculoArrendado.arrendatarios.fecIniContrato) : null, disabled: true }, Validators.required),
       fechaFinContrato: new FormControl({ value: vehiculoArrendado.arrendatarios.fecFinContrato ? new Date(vehiculoArrendado.arrendatarios.fecFinContrato) : null, disabled: true }, Validators.required),
       costoDiario: new FormControl({ value: vehiculoArrendado.arrendatarios.impCostoDiario, disabled: true }, Validators.required),
       costoMensual: new FormControl({ value: vehiculoArrendado.arrendatarios.impCostoMensual, disabled: true }, Validators.required),
       idEstatus: new FormControl({ value: parseInt(vehiculoArrendado.desEstatusVehiculo), disabled: true }, Validators.required),
-      nombreAseguradora: new FormControl({ value: vehiculoArrendado.arrendatarios.nomArrendadora, disabled: true }, Validators.required),
+      nombreAseguradora: new FormControl({ value: vehiculoArrendado.idAseguradora, disabled: true }, Validators.required),
       poliza: new FormControl({ value: vehiculoArrendado.numPoliza, disabled: true }, Validators.required),
       auxiliarContable: new FormControl({ value: vehiculoArrendado.numAuxiliar, disabled: true }, Validators.required),
       vehiculoSustituto: new FormControl({ value: vehiculoArrendado.indSustituto === 1 ? true : false, disabled: true }, Validators.required),

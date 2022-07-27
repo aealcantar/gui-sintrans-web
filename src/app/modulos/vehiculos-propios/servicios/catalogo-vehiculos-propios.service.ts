@@ -111,8 +111,6 @@ export class CatalogoVehiculosPropiosService extends BaseService<HttpRespuesta<a
         return this._http.get<HttpRespuesta<any>>(environment.api.mssintetransVehiculosPropios + "/ecco/" + ecco + `?pagina=${pagina}&tamanio=${tamanio}`);
     }
 
-
-
     obtenerCatalogoTipoVehiculo() {
         return of(CATALOGO_TIPO_VEHICULO);
     }

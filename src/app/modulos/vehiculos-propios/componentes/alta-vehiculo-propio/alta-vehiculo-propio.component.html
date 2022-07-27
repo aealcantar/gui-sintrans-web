@@ -340,7 +340,7 @@
             <div class="row mb-4">
                 <div class="col-md-12">
                     <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                    <input class="form-control" id="motivo" formControlName="motivo" placeholder="Ingresar" type="text">
+                    <input class="form-control" id="motivo" formControlName="motivo" maxlength="20" placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios"
                         *ngIf="f.motivo?.errors?.required && (f.motivo?.dirty || f.motivo?.touched)">*Campo
                         obligatorio</span>
@@ -361,7 +361,7 @@
                     <!-- ESTE CATALOGO ESTA QUEMADO -->
                     <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
                     <p-dropdown id="aseguradora" class="form-control" formControlName="aseguradora"
-                        [options]="catUnidades" placeholder="Seleccionar">
+                        [options]="catAseguradoras" placeholder="Seleccionar">
                     </p-dropdown>
                     <!-- ESTE CATALOGO ESTA QUEMADO -->
                     <span class="campos-obligatorios"
@@ -452,7 +452,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaFrente">Fotografía de frente<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [accept]="'application/pdf'" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [accept]="'image/jpeg'" [extensionesAceptadas]="['jpg']"
                         [(archivo)]="fotografiaFrente" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                     <span class="campos-obligatorios" *ngIf="!fotografiaFrente">*Campo obligatorio</span>
@@ -460,7 +460,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaLateralDerecho">Fotografía lateral derecho<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [accept]="'application/pdf'" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [accept]="'image/jpeg'" [extensionesAceptadas]="['jpg']"
                         [(archivo)]="fotografiaLateralDerecho" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                     <span class="campos-obligatorios" *ngIf="!fotografiaLateralDerecho">*Campo obligatorio</span>
@@ -471,7 +471,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaLateralIzquierdo">Fotografía lateral izquierdo<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [accept]="'application/pdf'" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [accept]="'image/jpeg'" [extensionesAceptadas]="['jpg']"
                         [(archivo)]="fotografiaLateralIzquierdo" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                     <span class="campos-obligatorios" *ngIf="!fotografiaLateralIzquierdo">*Campo obligatorio</span>
@@ -479,7 +479,7 @@
                 <div class="col-md-6">
                     <label class="control-label" for="fotografiaTrasera">Fotografía trasera<span
                             class="req">*</span>:</label>
-                    <app-cargador-archivo [accept]="'application/pdf'" [extensionesAceptadas]="['pdf']"
+                    <app-cargador-archivo [accept]="'image/jpeg'" [extensionesAceptadas]="['jpg']"
                         [(archivo)]="fotografiaTrasera" (errorEmitter)="validarArchivo($event)">
                     </app-cargador-archivo>
                     <span class="campos-obligatorios" *ngIf="!fotografiaTrasera">*Campo obligatorio</span>

@@ -11,7 +11,7 @@ import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { CargadorArchivoModule } from 'src/app/compartidos/cargador-archivo/cargador-archivo.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
-import { NumberDirective } from 'src/app/directives/only-numbers.directive';
+import { UtileriaModule } from 'src/app/compartidos/utileria/utileria.module';
 import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { ChoferesService } from '../choferes/servicios/choferes.service';
 import { ChoferesRoutingModule } from './choferes-routing.module';
@@ -25,8 +25,7 @@ import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer
     ChoferesComponent,
     AltaChoferesComponent,
     EditarChoferComponent,
-    DetalleChoferComponent,
-    NumberDirective
+    DetalleChoferComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +40,8 @@ import { EditarChoferComponent } from './componentes/editar-chofer/editar-chofer
     BtnRegresarModule,
     DialogModule,
     CalendarModule,
-    CargadorArchivoModule
+    CargadorArchivoModule,
+    UtileriaModule
   ],
   providers: [
     ChoferesService,

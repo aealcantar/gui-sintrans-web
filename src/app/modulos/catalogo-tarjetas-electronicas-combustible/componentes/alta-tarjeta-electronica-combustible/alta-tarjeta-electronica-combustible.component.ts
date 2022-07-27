@@ -87,7 +87,7 @@ export class AltaTarjetaElectronicaCombustibleComponent implements OnInit {
       },
       numFolioInicial: this.form.get("folioInicial")?.value,
       numFolioFinal: this.form.get("folioFinal")?.value,
-      canKmsRecorridos: this.form.get("km")?.value,
+      canKmsRecorridos: parseInt(this.form.get("km")?.value),
       desEstatusTarjeta: this.form.get("estatus")?.value,
       cveMatricula: usuarioAutenticado.matricula
     };

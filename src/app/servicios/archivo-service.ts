@@ -50,14 +50,7 @@ export class ArchivoService {
    * @returns 
    */
   obtenerArchivosDeCustomFiles(...contenedoresArchivos: CustomFile[]): any {
-    //return forkJoin([...contenedoresArchivos.map((contenedorArchivo: CustomFile) => this.obtenerArchivoDeCustomFile(contenedorArchivo))])
-    // forkJoin([this.obtenerArchivoDeCustomFile(contenedoresArchivos[0]), this.obtenerArchivoDeCustomFile(contenedoresArchivos[1])]).subscribe(
-    //   res => console.log
-    // )
-    // return forkJoin([this.obtenerArchivoDeCustomFile(contenedoresArchivos[0]), this.obtenerArchivoDeCustomFile(contenedoresArchivos[1])])
     return forkJoin(contenedoresArchivos.map((contenedorArchivo: CustomFile) => this.obtenerArchivoDeCustomFile(contenedorArchivo)))
-  }
-
-  // 
+  } 
 
 }

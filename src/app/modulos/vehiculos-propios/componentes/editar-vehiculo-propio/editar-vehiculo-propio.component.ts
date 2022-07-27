@@ -7,11 +7,13 @@ import { switchMap } from 'rxjs/operators';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { ArchivoService } from 'src/app/servicios/archivo-service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
+import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
 import { CatalogoVehiculosPropiosService } from '../../servicios/catalogo-vehiculos-propios.service';
 
 @Component({
@@ -41,6 +43,7 @@ export class EditarVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
   readonly POSICION_VEHICULO_PROPIO = 10;
+  readonly POSICION_CATALOGO_ASEGURADORAS = 11;
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -53,6 +56,7 @@ export class EditarVehiculoPropioComponent implements OnInit {
   catCilindros: any[] = [];
   catEstatus: any[] = [];
   catTipoServicioCONUEE: any[] = [];
+  catAseguradoras: TipoDropdown[] = [];
   idVehiculo!: number;
 
   form!: FormGroup;
@@ -61,7 +65,6 @@ export class EditarVehiculoPropioComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe,
     private alertaService: AlertasFlotantesService,
     private cargadorService: CargadorService,
     private vehiculoPropioService: CatalogoVehiculosPropiosService,
@@ -152,6 +155,7 @@ export class EditarVehiculoPropioComponent implements OnInit {
         }
       )
     );
+    this.catAseguradoras = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ASEGURADORAS].datos.content, 'nombreAseguradora', 'idAseguradora');
     this.inicializarForm(vehiculoPropio);
     this.inicializarArchivos(vehiculoPropio);
     this.consultaDatosPorIdUnidad(vehiculoPropio.idUnidadAdscripcion);

@@ -5,11 +5,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
 import { CatalogoVehiculosPropiosService } from 'src/app/modulos/vehiculos-propios/servicios/catalogo-vehiculos-propios.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
+import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
 import { VehiculosArrendadosService } from '../../servicios/vehiculos-arrendados.service';
 
 @Component({
@@ -31,6 +33,7 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
   readonly POSICION_CATALOGO_ESTATUS = 9;
   //TEMPORAL
   readonly POSICION_CATALOGO_NUMERO_CONTRATOS = 10;
+  readonly POSICION_CATALOGO_ASEGURADORAS = 11;
   readonly ALTA_VEHICULO_ARRENDADO = "La vehículo arrendado ha sido dado de alta exitosamente.";
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
@@ -46,6 +49,7 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
   catTipoServicioCONUEE: any[] = [];
   //TEMPORAL
   catContratos: any[] = [];
+  catAseguradoras: TipoDropdown[] = []; 
 
   form!: FormGroup;
 
@@ -141,6 +145,7 @@ export class AltaVehiculoArrendadoComponent implements OnInit {
         }
       )
     );
+    this.catAseguradoras = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ASEGURADORAS].datos.content, 'nombreAseguradora', 'idAseguradora');
     this.inicializarForm();
   }
 

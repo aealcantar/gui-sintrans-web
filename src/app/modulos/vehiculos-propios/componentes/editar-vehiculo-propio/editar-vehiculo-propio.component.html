@@ -339,7 +339,7 @@
             <div class="row mb-4">
                 <div class="col-md-12">
                     <label class="control-label" for="motivo">Motivo<span class="req">*</span>:</label>
-                    <input class="form-control" id="motivo" formControlName="motivo" placeholder="Ingresar" type="text">
+                    <input class="form-control" id="motivo" formControlName="motivo" maxlength="20" placeholder="Ingresar" type="text">
                     <span class="campos-obligatorios"
                         *ngIf="f.motivo?.errors?.required && (f.motivo?.dirty || f.motivo?.touched)">*Campo
                         obligatorio</span>
@@ -360,7 +360,7 @@
                     <!-- ESTE CATALOGO ESTA QUEMADO -->
                     <label class="control-label" for="aseguradora">Aseguradora<span class="req">*</span>:</label>
                     <p-dropdown id="aseguradora" class="form-control" formControlName="aseguradora"
-                        [options]="catUnidades" placeholder="Seleccionar">
+                        [options]="catAseguradoras" placeholder="Seleccionar">
                     </p-dropdown>
                     <!-- ESTE CATALOGO ESTA QUEMADO -->
                     <span class="campos-obligatorios"

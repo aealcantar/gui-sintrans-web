@@ -9,6 +9,7 @@ import { TableModule } from 'primeng-lts/table';
 
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { UtileriaModule } from 'src/app/compartidos/utileria/utileria.module';
 import { CatalogosService } from 'src/app/servicios/catalogos.service';
 import { CatalogoUnidadesRoutingModule } from './catalogo-unidades-routing.module';
 import { AltaUnidadComponent } from './componentes/alta-unidad/alta-unidad.component';
@@ -35,7 +36,8 @@ import { CatalogoUnidadesService } from './servicios/catalogo-unidades.service';
     SeparadorModule,
     TableModule,
     BtnRegresarModule,
-    DialogModule
+    DialogModule,
+    UtileriaModule
   ],
   providers: [
     CatalogoUnidadesService,

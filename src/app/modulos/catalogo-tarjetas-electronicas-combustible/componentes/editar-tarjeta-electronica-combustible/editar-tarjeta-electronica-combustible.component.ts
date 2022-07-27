@@ -72,7 +72,9 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
       folioInicial: new FormControl(tarjetaElectronica.numFolioInicial, Validators.required),
       folioFinal: new FormControl(tarjetaElectronica.numFolioFinal, Validators.required),
       km: new FormControl(tarjetaElectronica.canKmsRecorridos, Validators.required),
-      estatus: new FormControl(tarjetaElectronica.desEstatusTarjeta, Validators.required)
+      estatus: new FormControl(tarjetaElectronica.desEstatusTarjeta, Validators.required),
+      numeroFolioFalla: new FormControl(tarjetaElectronica.numeroFolioFalla ? tarjetaElectronica.numeroFolioFalla : null, Validators.required),
+      descFalla: new FormControl(tarjetaElectronica.descFalla ? tarjetaElectronica.descFalla : null, Validators.required)
     });
   }
 
@@ -91,7 +93,9 @@ export class EditarTarjetaElectronicaCombustibleComponent implements OnInit {
       numFolioFinal: this.form.get("folioFinal")?.value,
       canKmsRecorridos: this.form.get("km")?.value,
       desEstatusTarjeta: this.form.get("estatus")?.value,
-      cveMatricula: usuarioAutenticado.matricula
+      cveMatricula: usuarioAutenticado.matricula,
+      numeroFolioFalla: this.form.get("numeroFolioFalla")?.value,
+      descFalla: this.form.get("descFalla")?.value,
     };
     this.tarjetaElectronicaService.actualizar(this.form.get("idTarjetaElectronica")?.value, tarjetaElectronica).subscribe(
       (respuesta) => {

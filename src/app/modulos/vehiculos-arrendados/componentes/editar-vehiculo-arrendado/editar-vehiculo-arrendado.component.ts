@@ -5,10 +5,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CargadorService } from 'src/app/compartidos/cargador/cargador.service';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
 import { AlertasFlotantesService } from 'src/app/servicios/alertas-flotantes.service';
 import { TRANSPORTES_USUARIO } from 'src/app/servicios/seguridad/autenticacion.service';
+import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
 import { VehiculosArrendadosService } from '../../servicios/vehiculos-arrendados.service';
 
 @Component({
@@ -31,6 +33,7 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
   readonly POSICION_VEHICULO_ARRENDADO = 10;
   //TEMPORAL
   readonly POSICION_CATALOGO_NUMERO_CONTRATOS = 11;
+  readonly POSICION_CATALOGO_ASEGURADORAS = 12;
   readonly ACTUALIZA_VEHICULO_ARRENDADO = "El vehículo arrendado ha sido guardado exitosamente.";
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
@@ -46,6 +49,7 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
   catEstatus: any[] = [];
   //TEMPORAL
   catContratos: any[] = [];
+  catAseguradoras: TipoDropdown[] = [];
   idVehiculo!: number;
 
   form!: FormGroup;
@@ -152,6 +156,7 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
         }
       )
     );
+    this.catAseguradoras = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ASEGURADORAS].datos.content, 'nombreAseguradora', 'idAseguradora');
     this.inicializarForm(vehiculoArrendado);
     this.consultaDatosPorIdUnidad(vehiculoArrendado.idUnidadAdscripcion);
   }
@@ -208,7 +213,7 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
       costoDiario: new FormControl(vehiculoArrendado.arrendatarios.impCostoDiario, Validators.required),
       costoMensual: new FormControl(vehiculoArrendado.arrendatarios.impCostoMensual, Validators.required),
       idEstatus: new FormControl(parseInt(vehiculoArrendado.desEstatusVehiculo), Validators.required),
-      nombreAseguradora: new FormControl(vehiculoArrendado.indArrendado, Validators.required),
+      nombreAseguradora: new FormControl(vehiculoArrendado.idAseguradora, Validators.required),
       poliza: new FormControl(vehiculoArrendado.numPoliza, Validators.required),
       auxiliarContable: new FormControl(vehiculoArrendado.numAuxiliar, Validators.required),
       vehiculoSustituto: new FormControl(vehiculoArrendado.indSustituto === 1 ? true : false, Validators.required),
@@ -229,7 +234,7 @@ export class EditarVehiculoArrendadoComponent implements OnInit {
       canCilindros: this.form.get("idCilindro")?.value,
       desCombustible: this.form.get("idCombustible")?.value,
       desCombustibleXLitro: this.form.get("idCantCombustiblePorLitro")?.value,
-      canCapacidadPersonas: this.form.get("capacidadPersonas")?.value,
+      canCapacidadPersonas: this.form.get("capPersonas")?.value,
       canToneladas: this.form.get("idCapToneladas")?.value,
       numPlacas: this.form.get("placas")?.value,
       numLicenciaCofepris: this.form.get("licCofepris")?.value,

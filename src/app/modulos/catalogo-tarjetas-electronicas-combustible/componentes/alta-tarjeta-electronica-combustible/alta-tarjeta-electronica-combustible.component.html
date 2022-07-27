@@ -26,7 +26,7 @@
             <div class="row mb-4">
                 <div class="col-md-2">
                     <label class="control-label" for="importeMensual">Importe mensual<span class="req">*</span>:</label>
-                    <p-inputNumber [useGrouping]="false" mode="currency" currency="USD" locale="en-US" class="form-control" id="importeMensual" formControlName="importeMensual" [min]="0" [maxlength]="7" placeholder="Ingresar"></p-inputNumber>
+                    <p-inputNumber [useGrouping]="false" mode="currency" currency="USD" locale="en-US" class="form-control" id="importeMensual" formControlName="importeMensual" [min]="0" [maxlength]="8" placeholder="Ingresar"></p-inputNumber>
                     <span class="campos-obligatorios" *ngIf="f.importeMensual?.errors?.required && (f.importeMensual?.dirty || f.importeMensual?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="col-md-3">
                     <label class="control-label" for="km">Kilómetros aprox recorridos<span class="req">*</span>:</label>
-                    <p-inputNumber [useGrouping]="false" class="form-control" id="km" formControlName="km" [min]="0" [maxlength]="20" placeholder="Ingresar"></p-inputNumber>
+                    <input class="form-control" id="km" formControlName="km" maxlength="20" placeholder="Ingresar" numbersOnly>
                     <span class="campos-obligatorios" *ngIf="f.km?.errors?.required && (f.km?.dirty || f.km?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3">

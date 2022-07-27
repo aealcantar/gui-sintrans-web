@@ -7,9 +7,10 @@ import { NuevaContrasenaComponent } from './componentes/nueva-contrasena/nueva-c
 import { RecuperarContrasenaComponent } from './componentes/recuperar-contrasena/recuperar-contrasena.component';
 
 
-import { CardModule } from 'primeng-lts/card';
-import { BtnRegresarModule } from '../../compartidos/btn-regresar/btn-regresar.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CardModule } from 'primeng-lts/card';
+import { UtileriaModule } from 'src/app/compartidos/utileria/utileria.module';
+import { BtnRegresarModule } from '../../compartidos/btn-regresar/btn-regresar.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     CardModule,
     AutenticacionRoutingModule,
-    BtnRegresarModule
+    BtnRegresarModule,
+    UtileriaModule
   ]
 })
 export class AutenticacionModule { }

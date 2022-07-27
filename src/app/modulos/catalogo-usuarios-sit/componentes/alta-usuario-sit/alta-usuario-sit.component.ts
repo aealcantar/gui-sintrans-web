@@ -81,7 +81,7 @@ export class AltaUsuarioSitComponent implements OnInit {
   onChangeOoad() {
     const ooad = this.form.controls['ooad'].value;
     this.unidadService.consultarPorOoad(ooad).subscribe((response) => {
-      this.unidades = response!.datos;
+      this.unidades = response!.data;
     });
   }
 

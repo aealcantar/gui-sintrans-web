@@ -39,9 +39,9 @@ export class AseguradoraService extends BaseService<HttpRespuesta<any>, any> {
     return this._http.post<any>(`${this._base}`, formData);
   }
 
-  eliminar(aseguradoraId: any) {
-    return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
-  }
+  // eliminar(aseguradoraId: any) {
+  //   return this._http.delete<any>(`${this._base}/delete/${aseguradoraId}`);
+  // }
 
   actualizarAseguradora(aseguradoraId: any, aseguradora: any, archivo: any) {
     const formData = new FormData()

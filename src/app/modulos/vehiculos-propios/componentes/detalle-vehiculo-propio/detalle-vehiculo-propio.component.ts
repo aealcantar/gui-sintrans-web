@@ -4,8 +4,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { CustomFile } from 'src/app/compartidos/cargador-archivo/custom-file';
 import { HttpRespuesta } from 'src/app/modelos/http-respuesta.interface';
+import { TipoDropdown } from 'src/app/modelos/tipo-dropdown';
 import { Unidad } from 'src/app/modelos/unidad.interface';
 import { CatalogoUnidadesService } from 'src/app/modulos/catalogo-unidades/servicios/catalogo-unidades.service';
+import { mapearArregloTipoDropdown } from 'src/app/utilerias/funciones-utilerias';
 
 @Component({
   selector: 'app-detalle-vehiculo-propio',
@@ -33,8 +35,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   readonly POSICION_CATALOGO_CILINDROS = 8;
   readonly POSICION_CATALOGO_ESTATUS = 9;
   readonly POSICION_VEHICULO_PROPIO = 10;
-  readonly POSICION_ARCHIVO_TARJETA_CIRC = 11;
-
+  readonly POSICION_CATALOGO_ASEGURADORAS = 11;
   respuesta!: HttpRespuesta<any> | null;
   catUnidades: Unidad[] = [];
   catTipoVehiculo: any[] = [];
@@ -46,6 +47,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
   catToneladas: any[] = [];
   catCilindros: any[] = [];
   catEstatus: any[] = [];
+  catAseguradoras: TipoDropdown[] = [];
   idVehiculo!: number;
 
   form!: FormGroup;
@@ -139,6 +141,7 @@ export class DetalleVehiculoPropioComponent implements OnInit {
         }
       )
     );
+    this.catAseguradoras = mapearArregloTipoDropdown(respuesta[this.POSICION_CATALOGO_ASEGURADORAS].datos.content, 'nombreAseguradora', 'idAseguradora');
     this.inicializarForm(vehiculoPropio);
     this.inicializarArchivos(vehiculoPropio);
     this.consultaDatosPorIdUnidad(vehiculoPropio.idUnidadAdscripcion);

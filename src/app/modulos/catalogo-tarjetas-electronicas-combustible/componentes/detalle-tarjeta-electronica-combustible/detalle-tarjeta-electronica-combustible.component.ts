@@ -64,7 +64,9 @@ export class DetalleTarjetaElectronicaCombustibleComponent implements OnInit {
       folioInicial: new FormControl({ value: tarjetaElectronica.numFolioInicial, disabled: true}),
       folioFinal: new FormControl({ value: tarjetaElectronica.numFolioFinal, disabled: true}),
       km: new FormControl({ value: tarjetaElectronica.canKmsRecorridos, disabled: true}),
-      estatus: new FormControl({ value: tarjetaElectronica.desEstatusTarjeta, disabled: true})
+      estatus: new FormControl({ value: tarjetaElectronica.desEstatusTarjeta, disabled: true}),
+      numeroFolioFalla: new FormControl({ value: tarjetaElectronica.numeroFolioFalla ? tarjetaElectronica.numeroFolioFalla : null, disabled: true}),
+      descFalla: new FormControl({ value: tarjetaElectronica.descFalla ? tarjetaElectronica.descFalla : null, disabled: true})
     });
   }
 

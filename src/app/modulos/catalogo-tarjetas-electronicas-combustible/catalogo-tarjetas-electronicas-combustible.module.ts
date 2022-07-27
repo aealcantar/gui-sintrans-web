@@ -10,6 +10,7 @@ import { InputNumberModule } from 'primeng-lts/inputnumber';
 import { TableModule } from 'primeng-lts/table';
 import { BtnRegresarModule } from 'src/app/compartidos/btn-regresar/btn-regresar.module';
 import { SeparadorModule } from 'src/app/compartidos/separador/separador.module';
+import { UtileriaModule } from 'src/app/compartidos/utileria/utileria.module';
 import { CatalogosService } from 'src/app/servicios/catalogos.service';
 import { CatalogoTarjetasElectronicasCombustibleRoutingModule } from './catalogo-tarjetas-electronicas-combustible-routing.module';
 import { AltaTarjetaElectronicaCombustibleComponent } from './componentes/alta-tarjeta-electronica-combustible/alta-tarjeta-electronica-combustible.component';
@@ -38,7 +39,8 @@ import { CatalogoTarjetasElectronicasService } from './servicios/catalogo-tarjet
     BtnRegresarModule,
     DialogModule,
     CalendarModule,
-    InputNumberModule
+    InputNumberModule,
+    UtileriaModule
   ],
   providers: [
     CatalogoTarjetasElectronicasService,

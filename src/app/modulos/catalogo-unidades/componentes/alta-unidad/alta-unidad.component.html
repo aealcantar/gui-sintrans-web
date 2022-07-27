@@ -93,7 +93,7 @@
         <div class="col-md-4">
             <label class="control-label" for="codigoPostal">Código Postal<span class="req">*</span>:</label>
             <div class="flex">
-            <input class="form-control" id="codigoPostal" #input placeholder="Ingresar CP" type="text">
+            <input class="form-control" id="codigoPostal" #input placeholder="Ingresar CP" maxlength="5" type="text" numbersOnly>
             <button type="button" class="btn btn-primary" (click)="buscarPorCP(input.value)">Buscar</button>
             </div>
         </div>

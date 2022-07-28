@@ -33,12 +33,15 @@ export class EditarChoferComponent implements OnInit {
   readonly MATRICULA_INEXISTENTE = "La matrícula ingresada no existe.";
   readonly ID_CONTRATACION_SUSTITUTO = 8;
   readonly ID_ESTATUS_BAJA = 1;
+  readonly ID_ESTATUS_NUEVO = 4;
   readonly ID_ESTATUS_BLOQUEADO = 2;
   readonly ID_ESTATUS_INCAPACIDAD = 9;
+  readonly ID_ESTATUS_CAMBIOADS = 3;
   public archivo!: CustomFile;
   public editForm!: FormGroup;
   public catEstatus: any[] = CATALOGO_ESTATUS_CHOFER;
   public catMotivo: any[] = [];
+  public catUnidades: any[] = [];
   public catAdscripciones: any[] = [];
   public desMotivoHasValidator: boolean = false;
   public tipoContratacion: number = 0;
@@ -153,9 +156,10 @@ export class EditarChoferComponent implements OnInit {
               this.editForm.get('nombreChofer')?.setValue(`${nombreCompleto[2]} ${nombreCompleto[1]} ${nombreCompleto[0]}`);
               let idOoad = parseInt(objetoMatricula.DEL);
               this.obtenerNombreOoad(idOoad);
-              this.obtenerUnidadesAdscripcion(idOoad);
               this.tipoContratacion = parseInt(objetoMatricula.CONTRATACION);
               this.validarTipoContratacion();
+              this.editForm.get('desCategoria')?.setValue(objetoMatricula.DECRIPCIONPUESTO);
+              this.editForm.get('cveUnidadAdscripcion')?.setValue(objetoMatricula.DESCRIPCIONDEPTO);
               // TO - DO En espera definicion para saber de dnd obtener Categoria
               // this.obtenerCategoria(idOoad);
               this.cargadorService.desactivar();
@@ -174,7 +178,7 @@ export class EditarChoferComponent implements OnInit {
     }
     this.cargadorService.desactivar();
   }
-  
+
 
   obtenerNombreOoad(idOoad: number) {
     this.cargadorService.activar();
@@ -193,31 +197,10 @@ export class EditarChoferComponent implements OnInit {
     );
   }
 
-  obtenerUnidadesAdscripcion(idOoad: number) {
-    this.cargadorService.activar();
-    this.unidadService.buscarAdscripcionPorOoad(0, 10, idOoad).subscribe(
-      (respuesta) => {
-        if (respuesta && respuesta?.datos?.content.length > 0) {
-          respuesta?.datos.content.map((item: any) => {
-            this.catAdscripciones.push({ value: item.idUnidad, label: item.nomUnidadAdscripcion });
-          });
-          this.cambioAdscripcion();
-        }
-        this.cargadorService.desactivar();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-        this.cargadorService.desactivar();
-        this.alertaService.mostrar('error', error.message);
-      }
-    );
-  }
-
-
   editar() {
     this.editForm.get('desrutaLicencia')?.patchValue(this.archivo?.archivo?.name);
     const data = this.editForm.getRawValue();
-    
+
     if (this.editForm.valid) {
       let chofer: any = {
         ...data,
@@ -234,32 +217,32 @@ export class EditarChoferComponent implements OnInit {
           moment(this.editForm.get('fecIniIncapacidad')?.value).format('YYYY-MM-DD'),
         fecFinIncapacidad: this.editForm.get('fecFinIncapacidad')?.value &&
           moment(this.editForm.get('fecFinIncapacidad')?.value).format('YYYY-MM-DD'),
-      };      
+      };
 
       this.archivoService.obtenerArchivosDeCustomFiles(this.archivo).pipe(
-          switchMap((archivosRespuesta: File[]) => {
-            let archivos = {
-              archivo: archivosRespuesta[0],
-            };
+        switchMap((archivosRespuesta: File[]) => {
+          let archivos = {
+            archivo: archivosRespuesta[0],
+          };
 
-            chofer = {
-              ...chofer,
-              archivo: archivos?.archivo,
-            }
-            
-            return this.choferesService.actualizarChofer(chofer)
-          })
-        ).subscribe(
-          (respuesta: any) => {
-            this.alertaService.mostrar("exito", this.ACTUALIZAR_CHOFER);
-            this.cargadorService.desactivar();
-            this.router.navigate(["../.."], { relativeTo: this.route });
-          },
-          (error: HttpErrorResponse) => {
-            console.error(error);
-            this.cargadorService.desactivar();
+          chofer = {
+            ...chofer,
+            archivo: archivos?.archivo,
           }
-        );
+
+          return this.choferesService.actualizarChofer(chofer)
+        })
+      ).subscribe(
+        (respuesta: any) => {
+          this.alertaService.mostrar("exito", this.ACTUALIZAR_CHOFER);
+          this.cargadorService.desactivar();
+          this.router.navigate(["../.."], { relativeTo: this.route });
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.cargadorService.desactivar();
+        }
+      );
     } else {
       this.editForm.markAllAsTouched();
     }
@@ -268,7 +251,7 @@ export class EditarChoferComponent implements OnInit {
   validarCamposSIAP(data: any): boolean {
     if (data.nombreChofer &&
       data.cveUnidadOOAD &&
-      data.idUnidadAdscripcion &&
+      data.cveUnidadAdscripcion &&
       data.desCategoria) {
       return true;
     }
@@ -293,7 +276,6 @@ export class EditarChoferComponent implements OnInit {
   limpiarCamposSIAP() {
     this.editForm.get('nombreChofer')?.patchValue(null);
     this.editForm.get('cveUnidadAdscripcion')?.patchValue(null);
-    this.editForm.get('idUnidadAdscripcion')?.patchValue(null);
     this.editForm.get('cveUnidadOOAD')?.patchValue(null);
     this.editForm.get('desCategoria')?.patchValue(null);
   }
@@ -301,17 +283,24 @@ export class EditarChoferComponent implements OnInit {
   cambioEstatus() {
     this.desMotivoHasValidator = true;
     this.catMotivo = [];
-    this.editForm.get('desMotivo')?.setValidators(Validators.required);
     if (this.editForm.get('estatusChofer')?.value === this.ID_ESTATUS_BAJA) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BAJA;
+      this.campoMotivoObligatorio();
+      this.quitarObligacionUnidad();
     } else if (this.editForm.get('estatusChofer')?.value === this.ID_ESTATUS_BLOQUEADO) {
       this.catMotivo = CATALOGO_ESTATUS_CHOFER_BLOQUEADO;
+      this.campoMotivoObligatorio();
+      this.quitarObligacionUnidad();
     } else {
+      this.desMotivoHasValidator = false;
+
       this.editForm.get('desMotivo')?.reset();
       this.editForm.get('desMotivo')?.clearValidators();
-      this.desMotivoHasValidator = false;
+      this.editForm.get('desMotivo')?.updateValueAndValidity();
+
+      this.editForm.get('idUnidadAdscripcion')?.setValidators(Validators.required);
+      this.editForm.get('idUnidadAdscripcion')?.updateValueAndValidity();
     }
-    this.editForm.get('desMotivo')?.updateValueAndValidity();
   }
 
   cambioMotivo() {
@@ -330,12 +319,31 @@ export class EditarChoferComponent implements OnInit {
   }
 
   cambioAdscripcion() {
-    if (this.editForm.get('idUnidadAdscripcion')?.value) {
-      const adscripcionSeleccionada = this.catAdscripciones.find((item: any) => item.value === this.editForm.get('idUnidadAdscripcion')?.value);
-      this.editForm.get('cveUnidadAdscripcion')?.setValue(adscripcionSeleccionada.label);
-      this.editForm.get('desCategoria')?.setValue(adscripcionSeleccionada.label);
-      this.editForm.get('idUnidadAdscripcion')?.setValue(adscripcionSeleccionada.value);
+    const { label: nombreAdscripcion } = this.catAdscripciones.find((item: any) => item.value === this.editForm.get('idUnidadAdscripcion')?.value);
+    this.editForm.get('cveUnidadAdscripcion')?.setValue(nombreAdscripcion);
+    this.editForm.get('desCategoria')?.setValue(nombreAdscripcion);
+  }
+
+  cambioFinContrato() {
+    let fechaFinContrato = moment(this.editForm.get('fecFinContrato')?.value).format('YYYY-MM-DD');
+    let fechaActual = moment().format('YYYY-MM-DD');
+
+    if (moment(fechaFinContrato).isBefore(fechaActual)) {
+      this.editForm.get('estatusChofer')?.setValue(this.ID_ESTATUS_BLOQUEADO);
+      this.cambioEstatus();
+      this.editForm.get('desMotivo')?.setValue(this.ID_CONTRATACION_SUSTITUTO);
     }
+  }
+
+  campoMotivoObligatorio() {
+    this.editForm.get('desMotivo')?.setValidators(Validators.required);
+    this.editForm.get('desMotivo')?.updateValueAndValidity();
+  }
+
+  quitarObligacionUnidad() {
+    this.editForm.get('idUnidadAdscripcion')?.reset();
+    this.editForm.get('idUnidadAdscripcion')?.clearValidators();
+    this.editForm.get('idUnidadAdscripcion')?.updateValueAndValidity();
   }
 
   validarArchivo(event: any) {

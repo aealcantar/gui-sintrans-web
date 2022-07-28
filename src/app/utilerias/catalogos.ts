@@ -296,6 +296,10 @@ export const CATALOGO_ESTATUS_CHOFER: any[] = [
         value: 2,
         label: "Bloqueado"
     },
+    {
+        value: 3,
+        label: "Cambio de adscripción"
+    },
 ];
 
 export const CATALOGO_ESTATUS_CHOFER_BAJA: any[] = [

@@ -41,22 +41,21 @@
             <div class="row align-items-end mb-4">
                 <div class="col-md-6">
                     <label class="control-label" for="adscripcion">Adscripción:</label>
-                    <!-- <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
-                        formControlName="cveUnidadAdscripcion" (change)="cambioAdscripcion()"> -->
-                    <p-dropdown id="idUnidadAdscripcion" class="form-control" [options]="catAdscripciones" placeholder="Seleccionar"
-                        formControlName="idUnidadAdscripcion" (onChange)="cambioAdscripcion();">
-                    </p-dropdown>
-                    <span class="campos-obligatorios" *ngIf="f?.idUnidadAdscripcion?.errors?.required && (f?.idUnidadAdscripcion?.dirty || f?.idUnidadAdscripcion?.touched)">*Campo obligatorio</span>
+                    <input class="form-control" id="adscripcion" placeholder="xxxxxxxxxxx" type="text"
+                        formControlName="cveUnidadAdscripcion" (change)="cambioAdscripcion()">
+                    <span class="campos-obligatorios" *ngIf="f?.cveUnidadAdscripcion?.errors?.required && (f?.cveUnidadAdscripcion?.dirty || f?.cveUnidadAdscripcion?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3" *ngIf="tipoContratacion === ID_CONTRATACION_SUSTITUTO">
                     <label class="control-label" for="inicioContrato">Inicio de contrato<span class="req">*</span>:</label>
-                    <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecInicioContrato">
+                    <p-calendar id="inicioContrato" styleClass="form-control" [showIcon]="true"
+                        placeholder="dd/mmm/aaaa" formControlName="fecInicioContrato">
                     </p-calendar>
                     <span class="campos-obligatorios" *ngIf="f?.fecInicioContrato?.errors?.required && (f?.fecInicioContrato?.dirty || f?.fecInicioContrato?.touched)">*Campo obligatorio</span>
                 </div>
                 <div class="col-md-3" *ngIf="tipoContratacion === ID_CONTRATACION_SUSTITUTO">
                     <label class="control-label" for="finContrato">Fin de contrato<span class="req">*</span>:</label>
-                    <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa" formControlName="fecFinContrato">
+                    <p-calendar id="finContrato" styleClass="form-control" [showIcon]="true" placeholder="dd/mmm/aaaa"
+                        formControlName="fecFinContrato" (onSelect)="cambioFinContrato()">
                     </p-calendar>
                     <span class="campos-obligatorios" *ngIf="f?.fecFinContrato?.errors?.required && (f?.fecFinContrato?.dirty || f?.fecFinContrato?.touched)">*Campo obligatorio</span>
                 </div>
@@ -76,7 +75,7 @@
                     </p-dropdown>
                     <span class="campos-obligatorios" *ngIf="f?.estatusChofer?.errors?.required && (f?.estatusChofer?.dirty || f?.estatusChofer?.touched)">*Campo obligatorio</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="f.estatusChofer.value !== ID_ESTATUS_CAMBIOADS">
                     <label class="control-label" for="desMotivo">Motivo
                         <span class="req" *ngIf="desMotivoHasValidator">*</span>:
                     </label>
@@ -84,6 +83,15 @@
                         formControlName="desMotivo" (onChange)="cambioMotivo();">
                     </p-dropdown>
                     <span class="campos-obligatorios" *ngIf="f?.desMotivo?.errors?.required && (f?.desMotivo?.dirty || f?.desMotivo?.touched)">*Campo obligatorio</span>
+                </div>
+                <div class="col-md-4" *ngIf="f.estatusChofer.value === ID_ESTATUS_CAMBIOADS">
+                    <label class="control-label" for="idUnidadAdscripcion">Unidad
+                        <span class="req">*</span>:
+                    </label>
+                    <p-dropdown id="idUnidadAdscripcion" class="form-control" [options]="catUnidades"
+                        placeholder="Seleccionar" formControlName="idUnidadAdscripcion">
+                    </p-dropdown>
+                    <span class="campos-obligatorios" *ngIf="f?.idUnidadAdscripcion?.errors?.required && (f?.idUnidadAdscripcion?.dirty || f?.idUnidadAdscripcion?.touched)">*Campo obligatorio</span>
                 </div>
             </div>
 
